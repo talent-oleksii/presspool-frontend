@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
-import { useAuthContext } from "../store/AuthContextProvider";
+import { useDispatch } from 'react-redux';
+import { setAuthenticated } from '../store/authSlice';
+
 import APIInstance from "../api";
 
 import Mark from '../assets/logo/logo.png';
@@ -14,13 +16,14 @@ interface typeLoginForm {
 }
 
 const Login: FC = () => {
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState<typeLoginForm>({
         email: '',
         password: '',
     });
     const [showDialog, setShowDialog] = useState(false);
     const navigator = useNavigate();
-    const [, { setAuthenticated, setEmail, setUserType }] = useAuthContext();
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setFormData({
@@ -41,9 +44,10 @@ const Login: FC = () => {
             if (ret.length < 1) {
                 setShowDialog(true);
             } else {
-                setEmail(ret[0].fields.Email);
-                setUserType(ret[0].fields['User Group']);
-                setAuthenticated(true);
+                // setEmail(ret[0].fields.Email);
+                // setUserType(ret[0].fields['User Group']);
+                // setAuthenticated(true);
+                dispatch(setAuthenticated());
                 navigator('/');
             }
         }).catch(err => {

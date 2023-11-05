@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 import { BrowserRouter } from 'react-router-dom';
-import { AuthContextProvider } from './store/AuthContextProvider';
+import { Provider } from 'react-redux';
+
+import store from './store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -13,11 +15,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </AuthContextProvider>
+      </Provider>
   </React.StrictMode>
 );
 

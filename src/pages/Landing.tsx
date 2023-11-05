@@ -1,17 +1,19 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-
-import { useAuthContext } from "../store/AuthContextProvider";
+import { useDispatch, useSelector } from 'react-redux';
+import { setUnauthenticated } from '../store/authSlice';
 
 import LogoWithText from  '../assets/logo/pp full transparent.png';
 import SampleImage from '../assets/image/Target audience inbox.png';
 
 const Landing: FC = () => { 
-    const [{ authenticated }, { setAuthenticated }] = useAuthContext();
-    
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
+
+    console.log('auth:', isAuthenticated);
     
     const handleLogout = () => {
-        setAuthenticated(false);
+        dispatch(setUnauthenticated());
     };
 
     return (
@@ -22,7 +24,7 @@ const Landing: FC = () => {
             <img alt="pic" src={SampleImage} className='my-4' />
 
             <div className='flex items-center justify-center'>
-            {!authenticated ?
+            {!isAuthenticated ?
                 <>
                     <Link className='flex font-bold text-[white] text-sm items-center bg-[black] rounded-[10px] px-4 py-2 me-2' to="client-sign-up">
                         I'm a Company
@@ -36,7 +38,7 @@ const Landing: FC = () => {
                 </>
             }
             </div>
-            {!authenticated ?
+            {!isAuthenticated ?
                 <p className='mt-4 font-[Inter] font-semibold text-md'>Already have an account? Sign in <Link to="/login" className='text-purple'>here</Link></p> :
                 <button className='mt-3 text-md font-[Inter] text-[red]' onClick={handleLogout}>Log out</button>
             }
