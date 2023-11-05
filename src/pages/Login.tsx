@@ -20,7 +20,7 @@ const Login: FC = () => {
     });
     const [showDialog, setShowDialog] = useState(false);
     const navigator = useNavigate();
-    const [{ }, { setAuthenticated, setEmail, setUserType }] = useAuthContext();
+    const [, { setAuthenticated, setEmail, setUserType }] = useAuthContext();
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setFormData({
@@ -41,6 +41,8 @@ const Login: FC = () => {
             if (ret.length < 1) {
                 setShowDialog(true);
             } else {
+                setEmail(ret[0].fields.Email);
+                setUserType(ret[0].fields['User Group']);
                 setAuthenticated(true);
                 navigator('/');
             }
