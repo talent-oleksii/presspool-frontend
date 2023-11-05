@@ -8,17 +8,14 @@ type Actions = {
     setIsAuthenticating: (value: boolean) => void;
     setAuthenticated: (value: boolean) => void;
     setEmail: (value: string) => void;
-    setVerifyEmail: (value: string) => void;
-    setPassword: (value: string) => void;
-    setConfirmPassword: (value: string) => void;
+    setUserType: (value: string) => void;
 };
 
 const INIT_STATE = {
     isAuthenticating: true,
     authenticated: false,
     email: "",
-    password: "",
-    verifyEmail: "",
+    userType: "",
 };
 
 const AuthContext = createContext<[State, Actions]>([
@@ -27,9 +24,7 @@ const AuthContext = createContext<[State, Actions]>([
         setIsAuthenticating: (_value: boolean) => { },
         setAuthenticated: (_value: boolean) => { },
         setEmail: (_value: string) => { },
-        setVerifyEmail: (_value: string) => { },
-        setPassword: (_value: string) => { },
-        setConfirmPassword: (_value: string) => { },
+        setUserType: (_value: string) => {},
     },
 ]);
 
@@ -52,9 +47,7 @@ type ProviderProps = {
     const setIsAuthenticating = (value: boolean): void => dispatch({ type: "isAuthenticating", payload: value });
     const setAuthenticated = (value: boolean): void => dispatch({ type: "authenticated", payload: value });
     const setEmail = (value: string): void => dispatch({ type: "email", payload: value });
-    const setVerifyEmail = (value: string): void => dispatch({ type: "verifyEmail", payload: value });
-    const setPassword = (value: string): void => dispatch({ type: "password", payload: value });
-    const setConfirmPassword = (value: string): void => dispatch({ type: "password", payload: value });
+    const setUserType = (value: string): void => dispatch({ type: 'userType', payload: value});
   
     return (
       <AuthContext.Provider
@@ -65,9 +58,7 @@ type ProviderProps = {
               setAuthenticated,
               setIsAuthenticating,
               setEmail,
-              setVerifyEmail,
-              setPassword,
-              setConfirmPassword,
+              setUserType
             },
           ],
           [state],

@@ -24,7 +24,7 @@ const Landing: FC = () => {
                 </button>
             </div>
 
-            <p className='mt-4 font-[Inter] font-semibold'>Already have an account? Sign in <Link to="/login" className='text-purple'>here</Link></p>
+            <p className='mt-4 font-[Inter] font-semibold text-md'>Already have an account? Sign in <Link to="/login" className='text-purple'>here</Link></p>
         </div>
     );
 };
