@@ -10,24 +10,38 @@ const Dashboard: FC = () => {
     const [currentTarget, setCurrentTarget] = useState('consumer');
     const [audience, setAudience] = useState([]);
     const [currentAudience, setCurrentAudience] = useState<string>('');
+    const [pricing, setPricing] = useState([]);
+    const [currentPrice, setCurrentPrice] = useState<string>('');
     // const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getAudience();
+        getPricing();
     }, []);
 
     const getAudience = () => {
         APIInstance.get('data/newsletter').then(data => {
-            console.log('data:', data.data);
+            console.log('newletter data:', data.data);
             setAudience(data.data.records);
         }).catch(err => {
             console.log('error:', err);
         });
     };
 
+    const getPricing = () => {
+        APIInstance.get('data/pricing').then(data => {
+            console.log('pricing data:', data.data.records);
+            setPricing(data.data.records);
+        }).catch(err => {
+            console.log('error:', err);
+        })
+    };
+
     const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
         setCurrentTab(e.target.id);
     };
+
+    console.log('pr:', currentPrice);
 
     return (
         <div className='px-[85px] py-[40px] text-left'>
@@ -59,7 +73,7 @@ const Dashboard: FC = () => {
                                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
-                                <Dialog.Panel className="relative bg-[#F5F5F5] rounded-lg px-4 pb-4 pt-5 text-left shadow-xl sm:min-w-[900px] sm:min-h-[500px]">
+                                <Dialog.Panel className="relative bg-[#F5F5F5] rounded-lg px-4 pb-4 pt-5 text-left shadow-xl sm:w-[1000px] sm:min-h-[500px]">
                                     <h2 className='font-[Inter] text-[20px] font-semibold m-4'>Create New Campaign</h2>
                                     <div className="mt-5 grid grid-cols-4">
                                         <div className='col-span-1 flex flex-col border-r-[1px] border-[#D9D9D9] px-2 h-full'>
@@ -107,7 +121,7 @@ const Dashboard: FC = () => {
                                                         />
                                                         <p className='text-sm font-[Inter] text-gray-500 mt-2 font-normal'>We only need the domain of your site. We'll ask for the landing page shortly.</p>
                                                     </div>
-                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-7'>Next Step</button>
+                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-7' onClick={() => setCurrentTab('audience')}>Next Step</button>
                                                 </>
                                             }
                                             {
@@ -119,14 +133,14 @@ const Dashboard: FC = () => {
                                                                 className={`col-span-1 flex rounded-[5px] bg-[#d9d9d9] p-4 flex flex-col border-[2px] ${currentTarget === 'consumer' ? 'border-[#6C63FF]' : 'border-gray-500'}`}
                                                                 onClick={() => setCurrentTarget('consumer')}
                                                             >
-                                                                <h2 className={`font-[Inter] ${currentTarget === 'consumer' ? 'text-gray-900' : 'text-gray-500'}`}>Consumer</h2>
+                                                                <h2 className={`font-[Inter] ${currentTarget === 'consumer' ? 'text-[#6C63FF]' : 'text-gray-500'}`}>Consumer</h2>
                                                                 <p className='font-[Inter] text-md text-gray-700'>Target by location, age, gender, income bracket etc</p>
                                                             </button>
                                                             <button
                                                                 className={`col-span-1 flex rounded-[5px] bg-[#d9d9d9] p-4 flex flex-col border-[2px] ${currentTarget === 'professional' ? 'border-[#6C63FF]' : 'border-gray-500'}`}
                                                                 onClick={() => setCurrentTarget('professional')}
                                                             >
-                                                                <h2 className={`font-[Inter] ${currentTarget === 'professional' ? 'text-gray-900' : 'text-gray-500'}`}>Professional</h2>
+                                                                <h2 className={`font-[Inter] ${currentTarget === 'professional' ? 'text-[#6C63FF]' : 'text-gray-500'}`}>Professional</h2>
                                                                 <p className='font-[Inter] text-md text-gray-700'>Target by location, company size, industry, job title etc</p>
                                                             </button>
                                                         </div>
@@ -148,6 +162,26 @@ const Dashboard: FC = () => {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' onClick={() => setCurrentTab('budget')}>Next Step</button>
+                                                </>
+                                            }
+                                            {
+                                                currentTab === 'budget' && <>
+                                                    <div className='p-2 bg-white'>
+                                                        <h2 className='font-[Inter] text-lg font-semibold'>Budget</h2>
+                                                        <p className='font-[Inter] text-gray-800 text-md my-2'>Select your maximum budget for this campaign</p>
+                                                        <p className='font-[Inter] text-gray-600 text-sm my-2'>*Keep in mind, these are all verified, targeted, engaged and trusting reader that will be clicking through directly to your landing page of choice</p>
+
+                                                        <select className='w-full border-[1px] rounded border-gray0700 px-2 py-1' onChange={e => setCurrentPrice(e.target.value)}>
+                                                            {
+                                                                pricing.map((item: any) => {
+                                                                    return <option value={item.id} key={item.id}>{item.fields['Budget']}</option>
+                                                                })
+                                                            }
+                                                        </select>
+                                                        {currentPrice.length >= 3 && <p className='font-[Inter] text-sm my-3 text-[#6C63FF]'>{`*Estimated clickes for the campaign are ${pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Average est. clicks']}`}</p>}
+                                                    </div>
+                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' onClick={() => setCurrentTab('review')}>Next Step</button>
                                                 </>
                                             }
                                         </div>
