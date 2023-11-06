@@ -1,9 +1,33 @@
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
 
+import APIInstance from '../../api';
+
 const Dashboard: FC = () => {
     const [showAddDialog, setShowAddDialog] = useState(false);
+    const [currentTab, setCurrentTab] = useState('detail');
+    const [currentTarget, setCurrentTarget] = useState('consumer');
+    const [audience, setAudience] = useState([]);
+    const [currentAudience, setCurrentAudience] = useState<string>('');
+    // const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        getAudience();
+    }, []);
+
+    const getAudience = () => {
+        APIInstance.get('data/newsletter').then(data => {
+            console.log('data:', data.data);
+            setAudience(data.data.records);
+        }).catch(err => {
+            console.log('error:', err);
+        });
+    };
+
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
+        setCurrentTab(e.target.id);
+    };
 
     return (
         <div className='px-[85px] py-[40px] text-left'>
@@ -35,15 +59,98 @@ const Dashboard: FC = () => {
                                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
-                                <Dialog.Panel className="relative bg-[#F5F5F5] transform overflow-hidden rounded-lg px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
-                                    <div className="mt-5">
-                                        <button
-                                            type="button"
-                                            className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                                            onClick={() => { setShowAddDialog(false); }}
-                                        >
-                                            OK
-                                        </button>
+                                <Dialog.Panel className="relative bg-[#F5F5F5] rounded-lg px-4 pb-4 pt-5 text-left shadow-xl sm:min-w-[900px] sm:min-h-[500px]">
+                                    <h2 className='font-[Inter] text-[20px] font-semibold m-4'>Create New Campaign</h2>
+                                    <div className="mt-5 grid grid-cols-4">
+                                        <div className='col-span-1 flex flex-col border-r-[1px] border-[#D9D9D9] px-2 h-full'>
+                                            <button
+                                                className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'detail' ? 'bg-[#D9D9D9]' : ''}`}
+                                                onClick={handleClick}
+                                                id="detail"
+                                            >
+                                                Campaign Details
+                                            </button>
+                                            <button
+                                                className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'audience' ? 'bg-[#D9D9D9]' : ''}`}
+                                                onClick={handleClick}
+                                                id="audience"
+                                            >
+                                                Target Audience
+                                            </button>
+                                            <button
+                                                className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'budget' ? 'bg-[#D9D9D9]' : ''}`}
+                                                onClick={handleClick}
+                                                id="budget"
+                                            >
+                                                Budget
+                                            </button>
+                                            <button
+                                                className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'review' ? 'bg-[#D9D9D9]' : ''}`}
+                                                onClick={handleClick}
+                                                id="review"
+                                            >
+                                                Review
+                                            </button>
+                                        </div>
+                                        <div className='col-span-3'>
+                                            {
+                                                currentTab === 'detail' && <>
+                                                    <div className='bg-white p-2'>
+                                                        <input
+                                                            className='px-3 py-2 rounded-[10px] w-full border font-[Inter]'
+                                                            placeholder="Let's give your campaign's name"
+                                                        />
+                                                        <p className='mt-4 mb-2 text-md font-[Inter] text-gray-900'>Site URL</p>
+                                                        <input
+                                                            className='px-3 py-2 rounded-[10px] w-full border font-[Inter]'
+                                                            placeholder="https://example.com"
+                                                        />
+                                                        <p className='text-sm font-[Inter] text-gray-500 mt-2 font-normal'>We only need the domain of your site. We'll ask for the landing page shortly.</p>
+                                                    </div>
+                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-7'>Next Step</button>
+                                                </>
+                                            }
+                                            {
+                                                currentTab === 'audience' && <>
+                                                    <div className='bg-white p-2'>
+                                                        <p className='font-[Inter] font-normal text-lg my-3'>Targeting Options</p>
+                                                        <div className='grid grid-cols-2 gap-4'>
+                                                            <button
+                                                                className={`col-span-1 flex rounded-[5px] bg-[#d9d9d9] p-4 flex flex-col border-[2px] ${currentTarget === 'consumer' ? 'border-[#6C63FF]' : 'border-gray-500'}`}
+                                                                onClick={() => setCurrentTarget('consumer')}
+                                                            >
+                                                                <h2 className={`font-[Inter] ${currentTarget === 'consumer' ? 'text-gray-900' : 'text-gray-500'}`}>Consumer</h2>
+                                                                <p className='font-[Inter] text-md text-gray-700'>Target by location, age, gender, income bracket etc</p>
+                                                            </button>
+                                                            <button
+                                                                className={`col-span-1 flex rounded-[5px] bg-[#d9d9d9] p-4 flex flex-col border-[2px] ${currentTarget === 'professional' ? 'border-[#6C63FF]' : 'border-gray-500'}`}
+                                                                onClick={() => setCurrentTarget('professional')}
+                                                            >
+                                                                <h2 className={`font-[Inter] ${currentTarget === 'professional' ? 'text-gray-900' : 'text-gray-500'}`}>Professional</h2>
+                                                                <p className='font-[Inter] text-md text-gray-700'>Target by location, company size, industry, job title etc</p>
+                                                            </button>
+                                                        </div>
+                                                        <div className="my-7">
+                                                            <p className='my-2 text-gray-700 font-[Inter] text-lg'>Ideal Audience Tags</p>
+                                                            <div className='p-4'>
+                                                                <p className='text-md font-[Inter]'>You can get started by selecting one of our most frequently requested audiences or define your own below</p>
+                                                                <select
+                                                                    className='w-full border-[1px] rounded border-gray-700 px-2 py-1'
+                                                                    value={currentAudience}
+                                                                    onChange={e => setCurrentAudience(e.target.value)}
+                                                                >
+                                                                    {
+                                                                        audience.map((item: any) => {
+                                                                            return <option value={item.id} key={item.id}>{item.fields['Newsletter']}</option>
+                                                                        })
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            }
+                                        </div>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>

@@ -10,8 +10,6 @@ const Landing: FC = () => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
-    console.log('auth:', isAuthenticated);
-    
     const handleLogout = () => {
         dispatch(setUnauthenticated());
     };
