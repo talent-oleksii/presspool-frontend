@@ -1,11 +1,13 @@
 import { FC, Fragment, useEffect, useState } from 'react';
-
+import validator from 'validator';
 import { Dialog, Transition } from '@headlessui/react';
 
 import APIInstance from '../../api';
 
 const Dashboard: FC = () => {
     const [showAddDialog, setShowAddDialog] = useState(false);
+    const [campaignName, setCampaignName] = useState('');
+    const [url, setUrl] = useState('');
     const [currentTab, setCurrentTab] = useState('detail');
     const [currentTarget, setCurrentTarget] = useState('consumer');
     const [audience, setAudience] = useState([]);
@@ -34,14 +36,16 @@ const Dashboard: FC = () => {
             setPricing(data.data.records);
         }).catch(err => {
             console.log('error:', err);
-        })
+        });
     };
 
     const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
         setCurrentTab(e.target.id);
     };
-
-    console.log('pr:', currentPrice);
+    
+    const handleNextOnCampaign = () => {
+        if (!validator.isEmpty(campaignName) && validator.isURL(url)) setCurrentTab('audience');
+    };
 
     return (
         <div className='px-[85px] py-[40px] text-left'>
@@ -113,15 +117,19 @@ const Dashboard: FC = () => {
                                                         <input
                                                             className='px-3 py-2 rounded-[10px] w-full border font-[Inter]'
                                                             placeholder="Let's give your campaign's name"
+                                                            value={campaignName}
+                                                            onChange={e => setCampaignName(e.target.value)}
                                                         />
                                                         <p className='mt-4 mb-2 text-md font-[Inter] text-gray-900'>Site URL</p>
                                                         <input
                                                             className='px-3 py-2 rounded-[10px] w-full border font-[Inter]'
                                                             placeholder="https://example.com"
+                                                            value={url}
+                                                            onChange={e => setUrl(e.target.value)}
                                                         />
                                                         <p className='text-sm font-[Inter] text-gray-500 mt-2 font-normal'>We only need the domain of your site. We'll ask for the landing page shortly.</p>
                                                     </div>
-                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-7' onClick={() => setCurrentTab('audience')}>Next Step</button>
+                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-7' onClick={handleNextOnCampaign}>Next Step</button>
                                                 </>
                                             }
                                             {
@@ -174,7 +182,7 @@ const Dashboard: FC = () => {
 
                                                         <select className='w-full border-[1px] rounded border-gray0700 px-2 py-1' onChange={e => setCurrentPrice(e.target.value)}>
                                                             {
-                                                                pricing.map((item: any) => {
+                                                                pricing.filter(price => price['fields']['Demographic'] === (currentTarget === 'consumer' ? 'B2C' : 'B2B')).sort((a, b) => b['fields']['Price'] - a['fields']['Price']).map((item: any) => {
                                                                     return <option value={item.id} key={item.id}>{item.fields['Budget']}</option>
                                                                 })
                                                             }
@@ -182,6 +190,22 @@ const Dashboard: FC = () => {
                                                         {currentPrice.length >= 3 && <p className='font-[Inter] text-sm my-3 text-[#6C63FF]'>{`*Estimated clickes for the campaign are ${pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Average est. clicks']}`}</p>}
                                                     </div>
                                                     <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' onClick={() => setCurrentTab('review')}>Next Step</button>
+                                                </>
+                                            }
+                                            {
+                                                currentTab === 'review' && <>
+                                                    <div className='p-2 bg-white'>
+                                                        <h2 className='font-semibold text-lg font-[Inter]'>Review</h2>
+                                                        { currentAudience.length > 3 && currentPrice.length > 3 &&
+                                                            <div className='my-3'>
+                                                                <p><span className='font-semibold me-2'>Dates:</span>The campaign will start from today until the budget is reached.</p>
+                                                                <p><span className='font-semibold me-2'>Max Budget:</span>{pricing.filter(price => price['id'] === currentPrice)[0]['fields']['Budget']}</p>
+                                                                <p><span className='font-semibold me-2'>Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
+                                                                <p><span className='font-semibold me-2'>Target Audience Tags:</span>{audience.filter(item => item['id'] === currentAudience)[0]['fields']['Newsletter']}</p>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' onClick={() => setCurrentTab('review')}>Submit</button>
                                                 </>
                                             }
                                         </div>
