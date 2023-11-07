@@ -95,7 +95,7 @@ const Dashboard: FC = () => {
       <p className='my-4 text-[#43474A]'>Here is your account at a glance</p>
 
       <button className='rounded-[10px] bg-[#6C63FF] font-[Inter] font-semibold text-[white] font-md px-4 py-3' onClick={() => setShowAddDialog(true)}>Create New Campaign</button>
-      <div className={`grid grid-cols-${activePage === 'overview' ? '1' : '12'}`}>
+      <div className={`grid ${activePage === 'overview' ? 'grid-cols-1' : 'grid-cols-12'}`}>
         <div className={`transition-all ease-in-out duration-300 ${activePage === 'overview' ? 'col-span-full' : 'col-span-9'}`}>
           <div className='flex justify-between items-center mt-4 bg-white rounded-[10px] p-2'>
             <div>
