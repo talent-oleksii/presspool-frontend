@@ -2,6 +2,7 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import validator from 'validator';
 import { useSelector } from 'react-redux';
 import { Dialog, Transition } from '@headlessui/react';
+import { Link } from 'react-router-dom';
 
 import APIInstance from '../../api';
 import { selectAuth } from '../../store/authSlice';
@@ -29,6 +30,7 @@ const Dashboard: FC = () => {
             getAudience,
             getPricing,
         ]).then((results: Array<any>) => {
+            console.log('data:', results);
             setCampaign(results[0].data);
             const audienceData = results[1].data.records;
             setAudience(audienceData);
@@ -98,7 +100,7 @@ const Dashboard: FC = () => {
                                 <li key={item.id} className='p-2 flex justify-between items-center'>
                                     <p className='font-[Inter] text-md'>{item.name}</p>
                                     <div>
-                                        <button className='px-4 py-2 mx-1 bg-[#6c63ff] rounded text-white font-[Inter]'>Build</button>
+                                        <Link to={`/campaign/advertisement/${item.id}`} className='px-4 py-2 mx-1 bg-[#6c63ff] rounded text-white font-[Inter]'>Manage Ads</Link>
                                         <button className='px-4 py-2 mx-1 bg-[#6c63ff] rounded text-white font-[Inter]'>Edit</button>
                                         <button className='px-4 py-2 mx-1 bg-[#6c63ff] rounded text-white font-[Inter]'>Delete</button>
                                     </div>

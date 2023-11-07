@@ -1,8 +1,9 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
 
 import Dashboard from './campaign/Dashboard';
 import Approve from './campaign/Approve';
+import Advertisement from './campaign/Advertisement';
 
 import Logo from '../assets/logo/logo.png';
 import Man from '../assets/image/Headshot 1.png';
@@ -28,6 +29,7 @@ const Campaign: FC = () => {
             <div className='bg-[#F5F5F5] w-full'>
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
+                    <Route path="/advertisement/:id" element={<Advertisement />} />
                     <Route path="/approve" element={<Approve />} />
                 </Routes>
             </div>
