@@ -16,37 +16,37 @@ const Dashboard: FC = () => {
     const [currentAudience, setCurrentAudience] = useState<string>('');
     const [pricing, setPricing] = useState([]);
     const [currentPrice, setCurrentPrice] = useState<string>('');
-    // const [loading, setLoading] = useState(false);
+    const [addLoading, setAddLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [campaign, setCampaign] = useState([]);
 
     const { email } = useSelector(selectAuth);
 
     useEffect(() => {
-        getAudience();
-        getPricing();
+        setLoading(true);
+        Promise.all([
+            getCampaign,
+            getAudience,
+            getPricing,
+        ]).then((results: Array<any>) => {
+            setCampaign(results[0].data);
+            const audienceData = results[1].data.records;
+            setAudience(audienceData);
+            if (audienceData.length >= 1) setCurrentAudience(audienceData[0].id);
+            const pricingData = results[2].data.records;
+            setPricing(pricingData);
+            if (pricingData.length >= 1) setCurrentPrice(pricingData[0].id);
+
+        }).catch(err => {
+            console.log('err:', err);
+        }).finally(() => setLoading(false));
     }, []);
 
-    const getAudience = () => {
-        APIInstance.get('data/newsletter').then(data => {
-            const newRecord = data.data.records;
-            console.log('new:', newRecord);
-            setAudience(newRecord);
-            if (newRecord.length >= 1)
-                setCurrentAudience(data.data.records[0].id);
-        }).catch(err => {
-            console.log('error:', err);
-        });
-    };
+    const getCampaign = APIInstance.get('data/campaign', { params: { email } });
 
-    const getPricing = () => {
-        APIInstance.get('data/pricing').then(data => {
-            const newRecord = data.data.records;
-            console.log('pricing:', newRecord);
-            setPricing(newRecord);
-            if (newRecord.length >= 1) setCurrentPrice(newRecord[0].id);
-        }).catch(err => {
-            console.log('error:', err);
-        });
-    };
+    const getAudience = APIInstance.get('data/newsletter');
+
+    const getPricing = APIInstance.get('data/pricing');
 
     const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
         setCurrentTab(e.target.id);
@@ -61,6 +61,7 @@ const Dashboard: FC = () => {
     };
 
     const handleSubmit = () => {
+        setAddLoading(true);
         APIInstance.post('data/campaign', {
             email,
             campaignName,
@@ -69,19 +70,43 @@ const Dashboard: FC = () => {
             currentAudience,
             currentPrice,
         }).then(data => {
-            console.log('data:', data.data);
+            setShowAddDialog(false);
         }).catch(err => {
             console.log('err:', err);
+        }).finally(() => {
+            setAddLoading(false);
         });
     };
 
     return (
-        <div className='px-[85px] py-[40px] text-left'>
+        <div className='px-[85px] py-[40px] text-left relative'>
+            { loading &&
+                <div className='absolute w-full h-full justify-center items-center flex bg-white'>
+                    <div className="inline-block animate-spin rounded-full border-t-4 border-blue-900 h-6 w-6" />
+                </div>
+            }
             <h1 className='font-semibold font-[Inter] text-[32px]'>My Campaigns</h1>
             <p className='my-4 text-[#43474A]'>Manage and edit your campaigns, as well as track their status below</p>
 
             <div className='my-7 p-5 min-h-[250px] shadow-md shadow-[black]/[.25] rounded-[20px] bg-white'>
                 <h2 className='font-[Inter] text-[20px] font-semibold'>My Campaign Overview</h2>
+
+                <ul>
+                    {
+                        campaign.map((item: any) => {
+                            return (
+                                <li key={item.id} className='p-2 flex justify-between items-center'>
+                                    <p className='font-[Inter] text-md'>{item.name}</p>
+                                    <div>
+                                        <button className='px-4 py-2 mx-1 bg-[#6c63ff] rounded text-white font-[Inter]'>Build</button>
+                                        <button className='px-4 py-2 mx-1 bg-[#6c63ff] rounded text-white font-[Inter]'>Edit</button>
+                                        <button className='px-4 py-2 mx-1 bg-[#6c63ff] rounded text-white font-[Inter]'>Delete</button>
+                                    </div>
+                                </li>
+                            );
+                        })
+                    }
+                </ul>
             </div>
 
             <button className='rounded-[10px] bg-[#6C63FF] font-[Inter] font-semibold text-[white] font-md px-4 py-3' onClick={() => setShowAddDialog(true)}>Create New Campaign</button>
@@ -106,6 +131,11 @@ const Dashboard: FC = () => {
                                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                             >
                                 <Dialog.Panel className="relative bg-[#F5F5F5] rounded-lg px-4 pb-4 pt-5 text-left shadow-xl sm:w-[1000px] sm:min-h-[500px]">
+                                    { addLoading &&
+                                        <div className='absolute w-full h-full justify-center items-center flex bg-white'>
+                                            <div className="inline-block animate-spin rounded-full border-t-4 border-blue-900 h-6 w-6" />
+                                        </div>
+                                    }
                                     <h2 className='font-[Inter] text-[20px] font-semibold m-4'>Create New Campaign</h2>
                                     <div className="mt-5 grid grid-cols-4">
                                         <div className='col-span-1 flex flex-col border-r-[1px] border-[#D9D9D9] px-2 h-full'>
