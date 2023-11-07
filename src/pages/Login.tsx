@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { useDispatch } from 'react-redux';
-import { setAuthenticated } from '../store/authSlice';
+import { setAuthenticated, setEmail } from '../store/authSlice';
 
 import APIInstance from "../api";
 
@@ -44,10 +44,8 @@ const Login: FC = () => {
             if (ret.length < 1) {
                 setShowDialog(true);
             } else {
-                // setEmail(ret[0].fields.Email);
-                // setUserType(ret[0].fields['User Group']);
-                // setAuthenticated(true);
                 dispatch(setAuthenticated());
+                dispatch(setEmail({ email: ret[0]['fields']['Email'] }));
                 navigator('/');
             }
         }).catch(err => {

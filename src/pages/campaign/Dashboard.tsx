@@ -1,8 +1,10 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 import validator from 'validator';
+import { useSelector } from 'react-redux';
 import { Dialog, Transition } from '@headlessui/react';
 
 import APIInstance from '../../api';
+import { selectAuth } from '../../store/authSlice';
 
 const Dashboard: FC = () => {
     const [showAddDialog, setShowAddDialog] = useState(false);
@@ -16,6 +18,8 @@ const Dashboard: FC = () => {
     const [currentPrice, setCurrentPrice] = useState<string>('');
     // const [loading, setLoading] = useState(false);
 
+    const { email } = useSelector(selectAuth);
+
     useEffect(() => {
         getAudience();
         getPricing();
@@ -23,8 +27,11 @@ const Dashboard: FC = () => {
 
     const getAudience = () => {
         APIInstance.get('data/newsletter').then(data => {
-            console.log('newletter data:', data.data);
-            setAudience(data.data.records);
+            const newRecord = data.data.records;
+            console.log('new:', newRecord);
+            setAudience(newRecord);
+            if (newRecord.length >= 1)
+                setCurrentAudience(data.data.records[0].id);
         }).catch(err => {
             console.log('error:', err);
         });
@@ -32,8 +39,10 @@ const Dashboard: FC = () => {
 
     const getPricing = () => {
         APIInstance.get('data/pricing').then(data => {
-            console.log('pricing data:', data.data.records);
-            setPricing(data.data.records);
+            const newRecord = data.data.records;
+            console.log('pricing:', newRecord);
+            setPricing(newRecord);
+            if (newRecord.length >= 1) setCurrentPrice(newRecord[0].id);
         }).catch(err => {
             console.log('error:', err);
         });
@@ -53,6 +62,7 @@ const Dashboard: FC = () => {
 
     const handleSubmit = () => {
         APIInstance.post('data/campaign', {
+            email,
             campaignName,
             url,
             currentTarget,
@@ -205,7 +215,7 @@ const Dashboard: FC = () => {
                                                                 })
                                                             }
                                                         </select>
-                                                        {currentPrice.length >= 3 && <p className='font-[Inter] text-sm my-3 text-[#6C63FF]'>{`*Estimated clickes for the campaign are ${pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Average est. clicks']}`}</p>}
+                                                        {currentPrice.length >= 3 && <p className='font-[Inter] text-sm my-3 text-[#6C63FF]'>{`*Estimated clicks for the campaign are ${pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Estimated Clicks']}`}</p>}
                                                     </div>
                                                     <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' onClick={() => setCurrentTab('review')}>Next Step</button>
                                                 </>
@@ -214,7 +224,7 @@ const Dashboard: FC = () => {
                                                 currentTab === 'review' && <>
                                                     <div className='p-2 bg-white'>
                                                         <h2 className='font-semibold text-lg font-[Inter]'>Review</h2>
-                                                        { currentAudience.length > 3 && currentPrice.length > 3 &&
+                                                        { currentAudience.length >= 1 && currentPrice.length > 3 &&
                                                             <div className='my-3'>
                                                                 <p><span className='font-semibold me-2'>Dates:</span>The campaign will start from today until the budget is reached.</p>
                                                                 <p><span className='font-semibold me-2'>Max Budget:</span>{pricing.filter(price => price['id'] === currentPrice)[0]['fields']['Budget']}</p>
@@ -223,7 +233,7 @@ const Dashboard: FC = () => {
                                                             </div>
                                                         }
                                                     </div>
-                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' disabled={isSubmitable()} onClick={handleSubmit}>Submit</button>
+                                                    { currentAudience.length > 3 && currentPrice.length > 3 && <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' disabled={!isSubmitable()} onClick={handleSubmit}>Submit</button>}
                                                 </>
                                             }
                                         </div>
