@@ -19,7 +19,7 @@ const Dashboard: FC = () => {
     const [currentPrice, setCurrentPrice] = useState<string>('');
     const [addLoading, setAddLoading] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [campaign, setCampaign] = useState([]);
+    const [campaign, setCampaign] = useState<Array<any>>([]);
 
     const { email } = useSelector(selectAuth);
 
@@ -72,6 +72,7 @@ const Dashboard: FC = () => {
             currentAudience,
             currentPrice,
         }).then(data => {
+            setCampaign([...campaign, data.data]);
             setShowAddDialog(false);
         }).catch(err => {
             console.log('err:', err);
