@@ -47,6 +47,24 @@ const Dashboard: FC = () => {
         if (!validator.isEmpty(campaignName) && validator.isURL(url)) setCurrentTab('audience');
     };
 
+    const isSubmitable = () => {
+        return !validator.isEmpty(campaignName) && validator.isURL(url) && currentAudience.length > 3 && currentPrice.length > 3;
+    };
+
+    const handleSubmit = () => {
+        APIInstance.post('data/campaign', {
+            campaignName,
+            url,
+            currentTarget,
+            currentAudience,
+            currentPrice,
+        }).then(data => {
+            console.log('data:', data.data);
+        }).catch(err => {
+            console.log('err:', err);
+        });
+    };
+
     return (
         <div className='px-[85px] py-[40px] text-left'>
             <h1 className='font-semibold font-[Inter] text-[32px]'>My Campaigns</h1>
@@ -205,7 +223,7 @@ const Dashboard: FC = () => {
                                                             </div>
                                                         }
                                                     </div>
-                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' onClick={() => setCurrentTab('review')}>Submit</button>
+                                                    <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-2' disabled={isSubmitable()} onClick={handleSubmit}>Submit</button>
                                                 </>
                                             }
                                         </div>
