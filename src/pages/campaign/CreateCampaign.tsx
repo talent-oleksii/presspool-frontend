@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import validator from 'validator';
 
 import APIInstance from '../../api';
+import StripeUtil from '../../utils/stripe';
 import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
 import EditCampaignUI from './EditCampaignUI';
@@ -61,10 +62,42 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     setCurrentTab('audience');
   };
 
-  const handleSubmit = () => {
-    if (pricing.filter((item: any) => item.id === currentPrice)[0]['fields'] === 10000) {
+  const handleSubmit = async () => {
+    let priceId: any = '';
+    const price = pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Price'];
+    if (price === 10000) priceId = process.env.REACT_APP_PRICE_10000;
+    else if (price === 15000) priceId = process.env.REACT_APP_PRICE_15000;
+    else if (price === 20000) priceId = process.env.REACT_APP_PRICE_20000;
+    else if (price === 25000) priceId = process.env.REACT_APP_PRICE_25000;
+    else priceId = process.env.REACT_APP_PRICE_50000;
 
+    if (!uiId) {
+      alert('There is not UI assigned for this Campaign, Please save your UI first');
+      return;
     }
+    setLoading(true);
+    APIInstance.post('data/campaign', {
+      email, campaignName, url, currentTarget,
+      currentAudience, currentPrice, uiId
+    }).then(async data => {
+      if (afterAdd) afterAdd(data.data);
+      setCurrentTab('detail');
+      setCampaignName('');
+      setCurrentAudience('consumer');
+      setCurrentPrice('');
+      setCurrentAudience('');
+      setUIID(undefined);
+      setUrl('');
+      setShow(false);
+
+      const url = await StripeUtil.getCampaignPayUrl(email, data.data.id, 'http://localhost:3000/#/campaign', priceId);
+      if (!url) return;
+      window.open(url, '_self');
+    }).catch(err => {
+      console.log('err:', err);
+    }).finally(() => {
+      setLoading(false);
+    });
   }
 
   const handleSave = () => {

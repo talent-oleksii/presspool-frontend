@@ -30,7 +30,6 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent }:
   const [loading, setLoading] = useState(false);
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log('file:', e.target.files);
     if (e.target.files) {
       const file = e.target.files[0];
       setFile(file);
@@ -45,7 +44,7 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent }:
 
   const handleSave: React.MouseEventHandler<HTMLButtonElement> = () => {
     setLoading(true);
-    APIInstance.post('/data/campaign_ui', {
+    APIInstance.post('data/campaign_ui', {
       email,
       headLine,
       cta,
