@@ -90,7 +90,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       setUrl('');
       setShow(false);
 
-      const url = await StripeUtil.getCampaignPayUrl(email, data.data.id, 'http://localhost:3000/#/campaign', priceId);
+      const url = await StripeUtil.getCampaignPayUrl(email, data.data.id, 'https://presspool-frontend.onrender.com/#/campaign', priceId);
       if (!url) return;
       window.open(url, '_self');
     }).catch(err => {
