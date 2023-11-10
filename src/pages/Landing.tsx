@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUnauthenticated } from '../store/authSlice';
 
-import LogoWithText from  '../assets/logo/pp full transparent.png';
+import LogoWithText from '../assets/logo/pp full transparent.png';
 import SampleImage from '../assets/image/Target audience inbox.png';
 
-const Landing: FC = () => { 
+const Landing: FC = () => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
@@ -22,19 +22,19 @@ const Landing: FC = () => {
             <img alt="pic" src={SampleImage} className='my-4' />
 
             <div className='flex items-center justify-center'>
-            {!isAuthenticated ?
-                <>
-                    <Link className='flex font-bold text-[white] text-sm items-center bg-[black] rounded-[10px] px-4 py-2 me-2' to="client-sign-up">
-                        I'm a Company
-                    </Link>
-                    <button className='flex font-bold text-[white] text-sm items-center bg-purple rounded-[10px] px-4 py-2 ms-2'>
-                        I'm a Creator
-                    </button>
-                </> :
-                <>
-                    <Link className='font-bold underline' to="/campaign">Start Campaign</Link>
-                </>
-            }
+                {!isAuthenticated ?
+                    <>
+                        <Link className='flex font-bold text-[white] text-sm items-center bg-[black] rounded-[10px] px-4 py-2 me-2' to="client-sign-up">
+                            I'm a Company
+                        </Link>
+                        <button className='flex font-bold text-[white] text-sm items-center bg-purple rounded-[10px] px-4 py-2 ms-2'>
+                            I'm a Creator
+                        </button>
+                    </> :
+                    <>
+                        <Link className='font-bold underline' to="/campaign/all">Start Campaign</Link>
+                    </>
+                }
             </div>
             {!isAuthenticated ?
                 <p className='mt-4 font-[Inter] font-semibold text-md'>Already have an account? Sign in <Link to="/login" className='text-purple'>here</Link></p> :

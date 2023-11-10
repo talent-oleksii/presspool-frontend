@@ -45,7 +45,7 @@ const Login: FC = () => {
                 setShowDialog(true);
             } else {
                 dispatch(setAuthenticated());
-                dispatch(setEmail({ email: ret[0]['fields']['Email'] }));
+                dispatch(setEmail({ email: ret[0]['fields']['Email'], name: ret[0]['fields']['First Name'] }));
                 navigator('/');
             }
         }).catch(err => {
@@ -60,7 +60,7 @@ const Login: FC = () => {
                     <img src={Mark} alt="mark" className="w-[50px]" />
                     <p className="font-[Inter] text-2xl mt-3 font-bold">Sign In</p>
                 </div>
-                
+
                 <form className="text-left p-8" onSubmit={handleSubmit}>
                     <div>
                         <label className="font-[Inter] block text-md font-semibold my-1">Email</label>
@@ -105,12 +105,12 @@ const Login: FC = () => {
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                     <div>
                                         <div className="mt-3 text-center sm:mt-5">
-                                        <Dialog.Title
-                                            as="h3"
-                                            className="text-base font-semibold leading-6 text-gray-900"
-                                        >
-                                            Log In Failed!
-                                        </Dialog.Title>
+                                            <Dialog.Title
+                                                as="h3"
+                                                className="text-base font-semibold leading-6 text-gray-900"
+                                            >
+                                                Log In Failed!
+                                            </Dialog.Title>
                                         </div>
                                     </div>
 

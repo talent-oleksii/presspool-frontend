@@ -12,10 +12,12 @@ import Loading from '../../components/Loading';
 interface typeEditCampaignUI {
   show: boolean;
   setShow: Function;
-  setUIContent: Function;
+  setUIContent?: Function;
+  uiData?: any;
+  afterChange?: Function;
 }
 
-const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent }: typeEditCampaignUI) => {
+const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, uiData, afterChange }: typeEditCampaignUI) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { email } = useSelector(selectAuth);
 
@@ -28,6 +30,18 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent }:
   const [pageUrl, setPageUrl] = useState('');
   const [noNeedCheck, setNoNeedCheck] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (uiData) {
+      console.log('check:', uiData, uiData.no_need_check, Number(uiData.no_need_check) === 1 ? true : false);
+      setHeadLine(uiData.headline);
+      setBody(uiData.body);
+      setCta(uiData.cta);
+      setImage(uiData.image);
+      setNoNeedCheck(Number(uiData.no_need_check) === 1 ? true : false);
+      setPageUrl(uiData.page_url || '');
+    }
+  }, [uiData]);
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files) {
@@ -44,23 +58,41 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent }:
 
   const handleSave: React.MouseEventHandler<HTMLButtonElement> = () => {
     setLoading(true);
-    APIInstance.post('data/campaign_ui', {
-      email,
-      headLine,
-      cta,
-      body,
-      image,
-      pageUrl,
-      noNeedCheck: noNeedCheck ? 1 : 0
-    }).then(data => {
-      console.log('data:', data);
-      setUIContent(data.data.id);
-      setShow(false);
-    }).catch(err => {
-      console.log('errr:', err);
-    }).finally(() => {
-      setLoading(false);
-    });
+    if (!uiData) {
+      APIInstance.post('data/campaign_ui', {
+        email,
+        headLine,
+        cta,
+        body,
+        image,
+        pageUrl,
+        noNeedCheck: noNeedCheck ? 1 : 0
+      }).then(data => {
+        console.log('data:', data);
+        if (setUIContent) setUIContent(data.data.id);
+        setShow(false);
+      }).catch(err => {
+        console.log('errr:', err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    } else {
+      APIInstance.put('data/campaign_ui', {
+        id: uiData.id,
+        headLine,
+        cta,
+        body,
+        image,
+        pageUrl,
+        noNeedCheck: noNeedCheck ? 1 : 0,
+      }).then(data => {
+        console.log('update campaign ui data:', data.data)
+        if (afterChange) afterChange(data.data);
+        setShow(false);
+      }).catch(err => {
+        console.log('error:', err);
+      }).finally(() => setLoading(false));
+    }
   };
 
   return (
