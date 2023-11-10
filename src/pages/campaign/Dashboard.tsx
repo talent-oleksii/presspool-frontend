@@ -34,7 +34,7 @@ const Dashboard: FC = () => {
   }, []);
 
   return (
-    <div className='px-[75px] py-[40px] text-left relative'>
+    <div className='text-left relative'>
       {loading && <Loading />}
       <h1 className='font-semibold font-[Inter] text-[32px]'>Welcome {name}</h1>
       <p className='my-4 text-[#43474A]'>Here is your account at a glance</p>

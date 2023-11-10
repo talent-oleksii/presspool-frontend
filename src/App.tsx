@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import { Route, Routes } from 'react-router';
+import { Link } from 'react-router-dom';
 import './App.css';
 
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import ClientSignUp from './pages/ClientSignUp';
-import Campaign from './pages/Campaign';
-import Admin from './pages/admin';
+import MainContent from './pages/MainContent';
+
 
 const App: FC = () => {
   return (
@@ -16,9 +17,7 @@ const App: FC = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/client-sign-up" element={<ClientSignUp />} />
-          <Route path="/campaign/*" element={<Campaign />} />
-
-          <Route path="/admin/*" element={<Admin />} />
+          <Route path="/*" element={<MainContent />} />
         </Routes>
       </div>
     </div>
