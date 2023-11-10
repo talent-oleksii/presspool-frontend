@@ -38,15 +38,13 @@ const Login: FC = () => {
         APIInstance.get('auth/sign-in', {
             params: formData,
         }).then(data => {
-            console.log('data:', data.data);
             const ret = data.data.records;
-            console.log('ree:', ret.length);
             if (ret.length < 1) {
                 setShowDialog(true);
             } else {
                 dispatch(setAuthenticated());
                 dispatch(setEmail({ email: ret[0]['fields']['Email'], name: ret[0]['fields']['First Name'] }));
-                navigator('/');
+                navigator('/campaign/all');
             }
         }).catch(err => {
             console.log('error:', err);

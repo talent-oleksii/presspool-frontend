@@ -3,6 +3,9 @@ import { useNavigate, Link } from 'react-router-dom';
 
 import { Dialog, Transition } from '@headlessui/react';
 
+import { useDispatch } from 'react-redux';
+import { setAuthenticated, setEmail } from '../store/authSlice';
+
 import APIInstance from '../api';
 import SignUpBack from '../assets/image/sign upback.jpeg';
 import Mark from '../assets/logo/logo.png';
@@ -16,6 +19,7 @@ interface FormData {
 }
 
 const ClientSignUp: FC = () => {
+    const dispatch = useDispatch();
     const [showDialog, setShowDialog] = useState(false);
     const [formData, setFormData] = useState<FormData>({
         fullName: '',
@@ -36,11 +40,13 @@ const ClientSignUp: FC = () => {
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
-        console.log('d:', formData);
         APIInstance.post('auth/client-sign-up', {
             ...formData
         }).then(data => {
             console.log('data:', data.data);
+            const ret = data.data;
+            dispatch(setAuthenticated());
+            dispatch(setEmail({ email: ret['fields']['Email'], name: ret['fields']['First Name'] }));
             setShowDialog(true);
         }).catch(err => {
             console.log('err:', err);
@@ -59,7 +65,7 @@ const ClientSignUp: FC = () => {
                     <div className="flex flex-col items-center justify-center py-3">
                         <img src={Mark} alt="mark" className="w-[50px]" />
                     </div>
-                    
+
                     <form className="text-left p-2" onSubmit={handleSubmit}>
                         <input
                             id='fullName'
@@ -104,7 +110,9 @@ const ClientSignUp: FC = () => {
                                 type="checkbox"
                                 className='rounded-sm border-indigo-500 border-[1px] p-1'
                             />
-                            <span className='ms-2 font-[Inter] text-md'>I agree to the Terms and Privacy Policy</span>
+                            <span className='ms-2 font-[Inter] text-md'>
+                                I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
+                            </span>
                         </div>
                         <button
                             className="rounded-[10px] bg-[#212121] w-full py-2 my-4 text-[white] disabled:bg-[gray]"
@@ -149,12 +157,12 @@ const ClientSignUp: FC = () => {
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                     <div>
                                         <div className="mt-3 text-center sm:mt-5">
-                                        <Dialog.Title
-                                            as="h3"
-                                            className="text-base font-semibold leading-6 text-gray-900"
-                                        >
-                                            Sign Up Success!
-                                        </Dialog.Title>
+                                            <Dialog.Title
+                                                as="h3"
+                                                className="text-base font-semibold leading-6 text-gray-900"
+                                            >
+                                                Sign Up Success!
+                                            </Dialog.Title>
                                         </div>
                                     </div>
 
@@ -162,7 +170,9 @@ const ClientSignUp: FC = () => {
                                         <button
                                             type="button"
                                             className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                                            onClick={() => { setShowDialog(false); navigator('/login'); }}
+                                            onClick={() => {
+                                                setShowDialog(false); navigator('/');
+                                            }}
                                         >
                                             OK
                                         </button>

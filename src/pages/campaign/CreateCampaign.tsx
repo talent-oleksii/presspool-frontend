@@ -187,7 +187,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                         <div className='bg-white p-2'>
                           <input
                             className='px-3 py-2 rounded-[10px] w-full border font-[Inter]'
-                            placeholder="Let's give your campaign's name"
+                            placeholder="Give your campaign a name"
                             value={campaignName}
                             onChange={e => setCampaignName(e.target.value)}
                           />
