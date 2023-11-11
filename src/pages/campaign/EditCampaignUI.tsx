@@ -1,6 +1,7 @@
 import React, { FC, Fragment, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Dialog, Transition } from '@headlessui/react';
+import { Tooltip } from 'react-tooltip';
 
 import EditUIBackground from '../../assets/image/sign upback.jpeg';
 import SampleLogo from '../../assets/logo/logo.png';
@@ -33,7 +34,6 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
 
   useEffect(() => {
     if (uiData) {
-      console.log('check:', uiData, uiData.no_need_check, Number(uiData.no_need_check) === 1 ? true : false);
       setHeadLine(uiData.headline);
       setBody(uiData.body);
       setCta(uiData.cta);
@@ -130,17 +130,29 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
 
                     <div className='text-left bg-gray-100 me-2 my-4 p-4 rounded-md border-[1px]'>
                       <div className='flex justify-between'>
-                        <p className='font-[Inter] text-sm font-semibold'>Headline</p>
+                        <p
+                          className='font-[Inter] text-sm font-semibold'
+                        >
+                          Headline
+                        </p>
                         <p className='font-[Inter] text-sm text-gray-400'>{`${headLine.length}/60`}</p>
                       </div>
                       <input
                         className='mt-2 w-full rounded-[10px] border-[1px] py-2 px-3'
                         maxLength={60}
+                        data-tooltip-id='headline'
                         value={headLine}
                         onChange={e => setHeadLine(e.target.value)}
                       />
+                      <Tooltip id='headline' place="bottom">
+                        <div className="whitespace-pre-wrap break-normal w-[250px]">
+                          The headline of your campaign. This should be roughly 7 words
+                          or less and have a specific outcome.
+                          (Ex. Presspool will 10x user growth without PR)
+                        </div>
+                      </Tooltip>
                       <div className='flex justify-between mt-3'>
-                        <p className='font-[Inter] text-sm font-semibold'>Body</p>
+                        <p className='font-[Inter] text-sm font-semibold' data-tooltip-id='body'>Body</p>
                         <p className='font-[Inter] text-sm text-gray-400'>{`${body.length}/110`}</p>
                       </div>
                       <textarea
@@ -149,7 +161,13 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                         value={body}
                         onChange={e => setBody(e.target.value)}
                         rows={5}
+                        data-tooltip-id='body'
                       />
+                      <Tooltip id='body' place="bottom">
+                        <div className="whitespace-pre-wrap break-normal w-[250px]">
+                          The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline.
+                        </div>
+                      </Tooltip>
                       <div className='flex justify-between mt-3'>
                         <p className='font-[Inter] text-sm font-semibold'>CTA</p>
                         <p className='font-[Inter] text-sm text-gray-400'>{`${cta.length}/20`}</p>
@@ -158,17 +176,29 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                         className='mt-2 w-full rounded-[10px] border-[1px] py-2 px-3'
                         maxLength={20}
                         value={cta}
+                        data-tooltip-id='cta'
                         onChange={e => setCta(e.target.value)}
                       />
+                      <Tooltip id='cta' place="bottom">
+                        <div className="whitespace-pre-wrap break-normal w-[250px]">
+                          The call to action for your button. This should be something like "Free trial" or "Learn more" or "Try for free"
+                        </div>
+                      </Tooltip>
                       <div className='flex justify-between mt-3'>
-                        <p className='font-[Inter] text-sm font-semibold'>Image File</p>
+                        <p className='font-[Inter] text-sm font-semibold'>Hero Image</p>
                       </div>
                       <button
+                        data-tooltip-id='hero'
                         onClick={() => { if (fileInputRef.current) fileInputRef.current.click(); }}
                         className='px-3 py-2 text-gray-500 text-left font-[Inter] w-full border-[1px] mt-2'
                       >
                         {file ? file.name : 'Select File'}
                       </button>
+                      <Tooltip id='hero' place="bottom">
+                        <div className="whitespace-pre-wrap break-normal">
+                          1200px x 600px
+                        </div>
+                      </Tooltip>
                       <input
                         ref={fileInputRef}
                         type="file"
@@ -182,9 +212,15 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                       <input
                         type="url"
                         value={pageUrl}
+                        data-tooltip-id='url'
                         onChange={e => setPageUrl(e.target.value)}
                         className='mt-2 w-full rounded-[10px] border-[1px] py-2 px-3'
                       />
+                      <Tooltip id='url' place="bottom">
+                        <div className="whitespace-pre-wrap break-normal">
+                          Where do you want to direct the clicks to?
+                        </div>
+                      </Tooltip>
                     </div>
 
                     <div className='p-4'>
