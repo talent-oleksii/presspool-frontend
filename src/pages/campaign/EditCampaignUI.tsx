@@ -31,6 +31,7 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
   const [pageUrl, setPageUrl] = useState('');
   const [noNeedCheck, setNoNeedCheck] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [asterick, setAsterick] = useState(false);
 
   useEffect(() => {
     if (uiData) {
@@ -57,6 +58,11 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
   };
 
   const handleSave: React.MouseEventHandler<HTMLButtonElement> = () => {
+    if (headLine.length <= 0 || body.length <= 0 || cta.length <= 0 || (!image || (image && image.length <= 0)) || pageUrl.length <= 0) {
+      setAsterick(true);
+      return;
+    }
+    setAsterick(false);
     setLoading(true);
     if (!uiData) {
       APIInstance.post('data/campaign_ui', {
@@ -130,15 +136,14 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
 
                     <div className='text-left bg-gray-100 me-2 my-4 p-4 rounded-md border-[1px]'>
                       <div className='flex justify-between'>
-                        <p
-                          className='font-[Inter] text-sm font-semibold'
-                        >
+                        <p className='font-[Inter] text-sm font-semibold'>
                           Headline
+                          {asterick && headLine.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
                         </p>
                         <p className='font-[Inter] text-sm text-gray-400'>{`${headLine.length}/60`}</p>
                       </div>
                       <input
-                        className='mt-2 w-full rounded-[10px] border-[1px] py-2 px-3'
+                        className={`mt-2 w-full rounded-[10px] border-[1px] py-2 px-3 ${asterick && headLine.length <= 0 ? 'border-[red]' : 'border-gray-200'}`}
                         maxLength={60}
                         data-tooltip-id='headline'
                         value={headLine}
@@ -152,11 +157,14 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                         </div>
                       </Tooltip>
                       <div className='flex justify-between mt-3'>
-                        <p className='font-[Inter] text-sm font-semibold' data-tooltip-id='body'>Body</p>
+                        <p className='font-[Inter] text-sm font-semibold' data-tooltip-id='body'>
+                          Body
+                          {asterick && body.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
+                        </p>
                         <p className='font-[Inter] text-sm text-gray-400'>{`${body.length}/110`}</p>
                       </div>
                       <textarea
-                        className='mt-2 w-full rounded-[10px] border-[1px] py-2 px-3'
+                        className={`mt-2 w-full rounded-[10px] border-[1px] py-2 px-3 ${asterick && body.length <= 0 ? 'border-[red]' : 'border-gray-200'}`}
                         maxLength={110}
                         value={body}
                         onChange={e => setBody(e.target.value)}
@@ -169,11 +177,14 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                         </div>
                       </Tooltip>
                       <div className='flex justify-between mt-3'>
-                        <p className='font-[Inter] text-sm font-semibold'>CTA</p>
+                        <p className='font-[Inter] text-sm font-semibold'>
+                          CTA
+                          {asterick && cta.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
+                        </p>
                         <p className='font-[Inter] text-sm text-gray-400'>{`${cta.length}/20`}</p>
                       </div>
                       <input
-                        className='mt-2 w-full rounded-[10px] border-[1px] py-2 px-3'
+                        className={`mt-2 w-full rounded-[10px] border-[1px] py-2 px-3 ${asterick && cta.length <= 0 ? 'border-[red]' : 'border-gray-200'}`}
                         maxLength={20}
                         value={cta}
                         data-tooltip-id='cta'
@@ -185,12 +196,15 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                         </div>
                       </Tooltip>
                       <div className='flex justify-between mt-3'>
-                        <p className='font-[Inter] text-sm font-semibold'>Hero Image</p>
+                        <p className='font-[Inter] text-sm font-semibold'>
+                          Hero Image
+                          {asterick && (!image || (image && image.length <= 0)) && <span className='ms-1 text-[red]'>*</span>}
+                        </p>
                       </div>
                       <button
                         data-tooltip-id='hero'
                         onClick={() => { if (fileInputRef.current) fileInputRef.current.click(); }}
-                        className='px-3 py-2 text-gray-500 text-left font-[Inter] w-full border-[1px] mt-2'
+                        className={`px-3 py-2 text-gray-800 text-left font-[Inter] w-full border-[1px] bg-white rounded-[10px] mt-2 ${asterick && (!image || (image && image.length <= 0)) ? 'border-[red]' : 'border-gray-200'}`}
                       >
                         {file ? file.name : 'Select File'}
                       </button>
@@ -207,14 +221,17 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                         onChange={handleFileChange}
                       />
                       <div className='flex justify-between mt-3'>
-                        <p className='font-[Inter] text-sm font-semibold'>Landing Page URL</p>
+                        <p className='font-[Inter] text-sm font-semibold'>
+                          Landing Page URL
+                          {asterick && pageUrl.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
+                        </p>
                       </div>
                       <input
                         type="url"
                         value={pageUrl}
                         data-tooltip-id='url'
                         onChange={e => setPageUrl(e.target.value)}
-                        className='mt-2 w-full rounded-[10px] border-[1px] py-2 px-3'
+                        className={`mt-2 w-full rounded-[10px] border-[1px] py-2 px-3 ${asterick && pageUrl.length <= 0 ? 'border-[red]' : 'border-gray-200'}`}
                       />
                       <Tooltip id='url' place="bottom">
                         <div className="whitespace-pre-wrap break-normal">
@@ -223,15 +240,14 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                       </Tooltip>
                     </div>
 
-                    <div className='p-4'>
-                      <p className='font-[Inter]'>Tick this box if you prefer to keep your headline and body copy as provided, without revision from our content experts.</p>
-
+                    <div className='p-4 flex'>
                       <input
                         checked={noNeedCheck}
                         onChange={e => setNoNeedCheck(e.target.checked)}
                         type="checkbox"
-                        className='rounded border-black transform scale-150 mt-2'
+                        className='rounded border-black transform scale-150 mt-2 mx-3'
                       />
+                      <p className='font-[Inter]'>Tick this box if you prefer to keep your headline and body copy as provided, without revision from our content experts.</p>
                     </div>
                   </div>
                   <div className='col-span-2 bg-gray-400 h-full sm:max-h-[80vh] overflow-hidden relative flex justify-center items-center'>
@@ -247,8 +263,8 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
                           <img src={!image ? SampleLogo : image} alt="sample logo" className='h-full object-cover' />
                         </div>
                         <div className='col-span-2 py-3 px-2 flex flex-col items-center justify-center'>
-                          <h2 className='w-full text-left font-bold text-[Inter] leadig-5 text-[20px]'>{headLine}</h2>
-                          <p className='mt-4 w-full text-left font-[Inter] text-gray-500 text-md'>{body}</p>
+                          <h2 className='w-full text-left font-bold text-[Inter] leadig-5 text-[20px] break-words'>{headLine}</h2>
+                          <p className='mt-4 w-full text-left font-[Inter] text-gray-500 text-md break-words'>{body}</p>
                           <div className='mt-4 flex justify-between w-full items-center'>
                             <button className='font-[Inter] text-gray-500 px-4 py-2 rounded border-[1px]'>{cta}</button>
                             <p className='text-gray-500'>Sponsored</p>

@@ -1,5 +1,6 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import CreatableSelect from 'react-select/creatable';
 import { useSelector } from 'react-redux';
 import validator from 'validator';
 
@@ -22,7 +23,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
   const [currentTarget, setCurrentTarget] = useState('consumer');
   const [currentPrice, setCurrentPrice] = useState<string>('');
   const [audience, setAudience] = useState([]);
-  const [currentAudience, setCurrentAudience] = useState<string>('');
+  const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
   const [pricing, setPricing] = useState([]);
   const [showUI, setShowUI] = useState(false);
   const [uiId, setUIID] = useState(undefined);
@@ -36,10 +37,8 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       APIInstance.get('data/audience'),
       APIInstance.get('data/pricing'),
     ]).then((results: Array<any>) => {
-      console.log('data:', results);
-      const audienceData = results[0].data.records;
+      const audienceData = results[0].data;
       setAudience(audienceData);
-      if (audienceData.length >= 1) setCurrentAudience(audienceData[0].id);
       const pricingData = results[1].data.records.sort((a: any, b: any) => b['fields']['Price'] - a['fields']['Price']);
       setPricing(pricingData);
       if (pricingData.length >= 1) setCurrentPrice(pricingData[0].id);
@@ -78,14 +77,13 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     setLoading(true);
     APIInstance.post('data/campaign', {
       email, campaignName, url, currentTarget,
-      currentAudience, currentPrice, uiId
+      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId
     }).then(async data => {
       if (afterAdd) afterAdd(data.data);
       setCurrentTab('detail');
       setCampaignName('');
-      setCurrentAudience('consumer');
+      setCurrentTarget('consumer');
       setCurrentPrice('');
-      setCurrentAudience('');
       setUIID(undefined);
       setUrl('');
       setShow(false);
@@ -111,16 +109,15 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       campaignName,
       url,
       currentTarget,
-      currentAudience,
+      currentAudience: currentAudience.map(item => item.value),
       currentPrice,
       uiId,
     }).then(data => {
       if (afterAdd) afterAdd(data.data);
       setCurrentTab('detail');
       setCampaignName('');
-      setCurrentAudience('consumer');
+      setCurrentTarget('consumer');
       setCurrentPrice('');
-      setCurrentAudience('');
       setUIID(undefined);
       setUrl('');
       setShow(false);
@@ -233,17 +230,12 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                             <p className='my-2 text-gray-700 font-[Inter] text-lg'>Ideal Audience Tags</p>
                             <div className='p-2'>
                               <p className='text-md font-[Inter]'>You can get started by selecting one of our most frequently requested audiences or define your own below</p>
-                              <select
-                                className='w-full border-[1px] rounded border-gray-700 px-2 py-1'
+                              <CreatableSelect
                                 value={currentAudience}
-                                onChange={e => setCurrentAudience(e.target.value)}
-                              >
-                                {
-                                  audience.map((item: any) => {
-                                    return <option value={item.id} key={item.id}>{item.fields['Newsletter']}</option>
-                                  })
-                                }
-                              </select>
+                                onChange={e => setCurrentAudience(e.map(item => ({ value: item.value, label: item.label })))}
+                                isMulti
+                                options={audience.map((item: any) => ({ value: item.id, label: item.name }))}
+                              />
                             </div>
                           </div>
                         </div>
@@ -285,12 +277,12 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                               <p className='py-2'><span className='font-semibold me-2'>Dates:</span>The campaign will start from today until the budget is reached.</p>
                               <p className='py-2'><span className='font-semibold me-2'>Max Budget:</span>{pricing.filter(price => price['id'] === currentPrice)[0]['fields']['Budget']}</p>
                               <p className='py-2'><span className='font-semibold me-2'>Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
-                              <p className='py-2'><span className='font-semibold me-2'>Target Audience Tags:</span>{audience.filter(item => item['id'] === currentAudience)[0]['fields']['Newsletter']}</p>
+                              <p className='py-2'><span className='font-semibold me-2'>Target Audience Tags:</span>{currentAudience.map((item: any) => item.value).join(', ')}</p>
                             </div>
                           }
                         </div>
                         <div>
-                          {currentAudience.length > 3 && currentPrice.length > 3 && <button className='rounded-[5px] bg-[#6c63ff] px-4 py-2 text-white mt-2' disabled={!isSubmitable()} onClick={handleSubmit}>Submit</button>}
+                          {currentAudience.length >= 1 && currentPrice.length > 3 && <button className='rounded-[5px] bg-[#6c63ff] px-4 py-2 text-white mt-2' disabled={!isSubmitable()} onClick={handleSubmit}>Submit</button>}
                           <button className='bg-transparent text-md text-gray-600 font-[Inter] px-4 py-2' onClick={handleSave}>Save Campaign</button>
                         </div>
                       </>
