@@ -21,10 +21,9 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
   const [currentTab, setCurrentTab] = useState('detail');
   const [campaignName, setCampaignName] = useState('');
   const [currentTarget, setCurrentTarget] = useState('consumer');
-  const [currentPrice, setCurrentPrice] = useState<string>('');
+  const [currentPrice, setCurrentPrice] = useState('10000');
   const [audience, setAudience] = useState([]);
   const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
-  const [pricing, setPricing] = useState([]);
   const [showUI, setShowUI] = useState(false);
   const [uiId, setUIID] = useState(undefined);
   const [url, setUrl] = useState('');
@@ -35,14 +34,9 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     setLoading(true);
     Promise.all([
       APIInstance.get('data/audience'),
-      APIInstance.get('data/pricing'),
     ]).then((results: Array<any>) => {
       const audienceData = results[0].data;
       setAudience(audienceData);
-      const pricingData = results[1].data.records.sort((a: any, b: any) => b['fields']['Price'] - a['fields']['Price']);
-      setPricing(pricingData);
-      if (pricingData.length >= 1) setCurrentPrice(pricingData[0].id);
-
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
@@ -53,7 +47,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
   };
 
   const isSubmitable = () => {
-    return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice.length > 3;
+    return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice;
   };
 
   const handleNextOnCampaign = () => {
@@ -63,12 +57,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
 
   const handleSubmit = async () => {
     let priceId: any = '';
-    const price = pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Price'];
-    if (price === 10000) priceId = process.env.REACT_APP_PRICE_10000;
-    else if (price === 15000) priceId = process.env.REACT_APP_PRICE_15000;
-    else if (price === 20000) priceId = process.env.REACT_APP_PRICE_20000;
-    else if (price === 25000) priceId = process.env.REACT_APP_PRICE_25000;
-    else priceId = process.env.REACT_APP_PRICE_50000;
+    const price = currentPrice;
 
     if (!uiId) {
       alert('There is not UI assigned for this Campaign, Please save your UI first');
@@ -83,7 +72,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       setCurrentTab('detail');
       setCampaignName('');
       setCurrentTarget('consumer');
-      setCurrentPrice('');
+      setCurrentPrice('10000');
       setUIID(undefined);
       setUrl('');
       setShow(false);
@@ -117,7 +106,6 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       setCurrentTab('detail');
       setCampaignName('');
       setCurrentTarget('consumer');
-      setCurrentPrice('');
       setUIID(undefined);
       setUrl('');
       setShow(false);
@@ -247,21 +235,19 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                         <div className='p-2 bg-white'>
                           <h2 className='font-[Inter] text-lg font-semibold'>Budget</h2>
                           <p className='font-[Inter] text-gray-800 text-md my-2'>Select your maximum budget for this campaign</p>
-                          <p className='font-[Inter] text-gray-600 text-sm my-2'>*Keep in mind, these are all verified, targeted, engaged and trusting reader that will be clicking through directly to your landing page of choice</p>
-
-                          <select className='w-full border-[1px] rounded border-black px-2 py-1 my-4' onChange={e => setCurrentPrice(e.target.value)}>
-                            {
-                              pricing.filter(price => price['fields']['Demographic'] === (currentTarget === 'consumer' ? 'B2C' : 'B2B')).sort((a, b) => b['fields']['Price'] - a['fields']['Price']).map((item: any) => {
-                                return <option value={item.id} key={item.id}>{item.fields['Budget']}</option>
-                              })
-                            }
-                          </select>
-                          {currentPrice.length >= 3 &&
+                          <p className='font-[Inter] text-gray-600 text-sm my-2'>*Keep in mind, these are all verified, targeted, engaged and trusting readers that will be clicking through directly to your landing page of choice</p>
+                          <input
+                            value={currentPrice}
+                            className='px-3 py-2 border-[1px] rounded-[10px]'
+                            onChange={e => setCurrentPrice(e.target.value)}
+                            type="number"
+                            min={10000}
+                          />
+                          {currentPrice &&
                             <div className='mb-5'>
                               <span className='font-[Inter] text-sm my-3 text-[#6C63FF]'>
-                                {`*Estimated clicks for the campaign are ${pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Estimated Clicks']}`}
+                                {`*Estimated clicks for the campaign are ${Math.floor(Number(currentPrice) / (currentTarget === 'consumer' ? 8 : 20))}`}
                               </span>
-                              <span className='font-semibold font-[Inter] text-black text-sm ms-4'>{`For B2C = $${pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Price']} / $8, For B2B = $${pricing.filter((item: any) => item.id === currentPrice)[0]['fields']['Price']} / $20`}</span>
                             </div>
                           }
                         </div>
@@ -272,10 +258,10 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                       currentTab === 'review' && <>
                         <div className='p-2 bg-white'>
                           <h2 className='font-bold text-lg font-[Inter]'>Review</h2>
-                          {currentAudience.length >= 1 && currentPrice.length > 3 &&
+                          {currentAudience.length >= 1 && currentPrice &&
                             <div className='my-3'>
                               <p className='py-2'><span className='font-semibold me-2'>Dates:</span>The campaign will start from today until the budget is reached.</p>
-                              <p className='py-2'><span className='font-semibold me-2'>Max Budget:</span>{pricing.filter(price => price['id'] === currentPrice)[0]['fields']['Budget']}</p>
+                              <p className='py-2'><span className='font-semibold me-2'>Max Budget:</span>{currentPrice}</p>
                               <p className='py-2'><span className='font-semibold me-2'>Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
                               <p className='py-2'><span className='font-semibold me-2'>Target Audience Tags:</span>{currentAudience.map((item: any) => item.value).join(', ')}</p>
                             </div>
