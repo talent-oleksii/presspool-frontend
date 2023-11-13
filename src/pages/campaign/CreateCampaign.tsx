@@ -10,11 +10,25 @@ import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
 import EditCampaignUI from './EditCampaignUI';
 
+import { NewspaperIcon, RadioIcon } from '@heroicons/react/20/solid';
+import { StylesConfig } from 'react-select';
+
 interface typeCreateCampaign {
   show: boolean;
   setShow: Function;
   afterAdd?: Function;
 }
+
+const customStyles: StylesConfig = {
+  control: (provided: Record<string, unknown>, state: any) => ({
+    ...provided,
+    border: state.isFocused ? "1px solid black" : "1px solid black",
+    // "&:hover": {
+    //   border: "1px solid #ff8b67",
+    //   boxShadow: "0px 0px 6px #ff8b67"
+    // }
+  })
+};
 
 const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typeCreateCampaign) => {
   const [loading, setLoading] = useState(false);
@@ -132,34 +146,34 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative bg-[#F5F5F5] rounded-lg px-4 pb-4 pt-5 text-left shadow-xl sm:w-[1000px] sm:min-h-[500px] border-[1px] border-black">
+              <Dialog.Panel className="relative bg-white rounded-lg px-4 pb-4 pt-2 text-left shadow-xl sm:w-[1000px] sm:min-h-[500px] border-[1px] border-black">
                 {loading && <Loading />}
                 <h2 className='font-[Inter] text-[20px] font-semibold m-4'>Create New Campaign</h2>
-                <div className="mt-5 grid grid-cols-4">
-                  <div className='col-span-1 flex flex-col border-[#D9D9D9] px-2 h-full'>
+                <div className="mt-5 flex flex-col items-center justify-center">
+                  <div className='flex border-[#D9D9D9] h-full bg-[#F5F5F5] py-2 rounded'>
                     <button
-                      className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'detail' ? 'bg-[#D9D9D9]' : ''}`}
+                      className={`px-3 py-2 mx-4 font-[Inter] rounded font-semibold text-left ${currentTab === 'detail' ? 'bg-[#2D2C2D] text-gray-200' : 'text-black'}`}
                       onClick={handleClick}
                       id="detail"
                     >
                       Campaign Details
                     </button>
                     <button
-                      className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'audience' ? 'bg-[#D9D9D9]' : ''}`}
+                      className={`px-3 py-2 mx-4 font-[Inter] rounded font-semibold text-left ${currentTab === 'audience' ? 'bg-[#2D2C2D] text-gray-200' : 'text-black'}`}
                       onClick={handleClick}
                       id="audience"
                     >
                       Target Audience
                     </button>
                     <button
-                      className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'budget' ? 'bg-[#D9D9D9]' : ''}`}
+                      className={`px-3 py-2 mx-4 font-[Inter] rounded font-semibold text-left ${currentTab === 'budget' ? 'bg-[#2D2C2D] text-gray-200' : 'text-black'}`}
                       onClick={handleClick}
                       id="budget"
                     >
                       Budget
                     </button>
                     <button
-                      className={`px-3 py-2 font-[Inter] rounded font-semibold text-left ${currentTab === 'review' ? 'bg-[#D9D9D9]' : ''}`}
+                      className={`px-3 py-2 mx-4 font-[Inter] rounded font-semibold text-left ${currentTab === 'review' ? 'bg-[#2D2C2D] text-gray-200' : 'text-black'}`}
                       onClick={handleClick}
                       id="review"
                     >
@@ -170,20 +184,20 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                     {
                       currentTab === 'detail' && <>
                         <div className='bg-white p-2'>
+                          <p className='mt-4 mb-4 text-[20px] font-[Inter] text-black font-semibold'>What would you like to name your campaign?</p>
                           <input
-                            className='px-3 py-2 rounded-[10px] w-full border font-[Inter]'
-                            placeholder="Give your campaign a name"
+                            className='px-3 py-2 rounded w-full border font-[Inter] border-black'
+                            // placeholder="Give your campaign a name"
                             value={campaignName}
                             onChange={e => setCampaignName(e.target.value)}
                           />
-                          <p className='mt-4 mb-2 text-md font-[Inter] text-gray-900'>Site URL</p>
+                          <p className='mt-4 mb-4 text-[20px] font-[Inter] text-black font-semibold'>What is your website URL? (We will get your landing page later).</p>
                           <input
-                            className='px-3 py-2 rounded-[10px] w-full border font-[Inter]'
-                            placeholder="https://example.com"
+                            className='px-3 py-2 rounded w-full border font-[Inter] border-black'
+                            // placeholder="https://example.com"
                             value={url}
                             onChange={e => setUrl(e.target.value)}
                           />
-                          <p className='text-sm font-[Inter] text-gray-500 mt-2 font-normal'>We only need the domain of your site. We'll ask for the landing page shortly.</p>
                         </div>
                         <button
                           className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-7'
@@ -197,34 +211,32 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                     {
                       currentTab === 'audience' && <>
                         <div className='bg-white p-2'>
-                          <p className='font-[Inter] font-normal text-lg my-3'>Targeting Options</p>
-                          <div className='grid grid-cols-2 gap-4'>
+                          <p className='font-[Inter] font-normal text-[20px] my-3 font-semibold'>Who are you targeting</p>
+                          <div className='flex items-center'>
                             <button
-                              className={`col-span-1 flex rounded-[5px] p-4 flex flex-col ${currentTarget === 'consumer' ? 'bg-[#6c63ff]' : 'bg-gray-600'}`}
+                              className={`w-[170px] flex rounded-[20px] px-4 py-6 flex flex-col items-center justify-center text-black ${currentTarget === 'consumer' ? 'bg-[#2D2C2D]' : 'bg-[#F5F5F5]'}`}
                               onClick={() => setCurrentTarget('consumer')}
                             >
-                              <h2 className='font-[Inter] text-white font-semibold'>Consumer</h2>
-                              <p className='font-[Inter] text-md text-gray-100'>Target by location, age, gender, income bracket etc</p>
+                              <NewspaperIcon className='h-[20px] mb-3' />
+                              <h2 className='font-[Inter] text-black font-semibold'>Consumer</h2>
                             </button>
                             <button
-                              className={`col-span-1 flex rounded-[5px] p-4 flex flex-col ${currentTarget === 'professional' ? 'bg-[#6c63ff]' : 'bg-gray-600'}`}
+                              className={`w-[170px] ms-5 flex rounded-[20px] px-4 py-6 flex text-black flex-col items-center justify-center ${currentTarget === 'professional' ? 'bg-[#2D2C2D]' : 'bg-[#F5F5F5]'}`}
                               onClick={() => setCurrentTarget('professional')}
                             >
-                              <h2 className='font-[Inter] text-white font-semibold'>Professional</h2>
-                              <p className='font-[Inter] text-md text-gray-100'>Target by location, company size, industry, job title etc</p>
+                              <RadioIcon className='h-[20px] mb-3' />
+                              <h2 className='font-[Inter] text-black font-semibold'>Professional</h2>
                             </button>
                           </div>
-                          <div className="my-3">
-                            <p className='my-2 text-gray-700 font-[Inter] text-lg'>Ideal Audience Tags</p>
-                            <div className='p-2'>
-                              <p className='text-md font-[Inter]'>You can get started by selecting one of our most frequently requested audiences or define your own below</p>
-                              <CreatableSelect
-                                value={currentAudience}
-                                onChange={e => setCurrentAudience(e.map(item => ({ value: item.value, label: item.label })))}
-                                isMulti
-                                options={audience.map((item: any) => ({ value: item.id, label: item.name }))}
-                              />
-                            </div>
+                          <div className="my-5">
+                            <p className='text-[20px] font-[Inter] font-bold my-5'>Please add specific audience industry tags you would like to target:</p>
+                            <CreatableSelect
+                              styles={customStyles}
+                              value={currentAudience}
+                              onChange={e => setCurrentAudience(e.map(item => ({ value: item.value, label: item.label })))}
+                              isMulti
+                              options={audience.map((item: any) => ({ value: item.id, label: item.name }))}
+                            />
                           </div>
                         </div>
                         <button className='rounded-[5px] bg-[#6c63ff] px-3 py-2 text-white mt-4' onClick={() => setCurrentTab('budget')}>Next Step</button>
@@ -233,12 +245,11 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                     {
                       currentTab === 'budget' && <>
                         <div className='p-2 bg-white'>
-                          <h2 className='font-[Inter] text-lg font-semibold'>Budget</h2>
-                          <p className='font-[Inter] text-gray-800 text-md my-2'>Select your maximum budget for this campaign</p>
-                          <p className='font-[Inter] text-gray-600 text-sm my-2'>*Keep in mind, these are all verified, targeted, engaged and trusting readers that will be clicking through directly to your landing page of choice</p>
+                          <h2 className='font-[Inter] text-[20px] font-semibold mt-4'>Please type in your budget cap for this campaign</h2>
+                          <p className='font-[Inter] text-gray-600 text-sm my-4'>*Keep in mind, these are all verified, targeted, engaged and trusting readers that will be clicking<br /> through directly to your landing page of choice</p>
                           <input
                             value={currentPrice}
-                            className='px-3 py-2 border-[1px] rounded-[10px]'
+                            className='px-3 py-2 my-3 border-[1px] rounded border-black'
                             onChange={e => setCurrentPrice(e.target.value)}
                             type="number"
                             min={10000}
@@ -257,18 +268,18 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                     {
                       currentTab === 'review' && <>
                         <div className='p-2 bg-white'>
-                          <h2 className='font-bold text-lg font-[Inter]'>Review</h2>
+                          <h2 className='font-bold text-[20px] font-[Inter] mt-3'>Review</h2>
                           {currentAudience.length >= 1 && currentPrice &&
                             <div className='my-3'>
-                              <p className='py-2'><span className='font-semibold me-2'>Dates:</span>The campaign will start from today until the budget is reached.</p>
-                              <p className='py-2'><span className='font-semibold me-2'>Max Budget:</span>{currentPrice}</p>
-                              <p className='py-2'><span className='font-semibold me-2'>Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
-                              <p className='py-2'><span className='font-semibold me-2'>Target Audience Tags:</span>{currentAudience.map((item: any) => item.value).join(', ')}</p>
+                              <p className='py-2'><span className='font-medium me-2'>⭐ Dates:</span>The campaign will start from today until the budget is reached.</p>
+                              <p className='py-2'><span className='font-medium me-2'>⭐ Max Budget:</span>{`$${currentPrice}`}</p>
+                              <p className='py-2'><span className='font-medium me-2'>⭐ Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
+                              <p className='py-2'><span className='font-medium me-2'>⭐ Target Audience Tags:</span>{currentAudience.map((item: any) => item.value).join(', ')}</p>
                             </div>
                           }
                         </div>
                         <div>
-                          {currentAudience.length >= 1 && currentPrice.length > 3 && <button className='rounded-[5px] bg-[#6c63ff] px-4 py-2 text-white mt-2' disabled={!isSubmitable()} onClick={handleSubmit}>Submit</button>}
+                          {currentAudience.length >= 1 && currentPrice.length > 3 && <button className='rounded-[5px] bg-[#6c63ff] px-5 py-2 text-white mt-2' disabled={!isSubmitable()} onClick={handleSubmit}>Submit</button>}
                           <button className='bg-transparent text-md text-gray-600 font-[Inter] px-4 py-2' onClick={handleSave}>Save Campaign</button>
                         </div>
                       </>
