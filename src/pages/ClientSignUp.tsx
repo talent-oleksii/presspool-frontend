@@ -60,13 +60,13 @@ const ClientSignUp: FC = () => {
                 <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white]'>Sign Up</h2>
                 <p className='font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
-            <div className='flex flex-col justify-center items-center'>
-                <div className="shadow-lg shadow-[#0a0a0a]/[.04] w-[450px] sm:w-[630px] bg-[white] rounded-[15px]">
+            <div className='flex flex-col justify-center items-center px-[120px]'>
+                <div className="shadow-lg shadow-[#0a0a0a]/[.04] w-full bg-[white] rounded-[15px] py-[50px]">
                     <div className="flex flex-col items-center justify-center py-3">
                         <img src={Mark} alt="mark" className="w-[50px]" />
                     </div>
 
-                    <form className="text-left p-2" onSubmit={handleSubmit}>
+                    <form className="text-left p-[20px]" onSubmit={handleSubmit}>
                         <input
                             id='fullName'
                             name='fullName'
@@ -74,7 +74,7 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Full Name'
                             type="text"
-                            className="w-full border-indigo-500 border-[1px] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
                         <input
                             id='company'
@@ -83,7 +83,7 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Company Name'
                             type="text"
-                            className="w-full border-indigo-500 border-[1px] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
                         <input
                             id='email'
@@ -92,7 +92,7 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Email'
                             type="email"
-                            className="w-full border-indigo-500 border-[1px] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
                         <input
                             id='password'
@@ -101,14 +101,14 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Password'
                             type="password"
-                            className="w-full border-indigo-500 border-[1px] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
                         <div className='my-3 flex items-center'>
                             <input
                                 checked={formData.agreeTerm}
                                 onChange={e => setFormData({ ...formData, agreeTerm: e.target.checked })}
                                 type="checkbox"
-                                className='rounded-sm border-indigo-500 border-[1px] p-1'
+                                className='rounded-sm border-[1px] p-1'
                             />
                             <span className='ms-2 font-[Inter] text-md'>
                                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
@@ -123,7 +123,7 @@ const ClientSignUp: FC = () => {
                         </button>
                     </form>
                     <div className='flex items-center justify-center my-3'>
-                        <Link className="text-lg text-center w-full font-[Inter] text-[#6c63ff]" to="/login">Already have an account? Login</Link>
+                        <Link className="text-md text-center w-full font-[Inter] text-[#6c63ff]" to="/login">Already have an account? Login</Link>
                     </div>
                 </div>
             </div>
