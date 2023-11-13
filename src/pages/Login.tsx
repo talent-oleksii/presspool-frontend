@@ -43,7 +43,7 @@ const Login: FC = () => {
                 setShowDialog(true);
             } else {
                 dispatch(setAuthenticated());
-                dispatch(setEmail({ email: ret[0]['fields']['Email'], name: ret[0]['fields']['First Name'] }));
+                dispatch(setEmail({ email: ret[0]['fields']['Email'], name: ret[0]['fields']['First Name'], fullName: ret[0]['fields']['Full Name'] }));
                 navigator('/campaign/all');
             }
         }).catch(err => {

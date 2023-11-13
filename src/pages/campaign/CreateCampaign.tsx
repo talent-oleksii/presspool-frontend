@@ -274,9 +274,20 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                               <p className='py-2'><span className='font-medium me-2'>⭐ Dates:</span>The campaign will start from today until the budget is reached.</p>
                               <p className='py-2'><span className='font-medium me-2'>⭐ Max Budget:</span>{`$${currentPrice}`}</p>
                               <p className='py-2'><span className='font-medium me-2'>⭐ Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
-                              <p className='py-2'><span className='font-medium me-2'>⭐ Target Audience Tags:</span>{currentAudience.map((item: any) => item.value).join(', ')}</p>
+                              <p className='py-2'><span className='font-medium me-2'>⭐ Target Audience Tags:</span>{currentAudience.map((item: any) => item.label).join(', ')}</p>
                             </div>
                           }
+                          <h2 className='font-bold text-[20px] font-[Inter] mt-3'>Billing Setup</h2>
+                          <p className='font-[Inter] text-sm font-normal text-gray-400 sm:max-w-[550px]'>We charge a one-time deposit of $250 which will be applied to your campaign as a credit. All further campaign activity is billed at the end of every week or when your account hits its billing threshold. </p>
+                          <p className='text-gray-700 my-3'>Payment Method</p>
+                          <div className='flex'>
+                            <select>
+                              {/* <option>
+                                <span className='py-2 text-xs bg-gray-800'>VISA</span> exp: 5/2028
+                              </option> */}
+                            </select>
+                            <button className='mx-4 font-[Inter] text-'>+ Add New Card</button>
+                          </div>
                         </div>
                         <div>
                           {currentAudience.length >= 1 && currentPrice.length > 3 && <button className='rounded-[5px] bg-[#6c63ff] px-5 py-2 text-white mt-2' disabled={!isSubmitable()} onClick={handleSubmit}>Submit</button>}

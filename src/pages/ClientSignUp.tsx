@@ -46,7 +46,7 @@ const ClientSignUp: FC = () => {
             console.log('data:', data.data);
             const ret = data.data;
             dispatch(setAuthenticated());
-            dispatch(setEmail({ email: ret['fields']['Email'], name: ret['fields']['First Name'] }));
+            dispatch(setEmail({ email: ret['fields']['Email'], name: ret['fields']['First Name'], fullName: ret['fields']['Full Name'] }));
             setShowDialog(true);
         }).catch(err => {
             console.log('err:', err);

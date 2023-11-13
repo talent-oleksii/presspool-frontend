@@ -5,12 +5,14 @@ interface AuthState {
   isAuthenticated: boolean;
   email: string;
   name: string;
+  fullName: string;
 }
 
 const initialState: AuthState = {
   isAuthenticated: localStorage.getItem('isAuthenticated') === 'true',
   email: localStorage.getItem('email') || '',
   name: localStorage.getItem('name') || '',
+  fullName: localStorage.getItem('fullName') || '',
 };
 
 const authSlice = createSlice({
@@ -28,8 +30,10 @@ const authSlice = createSlice({
     setEmail: (state, action) => {
       state.email = action.payload.email;
       state.name = action.payload.name;
+      console.log('actio:', action.payload);
       localStorage.setItem('email', action.payload.email);
       localStorage.setItem('name', action.payload.name);
+      localStorage.setItem('fullName', action.payload.fullName);
     },
   },
 });
