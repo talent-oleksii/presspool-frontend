@@ -56,9 +56,9 @@ const ClientSignUp: FC = () => {
     return (
         <div className='grid sm:grid-cols-2 gap-4 min-h-[100vh]'>
             <div className='h-full flex flex-col justify-center items-center px-9 relative'>
-                <img className='absolute t-0 z-[-1]' src={SignUpBack} alt="limit" />
-                <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white]'>Sign Up</h2>
-                <p className='font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
+                <img className='absolute t-0 z-[0]' src={SignUpBack} alt="limit" />
+                <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
+                <p className='z-[1] font-[Inter] text-[white] text-[25px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
             <div className='flex flex-col justify-center items-center px-[120px]'>
                 <div className="shadow-lg shadow-[#0a0a0a]/[.04] w-full bg-[white] rounded-[15px] py-[50px]">

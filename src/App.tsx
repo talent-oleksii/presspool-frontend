@@ -10,8 +10,8 @@ import MainContent from './pages/MainContent';
 
 const App: FC = () => {
   return (
-    <div className="App flex justify-center">
-      <div className='w-[1440px] bg-[#F5F5F5] min-h-[100vh]'>
+    <div className="App flex justify-center bg-[#F5F5F5]">
+      <div className='w-[1440px] min-h-[100vh]'>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
