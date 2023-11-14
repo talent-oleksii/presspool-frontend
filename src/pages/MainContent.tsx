@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HiLogout, HiHome, HiSpeakerphone, HiClipboardList, HiSupport } from 'react-icons/hi';
 import { setUnauthenticated, selectAuth } from '../store/authSlice';
 
-import Campaign from './Campaign';
+import Dashboard from './dashboard';
+import Billing from './billing';
+import Support from "./support";
+import Detail from './campaign';
 import Admin from './admin';
 import User from '../assets/image/Headshot 1.png';
 import Logo from '../assets/logo/logo.png';
@@ -60,7 +63,10 @@ const MainContent: FC = () => {
 
       <div className='bg-[#F5F5F5] w-full px-[75px] py-[40px]'>
         <Routes>
-          <Route path="/campaign/*" element={<Campaign />} />
+          <Route path="/campaign/*" element={<Dashboard />} />
+          <Route path="/detail" element={<Detail />} />
+          <Route path="/billing" element={<Billing />} />
+          <Route path="/support" element={<Support />} />
           <Route path="/admin/*" element={<Admin />} />
         </Routes>
       </div>

@@ -6,6 +6,7 @@ interface AuthState {
   email: string;
   name: string;
   fullName: string;
+  company: string;
 }
 
 const initialState: AuthState = {
@@ -13,6 +14,7 @@ const initialState: AuthState = {
   email: localStorage.getItem('email') || '',
   name: localStorage.getItem('name') || '',
   fullName: localStorage.getItem('fullName') || '',
+  company: localStorage.getItem('company') || '',
 };
 
 const authSlice = createSlice({
@@ -34,6 +36,7 @@ const authSlice = createSlice({
       localStorage.setItem('email', action.payload.email);
       localStorage.setItem('name', action.payload.name);
       localStorage.setItem('fullName', action.payload.fullName);
+      localStorage.setItem('company', action.payload.company);
     },
   },
 });

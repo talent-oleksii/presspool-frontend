@@ -37,7 +37,7 @@ const Dashboard: FC = () => {
     <div className='text-left relative'>
       {loading && <Loading />}
       <h1 className='font-semibold font-[Inter] text-[32px]'>Welcome {name} 🤝</h1>
-      <p className='my-4 text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
+      <p className='my-2 text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
 
       <button className='rounded-[5px] bg-[#6C63FF] font-[Inter] font-semibold text-[white] font-md px-4 py-2' onClick={() => setShowAddDialog(true)}>Create New Campaign</button>
       <div className='flex'>

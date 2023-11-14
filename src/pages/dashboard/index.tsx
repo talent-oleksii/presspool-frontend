@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import Dashboard from './campaign/Dashboard';
-import Approve from './campaign/Approve';
-import Advertisement from './campaign/Advertisement';
+import Dashboard from './Dashboard';
+import Approve from './Approve';
+import Advertisement from './Advertisement';
 
 
-const Campaign: FC = () => {
+const DashboardRoute: FC = () => {
 	return (
 		<Routes>
 			<Route path="/:id" element={<Dashboard />} />
@@ -16,4 +16,4 @@ const Campaign: FC = () => {
 	);
 };
 
-export default Campaign;
+export default DashboardRoute;

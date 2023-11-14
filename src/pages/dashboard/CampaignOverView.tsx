@@ -133,7 +133,7 @@ const CampaignOverView: FC = () => {
             <tbody>
               {
                 data01.map((item, index) => (
-                  <tr>
+                  <tr key={index}>
                     <td>{item.name}</td>
                     <td>15,000</td>
                     <td>250</td>

@@ -24,6 +24,7 @@ const getCampaignPayUrl = async (email: string, campaignId: string, backUrl: str
 };
 
 const StripeUtil = {
+  stripe,
   getCampaignPayUrl
 };
 
