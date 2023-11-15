@@ -101,7 +101,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
         <div className='my-4 p-5 min-h-[250px] rounded-[10px] bg-white'>
           <div className='flex justify-between items-center'>
             <div>
-              <h2 className='font-[Inter] text-[20px] font-semibold'>{data.name}</h2>
+              <h2 className='font-[Inter] text-[20px] font-semibold'>
+                {data.name}
+
+                <span className='ms-3 text-xs'>{`https://presspool-frontend.onrender.com/#/cul/${data.uid}`}</span>
+              </h2>
               <p className='font-[Inter] text-gray-500'>Let's see how your campaign is performing</p>
 
             </div>
@@ -139,7 +143,9 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                   <div className='flex justify-between items-center' key={index}>
                     <div className='flex my-2'>
                       <div className={`w-[15px] h-[15px] rounded-[5px] me-2`} style={{ backgroundColor: item.color }} />
-                      <p className='font-[Inter] font-semibold text-xs'>{item.name}</p>
+                      <p className='font-[Inter] font-semibold text-xs'>
+                        {item.name}
+                      </p>
                     </div>
                     <p>{`${item.value}%`}</p>
                   </div>
@@ -162,7 +168,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               <tbody>
                 {
                   data01.map((item, index) => (
-                    <tr>
+                    <tr key={index}>
                       <td>{item.name}</td>
                       <td>15,000</td>
                       <td>250</td>

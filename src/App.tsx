@@ -6,6 +6,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import ClientSignUp from './pages/ClientSignUp';
 import MainContent from './pages/MainContent';
+import URLRedirector from './pages/URLRedirector';
 
 
 const App: FC = () => {
@@ -16,6 +17,7 @@ const App: FC = () => {
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
           <Route path="/client-sign-up" element={<ClientSignUp />} />
+          <Route path="/cul/:id" element={<URLRedirector />} />
           <Route path="/*" element={<MainContent />} />
         </Routes>
       </div>
