@@ -5,6 +5,13 @@ import Loading from '../components/Loading';
 
 const URLRedirector: FC = () => {
   const { id } = useParams();
+  useEffect(() => {
+    document.title = 'loading...';
+
+    return () => {
+      document.title = 'loading...';
+    };
+  }, []);
 
   useEffect(() => {
     if (id) {
