@@ -9,6 +9,7 @@ import { setAuthenticated, setEmail } from '../store/authSlice';
 import APIInstance from "../api";
 
 import Mark from '../assets/logo/logo.png';
+import Loading from "../components/Loading";
 
 interface typeLoginForm {
     email: string;
@@ -23,6 +24,7 @@ const Login: FC = () => {
         password: '',
     });
     const [showDialog, setShowDialog] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigator = useNavigate();
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -35,6 +37,7 @@ const Login: FC = () => {
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
+        setLoading(true);
         APIInstance.get('auth/sign-in', {
             params: formData,
         }).then(data => {
@@ -53,11 +56,12 @@ const Login: FC = () => {
             }
         }).catch(err => {
             console.log('error:', err);
-        });
+        }).finally(() => setLoading(false));
     };
 
     return (
-        <div className="flex flex-col items-center justify-center py-9 bg-[#fafafc] min-h-[100vh]">
+        <div className="flex flex-col items-center justify-center py-9 bg-[#fafafc] min-h-[100vh] relative">
+            {loading && <Loading />}
             <div className="shadow-lg shadow-[#0a0a0a]/[.04] w-[450px] sm:w-[630px] bg-[white] rounded-[15px]">
                 <div className="flex flex-col items-center justify-center p-7 border-b-[1px] border-[#ededed]">
                     <img src={Mark} alt="mark" className="w-[50px]" />

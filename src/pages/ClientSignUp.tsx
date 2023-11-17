@@ -9,6 +9,7 @@ import { setAuthenticated, setEmail } from '../store/authSlice';
 import APIInstance from '../api';
 import SignUpBack from '../assets/image/sign upback.jpeg';
 import Mark from '../assets/logo/logo.png';
+import Loading from '../components/Loading';
 
 interface FormData {
     fullName: string;
@@ -21,6 +22,7 @@ interface FormData {
 const ClientSignUp: FC = () => {
     const dispatch = useDispatch();
     const [showDialog, setShowDialog] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<FormData>({
         fullName: '',
         company: '',
@@ -40,6 +42,7 @@ const ClientSignUp: FC = () => {
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
+        setLoading(true);
         APIInstance.post('auth/client-sign-up', {
             ...formData
         }).then(data => {
@@ -55,11 +58,12 @@ const ClientSignUp: FC = () => {
             setShowDialog(true);
         }).catch(err => {
             console.log('err:', err);
-        }).finally();
+        }).finally(() => setLoading(false));
     };
 
     return (
-        <div className='flex h-full'>
+        <div className='flex h-full relative'>
+            {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%]'>
                 <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" />
                 <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
