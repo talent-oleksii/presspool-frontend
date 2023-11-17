@@ -12,6 +12,7 @@ import Loading from '../../components/Loading';
 const Campaign: FC = () => {
   const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  const [searchStr, setSearchStr] = useState('');
   const [campaign, setCampaign] = useState<Array<any>>([]);
   const { company } = useSelector(selectAuth);
 
@@ -20,14 +21,14 @@ const Campaign: FC = () => {
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      APIInstance.get('data/campaign', { params: { email } }),
+      APIInstance.get('data/campaign', { params: { email, searchStr } }),
     ]).then((results: Array<any>) => {
       console.log('data:', results[0].data);
       setCampaign(results[0].data);
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
-  }, []);
+  }, [searchStr]);
 
   const handleBudget = async (data: any) => {
     let priceId: any = '';
@@ -55,6 +56,8 @@ const Campaign: FC = () => {
         <input
           className='me-2 font-[Inter] flex-1 px-4 py-2 border-gray-500 border-[1px] rounded-[5px]'
           placeholder='Type here to search by campaign name'
+          value={searchStr}
+          onChange={e => setSearchStr(e.target.value)}
         />
         <select className='font-[Inter] px-3 py-2 rounded-[5px] border-[1px] border-gray-500'>
           <option value="nto">Newest to Oldest</option>
