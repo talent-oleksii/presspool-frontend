@@ -95,7 +95,7 @@ const Dashboard: FC = () => {
             </select>
           </div>
           {
-            id === 'all' ? <CampaignOverView /> : id === 'news' ? <NewsLetterDetail /> : <CampaignDetail id={id} />
+            id === 'all' ? <CampaignOverView data={campaign} /> : id === 'news' ? <NewsLetterDetail /> : <CampaignDetail id={id} />
           }
 
           <CreateCampaign

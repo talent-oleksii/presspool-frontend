@@ -83,15 +83,15 @@ const Campaign: FC = () => {
               </div>
               <div className='flex flex-col items-center'>
                 <p className='font-semibold font-[Inter] text-[10px]'>Total Total Clicks:</p>
-                <p className='font-semibold font-[Inter] text-[12px]'>0</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>{item.click_count}</p>
               </div>
               <div className='flex flex-col items-center'>
                 <p className='font-semibold font-[Inter] text-[10px]'>AVG CPC:</p>
-                <p className='font-semibold font-[Inter] text-[12px]'>{item.demographic === 'consumer' ? '$8' : '$20'}</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
               </div>
               <div className='flex flex-col items-center'>
                 <p className='font-semibold font-[Inter] text-[10px]'>Total Spend:</p>
-                <p className='font-semibold font-[Inter] text-[12px]'>$0</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.click_count * (item.demographic === 'consumer' ? 8 : 20)}`}</p>
               </div>
               <div className='flex flex-col items-center'>
                 <p className='font-semibold font-[Inter] text-[10px]'>Budget Remaining:</p>
@@ -113,7 +113,7 @@ const Campaign: FC = () => {
             </div>
           )}
           >
-            <div className='border-t-[1px] border-black/[.12] bg-white p-[25px]'>
+            <div className='border-t-[1px] border-black/[.12] bg-white p-[25px] rounded-[10px]'>
               <div className='flex'>
                 <img className='w-[242px] h-[133px] object-cover' alt="market" src={item.image} />
                 <div className='ms-[16px] py-[10px] flex flex-col items-start justify-center'>

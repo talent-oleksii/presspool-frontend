@@ -1,70 +1,78 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, PieChart, Pie } from 'recharts';
 
-const data = [{
-  name: '08 Oct 2023',
-  click: 4,
-  impression: 2,
-}, {
-  name: '09 Oct 2023',
-  click: 5,
-  impression: 3,
-}, {
-  name: '12 Oct 2023',
-  click: 2.6,
-  impression: 12,
-}];
+const data: Array<any> = [];
 
-const data01 = [
-  {
-    "name": "Newsletter 1",
-    "value": 20,
-    color: '#ff0000',
-  },
-  {
-    "name": "Newsletter 2",
-    "value": 35,
-    color: '#00ff00',
-  },
-  {
-    "name": "Newsletter 3",
-    "value": 35,
-    color: '#0000ff',
-  },
-  {
-    "name": "Newsletter 4",
-    "value": 10,
-    color: '#020202',
-  },
-];
+const data01: Array<any> = [];
 
-const CampaignOverView: FC = () => {
+interface typeOverView {
+  data: Array<any>
+}
+
+const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
+  const [chartData, setChartData] = useState<any>();
+
+  useEffect(() => {
+    setChartData([{ click: getTotalClick(), impression: 0 }]);
+  }, [data]);
+
+  const getTotalImpression = () => {
+    return 0;
+  };
+
+  const getTotalClick = () => {
+    let click = 0;
+
+    for (const item of data) {
+      click += Number(item.click_count);
+    }
+    return click;
+  };
+
+  const getAverageCPC = () => {
+    let cpc = 0;
+    for (const item of data) {
+      cpc += item.demographic === 'consumer' ? 8 : 20;
+    }
+
+    return cpc / data.length;
+  };
+
+  const getTotalSpend = () => {
+    let spend = 0;
+    for (const item of data) {
+      spend += (item.demographic === 'consumer' ? 8 : 20) * Number(item.click_count);
+    }
+
+    return spend;
+  };
+
   return (
     <div>
       <div className='mt-2 rounded-[10px] grid grid-cols-4 gap-4'>
         <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white'>
-          <h2 className='text-[25px] font-[Inter] font-semibold'>100,000</h2>
+          <h2 className='text-[25px] font-[Inter] font-semibold'>{getTotalImpression()}</h2>
           <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>Total Impressions</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>+ 200%</div>
-          <p className='text-gray-500 text-[10px]'>from 50,000 (last 4 weeks)</p>
+          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-          <h2 className='text-[25px] font-[Inter] font-semibold'>3,000</h2>
+          <h2 className='text-[25px] font-[Inter] font-semibold'>{getTotalClick()}</h2>
           <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>Total Clicks</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>+ 300%</div>
-          <p className='text-gray-500 text-[10px]'>from 1,000 (last 4 weeks)</p>
+          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-          <h2 className='text-[25px] font-[Inter] font-semibold'>$24,000</h2>
+          <h2 className='text-[25px] font-[Inter] font-semibold'>{`$${getTotalSpend()}`}</h2>
           <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>Total Spend</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>+ 200%</div>
-          <p className='text-gray-500 text-[10px]'>from $12,000 (last 4 weeks)</p>
+          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-          <h2 className='text-[25px] font-[Inter] font-semibold'>$8</h2>
+          <h2 className='text-[25px] font-[Inter] font-semibold'>{`$${getAverageCPC()}`}</h2>
           <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>AVG CPC</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>- 20%</div>
-          <p className='text-gray-500 text-[10px]'>from $10 (last 4 weeks)</p>
+          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
         </div>
       </div>
 
@@ -82,7 +90,7 @@ const CampaignOverView: FC = () => {
         </div>
 
         <div className='flex relative'>
-          <LineChart width={700} height={200} data={data} className='mt-[50px] w-full'>
+          <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
             <Line type="linear" dataKey="click" stroke="black" />
             <Line type="linear" dataKey="impression" stroke="#6c63ff" />
             {/* <CartesianGrid stroke="#ccc" strokeDasharray="5.5" /> */}
