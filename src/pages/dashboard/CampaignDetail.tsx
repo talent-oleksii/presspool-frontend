@@ -71,10 +71,10 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     <div className='relative'>
       {loading && <Loading />}
       {!loading && data && <>
-        <div className='mt-2 rounded-[10px] grid grid-cols-4 gap-4'>
+        <div className='mt-3 rounded-[10px] grid grid-cols-4 gap-4'>
           <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white'>
             <h2 className='text-[25px] font-[Inter] font-semibold'>100,000</h2>
-            <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>Total Impressions</p>
+            <p className='text-xs font-[Inter] font-semibold my-1 text-gray-600'>Total Impressions</p>
             <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>+ 200%</div>
             <p className='text-gray-500 text-[10px]'>from 50,000 (last 4 weeks)</p>
           </div>

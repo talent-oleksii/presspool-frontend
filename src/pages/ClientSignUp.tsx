@@ -59,13 +59,13 @@ const ClientSignUp: FC = () => {
     };
 
     return (
-        <div className='grid sm:grid-cols-2 gap-4 min-h-[100vh]'>
-            <div className='h-full flex flex-col justify-center items-center px-9 relative'>
-                <img className='absolute t-0 z-[0]' src={SignUpBack} alt="limit" />
+        <div className='flex h-full'>
+            <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%]'>
+                <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" />
                 <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[25px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
+                <p className='z-[1] font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
-            <div className='flex flex-col justify-center items-center px-[120px]'>
+            <div className='flex flex-col justify-center items-center px-[150px]'>
                 <div className="shadow-lg shadow-[#0a0a0a]/[.04] w-full bg-[white] rounded-[15px] py-[50px]">
                     <div className="flex flex-col items-center justify-center py-3">
                         <img src={Mark} alt="mark" className="w-[50px]" />
@@ -115,7 +115,7 @@ const ClientSignUp: FC = () => {
                                 type="checkbox"
                                 className='rounded-sm border-[1px] p-1'
                             />
-                            <span className='ms-2 font-[Inter] text-md'>
+                            <span className='ms-2 font-[Inter] text-md font-medium'>
                                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
                             </span>
                         </div>
@@ -176,7 +176,7 @@ const ClientSignUp: FC = () => {
                                             type="button"
                                             className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                                             onClick={() => {
-                                                setShowDialog(false); navigator('/');
+                                                setShowDialog(false); navigator('/campaign/all');;
                                             }}
                                         >
                                             OK

@@ -1,7 +1,9 @@
 import Stripe from 'stripe';
+import { loadStripe } from '@stripe/stripe-js';
 
 import APIInstance from '../api';
 
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE || '');
 const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET || '');
 
 const getCampaignPayUrl = async (email: string, campaignId: string, backUrl: string, priceId: string) => {
@@ -25,6 +27,7 @@ const getCampaignPayUrl = async (email: string, campaignId: string, backUrl: str
 
 const StripeUtil = {
   stripe,
+  stripePromise,
   getCampaignPayUrl
 };
 

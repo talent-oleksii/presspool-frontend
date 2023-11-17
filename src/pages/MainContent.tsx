@@ -34,22 +34,22 @@ const MainContent: FC = () => {
             <img src={Logo} className='w-[40px] my-6' alt="logo" />
           </Link>
 
-          <Link className={`w-full text-left my-3 text-[Inter] font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('campaign') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
+          <Link className={`w-full text-left my-3 text-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('campaign') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
             to="/campaign/all">
             <HiHome className="mx-2" />
             Dashboard
           </Link>
-          <Link className={`w-full text-left my-3 text-[Inter] font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('detail') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
+          <Link className={`w-full text-left my-3 text-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('detail') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
             to="/detail">
             <HiSpeakerphone className="mx-2" />
             Campaigns
           </Link>
-          <Link className={`w-full text-left my-3 text-[Inter] font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('billing') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
+          <Link className={`w-full text-left my-3 text-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('billing') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
             to="/billing">
             <HiClipboardList className="mx-2" />
             Billing
           </Link>
-          <Link className={`w-full text-left my-3 text-[Inter] font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('support') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
+          <Link className={`w-full text-left my-3 text-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('support') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
             to="/support">
             <HiSupport className="mx-2" />
             Support
@@ -76,10 +76,6 @@ const MainContent: FC = () => {
           <img src={User} alt="user" className="h-[40px] rounded-full" />
           <p className="text-gray-800 mx-3 font-[Inter] font-semibold text-[14px]">{fullName}</p>
         </Link>
-      </div>
-
-      <div className="fixed right-[30px] bottom-[30px] w-[50px] h-[50px] cursor-pointer">
-        <img src={Rica} alt="rica" className="rounded-full" />
       </div>
     </div>
   );

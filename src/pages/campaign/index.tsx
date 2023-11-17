@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
-import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
+import Collapsible from 'react-collapsible';
 
 import CreateCampaign from '../dashboard/CreateCampaign';
 import { selectAuth } from '../../store/authSlice';
@@ -8,15 +8,11 @@ import { selectAuth } from '../../store/authSlice';
 import StripeUtil from '../../utils/stripe';
 import APIInstance from '../../api';
 import Loading from '../../components/Loading';
-import DetailDialog from './DetailDialog';
 
 const Campaign: FC = () => {
   const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [campaign, setCampaign] = useState<Array<any>>([]);
-  const [showDetail, setShowDetail] = useState(false);
-  const [currentData, setCurrentData] = useState(undefined);
-  const [show, setShow] = useState(false);
   const { company } = useSelector(selectAuth);
 
   const { email } = useSelector(selectAuth);
@@ -26,7 +22,7 @@ const Campaign: FC = () => {
     Promise.all([
       APIInstance.get('data/campaign', { params: { email } }),
     ]).then((results: Array<any>) => {
-      console.log('data:', results);
+      console.log('data:', results[0].data);
       setCampaign(results[0].data);
     }).catch(err => {
       console.log('err:', err);
@@ -68,54 +64,86 @@ const Campaign: FC = () => {
 
       <div className='mt-1'>
         {campaign.map(item => (
-          <div
-            className='flex p-5 bg-white my-2 rounded-[10px] justify-around items-center w-full'
-            key={item.id}
+          <Collapsible key={item.id} trigger={(
+            <div
+              className='flex p-[32px] bg-white my-2 rounded-[10px] justify-between items-center w-full relative'
+            >
+              <span className={`absolute top-[12px] left-[34px] rounded-full text-[10px] px-[12px] py-[4px] ${item.state === 'draft' ? 'bg-[#dbdbdb]' : item.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{item.state}</span>
+              <p className='font-semibold font-[Inter] text-[16px]'>{item.name}</p>
+              <div className='flex flex-col items-center'>
+                <p className='font-semibold font-[Inter] text-[10px]'>Start Date:</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>{new Date(Number(item.create_time)).toLocaleDateString()}</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <p className='font-semibold font-[Inter] text-[10px]'>Total Impressions:</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>0</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <p className='font-semibold font-[Inter] text-[10px]'>Total Total Clicks:</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>0</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <p className='font-semibold font-[Inter] text-[10px]'>AVG CPC:</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>{item.demographic === 'consumer' ? '$8' : '$20'}</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <p className='font-semibold font-[Inter] text-[10px]'>Total Spend:</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>$0</p>
+              </div>
+              <div className='flex flex-col items-center'>
+                <p className='font-semibold font-[Inter] text-[10px]'>Budget Remaining:</p>
+                <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.price}`}</p>
+              </div>
+              <div className='flex flex-col itesm-center'>
+                {/* <button
+                  className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
+                >
+                  View Details
+                </button> */}
+                <button
+                  className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
+                  onClick={handleBudget}
+                >
+                  Raise Budget
+                </button>
+              </div>
+            </div>
+          )}
           >
-            <p className='font-semibold font-[Inter] text-[16px]'>{item.name}</p>
-            <div className='flex flex-col items-center'>
-              <p className='font-semibold font-[Inter] text-[10px]'>Start Date:</p>
-              <p className='font-semibold font-[Inter] text-[12px]'>0</p>
+            <div className='border-t-[1px] border-black/[.12] bg-white p-[25px]'>
+              <div className='flex'>
+                <img className='w-[242px] h-[133px] object-cover' alt="market" src={item.image} />
+                <div className='ms-[16px] py-[10px] flex flex-col items-start justify-center'>
+                  <p className='text-black font-[Inter] text-xs font-normal'>Headline</p>
+                  <h2 className='font-[Inter] text-black font-semibold text-base'>{item.headline}</h2>
+                  <p className='text-black font-[Inter] mt-[14px] text-xs font-normal'>Description</p>
+                  <p className='text-black font-[Inter] font-normal text-xs'>{item.body}</p>
+                </div>
+              </div>
+              <div className='mt-[16px] flex items-center justify-end w-full'>
+                <button
+                  className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
+                  onClick={handleBudget}
+                >
+                  Raise Budget
+                </button>
+                <button
+                  className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
+                >
+                  Edit Campaign
+                </button>
+                <button
+                  className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-[10px]'
+                  onClick={handleBudget}
+                >
+                  Pause
+                </button>
+              </div>
             </div>
-            <div className='flex flex-col items-center'>
-              <p className='font-semibold font-[Inter] text-[10px]'>Total Impressions:</p>
-              <p className='font-semibold font-[Inter] text-[12px]'>0</p>
-            </div>
-            <div className='flex flex-col items-center'>
-              <p className='font-semibold font-[Inter] text-[10px]'>Total Total Clicks:</p>
-              <p className='font-semibold font-[Inter] text-[12px]'>0</p>
-            </div>
-            <div className='flex flex-col items-center'>
-              <p className='font-semibold font-[Inter] text-[10px]'>Total Spend:</p>
-              <p className='font-semibold font-[Inter] text-[12px]'>$0</p>
-            </div>
-            <div className='flex'>
-              <button
-                className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2'
-                onClick={handleBudget}
-              >
-                {`${item.state === 'purchased' ? 'Raise Budget' : 'Purchase'}`}
-              </button>
-              <button
-                className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter]'
-                onClick={() => {
-                  setCurrentData(item);
-                  setShowDetail(true);
-                }}
-              >
-                View Details
-              </button>
-            </div>
-          </div>
+          </Collapsible>
         ))
         }
       </div>
-
-      <DetailDialog
-        data={currentData}
-        show={showDetail}
-        setShow={(() => setShowDetail(false))}
-      />
 
       <CreateCampaign
         show={showAddDialog}
