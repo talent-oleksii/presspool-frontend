@@ -22,7 +22,6 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { email } = useSelector(selectAuth);
 
-  const [currentTab, setCurrentTab] = useState('create');
   const [headLine, setHeadLine] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
   const [body, setBody] = useState('Labore et dolore magina alqua, Ut enim ad minim veniam, quis nostrud exercitation ulamco laboris nisi ut aliquip');
   const [cta, setCta] = useState('Call To Action');
@@ -69,41 +68,21 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
     }
     setAsterick(false);
     setLoading(true);
-    if (!uiData) {
-      APIInstance.post('data/campaign_ui', {
-        email,
-        headLine,
-        cta,
-        body,
-        image,
-        pageUrl,
-        noNeedCheck: noNeedCheck ? 1 : 0
-      }).then(data => {
-        console.log('data:', data);
-        if (setUIContent) setUIContent(data.data.id);
-        setShow(false);
-      }).catch(err => {
-        console.log('errr:', err);
-      }).finally(() => {
-        setLoading(false);
-      });
-    } else {
-      APIInstance.put('data/campaign_ui', {
-        id: uiData.id,
-        headLine,
-        cta,
-        body,
-        image,
-        pageUrl,
-        noNeedCheck: noNeedCheck ? 1 : 0,
-      }).then(data => {
-        console.log('update campaign ui data:', data.data)
-        if (afterChange) afterChange(data.data);
-        setShow(false);
-      }).catch(err => {
-        console.log('error:', err);
-      }).finally(() => setLoading(false));
-    }
+    APIInstance.put('data/campaign_ui', {
+      id: uiData.ui_id,
+      headLine,
+      cta,
+      body,
+      image,
+      pageUrl,
+      noNeedCheck: noNeedCheck ? 1 : 0,
+    }).then(data => {
+      console.log('update campaign ui data:', data.data)
+      if (afterChange) afterChange(data.data);
+      setShow(false);
+    }).catch(err => {
+      console.log('error:', err);
+    }).finally(() => setLoading(false));
   };
 
   return (

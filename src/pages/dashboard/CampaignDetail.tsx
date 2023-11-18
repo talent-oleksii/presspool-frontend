@@ -1,10 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, PieChart, Pie } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, Tooltip, PieChart, Pie } from 'recharts';
 
 import APIInstance from '../../api';
-import { selectAuth } from '../../store/authSlice';
-import EditCampaignUI from './EditCampaignUI';
 import Loading from '../../components/Loading';
 
 const data01: Array<any> = [];

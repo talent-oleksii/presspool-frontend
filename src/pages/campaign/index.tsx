@@ -1,16 +1,19 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, MouseEventHandler } from 'react';
 import { useSelector } from 'react-redux';
 import Collapsible from 'react-collapsible';
 
 import CreateCampaign from '../dashboard/CreateCampaign';
 import { selectAuth } from '../../store/authSlice';
 
-import StripeUtil from '../../utils/stripe';
 import APIInstance from '../../api';
 import Loading from '../../components/Loading';
+import DialogUtils from '../../utils/DialogUtils';
+import EditCampaign from './EditCampaign';
 
 const Campaign: FC = () => {
   const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [currentData, setCurrentData] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState('');
   const [campaign, setCampaign] = useState<Array<any>>([]);
@@ -30,18 +33,28 @@ const Campaign: FC = () => {
     }).finally(() => setLoading(false));
   }, [searchStr]);
 
-  const handleBudget = async (data: any) => {
-    let priceId: any = '';
-    const price = data.price;
-    if (price === 10000) priceId = process.env.REACT_APP_PRICE_10000;
-    else if (price === 15000) priceId = process.env.REACT_APP_PRICE_15000;
-    else if (price === 20000) priceId = process.env.REACT_APP_PRICE_20000;
-    else if (price === 25000) priceId = process.env.REACT_APP_PRICE_25000;
-    else priceId = process.env.REACT_APP_PRICE_50000;
+  const handleRaiseBudget: MouseEventHandler<HTMLButtonElement> = e => {
 
-    const url = await StripeUtil.getCampaignPayUrl(email, data.id, 'https://presspool-frontend.onrender.com/#/campaign/all', priceId);
-    if (!url) return;
-    window.open(url, '_self');
+  };
+
+  const handleUpdate = (id: string, state: string) => {
+    console.log('id:', id);
+    setLoading(true);
+    APIInstance.put('data/campaign_detail', {
+      state,
+      id,
+      type: 'state',
+    }).then(() => {
+      setCampaign(campaign.map(item => {
+        if (item.id === id) {
+          return { ...item, state };
+        }
+        return item;
+      }));
+      DialogUtils.show('success', state === 'paused' ? 'Successfully Paused the Campaign' : 'Successfully Started the Campaign', '');
+    }).catch(err => {
+      console.log('puaseing error:', err);
+    }).finally(() => setLoading(false));
   };
 
   return (
@@ -105,7 +118,7 @@ const Campaign: FC = () => {
                 </button> */}
                 <button
                   className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
-                  onClick={handleBudget}
+                  onClick={handleRaiseBudget}
                 >
                   Raise Budget
                 </button>
@@ -126,21 +139,34 @@ const Campaign: FC = () => {
               <div className='mt-[16px] flex items-center justify-end w-full'>
                 <button
                   className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
-                  onClick={handleBudget}
+                  onClick={handleRaiseBudget}
                 >
                   Raise Budget
                 </button>
                 <button
                   className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
+                  onClick={() => {
+                    setCurrentData(item);
+                    setShowEdit(true);
+                  }}
                 >
                   Edit Campaign
                 </button>
-                <button
-                  className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-[10px]'
-                  onClick={handleBudget}
-                >
-                  Pause
-                </button>
+                {
+                  item.state !== 'paused' ?
+                    <button
+                      className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-[10px]'
+                      onClick={() => handleUpdate(item.id, 'paused')}
+                    >
+                      Pause
+                    </button> :
+                    <button
+                      className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-[10px]'
+                      onClick={() => handleUpdate(item.id, 'active')}
+                    >
+                      Start
+                    </button>
+                }
               </div>
             </div>
           </Collapsible>
@@ -163,6 +189,12 @@ const Campaign: FC = () => {
             return false;
           }))
         }}
+      />
+
+      <EditCampaign
+        show={showEdit}
+        setShow={(show: boolean) => setShowEdit(show)}
+        data={currentData}
       />
     </div>
   );
