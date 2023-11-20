@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { useDispatch } from 'react-redux';
-import { setAuthenticated, setUserData } from '../store/authSlice';
+import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
 
 import APIInstance from "../api";
 import SignUpBack from '../assets/image/sign upback.jpeg';
@@ -42,12 +42,13 @@ const Login: FC = () => {
         APIInstance.get('auth/sign-in', {
             params: formData,
         }).then(data => {
+            console.log('log in:', data.data);
             const ret = data.data.records;
-            console.log('dfdf:', data.data);
             if (ret.length < 1) {
                 setShowDialog(true);
             } else {
                 dispatch(setAuthenticated());
+                dispatch(setToken({ token: data.data.token }));
                 dispatch(setUserData({
                     email: ret[0]['fields']['Email'],
                     name: ret[0]['fields']['First Name'],

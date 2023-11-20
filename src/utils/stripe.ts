@@ -1,8 +1,6 @@
 import Stripe from 'stripe';
 import { loadStripe } from '@stripe/stripe-js';
 
-import APIInstance from '../api';
-
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE || '');
 const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET || '');
 
