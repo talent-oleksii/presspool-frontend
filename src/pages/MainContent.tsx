@@ -12,14 +12,12 @@ import Detail from './campaign';
 import Admin from './admin';
 import User from '../assets/image/Headshot 1.png';
 import Logo from '../assets/logo/logo.png';
-import Rica from '../assets/image/rica.png';
 
 const MainContent: FC = () => {
   const location = useLocation();
   const navigator = useNavigate();
   const dispatch = useDispatch();
-  const { email, fullName } = useSelector(selectAuth);
-  console.log('d:', email, fullName);
+  const { fullName } = useSelector(selectAuth);
 
   const handleLogout = () => {
     dispatch(setUnauthenticated());

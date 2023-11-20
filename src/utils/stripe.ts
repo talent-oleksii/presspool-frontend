@@ -6,20 +6,40 @@ import APIInstance from '../api';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE || '');
 const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET || '');
 
-const getCampaignPayUrl = async (email: string, campaignId: string, backUrl: string, priceId: string) => {
+const goToPay = async (email: string, campaignId: string, backUrl: string, cardId: string, priceId: string) => {
   try {
-    await APIInstance.post('stripe/prepare', { email, campaignId });
+    // await APIInstance.post('stripe/prepare', { email, campaignId });
+    let customer;
+    const existingCustomers = await stripe.customers.list({
+      email: email as string
+    });
+
+    if (existingCustomers.data.length > 0) {
+      // customer already exists
+      customer = existingCustomers.data[0];
+    } else {
+      // create a new customer
+      customer = await stripe.customers.create({
+        email: email as string,
+      });
+    }
+
     const session = await stripe.checkout.sessions.create({
+      customer: customer.id,
       success_url: backUrl,
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'payment',
-      customer_email: email,
       metadata: {
         custom_param: campaignId,
-      }
+      },
+      payment_method_types: ['card'],
     });
 
-    return session.url;
+    (await stripePromise)?.redirectToCheckout({
+      sessionId: session.id
+    });
+
+    // return session.url;
   } catch (error) {
     console.log('creating stripe error:', error);
   }
@@ -28,7 +48,7 @@ const getCampaignPayUrl = async (email: string, campaignId: string, backUrl: str
 const StripeUtil = {
   stripe,
   stripePromise,
-  getCampaignPayUrl
+  goToPay
 };
 
 export default StripeUtil;

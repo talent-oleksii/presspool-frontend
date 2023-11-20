@@ -1,7 +1,7 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CreatableSelect from 'react-select/creatable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StylesConfig } from 'react-select';
 import validator from 'validator';
 import { Elements } from '@stripe/react-stripe-js';
@@ -10,6 +10,7 @@ import APIInstance from '../../api';
 import StripeUtil from '../../utils/stripe';
 import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
+import { setCardList, selectData } from '../../store/dataSlice';
 import CreateCampaignUI from './CreateCampaignUI';
 import CardForm from '../../components/StripeCardForm';
 
@@ -42,11 +43,13 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
   const [showUI, setShowUI] = useState(false);
   const [uiId, setUIID] = useState(undefined);
   const [url, setUrl] = useState('');
-  const [cards, setCards] = useState([]);
   const [showAddCard, setShowAddCard] = useState(false);
   const [currentCard, setCurrentCard] = useState('');
 
-  const { email } = useSelector(selectAuth);
+  const { email, verified } = useSelector(selectAuth);
+  const { cardList } = useSelector(selectData);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
@@ -56,8 +59,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     ]).then((results: Array<any>) => {
       const audienceData = results[0].data;
       setAudience(audienceData);
-      console.log('card infos:', results[1].data);
-      setCards(results[1].data);
+      dispatch(setCardList({ cardList: results[1].data }));
       if (results[1].data.length >= 1) { setCurrentCard(results[1].data[0].card_id); }
     }).catch(err => {
       console.log('err:', err);
@@ -65,12 +67,20 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (cardList.length > 0 && currentCard.length < 3) {
+      setCurrentCard(cardList[0].card_id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardList]);
+
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
     setCurrentTab(e.target.id);
   };
 
   const isSubmitable = () => {
-    return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice;
+    console.log('cur:', currentCard);
+    return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice && currentCard.length > 3;
   };
 
   const handleNextOnCampaign = () => {
@@ -79,7 +89,6 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
   };
 
   const handleSubmit = async () => {
-    let priceId: any = '';
 
     if (!uiId) {
       alert('There is not UI assigned for this Campaign, Please save your UI first');
@@ -88,7 +97,8 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     setLoading(true);
     APIInstance.post('data/campaign', {
       email, campaignName, url, currentTarget,
-      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId, currentCard
+      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId, currentCard,
+      state: 'active',
     }).then(async data => {
       if (afterAdd) afterAdd(data.data);
       setCurrentTab('detail');
@@ -97,11 +107,12 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       setCurrentPrice('10000');
       setUIID(undefined);
       setUrl('');
+      setCurrentAudience([]);
       setShow(false);
 
-      // const url = await StripeUtil.getCampaignPayUrl(email, data.data.id, 'https://presspool-frontend.onrender.com/#/campaign/all', priceId);
-      // if (!url) return;
-      // window.open(url, '_self');
+      if (verified === 'false') {
+        await StripeUtil.goToPay(email, data.data.id, 'https://presspool-frontend.onrender.com/#/campaign/all', currentCard, process.env.REACT_APP_PRICE_250 as string);
+      }
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => {
@@ -123,6 +134,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       currentAudience: currentAudience.map(item => item.value),
       currentPrice,
       uiId,
+      state: 'draft',
     }).then(data => {
       if (afterAdd) afterAdd(data.data);
       setCurrentTab('detail');
@@ -130,6 +142,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       setCurrentTarget('consumer');
       setUIID(undefined);
       setUrl('');
+      setCurrentAudience([]);
       setShow(false);
     }).catch(err => {
       console.log('err:', err);
@@ -332,7 +345,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                             onChange={e => setCurrentCard(e.target.value)}
                           >
                             {
-                              cards.map((item: any) => (
+                              cardList.map((item: any) => (
                                 <option value={item.card_id} key={item.id}>
                                   {item.brand}
                                   {` **** **** **** ${item.last4}`}
@@ -366,9 +379,17 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                         }
                       </div>
                       <div className='w-full text-center mt-[50px]'>
-                        {currentAudience.length >= 1 && currentPrice.length > 3 && <button className='rounded-[5px] bg-[#6c63ff] px-[60px] py-[10px] text-white mt-2' disabled={!isSubmitable()} onClick={handleSubmit}>Submit</button>}
+                        {
+                          currentAudience.length >= 1 && currentPrice.length > 3 &&
+                          <button className='rounded-[5px] bg-[#6c63ff] px-[60px] py-[10px] text-white mt-2 disabled:bg-gray-300'
+                            disabled={!isSubmitable()}
+                            onClick={handleSubmit}
+                          >
+                            Submit
+                          </button>
+                        }
                         <button
-                          className='bg-transparent text-md text-gray-600 font-[Inter] px-[60px] py-[10px]'
+                          className='bg-transparent text-md text-gray-600 font-[Inter] px-[60px] py-[10px] rounded-[5px]'
                           onClick={handleSave}>
                           Save Campaign
                         </button>

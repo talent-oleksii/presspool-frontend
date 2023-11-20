@@ -1,10 +1,14 @@
 // CardForm.js
 import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+
 import APIInstance from '../api';
 import { selectAuth } from '../store/authSlice';
+import { addCard } from '../store/dataSlice';
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js';
+
 import Loading from './Loading';
 
 const CardForm: FC = () => {
@@ -15,6 +19,7 @@ const CardForm: FC = () => {
   const elements = useElements();
 
   const { email } = useSelector(selectAuth);
+  const dispatch = useDispatch();
 
   const handleCardChange = (e: StripeCardElementChangeEvent) => {
     console.log(e.error);
@@ -34,13 +39,12 @@ const CardForm: FC = () => {
     setLoading(true);
     const { token } = await stripe.createToken(cardElement, { name: email });
 
-    console.log('token:', token);
     // Send the token and email to your server
     APIInstance.post('stripe/card', {
       email,
       token,
     }).then(data => {
-      console.log('Customer created:', data.data.customer);
+      dispatch(addCard({ card: data.data }));
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));

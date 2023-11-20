@@ -1,7 +1,7 @@
 import { FC, Fragment, MouseEventHandler, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import CreatableSelect from 'react-select/creatable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StylesConfig } from 'react-select';
 import validator from 'validator';
 import { Elements } from '@stripe/react-stripe-js';
@@ -10,6 +10,7 @@ import APIInstance from '../../api';
 import StripeUtil from '../../utils/stripe';
 import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
+import { setCardList, selectData } from '../../store/dataSlice';
 import EditCampaignUI from './EditCampaignUI';
 import CardForm from '../../components/StripeCardForm';
 
@@ -43,11 +44,13 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   const [showUI, setShowUI] = useState(false);
   const [uiId, setUIID] = useState(undefined);
   const [url, setUrl] = useState('');
-  const [cards, setCards] = useState([]);
   const [showAddCard, setShowAddCard] = useState(false);
   const [currentCard, setCurrentCard] = useState('');
 
   const { email } = useSelector(selectAuth);
+  const { cardList } = useSelector(selectData);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setLoading(true);
@@ -57,13 +60,20 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
     ]).then((results: Array<any>) => {
       const audienceData = results[0].data;
       setAudience(audienceData);
-      console.log('card infos:', results[1].data);
-      setCards(results[1].data);
+      dispatch(setCardList({ cardList: results[1].data }));
       if (results[1].data.length >= 1) { setCurrentCard(results[1].data[0].card_id); }
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (cardList.length > 0 && currentCard.length < 3) {
+      setCurrentCard(cardList[0].card_id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardList]);
 
   useEffect(() => {
     if (data) {
@@ -78,9 +88,9 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
       setCurrentPrice(data.price);
       setUIID(data.ui_id);
       setUrl(data.url);
-      console.log('cardI:', data.card_id);
       setCurrentCard(data.card_id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
@@ -338,7 +348,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                             onChange={e => setCurrentCard(e.target.value)}
                           >
                             {
-                              cards.map((item: any) => (
+                              cardList.map((item: any) => (
                                 <option value={item.card_id} key={item.id}>
                                   {item.brand}
                                   {` **** **** **** ${item.last4}`}

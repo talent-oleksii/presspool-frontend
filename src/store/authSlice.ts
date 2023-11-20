@@ -7,6 +7,7 @@ interface AuthState {
   name: string;
   fullName: string;
   company: string;
+  verified: string;
 }
 
 const initialState: AuthState = {
@@ -15,6 +16,7 @@ const initialState: AuthState = {
   name: localStorage.getItem('name') || '',
   fullName: localStorage.getItem('fullName') || '',
   company: localStorage.getItem('company') || '',
+  verified: localStorage.getItem('verified') || '',
 };
 
 const authSlice = createSlice({
@@ -29,18 +31,18 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       localStorage.setItem('isAuthenticated', 'false');
     },
-    setEmail: (state, action) => {
+    setUserData: (state, action) => {
       state.email = action.payload.email;
       state.name = action.payload.name;
-      console.log('actio:', action.payload);
       localStorage.setItem('email', action.payload.email);
       localStorage.setItem('name', action.payload.name);
       localStorage.setItem('fullName', action.payload.fullName);
       localStorage.setItem('company', action.payload.company);
+      localStorage.setItem('verified', action.payload.verified);
     },
   },
 });
 
-export const { setAuthenticated, setUnauthenticated, setEmail } = authSlice.actions;
+export const { setAuthenticated, setUnauthenticated, setUserData } = authSlice.actions;
 export const selectAuth = (state: { auth: AuthState }) => state.auth;
 export default authSlice.reducer;

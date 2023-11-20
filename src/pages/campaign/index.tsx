@@ -26,11 +26,11 @@ const Campaign: FC = () => {
     Promise.all([
       APIInstance.get('data/campaign', { params: { email, searchStr } }),
     ]).then((results: Array<any>) => {
-      console.log('data:', results[0].data);
       setCampaign(results[0].data);
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchStr]);
 
   const handleRaiseBudget: MouseEventHandler<HTMLButtonElement> = e => {
@@ -38,7 +38,6 @@ const Campaign: FC = () => {
   };
 
   const handleUpdate = (id: string, state: string) => {
-    console.log('id:', id);
     setLoading(true);
     APIInstance.put('data/campaign_detail', {
       state,

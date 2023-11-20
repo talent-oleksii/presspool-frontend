@@ -28,7 +28,6 @@ const Billing: FC = () => {
       });
     }
 
-    console.log('mag:', customer);
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customer.id,
       return_url: 'https://presspool-frontend.onrender.com/#/',

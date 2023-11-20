@@ -1,26 +1,22 @@
 import React, { FC, Fragment, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { Dialog, Transition } from '@headlessui/react';
 import { Tooltip } from 'react-tooltip';
 
 import SampleLogo from '../../assets/logo/logo.png';
 
 import APIInstance from '../../api';
-import { selectAuth } from '../../store/authSlice';
 import Loading from '../../components/Loading';
 import DialogUtils from '../../utils/DialogUtils';
 
 interface typeEditCampaignUI {
   show: boolean;
   setShow: Function;
-  setUIContent?: Function;
   uiData?: any;
   afterChange?: Function;
 }
 
-const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, uiData, afterChange }: typeEditCampaignUI) => {
+const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, uiData, afterChange }: typeEditCampaignUI) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { email } = useSelector(selectAuth);
 
   const [headLine, setHeadLine] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
   const [body, setBody] = useState('Labore et dolore magina alqua, Ut enim ad minim veniam, quis nostrud exercitation ulamco laboris nisi ut aliquip');
@@ -77,7 +73,6 @@ const EditCampaignUI: FC<typeEditCampaignUI> = ({ show, setShow, setUIContent, u
       pageUrl,
       noNeedCheck: noNeedCheck ? 1 : 0,
     }).then(data => {
-      console.log('update campaign ui data:', data.data)
       if (afterChange) afterChange(data.data);
       setShow(false);
     }).catch(err => {

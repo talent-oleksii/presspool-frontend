@@ -1,7 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, PieChart, Pie } from 'recharts';
-
-const data: Array<any> = [];
+import { LineChart, Line, XAxis, YAxis, Tooltip, PieChart, Pie } from 'recharts';
 
 const data01: Array<any> = [];
 
@@ -14,6 +12,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
   useEffect(() => {
     setChartData([{ click: getTotalClick(), impression: 0 }]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const getTotalImpression = () => {
@@ -30,6 +29,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   };
 
   const getAverageCPC = () => {
+    if (data.length <= 0) return 0;
     let cpc = 0;
     for (const item of data) {
       cpc += item.demographic === 'consumer' ? 8 : 20;

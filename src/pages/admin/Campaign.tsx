@@ -10,7 +10,6 @@ const Campaign: FC = () => {
   useEffect(() => {
     setSearchLoading(true);
     APIInstance.get('admin/data/campaign', { params: { searchKey } }).then(data => {
-      console.log('data:', data);
       setCampaigns(data.data);
     }).catch(err => {
       console.log('error:', err);

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { useDispatch } from 'react-redux';
-import { setAuthenticated, setEmail } from '../store/authSlice';
+import { setAuthenticated, setUserData } from '../store/authSlice';
 
 import APIInstance from "../api";
 import SignUpBack from '../assets/image/sign upback.jpeg';
@@ -43,20 +43,22 @@ const Login: FC = () => {
             params: formData,
         }).then(data => {
             const ret = data.data.records;
+            console.log('dfdf:', data.data);
             if (ret.length < 1) {
                 setShowDialog(true);
             } else {
                 dispatch(setAuthenticated());
-                dispatch(setEmail({
+                dispatch(setUserData({
                     email: ret[0]['fields']['Email'],
                     name: ret[0]['fields']['First Name'],
                     fullName: ret[0]['fields']['Full Name'],
                     company: ret[0]['fields']['Company Name'],
+                    verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
                 }));
                 navigator('/campaign/all');
             }
         }).catch(err => {
-            console.log('error:', err);
+            setShowDialog(true);
         }).finally(() => setLoading(false));
     };
 
