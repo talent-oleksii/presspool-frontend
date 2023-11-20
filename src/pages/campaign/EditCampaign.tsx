@@ -77,13 +77,13 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
 
   useEffect(() => {
     if (data) {
-      console.log('dd:', audience);
+      console.log('dd:', audience, data.audience);
       setCampaignName(data.name);
       setCurrentTarget(data.demographic);
       setCurrentAudience(data.audience.map((item: string) => {
         return {
           value: item,
-          label: audience.filter((i: any) => i.id === item) ? audience.filter((i: any) => i.id === item)[0].name : '',
+          label: audience.filter((i: any) => i.name === item).length > 0 ? audience.filter((i: any) => i.name === item)[0].name : '',
         };
       }));
       setCurrentPrice(data.price);

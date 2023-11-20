@@ -79,7 +79,6 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
   };
 
   const isSubmitable = () => {
-    console.log('cur:', currentCard);
     return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice && currentCard.length > 3;
   };
 
@@ -275,7 +274,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                             placeholder="Type your tag(s) and press enter"
                             onChange={e => setCurrentAudience(e.map(item => ({ value: item.value, label: item.label })))}
                             isMulti
-                            options={audience.map((item: any) => ({ value: item.id, label: item.name }))}
+                            options={audience.map((item: any) => ({ value: item.name, label: item.name }))}
                           />
                         </div>
                       </div>
