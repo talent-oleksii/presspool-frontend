@@ -26,7 +26,6 @@ const Dashboard: FC = () => {
     Promise.all([
       APIInstance.get('data/campaign', { params: { email } }),
     ]).then((results: Array<any>) => {
-      console.log('data:', results);
       setCampaign(results[0].data);
     }).catch(err => {
       console.log('err:', err);

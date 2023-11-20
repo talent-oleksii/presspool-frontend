@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { useDispatch } from 'react-redux';
-import { setAuthenticated, setUserData } from '../store/authSlice';
+import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
 
 import APIInstance from '../api';
 import SignUpBack from '../assets/image/sign upback.jpeg';
@@ -48,6 +48,7 @@ const ClientSignUp: FC = () => {
         }).then(data => {
             const ret = data.data;
             dispatch(setAuthenticated());
+            dispatch(setToken({ token: data.data.token }));
             dispatch(setUserData({
                 email: ret['fields']['Email'],
                 name: ret['fields']['First Name'],

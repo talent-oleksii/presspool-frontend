@@ -24,27 +24,29 @@ const MainContent: FC = () => {
 
   //auth check
   useEffect(() => {
-    // setLoading(true);
-    // APIInstance.post('auth/check', {
-    //   email
-    // }).then(data => {
-    //   const ret = data.data.records;
-    //   if (ret.length < 1) {
-    //     dispatch(setUnauthenticated());
-    //   } else {
-    //     dispatch(setAuthenticated());
-    //     dispatch(setUserData({
-    //       email: ret[0]['fields']['Email'],
-    //       name: ret[0]['fields']['First Name'],
-    //       fullName: ret[0]['fields']['Full Name'],
-    //       company: ret[0]['fields']['Company Name'],
-    //       verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
-    //     }));
-    //     navigator('/campaign/all');
-    //   }
-    // }).catch(err => {
-    //   dispatch(setUnauthenticated());
-    // }).finally(() => setLoading(false));
+    setLoading(true);
+    APIInstance.post('auth/check', {
+      email
+    }).then(data => {
+      const ret = data.data.records;
+      if (ret.length < 1) {
+        dispatch(setUnauthenticated());
+        navigator('/login');
+      } else {
+        dispatch(setAuthenticated());
+        dispatch(setUserData({
+          email: ret[0]['fields']['Email'],
+          name: ret[0]['fields']['First Name'],
+          fullName: ret[0]['fields']['Full Name'],
+          company: ret[0]['fields']['Company Name'],
+          verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
+        }));
+        navigator('/campaign/all');
+      }
+    }).catch(err => {
+      dispatch(setUnauthenticated());
+      navigator('/login');
+    }).finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

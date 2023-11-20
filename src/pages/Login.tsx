@@ -42,7 +42,6 @@ const Login: FC = () => {
         APIInstance.get('auth/sign-in', {
             params: formData,
         }).then(data => {
-            console.log('log in:', data.data);
             const ret = data.data.records;
             if (ret.length < 1) {
                 setShowDialog(true);
