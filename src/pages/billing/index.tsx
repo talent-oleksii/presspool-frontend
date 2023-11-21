@@ -30,7 +30,7 @@ const Billing: FC = () => {
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customer.id,
-      return_url: 'https://presspool-frontend.onrender.com/#/',
+      return_url: 'https://presspool-frontend.onrender.com/#/campaign/all',
     });
 
     window.location.href = session.url;

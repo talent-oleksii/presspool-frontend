@@ -13,6 +13,7 @@ import { selectAuth } from '../../store/authSlice';
 import { setCardList, selectData } from '../../store/dataSlice';
 import CreateCampaignUI from './CreateCampaignUI';
 import CardForm from '../../components/StripeCardForm';
+import DialogUtils from '../../utils/DialogUtils';
 
 interface typeCreateCampaign {
   show: boolean;
@@ -108,6 +109,8 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       setUrl('');
       setCurrentAudience([]);
       setShow(false);
+
+      DialogUtils.show('success', '', 'Your campaign has successfully been submitted! Our team is now reviewing the campaign and you will get notified as soon as it is live.');
 
       if (verified === 'false') {
         await StripeUtil.goToPay(email, data.data.id, 'https://presspool-frontend.onrender.com/#/campaign/all', currentCard, process.env.REACT_APP_PRICE_250 as string);
@@ -384,13 +387,13 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                             disabled={!isSubmitable()}
                             onClick={handleSubmit}
                           >
-                            Submit
+                            {verified ? 'Submit' : 'Submit and Pay'}
                           </button>
                         }
                         <button
                           className='bg-transparent text-md text-gray-600 font-[Inter] px-[60px] py-[10px] rounded-[5px]'
                           onClick={handleSave}>
-                          Save Campaign
+                          Save Draft
                         </button>
                       </div>
                     </>

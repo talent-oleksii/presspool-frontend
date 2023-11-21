@@ -77,7 +77,6 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
 
   useEffect(() => {
     if (data) {
-      console.log('dd:', audience, data.audience);
       setCampaignName(data.name);
       setCurrentTarget(data.demographic);
       setCurrentAudience(data.audience.map((item: string) => {
@@ -90,6 +89,10 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
       setUIID(data.ui_id);
       setUrl(data.url);
       setCurrentCard(data.card_id);
+
+      if (data.currentTab) {
+        setCurrentTab(data.currentTab);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);

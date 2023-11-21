@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, MouseEventHandler } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Collapsible from 'react-collapsible';
 
@@ -32,10 +32,6 @@ const Campaign: FC = () => {
     }).finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchStr]);
-
-  const handleRaiseBudget: MouseEventHandler<HTMLButtonElement> = e => {
-
-  };
 
   const handleUpdate = (id: string, state: string) => {
     setLoading(true);
@@ -117,7 +113,10 @@ const Campaign: FC = () => {
                 </button> */}
                 <button
                   className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
-                  onClick={handleRaiseBudget}
+                  onClick={() => {
+                    setCurrentData({ ...item, currentTab: 'budget' });
+                    setShowEdit(true);
+                  }}
                 >
                   Raise Budget
                 </button>
@@ -127,7 +126,7 @@ const Campaign: FC = () => {
           >
             <div className='border-t-[1px] border-black/[.12] bg-white p-[25px] rounded-[10px]'>
               <div className='flex'>
-                <img className='w-[242px] h-[133px] object-cover' alt="market" src={item.image} />
+                <img className='w-[242px] h-[133px] object-none' alt="market" src={item.image} />
                 <div className='ms-[16px] py-[10px] flex flex-col items-start justify-center'>
                   <p className='text-black font-[Inter] text-xs font-normal'>Headline</p>
                   <h2 className='font-[Inter] text-black font-semibold text-base'>{item.headline}</h2>
@@ -138,14 +137,16 @@ const Campaign: FC = () => {
               <div className='mt-[16px] flex items-center justify-end w-full'>
                 <button
                   className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
-                  onClick={handleRaiseBudget}
+                  onClick={() => {
+                    setCurrentData({ ...item, currentTab: 'budget' });
+                    setShowEdit(true);
+                  }}
                 >
                   Raise Budget
                 </button>
                 <button
                   className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
                   onClick={() => {
-                    console.log('itd>', item);
                     setCurrentData(item);
                     setShowEdit(true);
                   }}
