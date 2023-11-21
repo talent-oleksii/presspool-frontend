@@ -67,10 +67,10 @@ const Login: FC = () => {
             {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%]'>
                 <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" />
-                <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
+                <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign In</h2>
                 <p className='z-[1] font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
-            <div className="flex flex-col items-center justify-center bg-white w-full px-[85px]">
+            <div className="flex flex-1 items-center justify-center bg-white w-full px-[82px]">
                 <div className="rounded-[15px] w-full">
                     <div className="flex flex-col items-center justify-center p-7">
                         <img src={Mark} alt="mark" className="w-[50px]" />
@@ -98,7 +98,7 @@ const Login: FC = () => {
                             />
                         </div>
                         <div className="w-full text-right">
-                            <button className="font-[Inter] text-[#6c63ff] text-[17px] mt-[22px]">Forgot Password?</button>
+                            <button className="font-[Inter] text-[#6c63ff] text-[17px] mt-[22px] underline">Forgot Password?</button>
                         </div>
                         <button className="rounded-[6px] bg-black w-full py-[15px] my-4 text-[white] mt-[32px]">Sign In</button>
 

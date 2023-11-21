@@ -70,46 +70,50 @@ const ClientSignUp: FC = () => {
                 <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
                 <p className='z-[1] font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
-            <div className='flex flex-col justify-center items-center px-[150px]'>
-                <div className="shadow-lg shadow-[#0a0a0a]/[.04] w-full bg-[white] rounded-[15px] py-[50px]">
+            <div className='flex flex-1 justify-center items-center px-[82px] bg-white'>
+                <div className="w-full bg-[white] rounded-[15px] py-[50px]">
                     <div className="flex flex-col items-center justify-center py-3">
                         <img src={Mark} alt="mark" className="w-[50px]" />
                     </div>
 
-                    <form className="text-left p-[20px]" onSubmit={handleSubmit}>
+                    <form className="text-left" onSubmit={handleSubmit}>
+                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Full Name</label>
                         <input
                             id='fullName'
                             name='fullName'
                             value={formData.fullName}
                             onChange={handleChange}
-                            placeholder='Full Name'
+                            // placeholder='Full Name'
                             type="text"
                             className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
+                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Company Name</label>
                         <input
                             id='company'
                             name='company'
                             value={formData.company}
                             onChange={handleChange}
-                            placeholder='Company Name'
+                            // placeholder='Company Name'
                             type="text"
                             className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
+                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Email Address</label>
                         <input
                             id='email'
                             name='email'
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder='Email'
+                            // placeholder='Email'
                             type="email"
                             className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
+                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Password</label>
                         <input
                             id='password'
                             name='password'
                             value={formData.password}
                             onChange={handleChange}
-                            placeholder='Password'
+                            // placeholder='Password'
                             type="password"
                             className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
@@ -118,22 +122,22 @@ const ClientSignUp: FC = () => {
                                 checked={formData.agreeTerm}
                                 onChange={e => setFormData({ ...formData, agreeTerm: e.target.checked })}
                                 type="checkbox"
-                                className='rounded-sm border-[1px] p-1'
+                                className='rounded-sm border-[1px] p-1 rounded-[5px]'
                             />
                             <span className='ms-2 font-[Inter] text-md font-medium'>
                                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
                             </span>
                         </div>
                         <button
-                            className="rounded-[10px] bg-[#212121] w-full py-2 my-4 text-[white] disabled:bg-[gray]"
+                            className="rounded-[6px] text-md bg-black w-full py-[15px] mt-[50px] text-[white] disabled:bg-[gray]"
                             type="submit"
                             disabled={!formData.agreeTerm}
                         >
                             Sign Up
                         </button>
                     </form>
-                    <div className='flex items-center justify-center my-3'>
-                        <Link className="text-md text-center w-full font-[Inter] text-[#6c63ff]" to="/login">Already have an account? Login</Link>
+                    <div className='flex items-center justify-center mt-[36px]'>
+                        <p className="text-md text-center w-full font-[Inter] text-black text-lg" >Already have an account? <Link to="/login" className='text-[#6c63ff] underline'>Login</Link></p>
                     </div>
                 </div>
             </div>

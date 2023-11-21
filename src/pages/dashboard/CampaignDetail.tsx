@@ -18,7 +18,6 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
   useEffect(() => {
     setLoading(true);
     APIInstance.get('data/campaign_detail', { params: { id } }).then(data => {
-      console.log('data:', data);
       setData(data.data);
 
       setChartData([{ click: data.data.click_count, impression: 0 }]);

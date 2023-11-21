@@ -20,7 +20,6 @@ const URLRedirector: FC = () => {
           data.json().then(data => {
             const ipAddress = data.ip;
             APIInstance.post('data/clicked', { id, ipAddress }).then(data => {
-              console.log('data:');
               window.open(data.data.url, '_self');
             }).catch(err => console.log('err:', err));
           });
