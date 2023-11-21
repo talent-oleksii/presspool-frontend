@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
-import { HiArrowSmDown } from 'react-icons/hi';
+import { Flowbite, Dropdown } from 'flowbite-react';
 
 import CreateCampaign from './CreateCampaign';
 import APIInstance from '../../api';
@@ -16,7 +16,6 @@ const Dashboard: FC = () => {
   const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [campaign, setCampaign] = useState<Array<any>>([]);
-  const [showList, setShowList] = useState(false);
 
   const { email, name } = useSelector(selectAuth);
   const { id } = useParams();
@@ -30,6 +29,7 @@ const Dashboard: FC = () => {
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -50,36 +50,39 @@ const Dashboard: FC = () => {
                 Overview
               </Link>
               <div className="group inline-flex flex-col">
-                <button
+                {/* <button
                   onClick={() => setShowList(!showList)}
                   className={`text-left px-5 py-2 text-[Inter] flex justify-between items-center rounded sm:min-w-[170px] me-2 ${id !== 'all' && id !== 'news' ? 'bg-black text-white' : 'bg-white text-black'}`}
                 >
                   By Campaign
                   <HiArrowSmDown className='ms-3 h-[20px]' />
-                </button>
-                <div className='relative'>
-                  <ul
-                    className={`z-30 absolute bg-white border border-gray-300 sm:min-w-[200px] rounded border-[1px] border-gray-900 py-1 mt-2 w-32 ${showList ? 'block' : 'hidden'}`}
-                    onMouseOver={() => setShowList(true)}
-                    onMouseLeave={() => setShowList(false)}
+                </button> */}
+                <Flowbite theme={{
+                  theme: {
+                    button: {
+                      base: 'rounded-[5px]',
+                      color: {
+                        black: 'bg-black text-white',
+                        white: 'bg-white text-black',
+                      },
+                    }
+                  }
+                }}>
+                  <Dropdown
+                    label="By Campaign"
+                    color={`${id !== 'all' && id !== 'news' ? 'black' : 'white'}`}
+                    theme={{ floating: { item: { base: "p-0" } } }}
+                    className='text-left'
                   >
                     {
-                      campaign.map((item: any) => {
-                        return (
-                          <li
-                            key={item.id}
-                            className='px-2 flex justify-between items-center block text-gray-800 hover:bg-[#6c63ff] hover:text-white cursor-pointer'
-                            onClick={() => {
-                              setShowList(false);
-                            }}
-                          >
-                            <Link to={`/campaign/${item.id}`} className='font-[Inter] text-md w-full'>{item.name}</Link>
-                          </li>
-                        );
-                      })
+                      campaign.map((item: any) => (
+                        <Dropdown.Item key={item.id}>
+                          <Link to={`/campaign/${item.id}`} className='font-[Inter] text-md w-full'>{item.name}</Link>
+                        </Dropdown.Item>
+                      ))
                     }
-                  </ul>
-                </div>
+                  </Dropdown>
+                </Flowbite>
               </div>
               {/* <button
                 className={`text-left px-5 py-2 text-[Inter] rounded sm:min-w-[170px] me-2 ${activePage === 'newsletter' ? 'bg-black text-white' : 'bg-white text-black'}`}
@@ -88,7 +91,7 @@ const Dashboard: FC = () => {
                 By Newsletter
               </button> */}
             </div>
-            <select className='border-[1px] px-2 py-2 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]'>
+            <select className='border-[1px] font-[Inter] rounded-[5px] py-1 font-semibold border-[#7f8182]'>
               <option>Last 4 weeks</option>
               <option>Last 2 weeks</option>
             </select>

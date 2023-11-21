@@ -22,7 +22,7 @@ const Admin: FC = () => {
           <Link to="/admin/creator" className={`rounded-[5px] sm:min-w-[170px] py-3 px-5 font-[Inter] ${location.pathname.includes('/admin/creator') ? 'bg-black text-white' : 'bg-white text-black'}`}>By Creator</Link>
         </div>
 
-        <select className='border-[1px] px-2 py-2 font-[Inter] rounded-[10px]'>
+        <select className='border-[1px] px-2 py-1 font-[Inter] rounded-[10px]'>
           <option>Last 4 weeks</option>
           <option>Last 2 weeks</option>
         </select>

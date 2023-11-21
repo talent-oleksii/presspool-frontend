@@ -68,7 +68,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               <p className='font-[Inter] text-gray-500'>Let's see how your campaign is performing</p>
 
             </div>
-            <select className='border-[1px] px-2 py-2 font-[Inter] rounded font-semibold'>
+            <select className='border-[1px] px-2 py-1 font-[Inter] rounded font-semibold'>
               <option>Last 4 weeks</option>
               <option>Last 2 weeks</option>
             </select>

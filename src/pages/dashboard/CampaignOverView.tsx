@@ -83,7 +83,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
             <p className='font-[Inter] text-gray-500 text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 
-          <select className='border-[1px] px-2 py-2 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]'>
+          <select className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]'>
             <option>Last 4 weeks</option>
             <option>Last 2 weeks</option>
           </select>
