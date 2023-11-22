@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
 
 import APIInstance from "../api";
-import SignUpBack from '../assets/image/sign upback.jpeg';
 
 import Mark from '../assets/logo/logo.png';
 import Loading from "../components/Loading";

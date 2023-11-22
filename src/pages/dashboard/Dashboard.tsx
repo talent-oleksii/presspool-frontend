@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
+import { DatePicker } from 'antd';
 import { Flowbite, Dropdown } from 'flowbite-react';
 
 import CreateCampaign from './CreateCampaign';
@@ -16,6 +17,7 @@ const Dashboard: FC = () => {
   const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [campaign, setCampaign] = useState<Array<any>>([]);
+  const [range, setRange] = useState<any>([]);
 
   const { email, name } = useSelector(selectAuth);
   const { id } = useParams();
@@ -23,14 +25,21 @@ const Dashboard: FC = () => {
   useEffect(() => {
     setLoading(true);
     Promise.all([
-      APIInstance.get('data/campaign', { params: { email } }),
+      APIInstance.get('data/campaign', {
+        params: {
+          email,
+          from: range && range[0] ? range[0].unix() : null,
+          to: range && range[1] ? range[1].unix() : null,
+        }
+      }),
     ]).then((results: Array<any>) => {
+      console.log('dat:', results[0].data);
       setCampaign(results[0].data);
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [range]);
 
   return (
     <div className='text-left relative'>
@@ -91,10 +100,15 @@ const Dashboard: FC = () => {
                 By Newsletter
               </button> */}
             </div>
-            <select className='border-[1px] font-[Inter] rounded-[5px] py-1 font-semibold border-[#7f8182]'>
+            {/* <select className='border-[1px] font-[Inter] rounded-[5px] py-1 font-semibold border-[#7f8182]'>
               <option>Last 4 weeks</option>
               <option>Last 2 weeks</option>
-            </select>
+            </select> */}
+            <DatePicker.RangePicker
+              className='font-[Inter]'
+              onChange={(e) => setRange(e)}
+            // value={range}
+            />
           </div>
           {
             id === 'all' ? <CampaignOverView data={campaign} /> : id === 'news' ? <NewsLetterDetail /> : <CampaignDetail id={id} />

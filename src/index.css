@@ -2,3 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://rsms.me/inter/inter.css");
+
+.ant-picker:hover {
+  border-color: black !important;
+}
+
+.ant-picker-focused {
+  border-color: black !important;
+  box-shadow: none !important;
+}
+
+.ant-picker-active-bar {
+  background: black !important;
+}

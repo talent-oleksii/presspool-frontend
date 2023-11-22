@@ -62,16 +62,15 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             <div>
               <h2 className='font-[Inter] text-[20px] font-semibold'>
                 {data.name}
-
-                <span className='ms-3 text-xs'>{`https://presspool-frontend.onrender.com/#/cul/${data.uid}`}</span>
               </h2>
+
+              <span className='text-xs'>{`https://presspool-frontend.onrender.com/#/cul/${data.uid}`}</span>
               <p className='font-[Inter] text-gray-500'>Let's see how your campaign is performing</p>
 
             </div>
-            <select className='border-[1px] px-2 py-1 font-[Inter] rounded font-semibold'>
-              <option>Last 4 weeks</option>
-              <option>Last 2 weeks</option>
-            </select>
+            <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]'>
+              Download as CSV
+            </button>
           </div>
 
           <div className='flex relative'>
