@@ -49,7 +49,6 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   };
 
   const handleDownloadCSV = () => {
-    console.log('data:', data);
     var csv = 'Date, URL, DEMOGRAPHIC, HEADLINE, BODY, CTA, CLICK_COUNT, PAGE_URL\n';
 
     //merge the data with CSV  

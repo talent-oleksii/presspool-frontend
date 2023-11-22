@@ -41,7 +41,7 @@ const Billing: FC = () => {
       <h2 className='text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Billings 📈`}</h2>
       <p className='my-2 text-[#43474A] font-normal'>Access to your billing portal.</p>
 
-      <div className='bg-white h-[200px] flex items-center justify-between mt-[100px] p-10'>
+      <div className='bg-white h-[200px] flex items-center justify-between mt-4 p-10 rounded-[10px]'>
         <div>
           <h2 className='font-[Inter] text-black font-semibold text-[28px]'>Invoices</h2>
           <p className='font-[Inter] text-[#43474a] font-medium text-[18px]'>Access to billing portal to view and manage your payments</p>

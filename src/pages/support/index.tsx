@@ -11,13 +11,13 @@ const Support: FC = () => {
         <p className='my-2 text-[#43474A] font-normal'>Automatic and personal support options can be found below.</p>
       </div>
 
-      <div className='bg-white pt-[12px] flex-1 flex flex-col items-center justify-between w-full rounded-[10px]'>
+      <div className='bg-white pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-2'>
         <div className='flex flex-col items-center justify-center'>
           <img src={Ava} className='rounded-[20px] w-[50px]' alt="ava" />
           <h2 className='font-[Inter] text-black font-semibold text-[17px]'>Talk to Ava</h2>
           <p className='font-[Inter] text-[#43474a] font-medium text-[12px] text-center'>Our support bot trained on our platfrom from A~Z!</p>
         </div>
-        <iframe className='w-full h-[420px]' title="bot"
+        <iframe className='w-full h-[600px]' title="bot"
           src="https://widget.writesonic.com/CDN/index.html?service-base-url=https://api.botsonic.ai&token=c6f96462-0f55-4daf-8060-9b1f72f6ce7e&base-origin=https://bot.writesonic.com&instance-name=Botsonic&standalone=true&page-url=https://bot.writesonic.com/b7cab8fd-3964-42bc-9e94-acdea65cbcd0?t=share&workspace_id=380ff3fc-a06c-4403-b38d-e9b513c83508" />
       </div>
 

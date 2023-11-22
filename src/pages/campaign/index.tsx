@@ -58,11 +58,11 @@ const Campaign: FC = () => {
       <h2 className='text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Campaigns 📈`}</h2>
       <p className='my-2 text-[#43474A] font-normal'>Here's your account at a glance.</p>
 
-      <button className='rounded-[5px] bg-[#6C63FF] font-[Inter] font-semibold text-[white] font-md px-4 py-2 my-4' onClick={() => setShowAddDialog(true)}>Create New Campaign</button>
+      <button className='rounded-[5px] bg-[#6C63FF] font-[Inter] font-semibold text-[white] font-md px-4 py-2' onClick={() => setShowAddDialog(true)}>Create New Campaign</button>
 
       <div className='flex items-center justify-center w-full'>
         <input
-          className='me-2 font-[Inter] flex-1 px-4 py-2 border-gray-500 border-[1px] rounded-[5px]'
+          className='me-2 mt-4 font-[Inter] flex-1 px-4 py-2 border-gray-500 border-[1px] rounded-[5px]'
           placeholder='Type here to search by campaign name'
           value={searchStr}
           onChange={e => setSearchStr(e.target.value)}
@@ -149,7 +149,7 @@ const Campaign: FC = () => {
                 <button
                   className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
                   onClick={() => {
-                    setCurrentData(item);
+                    setCurrentData({ ...item, currentTab: 'detail' });
                     setShowEdit(true);
                   }}
                 >

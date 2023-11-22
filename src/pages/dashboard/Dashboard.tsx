@@ -58,13 +58,6 @@ const Dashboard: FC = () => {
                 Overview
               </Link>
               <div className="group inline-flex flex-col">
-                {/* <button
-                  onClick={() => setShowList(!showList)}
-                  className={`text-left px-5 py-2 text-[Inter] flex justify-between items-center rounded sm:min-w-[170px] me-2 ${id !== 'all' && id !== 'news' ? 'bg-black text-white' : 'bg-white text-black'}`}
-                >
-                  By Campaign
-                  <HiArrowSmDown className='ms-3 h-[20px]' />
-                </button> */}
                 <Flowbite theme={{
                   theme: {
                     button: {
@@ -92,21 +85,10 @@ const Dashboard: FC = () => {
                   </Dropdown>
                 </Flowbite>
               </div>
-              {/* <button
-                className={`text-left px-5 py-2 text-[Inter] rounded sm:min-w-[170px] me-2 ${activePage === 'newsletter' ? 'bg-black text-white' : 'bg-white text-black'}`}
-                onClick={() => setActivePage('newsletter')}
-              >
-                By Newsletter
-              </button> */}
             </div>
-            {/* <select className='border-[1px] font-[Inter] rounded-[5px] py-1 font-semibold border-[#7f8182]'>
-              <option>Last 4 weeks</option>
-              <option>Last 2 weeks</option>
-            </select> */}
             <DatePicker.RangePicker
               className='font-[Inter]'
               onChange={(e) => setRange(e)}
-            // value={range}
             />
           </div>
           {
@@ -132,7 +114,7 @@ const Dashboard: FC = () => {
         </div>
         <div className='w-[280px] p-3 '>
           <div className='relative h-[370px]'>
-            <div className='bg-[#c1ffd9] p-[19px] rounded-[14px] absolute w-full top-0 z-10'>
+            <div className='bg-[#c1ffd9] p-[19px] rounded-t-[14px] absolute w-full top-0 z-10'>
               <p className='text-black text-base font-semibold text-[Inter]'>Quick Actions:</p>
               <p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[4px]'>Let’s get you where you need to go</p>
             </div>
@@ -182,12 +164,12 @@ const Dashboard: FC = () => {
             </div>
           </div>
           <div className='relative'>
-            <div className='bg-[#D1CEFF] p-[19px] rounded-[14px] absolute w-full z-10'>
+            <div className='bg-[#D1CEFF] p-[19px] rounded-t-[14px] absolute w-full z-10'>
               <p className='text-black text-base font-semibold'>Resources</p>
               <p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[5px]'>We are always here for you</p>
             </div>
             <div className='bg-white py-3 rounded-[14px] absolute w-full z-0 top-[75px]'>
-              <a href="https://blog.com" className='flex font-[Inter] text-semibold font-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>
+              <a href="https://blog.presspool.ai" className='flex font-[Inter] text-semibold font-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>
                 <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-2'>
                   <rect x="0.5" y="4.5" width="12" height="10" fill="white" stroke="#7F8182" />
                   <path d="M16.495 2.07071C16.534 1.79734 16.3441 1.54408 16.0707 1.50502L11.6159 0.868629C11.3426 0.829576 11.0893 1.01953 11.0503 1.29289C11.0112 1.56626 11.2011 1.81953 11.4745 1.85858L15.4343 2.42426L14.8686 6.38406C14.8296 6.65743 15.0195 6.91069 15.2929 6.94975C15.5663 6.9888 15.8195 6.79885 15.8586 6.52548L16.495 2.07071ZM8.3 8.4L16.3 2.4L15.7 1.6L7.7 7.6L8.3 8.4Z" fill="#7F8182" />

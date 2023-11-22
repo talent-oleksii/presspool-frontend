@@ -56,7 +56,7 @@ const MainContent: FC = () => {
   };
 
   return (
-    <div className='flex h-screen w-[1440px] relative'>
+    <div className='flex min-h-screen w-[1440px] relative'>
       {loading && <Loading />}
       {!loading && <>
         <div className='w-[230px] px-2 py-8 flex flex-col border-r-[2px] border-[#7F8182] bg-[white] justify-between h-full fixed'>
