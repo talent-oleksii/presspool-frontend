@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, PieChart, Pie } from 'recharts';
+import moment from 'moment-timezone';
 
 const data01: Array<any> = [];
 
@@ -47,6 +48,35 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     return spend;
   };
 
+  const handleDownloadCSV = () => {
+    console.log('data:', data);
+    var csv = 'Date, URL, DEMOGRAPHIC, HEADLINE, BODY, CTA, CLICK_COUNT, PAGE_URL\n';
+
+    //merge the data with CSV  
+    data.forEach(function (row) {
+      csv += moment(new Date(Number(row.create_time))).format('mm-dd-yyyy') + ',';
+      csv += row.url + ',';
+      csv += row.demographic + ',';
+      csv += `"${row.headline}",`;
+      csv += `"${row.body}",`;
+      csv += `"${row.cta}",`;
+      csv += `"${row.click_count}",`;
+      csv += `"${row.page_url}"`;
+
+      csv += "\n";
+    });
+
+    //display the created CSV data on the web browser   
+
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+
+    //provide the name for the CSV file to be downloaded  
+    hiddenElement.download = 'Reports.csv';
+    hiddenElement.click();
+  };
+
   return (
     <div>
       <div className='mt-2 rounded-[10px] grid grid-cols-4 gap-4'>
@@ -83,7 +113,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
             <p className='font-[Inter] text-gray-500 text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 
-          <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]'>
+          <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
             Download as CSV
           </button>
         </div>

@@ -33,7 +33,6 @@ const Dashboard: FC = () => {
         }
       }),
     ]).then((results: Array<any>) => {
-      console.log('dat:', results[0].data);
       setCampaign(results[0].data);
     }).catch(err => {
       console.log('err:', err);

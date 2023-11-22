@@ -69,7 +69,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
 
             </div>
             <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]'>
-              Download as CSV
+              Download as PDF
             </button>
           </div>
 
