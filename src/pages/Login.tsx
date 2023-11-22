@@ -65,8 +65,8 @@ const Login: FC = () => {
     return (
         <div className='flex h-full relative'>
             {loading && <Loading />}
-            <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%]'>
-                <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" />
+            <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#7FFBAE] to-[#6C63FF]'>
+                {/* <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" /> */}
                 <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign In</h2>
                 <p className='z-[1] font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>

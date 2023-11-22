@@ -138,13 +138,13 @@ const Dashboard: FC = () => {
                 </svg>
                 Manage Campaigns
               </Link>
-              <Link to="/detail" className='flex font-[Inter] font-medium font-sm items-center px-3 py-2'>
+              <a href="https://forms.gle/j1HCrRcrGK9roPhGA" className='flex font-[Inter] font-medium font-sm items-center px-3 py-2' target='_blank' rel="noreferrer">
                 <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-2'>
                   <rect x="0.5" y="4.5" width="12" height="10" fill="white" stroke="#7F8182" />
                   <path d="M16.495 2.07071C16.534 1.79734 16.3441 1.54408 16.0707 1.50502L11.6159 0.868629C11.3426 0.829576 11.0893 1.01953 11.0503 1.29289C11.0112 1.56626 11.2011 1.81953 11.4745 1.85858L15.4343 2.42426L14.8686 6.38406C14.8296 6.65743 15.0195 6.91069 15.2929 6.94975C15.5663 6.9888 15.8195 6.79885 15.8586 6.52548L16.495 2.07071ZM8.3 8.4L16.3 2.4L15.7 1.6L7.7 7.6L8.3 8.4Z" fill="#7F8182" />
                 </svg>
-                View Reports
-              </Link>
+                Feature Request
+              </a>
               <Link to="/billing" className='flex font-[Inter] font-medium font-sm items-center px-3 py-2'>
                 <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-2'>
                   <rect x="0.5" y="4.5" width="12" height="10" fill="white" stroke="#7F8182" />
@@ -159,13 +159,13 @@ const Dashboard: FC = () => {
                 </svg>
                 Contact Support
               </Link>
-              <Link to="/feedback" className='flex font-[Inter] font-medium font-sm items-center px-3 py-2'>
+              <a href="https://forms.gle/T9Kc6JvaVhzwozYR8" className='flex font-[Inter] font-medium font-sm items-center px-3 py-2' target='_blank' rel="noreferrer">
                 <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-2'>
                   <rect x="0.5" y="4.5" width="12" height="10" fill="white" stroke="#7F8182" />
                   <path d="M16.495 2.07071C16.534 1.79734 16.3441 1.54408 16.0707 1.50502L11.6159 0.868629C11.3426 0.829576 11.0893 1.01953 11.0503 1.29289C11.0112 1.56626 11.2011 1.81953 11.4745 1.85858L15.4343 2.42426L14.8686 6.38406C14.8296 6.65743 15.0195 6.91069 15.2929 6.94975C15.5663 6.9888 15.8195 6.79885 15.8586 6.52548L16.495 2.07071ZM8.3 8.4L16.3 2.4L15.7 1.6L7.7 7.6L8.3 8.4Z" fill="#7F8182" />
                 </svg>
                 Give Feedback
-              </Link>
+              </a>
             </div>
           </div>
           <div className='relative'>
@@ -186,7 +186,7 @@ const Dashboard: FC = () => {
                   <rect x="0.5" y="4.5" width="12" height="10" fill="white" stroke="#7F8182" />
                   <path d="M16.495 2.07071C16.534 1.79734 16.3441 1.54408 16.0707 1.50502L11.6159 0.868629C11.3426 0.829576 11.0893 1.01953 11.0503 1.29289C11.0112 1.56626 11.2011 1.81953 11.4745 1.85858L15.4343 2.42426L14.8686 6.38406C14.8296 6.65743 15.0195 6.91069 15.2929 6.94975C15.5663 6.9888 15.8195 6.79885 15.8586 6.52548L16.495 2.07071ZM8.3 8.4L16.3 2.4L15.7 1.6L7.7 7.6L8.3 8.4Z" fill="#7F8182" />
                 </svg>
-                Manage Campaigns
+                Go to Slack
               </a>
             </div>
           </div>

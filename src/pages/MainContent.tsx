@@ -56,10 +56,10 @@ const MainContent: FC = () => {
   };
 
   return (
-    <div className='flex min-h-[100vh] w-[1440px] relative'>
+    <div className='flex h-screen w-[1440px] relative'>
       {loading && <Loading />}
       {!loading && <>
-        <div className='w-[230px] px-2 py-8 flex flex-col border-r-[2px] border-[#7F8182] bg-[white] justify-between'>
+        <div className='w-[230px] px-2 py-8 flex flex-col border-r-[2px] border-[#7F8182] bg-[white] justify-between h-full fixed'>
           <div className='flex flex-col items-center justify-center'>
             <Link to="/">
               <img src={Logo} className='w-[40px] my-6' alt="logo" />
@@ -92,7 +92,7 @@ const MainContent: FC = () => {
           </div>
         </div>
 
-        <div className='bg-[#F5F5F5] w-full px-[75px] py-[40px]'>
+        <div className='bg-[#F5F5F5] w-full px-[75px] py-[40px] ml-[230px]'>
           <Routes>
             <Route path="/campaign/*" element={<Dashboard />} />
             <Route path="/detail" element={<Detail />} />

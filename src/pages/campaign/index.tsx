@@ -132,6 +132,8 @@ const Campaign: FC = () => {
                   <h2 className='font-[Inter] text-black font-semibold text-base'>{item.headline}</h2>
                   <p className='text-black font-[Inter] mt-[14px] text-xs font-normal'>Description</p>
                   <p className='text-black font-[Inter] font-normal text-xs'>{item.body}</p>
+                  <p className='text-black font-[Inter] mt-[14px] text-xs font-normal'>Audiences</p>
+                  <p className='text-black font-[Inter] font-normal text-xs'>{item.audience.join(',')}</p>
                 </div>
               </div>
               <div className='mt-[16px] flex items-center justify-end w-full'>

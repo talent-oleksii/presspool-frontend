@@ -5,25 +5,29 @@ import Ava from '../../assets/image/avaV2 1.png';
 const Support: FC = () => {
 
   return (
-    <div className='text-left relative'>
-      <h2 className='text-[32px] font-[Inter] text-black font-semibold'>Presspool Support📖</h2>
-      <p className='my-2 text-[#43474A] font-normal'>Automatic and personal support options can be found below.</p>
+    <div className='text-left relative h-[calc(100vh - 80px)] flex flex-col'>
+      <div className='h-fit'>
+        <h2 className='text-[32px] font-[Inter] text-black font-semibold'>Presspool Support 📖</h2>
+        <p className='my-2 text-[#43474A] font-normal'>Automatic and personal support options can be found below.</p>
+      </div>
 
-      <div className='bg-white pt-[22px] flex flex-col items-center justify-between mt-[60px] w-full rounded-[10px]'>
-        <img src={Ava} className='rounded-[25px] w-[160px]' alt="ava" />
-        <h2 className='font-[Inter] text-black font-semibold text-[28px]'>Talk to Ava</h2>
-        <p className='font-[Inter] text-[#43474a] font-medium text-[18px] text-center'>Our support bot trained on our<br /> platfrom from A~Z!</p>
-        <iframe className='w-full h-[600px]' title="bot"
+      <div className='bg-white pt-[12px] flex-1 flex flex-col items-center justify-between w-full rounded-[10px]'>
+        <div className='flex flex-col items-center justify-center'>
+          <img src={Ava} className='rounded-[20px] w-[50px]' alt="ava" />
+          <h2 className='font-[Inter] text-black font-semibold text-[17px]'>Talk to Ava</h2>
+          <p className='font-[Inter] text-[#43474a] font-medium text-[12px] text-center'>Our support bot trained on our platfrom from A~Z!</p>
+        </div>
+        <iframe className='w-full h-[420px]' title="bot"
           src="https://widget.writesonic.com/CDN/index.html?service-base-url=https://api.botsonic.ai&token=c6f96462-0f55-4daf-8060-9b1f72f6ce7e&base-origin=https://bot.writesonic.com&instance-name=Botsonic&standalone=true&page-url=https://bot.writesonic.com/b7cab8fd-3964-42bc-9e94-acdea65cbcd0?t=share&workspace_id=380ff3fc-a06c-4403-b38d-e9b513c83508" />
       </div>
 
-      <div className='grid grid-cols-2 gap-[30px] mt-[24px]'>
-        <div className='p-[30px] bg-white rounded-[10px]'>
+      <div className='grid grid-cols-2 gap-[30px] mt-[24px] h-fit'>
+        <div className='p-[20px] bg-white rounded-[10px]'>
           <h2 className='font-[Inter] text-black text-[28px] font-semibold'>Human Support</h2>
           <p className='text-sm font-[Inter] text-[#43474a] font-medium mt-[18px]'>Email support@presspool.ai anytime, or send us a message on Slack and we will get back to you ASAP!</p>
-          <a target="_blank" href="https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q" rel="noreferrer" className='mt-[63px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Go to Slack</a>
+          <a target="_blank" href="https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q" rel="noreferrer" className='mt-[53px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Go to Slack</a>
         </div>
-        <div className='p-[30px] bg-white rounded-[10px]'>
+        <div className='p-[20px] bg-white rounded-[10px]'>
           <h2 className='font-[Inter] text-black text-[28px] font-semibold'>Policies</h2>
           <div className='flex'>
             <div className='mt-[17px] min-w-[200px]'>
@@ -59,7 +63,7 @@ const Support: FC = () => {
               </a>
             </div>
           </div>
-          <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='mt-[32px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Email Support</a>
+          <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='mt-[22px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Email Support</a>
         </div>
       </div>
     </div>
