@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { HiLogout, HiHome, HiSpeakerphone, HiClipboardList, HiSupport } from 'react-icons/hi';
+import { Avatar } from 'antd';
 import { setUnauthenticated, selectAuth, setAuthenticated, setUserData } from '../store/authSlice';
 
 import Dashboard from './dashboard';
@@ -10,7 +11,6 @@ import Billing from './billing';
 import Support from "./support";
 import Detail from './campaign';
 import Admin from './admin';
-import User from '../assets/image/Headshot 1.png';
 import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
@@ -53,6 +53,17 @@ const MainContent: FC = () => {
   const handleLogout = () => {
     dispatch(setUnauthenticated());
     navigator('/');
+  };
+
+  const getPlaceHolder = () => {
+    const names = fullName.split(' ');
+    if (names.length === 2) {
+      return `${names[0].at(0)}${names[1].at(0)}`;
+    } else if (names.length === 1) {
+      return `${names[0].at(0)}`;
+    } else {
+      return '';
+    }
   };
 
   return (
@@ -104,7 +115,9 @@ const MainContent: FC = () => {
 
         <div className="absolute right-[20px] top-[20px]">
           <Link to="/profile" className="flex items-center">
-            <img src={User} alt="user" className="h-[40px] rounded-full" />
+            <Avatar className="bg-[#6c63ff]" alt={getPlaceHolder()} size="large">
+              {getPlaceHolder()}
+            </Avatar>
             <p className="text-gray-800 mx-3 font-[Inter] font-semibold text-[14px]">{fullName}</p>
           </Link>
         </div>
