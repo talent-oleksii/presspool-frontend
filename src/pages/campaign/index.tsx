@@ -67,7 +67,7 @@ const Campaign: FC = () => {
           value={searchStr}
           onChange={e => setSearchStr(e.target.value)}
         />
-        <select className='font-[Inter] px-3 py-2 rounded-[5px] border-[1px] border-gray-500'>
+        <select className='font-[Inter] mt-4 px-3 py-2 rounded-[5px] border-[1px] border-gray-500'>
           <option value="nto">Newest to Oldest</option>
           <option value="otn">Oldest to Newest</option>
         </select>
@@ -79,7 +79,6 @@ const Campaign: FC = () => {
             <div
               className='flex p-[32px] bg-white my-2 rounded-[10px] justify-between items-center w-full relative'
             >
-              <span className={`absolute top-[12px] left-[34px] rounded-full text-[10px] px-[12px] py-[4px] ${item.state === 'draft' ? 'bg-[#dbdbdb]' : item.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{item.state}</span>
               <p className='font-semibold font-[Inter] text-[16px]'>{item.name}</p>
               <div className='flex flex-col items-center'>
                 <p className='font-semibold font-[Inter] text-[10px]'>Start Date:</p>
@@ -105,22 +104,7 @@ const Campaign: FC = () => {
                 <p className='font-semibold font-[Inter] text-[10px]'>Budget Remaining:</p>
                 <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.price}`}</p>
               </div>
-              <div className='flex flex-col itesm-center'>
-                {/* <button
-                  className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
-                >
-                  View Details
-                </button> */}
-                <button
-                  className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
-                  onClick={() => {
-                    setCurrentData({ ...item, currentTab: 'budget' });
-                    setShowEdit(true);
-                  }}
-                >
-                  Raise Budget
-                </button>
-              </div>
+              <span className={`rounded-full text-[10px] px-[12px] py-[4px] ${item.state === 'draft' ? 'bg-[#dbdbdb]' : item.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{item.state}</span>
             </div>
           )}
           >
@@ -137,7 +121,7 @@ const Campaign: FC = () => {
                 </div>
               </div>
               <div className='mt-[16px] flex items-center justify-end w-full'>
-                <button
+                {/* <button
                   className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
                   onClick={() => {
                     setCurrentData({ ...item, currentTab: 'budget' });
@@ -145,11 +129,11 @@ const Campaign: FC = () => {
                   }}
                 >
                   Raise Budget
-                </button>
+                </button> */}
                 <button
                   className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
                   onClick={() => {
-                    setCurrentData({ ...item, currentTab: 'detail' });
+                    setCurrentData({ ...item, currentTab: 'budget' });
                     setShowEdit(true);
                   }}
                 >
