@@ -97,9 +97,19 @@ const MainContent: FC = () => {
               Support
             </Link>
           </div>
-          <div className='flex items-center justify-left border-t-[1px] py-9'>
-            <HiLogout className="mx-4" />
-            <button className='text-[Inter] font-semibold' onClick={handleLogout}>Log Out</button>
+          <div className='flex flex-col items-center justify-left'>
+            <div className="my-3">
+              <Link to="/profile" className="flex items-center">
+                <Avatar className="bg-[#6c63ff]" alt={getPlaceHolder()} size="large">
+                  {getPlaceHolder()}
+                </Avatar>
+                <p className="text-gray-800 mx-3 font-[Inter] font-semibold text-[14px]">{fullName}</p>
+              </Link>
+            </div>
+            <div className="flex items-center justify-left border-t-[1px] py-5">
+              <HiLogout className="mx-4" />
+              <button className='text-[Inter] font-semibold' onClick={handleLogout}>Log Out</button>
+            </div>
           </div>
         </div>
 
@@ -113,14 +123,7 @@ const MainContent: FC = () => {
           </Routes>
         </div>
 
-        <div className="absolute right-[20px] top-[20px]">
-          <Link to="/profile" className="flex items-center">
-            <Avatar className="bg-[#6c63ff]" alt={getPlaceHolder()} size="large">
-              {getPlaceHolder()}
-            </Avatar>
-            <p className="text-gray-800 mx-3 font-[Inter] font-semibold text-[14px]">{fullName}</p>
-          </Link>
-        </div>
+
       </>
       }
     </div>

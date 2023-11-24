@@ -121,11 +121,12 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
             >
               <Dialog.Panel className="relative rounded-lg p-4 text-left shadow-xl sm:w-[980px] bg-white">
                 {loading && <Loading />}
+
+                <h2 className='font-[Inter] w-full text-center text-black font-bold text-[22px]'>New Campaign</h2>
                 <div className='grid grid-cols-2 h-full w-full bg-white rounded-[10px]'>
                   <div className='col-span-1 text-left'>
-                    <h2 className='font-[Inter] text-black font-bold text-[22px]'>New Campaign</h2>
 
-                    <div className='text-left me-2 my-4 pr-3 rounded-md'>
+                    <div className='text-left me-2 rounded-md'>
                       <div className='flex justify-between'>
                         <p className='font-[Inter] text-md font-semibold mb-0'>
                           Campaign Headline
@@ -239,19 +240,6 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                       <p className='font-[Inter]'>Tick this box if you prefer to keep your headline and body copy as provided, without revision from our content experts.</p>
                     </div> */}
 
-                    <div className='col-span-full text-left mt-9'>
-                      <button
-                        className='border-black bg-[#6c63ff] rounded-[5px] px-5 py-2 text-white'
-                        onClick={handleSave}
-                      >
-                        Save Changes
-                      </button>
-                      <button className='font-[Inter] bg-transparent px-4 py-2 ms-3'
-                        onClick={() => setShow(false)}
-                      >
-                        Close
-                      </button>
-                    </div>
                   </div>
                   <div className='col-span-1 bg-[#43434A] h-full sm:max-h-[80vh] overflow-hidden relative flex flex-col items-center bg-[#43474A] rounded-[5px] px-2 py-4'>
                     {/* Content for Campaign */}
@@ -282,6 +270,19 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                       </div>
                     </div>
                   </div>
+                </div>
+                <div className='col-span-full mt-5 text-center'>
+                  <button
+                    className='border-black bg-[#6c63ff] rounded-[5px] px-5 py-2 text-white'
+                    onClick={handleSave}
+                  >
+                    Save & Continue
+                  </button>
+                  {/* <button className='font-[Inter] bg-transparent px-4 py-2 ms-3'
+                        onClick={() => setShow(false)}
+                      >
+                        Close
+                      </button> */}
                 </div>
               </Dialog.Panel>
             </Transition.Child>

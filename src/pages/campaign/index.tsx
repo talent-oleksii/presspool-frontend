@@ -46,7 +46,7 @@ const Campaign: FC = () => {
         }
         return item;
       }));
-      DialogUtils.show('success', state === 'paused' ? 'Successfully Paused the Campaign' : 'Successfully Started the Campaign', '');
+      DialogUtils.show('success', state === 'paused' ? 'Campaign Paused' : 'Successfully Started the Campaign', '');
     }).catch(err => {
       console.log('puaseing error:', err);
     }).finally(() => setLoading(false));

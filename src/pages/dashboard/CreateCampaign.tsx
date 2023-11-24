@@ -110,7 +110,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       setCurrentAudience([]);
       setShow(false);
 
-      DialogUtils.show('success', '', 'Your campaign has successfully been submitted! Our team is now reviewing the campaign and you will get notified as soon as it is live.');
+      DialogUtils.show('success', '', 'Your campaign has been submitted! Our team will review the details and notify you as soon as its live.');
 
       if (verified === 'false') {
         await StripeUtil.goToPay(email, data.data.id, 'https://presspool-frontend.onrender.com/#/detail', currentCard, process.env.REACT_APP_PRICE_250 as string);
@@ -170,7 +170,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
               <Dialog.Panel className="relative bg-white rounded-lg text-left shadow-xl sm:w-[850px] sm:min-h-[500px] border-[1px] border-black px-[70px] pt-[100px] pb-[26px]">
                 {loading && <Loading />}
                 <div className='absolute flex w-full left-0 top-0 justify-between items-center px-[19px] py-[30px]'>
-                  <h2 className='font-[Inter] text-[24px] font-semibold'>Create New Campaign </h2>
+                  <h2 className='font-[Inter] text-[24px] font-semibold text-center w-full'>New Campaign </h2>
                   <button onClick={() => setShow(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                       <path d="M13.4444 13.4444L20.5556 20.5556M20.5556 13.4444L13.4444 20.5556M17 1C29.8 1 33 4.2 33 17C33 29.8 29.8 33 17 33C4.2 33 1 29.8 1 17C1 4.2 4.2 1 17 1Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
