@@ -66,8 +66,8 @@ const ClientSignUp: FC = () => {
             {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#7FFBAE] to-[#6C63FF]'>
                 {/* <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" /> */}
-                <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
+                <h2 className='font-bold my-3 font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign Up</h2>
+                <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
             <div className='flex flex-1 justify-center items-center px-[82px] bg-white'>
                 <div className="w-full bg-[white] rounded-[15px] py-[50px]">
@@ -76,7 +76,7 @@ const ClientSignUp: FC = () => {
                     </div>
 
                     <form className="text-left" onSubmit={handleSubmit}>
-                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Full Name</label>
+                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Full Name</label>
                         <input
                             id='fullName'
                             name='fullName'
@@ -86,7 +86,7 @@ const ClientSignUp: FC = () => {
                             type="text"
                             className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
-                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Company Name</label>
+                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Company Name</label>
                         <input
                             id='company'
                             name='company'
@@ -96,7 +96,7 @@ const ClientSignUp: FC = () => {
                             type="text"
                             className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
-                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Email Address</label>
+                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Email Address</label>
                         <input
                             id='email'
                             name='email'
@@ -106,7 +106,7 @@ const ClientSignUp: FC = () => {
                             type="email"
                             className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
                         />
-                        <label className='font-[Inter] text-[17px] font-medium -tracking-[.5px]'>Password</label>
+                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Password</label>
                         <input
                             id='password'
                             name='password'
@@ -123,12 +123,12 @@ const ClientSignUp: FC = () => {
                                 type="checkbox"
                                 className='rounded-sm border-[1px] p-1 rounded-[5px]'
                             />
-                            <span className='ms-2 font-[Inter] text-md font-medium'>
+                            <span className='ms-2 font-[Inter] text-sm 2xl:text-md font-medium'>
                                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
                             </span>
                         </div>
                         <button
-                            className="rounded-[6px] text-md bg-black w-full py-[15px] mt-[50px] text-[white] disabled:bg-[gray]"
+                            className="rounded-[6px] text-sm 2xl:text-md bg-black w-full py-[10px] 2xl:py-[15px] mt-[30px] 2xl:mt-[50px] text-[white] disabled:bg-[gray]"
                             type="submit"
                             disabled={!formData.agreeTerm}
                         >
@@ -136,7 +136,7 @@ const ClientSignUp: FC = () => {
                         </button>
                     </form>
                     <div className='flex items-center justify-center mt-[36px]'>
-                        <p className="text-md text-center w-full font-[Inter] text-black text-lg" >Already have an account? <Link to="/login" className='text-[#6c63ff] underline'>Login</Link></p>
+                        <p className="text-md text-center w-full font-[Inter] text-black text-md 2xl:text-lg" >Already have an account? <Link to="/login" className='text-[#6c63ff] underline'>Login</Link></p>
                     </div>
                 </div>
             </div>

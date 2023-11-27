@@ -66,6 +66,13 @@ const MainContent: FC = () => {
     }
   };
 
+  const getOffset = () => {
+    if (location.pathname.indexOf('campaign') > -1) return 'translate-y-0';
+    if (location.pathname.indexOf('detail') > -1) return 'translate-y-16';
+    if (location.pathname.indexOf('billing') > -1) return 'translate-y-32';
+    if (location.pathname.indexOf('support') > -1) return 'translate-y-48';
+  };
+
   return (
     <div className='min-h-screen w-full relative'>
       {loading && <Loading />}
@@ -76,26 +83,30 @@ const MainContent: FC = () => {
               <img src={Logo} className='w-[40px] my-6' alt="logo" />
             </Link>
 
-            <Link className={`w-full text-left my-3 font-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('campaign') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
-              to="/campaign/all">
-              <HiHome className="mx-2" />
-              Dashboard
-            </Link>
-            <Link className={`w-full text-left my-3 font-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('detail') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
-              to="/detail">
-              <HiSpeakerphone className="mx-2" />
-              Campaigns
-            </Link>
-            <Link className={`w-full text-left my-3 font-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('billing') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
-              to="/billing">
-              <HiClipboardList className="mx-2" />
-              Billing
-            </Link>
-            <Link className={`w-full text-left my-3 font-[Inter] text-lg font-semibold rounded-[10px] px-4 py-3 flex items-center ${location.pathname.indexOf('support') > -1 ? 'bg-[#2d2c2d] text-gray-200' : 'bg-white text-black'}`}
-              to="/support">
-              <HiSupport className="mx-2" />
-              Support
-            </Link>
+            <div className="relative w-full">
+              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+                to="/campaign/all">
+                <HiHome className="mx-2" />
+                Dashboard
+              </Link>
+              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+                to="/detail">
+                <HiSpeakerphone className="mx-2" />
+                Campaigns
+              </Link>
+              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+                to="/billing">
+                <HiClipboardList className="mx-2" />
+                Billing
+              </Link>
+              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+                to="/support">
+                <HiSupport className="mx-2" />
+                Support
+              </Link>
+
+              <div className={`absolute h-14 bg-[#2d2c2d] w-full rounded-[20px] top-2 -z-[1] transition-transform transform opacity-[.65] ${getOffset()}`} />
+            </div>
           </div>
           <div className='flex flex-col items-center justify-left'>
             <div className="my-3">

@@ -25,8 +25,8 @@ const Landing: FC = () => {
     return (
         <div className="pt-[20px] flex flex-col text-center items-center justify-center">
             <img alt="logo" src={Logo} className='w-[40px] my-4' />
-            <h2 className="mt-2 font-[Inter] font-semibold text-5xl text-black mb-2 -tracking-[1.2px]">Welcome to</h2>
-            <h2 className="font-[Inter] font-semibold text-black text-5xl -tracking-[1.2px]">
+            <h2 className="mt-2 font-[Inter] font-semibold text-4xl 2xl:text-5xl text-black mb-2 -tracking-[1.2px]">Welcome to</h2>
+            <h2 className="font-[Inter] font-semibold text-black text-4xl 2xl:text-5xl -tracking-[1.2px]">
                 the
                 <span className='bg-[#43474a] text-[#7FFBAE] mx-2 rounded-full px-2 py-0'>future</span>
                 of AI marketing
@@ -34,12 +34,12 @@ const Landing: FC = () => {
             <div className='flex items-center justify-center mt-[30px]'>
                 {!isAuthenticated ?
                     <>
-                        <Link className='flex flex-col font-bold text-black text-lg items-center justify-center mx-[10px] bg-white rounded-[20px] w-[260px] h-[170px] shadow-md' to="client-sign-up">
+                        <Link className='flex flex-col font-bold text-black text-md 2xl:text-lg items-center justify-center mx-[10px] bg-white rounded-[20px] w-[260px] h-[170px] shadow-md' to="client-sign-up">
                             <img src={Company} alt="..." />
                             <p className='mb-0 mt-3'>I'm a</p>
                             <p className='mb-0 -mt-1'>Company</p>
                         </Link>
-                        <button className='flex flex-col font-bold text-black text-lg items-center justify-center mx-[10px] bg-white rounded-[20px] w-[260px] h-[170px] shadow-md'>
+                        <button className='flex flex-col font-bold text-black text-md 2xl:text-lg items-center justify-center mx-[10px] bg-white rounded-[20px] w-[260px] h-[170px] shadow-md'>
                             <img src={Creator} alt="..." />
                             <p className='mb-0 mt-3'>I'm a</p>
                             <p className='mb-0 -mt-1'>Creator</p>
@@ -52,7 +52,7 @@ const Landing: FC = () => {
             </div>
             {!isAuthenticated ?
                 <p className='mt-[20px] font-[Inter] font-semibold text-sm'>Already have an account? Sign in <Link to="/login" className='text-purple underline'>here</Link></p> :
-                <button className='mt-3 text-md font-[Inter] text-[red]' onClick={handleLogout}>Log out</button>
+                <button className='mt-3 text-sm 2xl:text-md font-[Inter] text-[red]' onClick={handleLogout}>Log out</button>
             }
             <div className='mt-[20px] rounded-[20px] bg-[#1B1A1A] pt-[42px] px-[125px] pb-[6px]'>
                 <p className='text-white text-lg font-semibold'>Discover Features</p>

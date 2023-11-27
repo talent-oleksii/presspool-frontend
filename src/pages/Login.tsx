@@ -66,8 +66,8 @@ const Login: FC = () => {
             {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#7FFBAE] to-[#6C63FF]'>
                 {/* <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" /> */}
-                <h2 className='font-bold my-3 font-[Inter] text-[50px] text-[white] z-[1]'>Sign In</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
+                <h2 className='font-bold my-3 font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign In</h2>
+                <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
             <div className="flex flex-1 items-center justify-center bg-white w-full px-[82px]">
                 <div className="rounded-[15px] w-full">
@@ -77,7 +77,7 @@ const Login: FC = () => {
 
                     <form className="text-left p-8" onSubmit={handleSubmit}>
                         <div>
-                            <label className="font-[Inter] text-base block text-md font-semibold my-1">Email Address</label>
+                            <label className="font-[Inter] text-base block text-sm 2xl:text-md font-semibold my-1">Email Address</label>
                             <input
                                 id="email"
                                 name="email"
@@ -87,7 +87,7 @@ const Login: FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="font-[Inter] block text-base text-md font-semibold mt-[18px]">Password</label>
+                            <label className="font-[Inter] block text-base text-sm 2xl:text-md font-semibold mt-[18px]">Password</label>
                             <input
                                 id="password"
                                 name="password"
@@ -97,11 +97,11 @@ const Login: FC = () => {
                             />
                         </div>
                         <div className="w-full text-right">
-                            <button className="font-[Inter] text-[#6c63ff] text-[17px] mt-[22px] underline">Forgot Password?</button>
+                            <button className="font-[Inter] text-[#6c63ff] text-sm 2xl:text-[17px] mt-[22px] underline">Forgot Password?</button>
                         </div>
-                        <button className="rounded-[6px] bg-black w-full py-[15px] my-4 text-[white] mt-[32px]">Sign In</button>
+                        <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-md 2xl:text-lg text-[white] mt-[32px]">Sign In</button>
 
-                        <p className="mt-[35px] font-[Inter] text-black text-[19px] flex items-center justify-center">
+                        <p className="mt-[35px] font-[Inter] text-black text-md 2xl:text-[19px] flex items-center justify-center">
                             Don't have an account?
                             <Link className="block text-center text-[#6c63ff] ms-1" to="/">Sign Up</Link>
                         </p>
