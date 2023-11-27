@@ -66,11 +66,18 @@ const MainContent: FC = () => {
     }
   };
 
-  const getOffset = () => {
+  const getOffsetBack = () => {
     if (location.pathname.indexOf('campaign') > -1) return 'translate-y-0';
     if (location.pathname.indexOf('detail') > -1) return 'translate-y-16';
     if (location.pathname.indexOf('billing') > -1) return 'translate-y-32';
     if (location.pathname.indexOf('support') > -1) return 'translate-y-48';
+  };
+
+  const getOffsetColor = () => {
+    if (location.pathname.indexOf('campaign') > -1) return 1;
+    if (location.pathname.indexOf('detail') > -1) return 2;
+    if (location.pathname.indexOf('billing') > -1) return 3;
+    if (location.pathname.indexOf('support') > -1) return 4;
   };
 
   return (
@@ -84,28 +91,28 @@ const MainContent: FC = () => {
             </Link>
 
             <div className="relative w-full">
-              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+              <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 1 ? 'text-white' : 'text-black'} transition-colors duration-300`}
                 to="/campaign/all">
                 <HiHome className="mx-2" />
                 Dashboard
               </Link>
-              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+              <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 2 ? 'text-white' : 'text-black'} transition-colors duration-300`}
                 to="/detail">
                 <HiSpeakerphone className="mx-2" />
                 Campaigns
               </Link>
-              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+              <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 3 ? 'text-white' : 'text-black'} transition-colors duration-300`}
                 to="/billing">
                 <HiClipboardList className="mx-2" />
                 Billing
               </Link>
-              <Link className='w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center text-black'
+              <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 4 ? 'text-white' : 'text-black'} transition-colors duration-300`}
                 to="/support">
                 <HiSupport className="mx-2" />
                 Support
               </Link>
 
-              <div className={`absolute h-14 bg-[#2d2c2d] w-full rounded-[20px] top-2 -z-[1] transition-transform transform opacity-[.65] ${getOffset()}`} />
+              <div className={`absolute h-14 bg-black w-full rounded-[20px] top-2 -z-[1] transition-transform duration-300 transform ${getOffsetBack()}`} />
             </div>
           </div>
           <div className='flex flex-col items-center justify-left'>
