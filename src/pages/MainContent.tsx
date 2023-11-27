@@ -114,28 +114,28 @@ const MainContent: FC = () => {
               </button>
 
               <div className="relative w-full">
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 1 ? 'text-white' : 'text-black'} transition-colors duration-300`}
+                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 1 ? 'text-white' : 'text-black'} transition-colors duration-500`}
                   to="/campaign/all">
                   <HiHome className="mx-2" />
                   Dashboard
                 </Link>
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 2 ? 'text-white' : 'text-black'} transition-colors duration-300`}
+                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 2 ? 'text-white' : 'text-black'} transition-colors duration-500`}
                   to="/detail">
                   <HiSpeakerphone className="mx-2" />
                   Campaigns
                 </Link>
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 3 ? 'text-white' : 'text-black'} transition-colors duration-300`}
+                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 3 ? 'text-white' : 'text-black'} transition-colors duration-500`}
                   to="/billing">
                   <HiClipboardList className="mx-2" />
                   Billing
                 </Link>
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 4 ? 'text-white' : 'text-black'} transition-colors duration-300`}
+                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 4 ? 'text-white' : 'text-black'} transition-colors duration-500`}
                   to="/support">
                   <HiSupport className="mx-2" />
                   Support
                 </Link>
 
-                <div className={`absolute h-14 bg-black w-full rounded-[20px] top-2 -z-[1] transition-transform duration-300 transform ${getOffsetBack()}`} />
+                <div className={`absolute h-14 bg-black w-full rounded-[20px] top-2 -z-[1] transition-transform duration-500 transform ${getOffsetBack()}`} />
               </div>
             </div>
             <div className='flex flex-col items-center justify-left'>

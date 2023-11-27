@@ -43,7 +43,6 @@ const Billing: FC = () => {
       className='text-left relative'
       initial="hidden"
       animate="show"
-      transition={{ duration: .3 }}
       variants={FADE_UP_ANIMATION_VARIANTS}
     >
       <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Billings 📈`}</h2>

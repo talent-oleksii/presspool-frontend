@@ -51,7 +51,6 @@ const Campaign: FC = () => {
       className='text-left relative'
       initial="hidden"
       animate="show"
-      transition={{ duration: .3 }}
       variants={FADE_UP_ANIMATION_VARIANTS}
     >
       {loading && <Loading />}

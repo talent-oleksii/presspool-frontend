@@ -38,14 +38,13 @@ const Dashboard: FC = () => {
 			className='text-left relative'
 			initial="hidden"
 			animate="show"
-			transition={{ duration: .3 }}
 			variants={FADE_UP_ANIMATION_VARIANTS}
 		>
 			<h1 className='font-semibold font-[Inter] text-[26px] 2xl:text-[32px] -tracking-[1.02px]'>Welcome {name} 🤝</h1>
 			<p className='my-2 text-md 2xl:text-lg text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
 
 			<div className='flex'>
-				<div className='flex-1 transition-all ease-in-out duration-300'>
+				<div className='flex-1 transition-all ease-in-out duration-500'>
 					<div className='flex justify-between items-center mt-4 bg-white rounded-[15px] p-2'>
 						<div>
 							<Link

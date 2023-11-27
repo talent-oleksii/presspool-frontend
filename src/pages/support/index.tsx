@@ -1,11 +1,19 @@
 import { FC } from 'react';
+import { motion } from 'framer-motion';
+
+import { FADE_UP_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
 
 import Ava from '../../assets/image/avaV2 1.png';
 
 const Support: FC = () => {
 
   return (
-    <div className='text-left relative h-[calc(100vh - 80px)] flex flex-col'>
+    <motion.div
+      initial="hidden"
+      animate="show"
+      variants={FADE_UP_ANIMATION_VARIANTS}
+      className='text-left relative h-[calc(100vh - 80px)] flex flex-col'
+    >
       <div className='h-fit'>
         <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>Presspool Support 📖</h2>
         <p className='my-2 text-[#43474A] font-normal'>Automatic and personal support options can be found below.</p>
@@ -66,7 +74,7 @@ const Support: FC = () => {
           <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='mt-[22px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Email Support</a>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
