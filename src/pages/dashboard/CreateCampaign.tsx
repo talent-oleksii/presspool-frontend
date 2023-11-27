@@ -1,5 +1,6 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { motion } from 'framer-motion';
 import CreatableSelect from 'react-select/creatable';
 import { useDispatch, useSelector } from 'react-redux';
 import { StylesConfig } from 'react-select';
@@ -14,6 +15,7 @@ import { setCardList, selectData } from '../../store/dataSlice';
 import CreateCampaignUI from './CreateCampaignUI';
 import CardForm from '../../components/StripeCardForm';
 import DialogUtils from '../../utils/DialogUtils';
+import { FADE_RIGHT_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
 
 interface typeCreateCampaign {
   show: boolean;
@@ -174,7 +176,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative bg-white rounded-lg text-left shadow-xl sm:w-[850px] sm:min-h-[500px] border-[1px] border-black px-[70px] pt-[100px] pb-[26px]">
+              <Dialog.Panel className="relative bg-white rounded-lg text-left shadow-xl sm:w-[850px] sm:min-h-[500px] border-[1px] border-black px-[70px] pt-[100px] pb-[26px] overflow-hidden">
                 {loading && <Loading />}
                 <div className='absolute flex w-full left-0 top-0 justify-between items-center px-[19px] py-[30px]'>
                   <h2 className='font-[Inter] text-[18px] 2xl:text-[24px] font-semibold text-center w-full'>New Campaign</h2>
@@ -217,7 +219,12 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                 </div>
                 <div className='pt-[34px]'>
                   {
-                    currentTab === 'detail' && <>
+                    currentTab === 'detail' &&
+                    <motion.div
+                      variants={FADE_RIGHT_ANIMATION_VARIANTS}
+                      initial="hidden"
+                      animate="show"
+                    >
                       <p className='text-[20px] font-[Inter] text-black font-semibold'>What would you like to name your campaign?</p>
                       <input
                         className='px-3 py-2 rounded-[8px] w-full border font-[Inter] border-[#7F8182] mt-[18px]'
@@ -241,10 +248,15 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                           Next Step
                         </button>
                       </div>
-                    </>
+                    </motion.div>
                   }
                   {
-                    currentTab === 'audience' && <>
+                    currentTab === 'audience' &&
+                    <motion.div
+                      variants={FADE_RIGHT_ANIMATION_VARIANTS}
+                      initial="hidden"
+                      animate="show"
+                    >
                       <div className='bg-white'>
                         <p className='font-[Inter] font-normal text-[20px] font-semibold'>Who are you targeting</p>
                         <div className='flex items-center mt-[18px] w-full gap-[28px]'>
@@ -298,10 +310,15 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                           Next Step
                         </button>
                       </div>
-                    </>
+                    </motion.div>
                   }
                   {
-                    currentTab === 'budget' && <>
+                    currentTab === 'budget' &&
+                    <motion.div
+                      variants={FADE_RIGHT_ANIMATION_VARIANTS}
+                      initial="hidden"
+                      animate="show"
+                    >
                       <h2 className='font-[Inter] text-[20px] font-semibold text-black'>Please type in your budget cap for this campaign</h2>
                       <p className='font-[Inter] text-gray-600 text-sm mt-[14px]'>*Keep in mind, these are all verified, targeted, engaged and trusting readers that will be clicking through directly to your landing page of choice</p>
                       <div className='px-4 py-2 mt-[23px] border-[1px] rounded-lg border-black w-full flex justify-between items-center relative'>
@@ -331,10 +348,15 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                           Next Step
                         </button>
                       </div>
-                    </>
+                    </motion.div>
                   }
                   {
-                    currentTab === 'review' && <>
+                    currentTab === 'review' &&
+                    <motion.div
+                      variants={FADE_RIGHT_ANIMATION_VARIANTS}
+                      initial="hidden"
+                      animate="show"
+                    >
                       <h2 className='font-semibold text-base font-[Inter]'>Review</h2>
                       {currentAudience.length >= 1 && currentPrice &&
                         <div className='mt-[15px]'>
@@ -403,7 +425,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                           Save Draft
                         </button>
                       </div>
-                    </>
+                    </motion.div>
                   }
                 </div>
                 <CreateCampaignUI show={showUI} setShow={(show: boolean) => setShowUI(show)} setUIContent={(data: any) => setUIID(data)} />

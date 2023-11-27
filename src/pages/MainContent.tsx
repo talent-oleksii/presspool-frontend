@@ -98,7 +98,7 @@ const MainContent: FC = () => {
     <div className='min-h-screen w-full relative'>
       {loading && <Loading />}
       {!loading &&
-        <motion.div variants={FADE_UP_ANIMATION_VARIANTS}>
+        <>
           <div className='w-[230px] px-2 py-8 flex flex-col border-r-[2px] border-[#7F8182] bg-[white] justify-between h-full fixed'>
             <div className='flex flex-col items-center justify-center'>
               <Link to="/">
@@ -163,7 +163,7 @@ const MainContent: FC = () => {
               <Route path="/admin/*" element={<Admin />} />
             </Routes>
           </div>
-        </motion.div>
+        </>
       }
 
       <CreateCampaign
