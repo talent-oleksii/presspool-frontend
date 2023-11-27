@@ -81,32 +81,32 @@ const MainContent: FC = () => {
   };
 
   const getOffsetBack = () => {
-    if (location.pathname.indexOf('campaign') > -1) return 'translate-y-0';
-    if (location.pathname.indexOf('detail') > -1) return 'translate-y-16 2xl:translate-y-[4.33rem]';
-    if (location.pathname.indexOf('billing') > -1) return 'translate-y-32 2xl:translate-y-[8.67rem]';
-    if (location.pathname.indexOf('support') > -1) return 'translate-y-48 2xl:translate-y-52';
+    if (location.pathname.indexOf('campaign') > -1) return 'top-0';
+    if (location.pathname.indexOf('detail') > -1) return 'top-[25%]';
+    if (location.pathname.indexOf('billing') > -1) return 'top-[50%]';
+    if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
   };
 
-  const getOffsetColor = () => {
-    if (location.pathname.indexOf('campaign') > -1) return 1;
-    if (location.pathname.indexOf('detail') > -1) return 2;
-    if (location.pathname.indexOf('billing') > -1) return 3;
-    if (location.pathname.indexOf('support') > -1) return 4;
-  };
+  // const getOffsetColor = () => {
+  //   if (location.pathname.indexOf('campaign') > -1) return 1;
+  //   if (location.pathname.indexOf('detail') > -1) return 2;
+  //   if (location.pathname.indexOf('billing') > -1) return 3;
+  //   if (location.pathname.indexOf('support') > -1) return 4;
+  // };
 
   return (
     <div className='min-h-screen w-full relative'>
       {loading && <Loading />}
       {!loading &&
         <>
-          <div className='w-[230px] px-2 py-8 flex flex-col border-r-[2px] border-[#7F8182] bg-[white] justify-between h-full fixed'>
+          <div className='w-[210px] pl-2 py-8 flex flex-col justify-between h-full fixed'>
             <div className='flex flex-col items-center justify-center'>
-              <Link to="/">
-                <img src={Logo} className='w-[40px] my-6' alt="logo" />
+              <Link to="/" className="text-left w-full pl-3 mb-5">
+                <img src={Logo} className='w-[25px] my-2' alt="logo" />
               </Link>
 
               <button
-                className="text-md 2xl:text-lg font-[Inter] flex items-center text-left py-4 px-3 w-full bg-[#6c63ff] rounded-[20px] my-2 text-white"
+                className="text-sm 2xl:text-base font-[Inter] flex items-center text-left py-3 px-3 w-full bg-[#6c63ff] rounded-[15px] my-4 text-white"
                 onClick={() => setShowAddDialog(true)}
               >
                 <HiPlus className="mx-2" />
@@ -114,28 +114,28 @@ const MainContent: FC = () => {
               </button>
 
               <div className="relative w-full">
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 1 ? 'text-white' : 'text-black'} transition-colors duration-500`}
+                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
                   to="/campaign/all">
                   <HiHome className="mx-2" />
                   Dashboard
                 </Link>
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 2 ? 'text-white' : 'text-black'} transition-colors duration-500`}
+                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
                   to="/detail">
                   <HiSpeakerphone className="mx-2" />
                   Campaigns
                 </Link>
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 3 ? 'text-white' : 'text-black'} transition-colors duration-500`}
+                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
                   to="/billing">
                   <HiClipboardList className="mx-2" />
                   Billing
                 </Link>
-                <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 4 ? 'text-white' : 'text-black'} transition-colors duration-500`}
+                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
                   to="/support">
                   <HiSupport className="mx-2" />
                   Support
                 </Link>
 
-                <div className={`absolute h-14 bg-black w-full rounded-[20px] top-2 -z-[1] transition-transform duration-500 transform ${getOffsetBack()}`} />
+                <div className={`absolute h-1/4 bg-white w-full rounded-[15px] -z-[1] transition-all duration-500 transform ${getOffsetBack()}`} />
               </div>
             </div>
             <div className='flex flex-col items-center justify-left'>
@@ -154,7 +154,7 @@ const MainContent: FC = () => {
             </div>
           </div>
 
-          <div className='bg-[#F5F5F5] px-[40px] py-[20px] ml-[230px]'>
+          <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[210px]'>
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />
               <Route path="/detail" element={<Detail />} />

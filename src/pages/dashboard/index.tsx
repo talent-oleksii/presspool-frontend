@@ -45,10 +45,10 @@ const Dashboard: FC = () => {
 
 			<div className='flex'>
 				<div className='flex-1'>
-					<div className='flex justify-between items-center mt-2 bg-white rounded-[15px] p-2'>
+					<div className='flex justify-between items-center mt-2 rounded-[15px] p-2'>
 						<div>
 							<Link
-								className={`inline-flex text-left text-sm 2xl:text-md px-3 py-2 text-[Inter] rounded-full sm:w-[170px] me-2 ${id === 'all' ? 'bg-black text-white' : 'bg-white text-black'}`}
+								className={`inline-flex ring-1 ring-[#6c63ff] text-left text-sm 2xl:text-md px-3 py-2.5 text-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white' : 'bg-transparent'}`}
 								to="/campaign/all"
 							>
 								Overview
@@ -57,10 +57,10 @@ const Dashboard: FC = () => {
 								<Flowbite theme={{
 									theme: {
 										button: {
-											base: 'rounded-full',
+											base: 'bg-transparent',
 											color: {
-												black: 'bg-black text-white',
-												white: 'bg-white text-black',
+												black: 'bg-white text-white',
+												white: 'bg-transparent text-black',
 											},
 										}
 									}
@@ -83,7 +83,7 @@ const Dashboard: FC = () => {
 							</div>
 						</div>
 						<DatePicker.RangePicker
-							className='font-[Inter]'
+							className='font-[Inter] rounded-[15px] py-2.5 border-[#7F8182]'
 							onChange={(e) => setRange(e)}
 						/>
 					</div>
@@ -92,8 +92,8 @@ const Dashboard: FC = () => {
 					}
 
 				</div>
-				<div className='w-[280px] pl-3'>
-					<div className='relative h-[320px]'>
+				<div className='w-[270px] pl-3 mt-20'>
+					<div className='relative h-[300px]'>
 						<div className='bg-[#c1ffd9] p-[19px] rounded-t-[14px] absolute w-full top-0 z-10'>
 							<p className='text-black text-sm 2xl:text-base font-semibold text-[Inter]'>Quick Actions:</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[4px]'>Let’s get you where you need to go</p>

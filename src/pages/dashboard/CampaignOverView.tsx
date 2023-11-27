@@ -78,7 +78,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
   return (
     <div>
-      <div className='mt-2 rounded-[10px] grid grid-cols-4 gap-4'>
+      <div className='mt-3 rounded-[10px] grid grid-cols-4 gap-4'>
         <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white'>
           <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{getTotalImpression()}</h2>
           <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>Total Impressions</p>

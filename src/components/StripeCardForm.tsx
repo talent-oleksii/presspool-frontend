@@ -37,6 +37,12 @@ const CardForm: FC = () => {
     if (!cardElement) return;
 
     setLoading(true);
+    const { source, error } = await stripe.createSource(cardElement, {
+      owner: {
+        email: email,
+      }
+    });
+    console.log('source:', source);
     const { token } = await stripe.createToken(cardElement, { name: email });
 
     // Send the token and email to your server
@@ -44,6 +50,7 @@ const CardForm: FC = () => {
       email,
       token,
     }).then(data => {
+      console.log('card date:', data.data);
       dispatch(addCard({ card: data.data }));
     }).catch(err => {
       console.log('err:', err);
