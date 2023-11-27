@@ -327,7 +327,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                           onClick={() => setCurrentTab('budget')}
                           disabled={currentAudience.length <= 0}
                         >
-                          Next Step
+                          Save & Continue
                         </button>
                       </div>
                     </motion.div>
@@ -365,7 +365,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                           onClick={() => setCurrentTab('review')}
                           disabled={Number(currentPrice) < 10000}
                         >
-                          Next Step
+                          Save & Continue
                         </button>
                       </div>
                     </motion.div>
