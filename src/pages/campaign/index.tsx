@@ -55,16 +55,16 @@ const Campaign: FC = () => {
     >
       {loading && <Loading />}
       <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Campaigns 📈`}</h2>
-      <p className='my-2 text-[#43474A] font-normal text-md 2xl:text-lg'>Here's your account at a glance.</p>
+      <p className='my-2 text-[#43474A] font-normal text-sm 2xl:text-md'>Here's your account at a glance.</p>
 
       <div className='flex items-center justify-center w-full'>
         <input
-          className='me-2 mt-4 font-[Inter] flex-1 px-4 py-2 rounded-full border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'
+          className='me-2 mt-2 font-[Inter] flex-1 px-4 py-2 rounded-full border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'
           placeholder='Type here to search by campaign name'
           value={searchStr}
           onChange={e => setSearchStr(e.target.value)}
         />
-        <select className='font-[Inter] mt-4 px-3 py-2 rounded-full border-[1px] border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'>
+        <select className='font-[Inter] mt-2 px-3 py-2 rounded-full border-[1px] border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'>
           <option value="nto">Newest to Oldest</option>
           <option value="otn">Oldest to Newest</option>
         </select>
@@ -74,7 +74,7 @@ const Campaign: FC = () => {
         {campaign.map(item => (
           <Collapsible key={item.id} trigger={(
             <div
-              className='flex p-[32px] bg-white my-2 rounded-[10px] justify-between items-center w-full relative'
+              className='flex p-[20px] 2xl:p-[32px] bg-white my-2 rounded-[10px] justify-between items-center w-full relative'
             >
               <p className='font-semibold font-[Inter] text-[16px]'>{item.name}</p>
               <div className='flex flex-col items-center'>

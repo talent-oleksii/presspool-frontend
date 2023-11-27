@@ -41,11 +41,11 @@ const Dashboard: FC = () => {
 			variants={FADE_UP_ANIMATION_VARIANTS}
 		>
 			<h1 className='font-semibold font-[Inter] text-[26px] 2xl:text-[32px] -tracking-[1.02px]'>Welcome {name} 🤝</h1>
-			<p className='my-2 text-md 2xl:text-lg text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
+			<p className='my-2 text-sm 2xl:text-md text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
 
 			<div className='flex'>
-				<div className='flex-1 transition-all ease-in-out duration-500'>
-					<div className='flex justify-between items-center mt-4 bg-white rounded-[15px] p-2'>
+				<div className='flex-1'>
+					<div className='flex justify-between items-center mt-2 bg-white rounded-[15px] p-2'>
 						<div>
 							<Link
 								className={`inline-flex text-left text-sm 2xl:text-md px-3 py-2 text-[Inter] rounded-full sm:w-[170px] me-2 ${id === 'all' ? 'bg-black text-white' : 'bg-white text-black'}`}

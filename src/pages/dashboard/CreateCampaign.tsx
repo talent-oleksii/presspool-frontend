@@ -153,6 +153,13 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     });
   };
 
+  const getOffsetBack = () => {
+    if (currentTab === 'detail') return 'left-2';
+    if (currentTab === 'audience') return 'left-[25%]';
+    if (currentTab === 'budget') return 'left-[50%]';
+    if (currentTab === 'review') return 'left-[75%]';
+  };
+
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => { }}>
@@ -170,42 +177,43 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
               <Dialog.Panel className="relative bg-white rounded-lg text-left shadow-xl sm:w-[850px] sm:min-h-[500px] border-[1px] border-black px-[70px] pt-[100px] pb-[26px]">
                 {loading && <Loading />}
                 <div className='absolute flex w-full left-0 top-0 justify-between items-center px-[19px] py-[30px]'>
-                  <h2 className='font-[Inter] text-[24px] font-semibold text-center w-full'>New Campaign </h2>
+                  <h2 className='font-[Inter] text-[18px] 2xl:text-[24px] font-semibold text-center w-full'>New Campaign</h2>
                   <button onClick={() => setShow(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                       <path d="M13.4444 13.4444L20.5556 20.5556M20.5556 13.4444L13.4444 20.5556M17 1C29.8 1 33 4.2 33 17C33 29.8 29.8 33 17 33C4.2 33 1 29.8 1 17C1 4.2 4.2 1 17 1Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </button>
                 </div>
-                <div className='grid grid-cols-4 p-[10px] w-full bg-[#F5F5F5] rounded-[5px] h-[73px]'>
+                <div className='grid grid-cols-4 p-2 w-full rounded-full bg-[#f5f5f5]/[.1] h-[73px] relative'>
                   <button
-                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-[14px] font-semibold text-left ${currentTab === 'detail' ? 'bg-[#2D2C2D] text-white' : 'text-black'}`}
+                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'detail' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
                     id="detail"
                   >
                     Campaign Details
                   </button>
                   <button
-                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-[14px] font-semibold ${currentTab === 'audience' ? 'bg-[#2D2C2D] text-white' : 'text-black'}`}
+                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'audience' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
                     id="audience"
                   >
                     Target Audience
                   </button>
                   <button
-                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-[14px] font-semibold ${currentTab === 'budget' ? 'bg-[#2D2C2D] text-white' : 'text-black'}`}
+                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'budget' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
                     id="budget"
                   >
                     Budget
                   </button>
                   <button
-                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-[14px] font-semibold ${currentTab === 'review' ? 'bg-[#2D2C2D] text-white' : 'text-black'}`}
+                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'review' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
                     id="review"
                   >
                     Review
                   </button>
+                  <div className={`absolute h-10 bg-black w-1/4 rounded-full top-4 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
                 </div>
                 <div className='pt-[34px]'>
                   {
