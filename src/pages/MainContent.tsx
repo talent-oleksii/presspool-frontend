@@ -2,10 +2,11 @@ import { FC, useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { HiLogout, HiHome, HiSpeakerphone, HiClipboardList, HiSupport } from 'react-icons/hi';
+import { HiLogout, HiHome, HiSpeakerphone, HiClipboardList, HiSupport, HiPlus } from 'react-icons/hi';
 import { Avatar } from 'antd';
 import { setUnauthenticated, selectAuth, setAuthenticated, setUserData } from '../store/authSlice';
 
+import CreateCampaign from "./dashboard/CreateCampaign";
 import Dashboard from './dashboard';
 import Billing from './billing';
 import Support from "./support";
@@ -14,11 +15,13 @@ import Admin from './admin';
 import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
+import { addCampaign, setCampaign } from "../store/dataSlice";
 
 const MainContent: FC = () => {
   const location = useLocation();
   const navigator = useNavigate();
   const dispatch = useDispatch();
+  const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const { fullName, email } = useSelector(selectAuth);
 
@@ -41,12 +44,21 @@ const MainContent: FC = () => {
           company: ret[0]['fields']['Company Name'],
           verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
         }));
+
+        Promise.all([
+          APIInstance.get('data/campaign', { params: { email } }),
+        ]).then((results: Array<any>) => {
+          dispatch(setCampaign({ campaign: results[0].data }));
+        }).catch(err => {
+          console.log('err:', err);
+        }).finally(() => setLoading(false));
+
         navigator('/campaign/all');
       }
     }).catch(err => {
       dispatch(setUnauthenticated());
       navigator('/login');
-    }).finally(() => setLoading(false));
+    }).finally();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -89,6 +101,14 @@ const MainContent: FC = () => {
             <Link to="/">
               <img src={Logo} className='w-[40px] my-6' alt="logo" />
             </Link>
+
+            <button
+              className="text-md 2xl:text-lg font-[Inter] flex items-center text-left py-4 px-3 w-full bg-[#6c63ff] rounded-[20px] my-2 text-white"
+              onClick={() => setShowAddDialog(true)}
+            >
+              <HiPlus className="mx-2" />
+              New Campaign
+            </button>
 
             <div className="relative w-full">
               <Link className={`w-full text-left my-2 font-[Inter] text-md 2xl:text-lg rounded-[20px] px-3 py-4 flex items-center ${getOffsetColor() === 1 ? 'text-white' : 'text-black'} transition-colors duration-300`}
@@ -133,17 +153,23 @@ const MainContent: FC = () => {
 
         <div className='bg-[#F5F5F5] px-[40px] py-[20px] ml-[230px]'>
           <Routes>
-            <Route path="/campaign/*" element={<Dashboard />} />
+            <Route path="/campaign/:id" element={<Dashboard />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="/billing" element={<Billing />} />
             <Route path="/support" element={<Support />} />
             <Route path="/admin/*" element={<Admin />} />
           </Routes>
         </div>
-
-
       </>
       }
+
+      <CreateCampaign
+        show={showAddDialog}
+        setShow={(show: boolean) => setShowAddDialog(show)}
+        afterAdd={(data: any) => {
+          dispatch(addCampaign({ campaign: data }));
+        }}
+      />
     </div>
   );
 };

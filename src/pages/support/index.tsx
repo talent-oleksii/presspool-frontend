@@ -7,7 +7,7 @@ const Support: FC = () => {
   return (
     <div className='text-left relative h-[calc(100vh - 80px)] flex flex-col'>
       <div className='h-fit'>
-        <h2 className='text-[32px] font-[Inter] text-black font-semibold'>Presspool Support 📖</h2>
+        <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>Presspool Support 📖</h2>
         <p className='my-2 text-[#43474A] font-normal'>Automatic and personal support options can be found below.</p>
       </div>
 

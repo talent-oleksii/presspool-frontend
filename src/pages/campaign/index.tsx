@@ -1,9 +1,9 @@
 import { FC, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Collapsible from 'react-collapsible';
 
-import CreateCampaign from '../dashboard/CreateCampaign';
 import { selectAuth } from '../../store/authSlice';
+import { selectData, updateCampaign } from '../../store/dataSlice';
 
 import APIInstance from '../../api';
 import Loading from '../../components/Loading';
@@ -11,25 +11,17 @@ import DialogUtils from '../../utils/DialogUtils';
 import EditCampaign from './EditCampaign';
 
 const Campaign: FC = () => {
-  const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState(false);
   const [currentData, setCurrentData] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState('');
-  const [campaign, setCampaign] = useState<Array<any>>([]);
   const { company } = useSelector(selectAuth);
+  const { campaign } = useSelector(selectData);
 
-  const { email } = useSelector(selectAuth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    Promise.all([
-      APIInstance.get('data/campaign', { params: { email, searchStr } }),
-    ]).then((results: Array<any>) => {
-      setCampaign(results[0].data);
-    }).catch(err => {
-      console.log('err:', err);
-    }).finally(() => setLoading(false));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchStr]);
 
@@ -40,12 +32,7 @@ const Campaign: FC = () => {
       id,
       type: 'state',
     }).then(() => {
-      setCampaign(campaign.map(item => {
-        if (item.id === id) {
-          return { ...item, state };
-        }
-        return item;
-      }));
+      dispatch(updateCampaign({ id, state }));
       DialogUtils.show('success', state === 'paused' ? 'Campaign Paused' : 'Successfully Started the Campaign', '');
     }).catch(err => {
       console.log('puaseing error:', err);
@@ -55,10 +42,8 @@ const Campaign: FC = () => {
   return (
     <div className='text-left relative'>
       {loading && <Loading />}
-      <h2 className='text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Campaigns 📈`}</h2>
+      <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Campaigns 📈`}</h2>
       <p className='my-2 text-[#43474A] font-normal'>Here's your account at a glance.</p>
-
-      <button className='rounded-[5px] bg-[#6C63FF] font-[Inter] font-semibold text-[white] font-md px-4 py-2' onClick={() => setShowAddDialog(true)}>Create New Campaign</button>
 
       <div className='flex items-center justify-center w-full'>
         <input
@@ -160,23 +145,6 @@ const Campaign: FC = () => {
         ))
         }
       </div>
-
-      <CreateCampaign
-        show={showAddDialog}
-        setShow={(show: boolean) => setShowAddDialog(show)}
-        afterAdd={(data: any) => {
-          const newArray = [...campaign, data];
-          const uniqueIds = new Set();
-          setCampaign(newArray.filter(obj => {
-            const id = obj.id;
-            if (!uniqueIds.has(id)) {
-              uniqueIds.add(id);
-              return true;
-            }
-            return false;
-          }))
-        }}
-      />
 
       <EditCampaign
         show={showEdit}

@@ -38,7 +38,7 @@ const Billing: FC = () => {
 
   return (
     <div className='text-left relative'>
-      <h2 className='text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Billings 📈`}</h2>
+      <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Billings 📈`}</h2>
       <p className='my-2 text-[#43474A] font-normal'>Access to your billing portal.</p>
 
       <div className='bg-white h-[200px] flex items-center justify-between mt-4 p-10 rounded-[10px]'>

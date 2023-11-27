@@ -42,10 +42,10 @@
 .loader:after {
   content: '';
   position: absolute;
-  top: 5px;
-  left: 5px;
-  right: 5px;
-  bottom: 5px;
+  top: 3.5px;
+  left: 3.5px;
+  right: 3.5px;
+  bottom: 3.5px;
   background: #f1f1f1;
   border: solid white 10px;
   border-radius: 50%;
