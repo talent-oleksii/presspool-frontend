@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Collapsible from 'react-collapsible';
+import { motion } from "framer-motion";
 
 import { selectAuth } from '../../store/authSlice';
 import { selectData, updateCampaign } from '../../store/dataSlice';
@@ -10,18 +11,24 @@ import Loading from '../../components/Loading';
 import DialogUtils from '../../utils/DialogUtils';
 import EditCampaign from './EditCampaign';
 
+import { FADE_UP_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
+
 const Campaign: FC = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [currentData, setCurrentData] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState('');
   const { company } = useSelector(selectAuth);
-  const { campaign } = useSelector(selectData);
+  const { campaign: fullCampaign } = useSelector(selectData);
+  const [campaign, setCampaign] = useState<Array<any>>([]);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-
+    const campaignData = fullCampaign.filter(item => {
+      return item.name.indexOf(searchStr) > -1;
+    });
+    setCampaign(campaignData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchStr]);
 
@@ -40,19 +47,25 @@ const Campaign: FC = () => {
   };
 
   return (
-    <div className='text-left relative'>
+    <motion.div
+      className='text-left relative'
+      initial="hidden"
+      animate="show"
+      transition={{ duration: .3 }}
+      variants={FADE_UP_ANIMATION_VARIANTS}
+    >
       {loading && <Loading />}
       <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Campaigns 📈`}</h2>
-      <p className='my-2 text-[#43474A] font-normal'>Here's your account at a glance.</p>
+      <p className='my-2 text-[#43474A] font-normal text-md 2xl:text-lg'>Here's your account at a glance.</p>
 
       <div className='flex items-center justify-center w-full'>
         <input
-          className='me-2 mt-4 font-[Inter] flex-1 px-4 py-2 border-gray-500 border-[1px] rounded-[5px]'
+          className='me-2 mt-4 font-[Inter] flex-1 px-4 py-2 rounded-full border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'
           placeholder='Type here to search by campaign name'
           value={searchStr}
           onChange={e => setSearchStr(e.target.value)}
         />
-        <select className='font-[Inter] mt-4 px-3 py-2 rounded-[5px] border-[1px] border-gray-500'>
+        <select className='font-[Inter] mt-4 px-3 py-2 rounded-full border-[1px] border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'>
           <option value="nto">Newest to Oldest</option>
           <option value="otn">Oldest to Newest</option>
         </select>
@@ -151,7 +164,7 @@ const Campaign: FC = () => {
         setShow={(show: boolean) => setShowEdit(show)}
         data={currentData}
       />
-    </div>
+    </motion.div>
   );
 };
 

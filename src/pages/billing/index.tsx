@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { motion } from "framer-motion";
 
 import { selectAuth } from '../../store/authSlice';
+import { FADE_UP_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
 
 import StripeUtil from '../../utils/stripe';
 
@@ -37,7 +39,13 @@ const Billing: FC = () => {
   };
 
   return (
-    <div className='text-left relative'>
+    <motion.div
+      className='text-left relative'
+      initial="hidden"
+      animate="show"
+      transition={{ duration: .3 }}
+      variants={FADE_UP_ANIMATION_VARIANTS}
+    >
       <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold'>{`${company}'s Billings 📈`}</h2>
       <p className='my-2 text-[#43474A] font-normal'>Access to your billing portal.</p>
 
@@ -48,7 +56,7 @@ const Billing: FC = () => {
         </div>
         <button className='px-4 py-2 text-[Inter] rounded-[5px] bg-black text-white' onClick={handleView}>View billing portal</button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

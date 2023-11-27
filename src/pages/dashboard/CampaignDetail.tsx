@@ -32,25 +32,25 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
       {!loading && data && <>
         <div className='mt-3 rounded-[10px] grid grid-cols-4 gap-4'>
           <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white'>
-            <h2 className='text-[25px] font-[Inter] font-semibold'>0</h2>
+            <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>0</h2>
             <p className='text-xs font-[Inter] font-semibold my-1 text-gray-600'>Total Impressions</p>
             <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
           </div>
           <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-            <h2 className='text-[25px] font-[Inter] font-semibold'>{data.click_count}</h2>
+            <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{data.click_count}</h2>
             <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>Total Clicks</p>
             <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
           </div>
           <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-            <h2 className='text-[25px] font-[Inter] font-semibold'>{`$${Number(data.click_count) * (data.demographic === 'consumer' ? 8 : 20)}`}</h2>
+            <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${Number(data.click_count) * (data.demographic === 'consumer' ? 8 : 20)}`}</h2>
             <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>Total Spend</p>
             <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-gray-500 text-[10px]'>from $12,000 (last 4 weeks)</p>
           </div>
           <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-            <h2 className='text-[25px] font-[Inter] font-semibold'>{`$${data.demographic === 'consumer' ? 8 : 20}`}</h2>
+            <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${data.demographic === 'consumer' ? 8 : 20}`}</h2>
             <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>AVG CPC</p>
             <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>- 20%</div>
             <p className='text-gray-500 text-[10px]'>from $10 (last 4 weeks)</p>
@@ -60,15 +60,15 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
         <div className='my-4 p-5 min-h-[250px] rounded-[10px] bg-white'>
           <div className='flex justify-between items-center'>
             <div>
-              <h2 className='font-[Inter] text-[20px] font-semibold'>
+              <h2 className='font-[Inter] text-[18px] 2xl:text-[20px] font-semibold'>
                 {data.name}
               </h2>
 
               <span className='text-xs'>{`https://presspool-frontend.onrender.com/#/cul/${data.uid}`}</span>
-              <p className='font-[Inter] text-gray-500'>Let's see how your campaign is performing</p>
+              <p className='font-[Inter] text-gray-500 text-xs 2xl:text-sm'>Let's see how your campaign is performing</p>
 
             </div>
-            <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] font-semibold border-[#7f8182]'>
+            <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-sm 2xl:text-md font-semibold border-[#7f8182]'>
               Download as PDF
             </button>
           </div>
@@ -83,8 +83,8 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               <Tooltip />
             </LineChart>
             <div className='p-4 absolute right-[20px] top-0'>
-              <p className='font-[Inter] text-black text-sm mb-2'>Total Impressions</p>
-              <p className='font-[Inter] text-[#6c63ff] text-sm mt-2'>Total Clicks</p>
+              <p className='font-[Inter] text-black text-xs 2xl:text-sm mb-2'>Total Impressions</p>
+              <p className='font-[Inter] text-[#6c63ff] text-xs 2xl:text-sm mt-2'>Total Clicks</p>
             </div>
           </div>
         </div>
