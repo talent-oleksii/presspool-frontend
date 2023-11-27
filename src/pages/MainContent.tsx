@@ -68,9 +68,9 @@ const MainContent: FC = () => {
 
   const getOffsetBack = () => {
     if (location.pathname.indexOf('campaign') > -1) return 'translate-y-0';
-    if (location.pathname.indexOf('detail') > -1) return 'translate-y-16';
-    if (location.pathname.indexOf('billing') > -1) return 'translate-y-32';
-    if (location.pathname.indexOf('support') > -1) return 'translate-y-48';
+    if (location.pathname.indexOf('detail') > -1) return 'translate-y-16 2xl:translate-y-[4.33rem]';
+    if (location.pathname.indexOf('billing') > -1) return 'translate-y-32 2xl:translate-y-[8.67rem]';
+    if (location.pathname.indexOf('support') > -1) return 'translate-y-48 2xl:translate-y-52';
   };
 
   const getOffsetColor = () => {
