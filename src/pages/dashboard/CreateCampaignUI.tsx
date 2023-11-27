@@ -122,20 +122,19 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
               <Dialog.Panel className="relative rounded-lg p-4 text-left shadow-xl sm:w-[980px] bg-white">
                 {loading && <Loading />}
 
-                <h2 className='font-[Inter] w-full text-center text-black font-bold text-[22px]'>New Campaign</h2>
                 <div className='grid grid-cols-2 h-full w-full bg-white rounded-[10px]'>
                   <div className='col-span-1 text-left'>
 
                     <div className='text-left me-2 rounded-md'>
                       <div className='flex justify-between'>
-                        <p className='font-[Inter] text-md font-semibold mb-0'>
+                        <p className='font-[Inter] text-sm 2xl:text-md font-semibold mb-0'>
                           Campaign Headline
                           {asterick && headLine.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
                         </p>
                         {/* <p className='font-[Inter] text-sm text-gray-400'>{`${headLine.length}/60`}</p> */}
                       </div>
                       <input
-                        className={`mt-[7px] w-full rounded-lg border-[1px] py-2 px-3 ${asterick && headLine.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+                        className={`mt-[7px] w-full rounded-lg text-sm 2xl:text-md border-[1px] focus:ring-0 focus:border-[#6c63ff] py-2 px-3 ${asterick && headLine.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
                         maxLength={60}
                         data-tooltip-id='headline'
                         value={headLine}
@@ -148,12 +147,12 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                           (Ex. Presspool will 10x user growth without PR)
                         </div>
                       </Tooltip>
-                      <p className='font-[Inter] mt-[16px] text-md font-semibold' data-tooltip-id='body'>
+                      <p className='font-[Inter] mt-[16px] text-sm 2xl:text-md font-semibold' data-tooltip-id='body'>
                         Campaign Body
                         {asterick && body.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
                       </p>
                       <textarea
-                        className={`mt-[7px] w-full rounded-lg border-[1px] py-2 px-3 ${asterick && body.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+                        className={`mt-[7px] w-full text-sm 2xl:text-md rounded-lg border-[1px] focus:ring-0 focus:border-[#6c63ff] py-2 px-3 ${asterick && body.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
                         maxLength={110}
                         value={body}
                         onChange={e => setBody(e.target.value)}
@@ -165,12 +164,12 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                           The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline.
                         </div>
                       </Tooltip>
-                      <p className='font-[Inter] text-md font-semibold mt-[16px] mb-0'>
+                      <p className='font-[Inter] text-sm 2xl:text-md font-semibold mt-[16px] mb-0'>
                         CTA
                         {asterick && cta.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
                       </p>
                       <input
-                        className={`mt-[7px] w-full rounded-lg border-[1px] py-2 px-3 ${asterick && cta.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+                        className={`mt-[7px] w-full rounded-lg text-sm 2xl:text-md border-[1px] focus:ring-0 focus:border-[#6c63ff] py-2 px-3 ${asterick && cta.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
                         maxLength={20}
                         value={cta}
                         data-tooltip-id='cta'
@@ -181,7 +180,7 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                           The call to action for your button. This should be something like "Free trial" or "Learn more" or "Try for free"
                         </div>
                       </Tooltip>
-                      <p className='font-[Inter] text-md font-semibold mt-[16px] mb-0'>
+                      <p className='font-[Inter] text-sm 2xl:text-md font-semibold mt-[16px] mb-0'>
                         Hero Image
                         {asterick && (!image || (image && image.length <= 0)) && <span className='ms-1 text-[red]'>*</span>}
                       </p>
@@ -189,14 +188,14 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                       <button
                         data-tooltip-id='hero'
                         onClick={() => { if (fileInputRef.current) fileInputRef.current.click(); }}
-                        className={`overflow-hidden truncate px-3 py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded mt-[7px] text-md ${asterick && (!image || (image && image.length <= 0)) ? 'border-[red]' : 'border-gray-400'}`}
+                        className={`overflow-hidden truncate px-3 text-sm 2xl:text-md py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded mt-[7px] ${asterick && (!image || (image && image.length <= 0)) ? 'border-[red]' : 'border-gray-400'}`}
                       >
                         {file ? file.name :
                           <>
                             <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" className='me-2'>
                               <path d="M1 14.3945V16.3945C1 16.925 1.21071 17.4337 1.58579 17.8087C1.96086 18.1838 2.46957 18.3945 3 18.3945H15C15.5304 18.3945 16.0391 18.1838 16.4142 17.8087C16.7893 17.4337 17 16.925 17 16.3945V14.3945M4 6.39453L9 1.39453M9 1.39453L14 6.39453M9 1.39453V13.3945" stroke="#6C63FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            <span className='text-[#6c63ff] font-[Inter] text-base'>Upload image</span>
+                            <span className='text-[#6c63ff] font-[Inter]'>Upload image</span>
                           </>
                         }
                       </button>
@@ -212,7 +211,7 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                         accept='image/*'
                         onChange={handleFileChange}
                       />
-                      <p className='font-[Inter] text-md font-semibold mt-[16px] mb-0'>
+                      <p className='font-[Inter] text-sm 2xl:text-md font-semibold mt-[16px] mb-0'>
                         URL for your landing page
                         {asterick && pageUrl.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
                       </p>
@@ -221,7 +220,7 @@ const CreateCampaignUI: FC<typeCreateCampaignUI> = ({ show, setShow, setUIConten
                         value={pageUrl}
                         data-tooltip-id='url'
                         onChange={e => setPageUrl(e.target.value)}
-                        className={`mt-[7px] w-full rounded-lg border-[1px] py-2 px-3 ${asterick && pageUrl.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+                        className={`mt-[7px] w-full rounded-lg border-[1px] text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff] py-2 px-3 ${asterick && pageUrl.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
                       />
                       <Tooltip id='url' place="bottom">
                         <div className="whitespace-pre-wrap break-normal">
