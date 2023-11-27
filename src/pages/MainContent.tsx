@@ -67,7 +67,7 @@ const MainContent: FC = () => {
   };
 
   return (
-    <div className='flex min-h-screen w-[1440px] relative'>
+    <div className='min-h-screen w-full relative'>
       {loading && <Loading />}
       {!loading && <>
         <div className='w-[230px] px-2 py-8 flex flex-col border-r-[2px] border-[#7F8182] bg-[white] justify-between h-full fixed'>
@@ -113,7 +113,7 @@ const MainContent: FC = () => {
           </div>
         </div>
 
-        <div className='bg-[#F5F5F5] w-full px-[75px] py-[40px] ml-[230px]'>
+        <div className='bg-[#F5F5F5] px-[40px] py-[20px] ml-[230px]'>
           <Routes>
             <Route path="/campaign/*" element={<Dashboard />} />
             <Route path="/detail" element={<Detail />} />

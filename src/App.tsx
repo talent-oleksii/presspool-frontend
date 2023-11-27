@@ -12,7 +12,7 @@ import URLRedirector from './pages/URLRedirector';
 const App: FC = () => {
   return (
     <div className="App flex justify-center bg-[#F5F5F5]">
-      <div className='w-[1440px] min-h-[100vh]'>
+      <div className='w-screen min-h-screen'>
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />

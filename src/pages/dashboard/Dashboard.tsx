@@ -112,7 +112,7 @@ const Dashboard: FC = () => {
             }}
           />
         </div>
-        <div className='w-[280px] p-3 '>
+        <div className='w-[280px] pl-3'>
           <div className='relative h-[370px]'>
             <div className='bg-[#c1ffd9] p-[19px] rounded-t-[14px] absolute w-full top-0 z-10'>
               <p className='text-black text-base font-semibold text-[Inter]'>Quick Actions:</p>
