@@ -31,7 +31,7 @@ const Dashboard: FC = () => {
 		});
 		setCampaign(campaignData);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [range]);
+	}, [fullCampaign, range]);
 
 	return (
 		<motion.div
@@ -59,8 +59,8 @@ const Dashboard: FC = () => {
 										button: {
 											base: 'bg-transparent',
 											color: {
-												black: 'bg-white text-white',
-												white: 'bg-transparent text-black',
+												black: 'bg-white',
+												white: 'bg-transparent',
 											},
 										}
 									}

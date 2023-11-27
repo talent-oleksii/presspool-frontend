@@ -16,7 +16,7 @@ const Support: FC = () => {
     >
       <div className='h-fit'>
         <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold -tracking-[1.02px]'>Presspool Support 📖</h2>
-        <p className='my-2 text-[#43474A] font-normal text-sm 2xl:text-md'>Automatic and personal support options can be found below.</p>
+        <p className='my-2 text-[#43474A] text-sm 2xl:text-md'>Automatic and personal support options can be found below.</p>
       </div>
 
       <div className='bg-white pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-2'>

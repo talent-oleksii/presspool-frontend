@@ -3,7 +3,6 @@ import { Routes, Route } from "react-router";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { HiLogout, HiHome, HiSpeakerphone, HiClipboardList, HiSupport, HiPlus } from 'react-icons/hi';
-import { motion } from 'framer-motion';
 import { Avatar } from 'antd';
 import { setUnauthenticated, selectAuth, setAuthenticated, setUserData } from '../store/authSlice';
 
@@ -17,7 +16,6 @@ import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
 import { addCampaign, setCampaign } from "../store/dataSlice";
-import { FADE_UP_ANIMATION_VARIANTS } from "../utils/TransitionConstants";
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -154,7 +152,7 @@ const MainContent: FC = () => {
             </div>
           </div>
 
-          <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[210px]'>
+          <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[210px] overflow-auto'>
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />
               <Route path="/detail" element={<Detail />} />

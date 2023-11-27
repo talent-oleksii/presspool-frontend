@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { motion } from 'framer-motion';
 import CreatableSelect from 'react-select/creatable';
@@ -44,7 +44,6 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
   const [currentPrice, setCurrentPrice] = useState('10000');
   const [audience, setAudience] = useState([]);
   const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
-  const [showUI, setShowUI] = useState(false);
   const [uiId, setUIID] = useState(undefined);
   const [url, setUrl] = useState('');
   const [showAddCard, setShowAddCard] = useState(false);
@@ -52,6 +51,8 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
 
   const { email, verified } = useSelector(selectAuth);
   const { cardList } = useSelector(selectData);
+
+  const uiRef = useRef<any>();
 
   const dispatch = useDispatch();
 
@@ -86,9 +87,15 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice && currentCard.length > 3;
   };
 
-  const handleNextOnCampaign = () => {
-    setShowUI(true);
-    setCurrentTab('audience');
+  const handleNextOnCampaign = async () => {
+    if (uiRef.current) {
+      uiRef.current.handleSave().then(() => {
+        setCurrentTab('audience');
+      }).catch((err: any) => {
+        console.log('err:', err);
+      });
+    }
+    // setCurrentTab('audience');
   };
 
   const handleSubmit = async () => {
@@ -187,7 +194,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                     </svg>
                   </button>
                 </div>
-                <div className='grid grid-cols-4 p-2 w-full rounded-full bg-[#f5f5f5] z-0 h-[73px] relative'>
+                <div className='grid grid-cols-4 py-4 px-2 w-full rounded-full bg-[#f5f5f5] z-0 relative'>
                   <button
                     className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'detail' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
@@ -216,7 +223,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                   >
                     Review
                   </button>
-                  <div className={`absolute h-10 bg-black w-1/4 rounded-full top-4 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
+                  <div className={`absolute h-10 bg-black w-1/4 rounded-full top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
                 </div>
                 <div className='pt-[20px] 2xl:pt-[34px]'>
                   {
@@ -225,28 +232,32 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                       variants={FADE_RIGHT_ANIMATION_VARIANTS}
                       initial="hidden"
                       animate="show"
+                      className='relative'
                     >
-                      <p className='text-md 2xl:text-lg font-[Inter] text-black font-semibold'>What would you like to name your campaign?</p>
-                      <input
-                        className='px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] mt-[7px] focus:border-[#6c63ff] focus:ring-0'
-                        // placeholder="Give your campaign a name"
-                        value={campaignName}
-                        onChange={e => setCampaignName(e.target.value)}
-                      />
-                      <p className='mt-[26px] text-md 2xl:text-lg font-[Inter] text-black font-semibold'>What is your website URL? (We will get your landing page later).</p>
-                      <input
-                        className='px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] mt-[7px] focus:border-[#6c63ff] focus:ring-0'
-                        // placeholder="https://example.com"
-                        value={url}
-                        onChange={e => setUrl(e.target.value)}
-                      />
+                      <div className='absolute w-1/2 pr-2'>
+                        <p className='text-sm 2xl:text-base font-[Inter] text-black font-semibold'>Campaign Name</p>
+                        <input
+                          className='px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] mt-1 focus:border-[#6c63ff] focus:ring-0'
+                          // placeholder="Give your campaign a name"
+                          value={campaignName}
+                          onChange={e => setCampaignName(e.target.value)}
+                        />
+                        <p className='mt-2 text-sm 2xl:text-base font-[Inter] text-black font-semibold'>Website URL</p>
+                        <input
+                          className='px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] mt-1 focus:border-[#6c63ff] focus:ring-0'
+                          // placeholder="https://example.com"
+                          value={url}
+                          onChange={e => setUrl(e.target.value)}
+                        />
+                      </div>
+                      <CreateCampaignUI ref={uiRef} setUIContent={(data: any) => setUIID(data)} setLoading={(load: boolean) => setLoading(load)} />
                       <div className='w-full text-center mt-[30px]'>
                         <button
                           className='rounded-full bg-[#6c63ff] px-[50px] py-[10px] text-white text-sm disabled:bg-gray-400'
                           disabled={validator.isEmpty(campaignName) || !validator.isURL(url)}
                           onClick={handleNextOnCampaign}
                         >
-                          Next Step
+                          Save & Continue
                         </button>
                       </div>
                     </motion.div>
@@ -413,7 +424,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                       <div className='w-full text-center mt-[50px]'>
                         {
                           currentAudience.length >= 1 && currentPrice.length > 3 &&
-                          <button className='rounded-[5px] bg-[#6c63ff] px-[50px] 2xl:px-[60px] py-[10px] text-white mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
+                          <button className='rounded-full bg-[#6c63ff] px-[50px] 2xl:px-[60px] py-[10px] text-white mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
                             disabled={!isSubmitable()}
                             onClick={handleSubmit}
                           >
@@ -429,7 +440,6 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                     </motion.div>
                   }
                 </div>
-                <CreateCampaignUI show={showUI} setShow={(show: boolean) => setShowUI(show)} setUIContent={(data: any) => setUIID(data)} />
               </Dialog.Panel>
             </Transition.Child>
           </div>
