@@ -40,3 +40,23 @@
   font-weight: 600;
   color: black;
 }
+
+.ant-collapse-header {
+  border-radius: 0 0 5px 5px !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.ant-collapse-expand-icon {
+  display: none !important;
+}
+
+.ant-collapse-header-text {
+  padding: 0 !important;
+}
+
+.ant-collapse-content-box {
+  border-radius: 0 0 5px 5px !important;
+  padding: 0 !important;
+  border: none !important;
+}
