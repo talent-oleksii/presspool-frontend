@@ -64,7 +64,7 @@ const Campaign: FC = () => {
           value={searchStr}
           onChange={e => setSearchStr(e.target.value)}
         />
-        <select className='font-[Inter] mt-2 px-3 py-2 rounded-full border-[1px] border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#7FFBAE]'>
+        <select className='font-[Inter] mt-2 rounded-full border-[1px] border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#7FFBAE]'>
           <option value="nto">Newest to Oldest</option>
           <option value="otn">Oldest to Newest</option>
         </select>

@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, PieChart, Pie } from 'recharts';
+import { LineChart, Line, XAxis, YAxis } from 'recharts';
+import { Tooltip } from 'antd';
 
 import APIInstance from '../../api';
 import Loading from '../../components/Loading';
@@ -80,7 +81,6 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               {/* <CartesianGrid stroke="#ccc" strokeDasharray="5.5" /> */}
               <XAxis dataKey="name" />
               <YAxis />
-              <Tooltip />
             </LineChart>
             <div className='p-4 absolute right-[20px] top-0'>
               <p className='font-[Inter] text-black text-xs 2xl:text-sm mb-2'>Total Impressions</p>
@@ -88,60 +88,62 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-2 gap-8'>
-          <div className='col-span-1 p-5 flex items-center bg-white rounded-[20px]'>
-            <PieChart width={150} height={150}>
-              {/* <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={50} fill="#8884d8" /> */}
-              <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={40} outerRadius={60} fill="#82ca9d" />
-            </PieChart>
-            <div className='flex-1'>
-              <p className='font-[Inter] text-xs text-gray-700 mb-2'>Newsletters (by attribution)</p>
+        <div className='col-span-1 p-5 flex flex-col items-center bg-white rounded-[10px] shadow-md'>
+          <p className='font-[Inter] text-black mb-4 text-left font-semibold w-full text-md 2xl:text-lg'>Newsletters (by the numbers)</p>
+          <table className='w-full'>
+            <thead>
+              <tr>
+                <td className='text-[10px] font-[Inter]'>Name</td>
+                <td className='text-[10px] font-[Inter]'>Impressions</td>
+                <td className='text-[10px] font-[Inter]'>Clicks</td>
+                <td className='text-[10px] font-[Inter]'>Total Spend</td>
+                <td className='text-[10px] font-[Inter]'>
+                  <span className='flex items-center'>
+                    CTR
+                    <Tooltip
+                      title="The percentage of clicks from the total impressions."
+                      color='#EDECF2'
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='h-[20px] w-[20px] 2xl:w-[24px] 2xl:h-[24px] ms-1'>
+                        <path d="M460-300h40v-220h-40v220Zm20-276.923q10.462 0 17.539-7.077 7.076-7.077 7.076-17.539 0-10.461-7.076-17.538-7.077-7.077-17.539-7.077-10.462 0-17.539 7.077-7.076 7.077-7.076 17.538 0 10.462 7.076 17.539 7.077 7.077 17.539 7.077ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120ZM480-160q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                      </svg>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td className='text-[10px] font-[Inter]'>
+                  <span className='flex items-center'>
+                    % of Total Traffic
+                    <Tooltip
+                      title="The percentage of the individual newsletter’s impressions from  the total number of impressions."
+                      color='#EDECF2'
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='h-[20px] w-[20px] 2xl:w-[24px] 2xl:h-[24px] ms-1'>
+                        <path d="M460-300h40v-220h-40v220Zm20-276.923q10.462 0 17.539-7.077 7.076-7.077 7.076-17.539 0-10.461-7.076-17.538-7.077-7.077-17.539-7.077-10.462 0-17.539 7.077-7.076 7.077-7.076 17.538 0 10.462 7.076 17.539 7.077 7.077 17.539 7.077ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120ZM480-160q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                      </svg>
+                    </Tooltip>
+                  </span>
+                </td>
+                <td className='text-[10px] font-[Inter]'>Feedback</td>
+              </tr>
+            </thead>
+            <tbody>
               {
                 data01.map((item, index) => (
-                  <div className='flex justify-between items-center' key={index}>
-                    <div className='flex my-2'>
-                      <div className={`w-[15px] h-[15px] rounded-[5px] me-2`} style={{ backgroundColor: item.color }} />
-                      <p className='font-[Inter] font-semibold text-xs'>
-                        {item.name}
-                      </p>
-                    </div>
-                    <p>{`${item.value}%`}</p>
-                  </div>
+                  <tr key={index}>
+                    <td>{item.name}</td>
+                    <td>15,000</td>
+                    <td>250</td>
+                    <td>1.67%</td>
+                    <td className='flex'>
+                      <button className='text-xs'>👍</button>
+                      <button className='text-xs'>👎</button>
+                    </td>
+                  </tr>
                 ))
               }
-            </div>
-          </div>
-          <div className='col-span-1 p-5 flex flex-col items-center bg-white rounded-[20px]'>
-            <p className='font-[Inter] text-gray-700 text-xs mb-2'>Newsletters (by the numbers)</p>
-            <table className='w-full'>
-              <thead>
-                <tr>
-                  <td className='text-[10px] font-[Inter]'>Name</td>
-                  <td className='text-[10px] font-[Inter]'>Impressions</td>
-                  <td className='text-[10px] font-[Inter]'>Clicks</td>
-                  <td className='text-[10px] font-[Inter]'>CTR</td>
-                  <td className='text-[10px] font-[Inter]'>Feedback</td>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  data01.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.name}</td>
-                      <td>15,000</td>
-                      <td>250</td>
-                      <td>1.67%</td>
-                      <td className='flex'>
-                        <button className='text-xs'>👍</button>
-                        <button className='text-xs'>👎</button>
-                      </td>
-                    </tr>
-                  ))
-                }
 
-              </tbody>
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
       </>
       }

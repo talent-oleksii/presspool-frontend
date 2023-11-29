@@ -28,7 +28,6 @@
     "@types/validator": "^13.11.5",
     "antd": "^5.11.3",
     "axios": "^1.6.0",
-    "flowbite-react": "^0.6.4",
     "framer-motion": "^10.16.5",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",

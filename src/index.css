@@ -15,3 +15,28 @@
 .ant-picker-active-bar {
   background: black !important;
 }
+
+.ant-float-btn-body {
+  background: #7FFBAE !important;
+  width: auto !important;
+
+  .ant-float-btn-content {
+    width: auto !important;
+  }
+}
+
+.ant-float-btn-icon {
+  width: auto !important;
+  height: auto !important;
+}
+
+.ant-tooltip-inner {
+  color: black !important;
+  background-color: #edecf2 !important;
+}
+
+.ant-dropdown-menu-title-content {
+  font-family: 'Inter';
+  font-weight: 600;
+  color: black;
+}

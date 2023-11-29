@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { useParams } from 'react-router';
-import { DatePicker } from 'antd';
-import { Flowbite, Dropdown } from 'flowbite-react';
+import { Dropdown, DatePicker, MenuProps } from 'antd';
 
 import { selectAuth } from '../../store/authSlice';
 import { selectData } from '../../store/dataSlice';
@@ -33,6 +32,11 @@ const Dashboard: FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fullCampaign, range]);
 
+	const items: MenuProps['items'] = campaign.map(item => ({
+		key: item.id,
+		label: <Link to={`/campaign/${item.id}`} className='font-[Inter] text-md w-full'>{item.name}</Link>,
+	}));
+
 	return (
 		<motion.div
 			className='text-left relative'
@@ -48,38 +52,25 @@ const Dashboard: FC = () => {
 					<div className='flex justify-between items-center mt-2 rounded-[15px] p-2'>
 						<div>
 							<Link
-								className={`inline-flex ring-1 ring-[#7FFBAE] text-left text-sm 2xl:text-md px-3 py-2.5 text-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white' : 'bg-transparent'}`}
+								className={`inline-flex text-left text-sm 2xl:text-md px-3 py-2.5 text-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}
 								to="/campaign/all"
 							>
 								Overview
 							</Link>
 							<div className="group inline-flex flex-col">
-								<Flowbite theme={{
-									theme: {
-										button: {
-											base: 'bg-transparent',
-											color: {
-												black: 'bg-white',
-												white: 'bg-transparent',
-											},
-										}
-									}
-								}}>
-									<Dropdown
-										label="By Campaign"
-										color={`${id !== 'all' && id !== 'news' ? 'black' : 'white'}`}
-										theme={{ floating: { item: { base: "p-0" } } }}
-										className='text-left'
-									>
-										{
-											campaign.map((item: any) => (
-												<Dropdown.Item key={item.id}>
-													<Link to={`/campaign/${item.id}`} className='font-[Inter] text-md w-full'>{item.name}</Link>
-												</Dropdown.Item>
-											))
-										}
-									</Dropdown>
-								</Flowbite>
+
+								<Dropdown
+									className='text-left'
+									placement='bottomRight'
+									menu={{ items }}
+								>
+									<button className={`font-[Inter] text-sm 2xl:text-base flex items-center px-4 py-2.5 rounded-[15px] ${id !== 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}>
+										By Campaign
+										<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" className="mx-3">
+											<path d="M450.001-779.999v485.077L222.154-522.768 180.001-480 480-180.001 779.999-480l-42.153-42.768-227.847 227.846v-485.077h-59.998Z" />
+										</svg>
+									</button>
+								</Dropdown>
 							</div>
 						</div>
 						<DatePicker.RangePicker
@@ -98,7 +89,7 @@ const Dashboard: FC = () => {
 							<p className='text-black text-sm 2xl:text-base font-semibold text-[Inter]'>Quick Actions:</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[4px]'>Let’s get you where you need to go</p>
 						</div>
-						<div className='bg-white py-3 pt-[30px] absolute top-[55px] w-full z-0 rounded-[14px]'>
+						<div className='bg-white py-3 pt-[30px] absolute top-[55px] w-full z-0 rounded-[14px] shadow-md'>
 							<Link to="/detail" className='flex font-[Inter] font-medium text-sm 2xl:text-md items-center px-3 py-2'>
 								<svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-2'>
 									<rect x="0.5" y="4.5" width="12" height="10" fill="white" stroke="#7F8182" />
@@ -141,7 +132,7 @@ const Dashboard: FC = () => {
 							<p className='text-black text-sm 2xl:text-base font-semibold'>Resources</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[5px]'>We are always here for you</p>
 						</div>
-						<div className='bg-white py-3 rounded-[14px] absolute w-full z-0 top-[75px]'>
+						<div className='bg-white py-3 rounded-[14px] absolute w-full z-0 top-[70px] shadow-md'>
 							<a href="https://blog.presspool.ai" className='flex font-[Inter] font-medium text-sm 2xl:text-md items-center px-3 py-2' rel='noreferrer' target='_blank'>
 								<svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg" className='mx-2'>
 									<rect x="0.5" y="4.5" width="12" height="10" fill="white" stroke="#7F8182" />
