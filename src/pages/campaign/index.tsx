@@ -30,7 +30,7 @@ const Campaign: FC = () => {
     });
     setCampaign(campaignData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchStr]);
+  }, [searchStr, fullCampaign]);
 
   const handleUpdate = (id: string, state: string) => {
     setLoading(true);

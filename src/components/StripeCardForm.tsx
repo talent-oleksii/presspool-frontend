@@ -62,7 +62,7 @@ const CardForm: FC = () => {
       {loading && <Loading />}
       <CardElement onChange={handleCardChange} />
       <button
-        className='font-[Inter] text-sm text-white font-medium py-[10px] bg-[#7FFBAE] w-full rounded-[5px] mt-[24px] disabled:bg-gray-400'
+        className='font-[Inter] text-sm text-black font-semibold py-[10px] bg-[#7FFBAE] w-full rounded-[5px] mt-[24px] disabled:bg-gray-400'
         type="submit"
         disabled={addDisabled}
       >
@@ -70,12 +70,12 @@ const CardForm: FC = () => {
       </button>
       <div className='mt-[20px] flex justify-top '>
         <input
-          className='me-[9px]'
+          className='me-[9px] text-[#7ffbae]'
           type="checkbox"
           checked={checked}
           onChange={e => setChecked(e.target.checked)}
         />
-        <p className='text-[12px] text-[#7FFBAE] font-[Inter] font-normal'>
+        <p className='text-[12px] text-black font-[Inter] font-normal'>
           I agree and authorize weekly automatic billing for accrued click costs per the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='underline'>Terms of Service</a> and <a className='underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>. This authorization will continue until I cancel in accordance with the provided terms.
         </p>
       </div>
