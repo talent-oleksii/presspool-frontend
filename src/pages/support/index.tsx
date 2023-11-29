@@ -19,7 +19,7 @@ const Support: FC = () => {
         <p className='my-2 text-[#43474A] text-sm 2xl:text-md'>Automatic and personal support options can be found below.</p>
       </div>
 
-      <div className='bg-white pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-2 shadow-md'>
+      <div className='bg-[#EDECF2] pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-2'>
         <div className='flex flex-col items-center justify-center'>
           <img src={Ava} className='rounded-[20px] w-[50px]' alt="ava" />
           <h2 className='font-[Inter] text-black font-semibold text-[17px]'>Talk to Ava</h2>
