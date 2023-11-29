@@ -33,7 +33,7 @@ const Support: FC = () => {
         <div className='p-[20px] bg-white rounded-[10px] shadow-md'>
           <h2 className='font-[Inter] text-black text-[20px] 2xl:text-[28px] font-semibold'>Human Support</h2>
           <p className='text-sm font-[Inter] text-[#43474a] font-medium mt-[18px]'>Email support@presspool.ai anytime, or send us a message on Slack and we will get back to you ASAP!</p>
-          <a target="_blank" href="https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q" rel="noreferrer" className='mt-11 rounded-full w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Go to Slack</a>
+          <a target="_blank" href="https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q" rel="noreferrer" className='mt-11 rounded-[5px]] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Go to Slack</a>
         </div>
         <div className='p-[20px] bg-white rounded-[10px] shadow-md'>
           <h2 className='font-[Inter] text-black text-[20px] 2xl:text-[28px] font-semibold'>Policies</h2>
@@ -71,7 +71,7 @@ const Support: FC = () => {
               </a>
             </div>
           </div>
-          <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='mt-[22px] rounded-full w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Email Support</a>
+          <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='mt-[22px] rounded-[5px]] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Email Support</a>
         </div>
       </div>
     </motion.div>
