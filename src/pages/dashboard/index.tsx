@@ -94,7 +94,7 @@ const Dashboard: FC = () => {
 				</div>
 				<div className='w-[270px] pl-3 mt-20'>
 					<div className='relative h-[300px]'>
-						<div className='bg-[#c1ffd9] p-[19px] rounded-t-[14px] absolute w-full top-0 z-10'>
+						<div className='bg-[#7FFBAE] p-[19px] rounded-t-[14px] absolute w-full top-0 z-10'>
 							<p className='text-black text-sm 2xl:text-base font-semibold text-[Inter]'>Quick Actions:</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[4px]'>Let’s get you where you need to go</p>
 						</div>
@@ -137,7 +137,7 @@ const Dashboard: FC = () => {
 						</div>
 					</div>
 					<div className='relative'>
-						<div className='bg-[#D1CEFF] p-[19px] rounded-t-[14px] absolute w-full z-10'>
+						<div className='bg-[#7FFBAE] p-[19px] rounded-t-[14px] absolute w-full z-10'>
 							<p className='text-black text-sm 2xl:text-base font-semibold'>Resources</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[5px]'>We are always here for you</p>
 						</div>

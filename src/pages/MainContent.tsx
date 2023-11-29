@@ -79,38 +79,57 @@ const MainContent: FC = () => {
   };
 
   const getOffsetBack = () => {
-    if (location.pathname.indexOf('campaign') > -1) return 'top-0';
+    if (location.pathname.indexOf('campaign') > -1) return 'top-[1%]';
     if (location.pathname.indexOf('detail') > -1) return 'top-[25%]';
     if (location.pathname.indexOf('billing') > -1) return 'top-[50%]';
     if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
+
+    return 'top-0';
   };
 
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-          1st menu item
-        </a>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-          2nd menu item
-        </a>
-      ),
-    },
-    {
-      key: '3',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-          3rd menu item
-        </a>
-      ),
-    },
-  ];
+  const profileItems: MenuProps['items'] = [{
+    key: '1',
+    label: (
+      <Link to="/profile" className="font-[Inter] font-semibold text-xs flex items-center 2xl:text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[20px] h-[20px] 2xl:w-[24px] 2xl:h-[24px] me-1">
+          <path d="M480-380q45.231 0 82.923-20.577 37.693-20.577 62.154-54.808-31.154-22.077-67.846-33.346Q520.539-500 480-500q-40.539 0-77.231 11.269-36.692 11.269-67.846 33.346 24.461 34.231 62.154 54.808Q434.769-380 480-380Zm0-200q25.308 0 42.654-17.346Q540-614.692 540-640q0-25.308-17.346-42.654Q505.308-700 480-700q-25.308 0-42.654 17.346Q420-665.308 420-640q0 25.308 17.346 42.654Q454.692-580 480-580Zm0 460.769Q339-243.923 267.577-351.808q-71.423-107.884-71.423-196.346 0-126.923 82.654-209.385Q361.461-840 480-840t201.192 82.461q82.654 82.462 82.654 209.385 0 88.462-71.423 196.346Q621-243.923 480-119.231Z" />
+        </svg>
+        My Profile
+      </Link>
+    ),
+  }, {
+    key: '2',
+    label: (
+      <button className='font-[Inter] font-semibold text-xs 2xl:text-sm flex items-center' onClick={handleLogout}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[20px] h-[20px] 2xl:w-[24px] 2xl:h-[24px] me-1">
+          <path d="M224.615-160Q197-160 178.5-178.5 160-197 160-224.615v-510.77Q160-763 178.5-781.5 197-800 224.615-800h256.154v40H224.615q-9.23 0-16.923 7.692Q200-744.615 200-735.385v510.77q0 9.23 7.692 16.923Q215.385-200 224.615-200h256.154v40H224.615Zm433.846-178.461-28.077-28.77L723.154-460H367.692v-40h355.462l-92.77-92.769 28.077-28.77L800-480 658.461-338.461Z" />
+        </svg>
+        Log Out
+      </button>
+    ),
+  }];
+
+  const feedbackItems: MenuProps['items'] = [{
+    key: '1',
+    label: (
+      <a href="https://forms.gle/T9Kc6JvaVhzwozYR8" className="font-[Inter] font-semibold text-xs flex items-center 2xl:text-sm" target='_blank' rel="noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[20px] h-[20px] 2xl:w-[20px] 2xl:h-[20px] me-1">
+          <path d="M160-160v-100.769l527.231-527.77q6.146-5.481 13.573-8.471 7.427-2.99 15.486-2.99 8.06 0 15.616 2.538 7.556 2.539 13.94 9.154l42.693 42.923q6.615 6.385 9.038 14.008Q800-723.754 800-716.131q0 8.131-2.741 15.558-2.74 7.427-8.72 13.573l-527.77 527H160Zm540.154-496.461L760-715.538 715.538-760l-59.077 59.846 43.693 43.693Z" />
+        </svg>
+        Give feedback
+      </a>
+    ),
+  }, {
+    key: '2',
+    label: (
+      <a href="https://forms.gle/j1HCrRcrGK9roPhGA" className="font-[Inter] font-semibold text-xs flex items-center 2xl:text-sm" target='_blank' rel="noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[20px] h-[20px] 2xl:w-[20px] 2xl:h-[20px] me-1">
+          <path d="M240-140v-620h287.693l16 80H760v320H552.307l-16-80H280v300h-40Z" />
+        </svg>
+        Request a feature
+      </a>
+    ),
+  }];
 
   return (
     <div className='min-h-screen w-full'>
@@ -121,20 +140,22 @@ const MainContent: FC = () => {
           </Link>
 
           <div className="flex items-center">
-            <button className="flex font-[Inter] bg-[#C1FFD9] rounded-full px-2 py-1 text-[#57D386] text-xs 2xl:text-sm whitespace-nowrap items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="me-1 w-[20px] h-[20px] 2xl:w-[24px] 2xl:h-[24px]">
-                <path d="M100.001-118.464v-669.227q0-30.308 21-51.308t51.308-21h615.382q30.308 0 51.308 21t21 51.308v455.382q0 30.308-21 51.308t-51.308 21H241.539L100.001-118.464ZM480-371.539q13.731 0 23.019-9.289 9.288-9.288 9.288-23.018 0-13.731-9.288-23.019-9.288-9.289-23.019-9.289-13.731 0-23.019 9.289-9.288 9.288-9.288 23.019 0 13.73 9.288 23.018 9.288 9.289 23.019 9.289Zm-29.999-139.23h59.998v-241.538h-59.998v241.538Z" fill="#57D386" />
-              </svg>
-              <span>Beta feedback</span>
-            </button>
+            <Dropdown placement="bottomRight" menu={{ items: feedbackItems }}>
+              <button className="flex font-[Inter] bg-[#C1FFD9] rounded-full px-2 py-1 text-[#57D386] text-xs 2xl:text-sm whitespace-nowrap items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="me-1 w-[20px] h-[20px] 2xl:w-[24px] 2xl:h-[24px]">
+                  <path d="M100.001-118.464v-669.227q0-30.308 21-51.308t51.308-21h615.382q30.308 0 51.308 21t21 51.308v455.382q0 30.308-21 51.308t-51.308 21H241.539L100.001-118.464ZM480-371.539q13.731 0 23.019-9.289 9.288-9.288 9.288-23.018 0-13.731-9.288-23.019-9.288-9.289-23.019-9.289-13.731 0-23.019 9.289-9.288 9.288-9.288 23.019 0 13.73 9.288 23.018 9.288 9.289 23.019 9.289Zm-29.999-139.23h59.998v-241.538h-59.998v241.538Z" fill="#57D386" />
+                </svg>
+                <span>Beta feedback</span>
+              </button>
+            </Dropdown>
             <div className="ms-9">
               <Dropdown
                 placement="bottomRight"
-                menu={{ items }}
+                menu={{ items: profileItems }}
               >
                 <button className="flex justify-center items-center border-none p-0">
                   <Avatar className="bg-[#7FFBAE] text-black p-1 items-center justify-center flex 2xl:w-[30px] 2xl:h-[30px] h-[24px] w-[24px]" alt={getPlaceHolder()}>
-                    <span className="text-xs 2xl:text-sm font-[Inter]">{getPlaceHolder()}</span>
+                    <span className="text-xs 2xl:text-sm font-[Inter] font-medium">{getPlaceHolder()}</span>
                   </Avatar>
 
                   <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" className="mx-1">
@@ -191,12 +212,6 @@ const MainContent: FC = () => {
             </Link>
 
             <div className={`absolute h-1/4 bg-white w-full rounded-[15px] -z-[1] transition-all duration-500 transform ${getOffsetBack()}`} />
-          </div>
-        </div>
-        <div className='flex flex-col items-center justify-left'>
-          <div className="flex items-center justify-left border-t-[1px] py-5">
-            <HiLogout className="mx-4" />
-            <button className='text-[Inter] font-semibold' onClick={handleLogout}>Log Out</button>
           </div>
         </div>
       </div>
