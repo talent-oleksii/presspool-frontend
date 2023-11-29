@@ -59,12 +59,12 @@ const Campaign: FC = () => {
 
       <div className='flex items-center justify-center w-full'>
         <input
-          className='me-2 mt-2 font-[Inter] flex-1 px-4 py-2 rounded-full border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'
+          className='me-2 mt-2 font-[Inter] flex-1 px-4 py-2 rounded-full border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#7FFBAE]'
           placeholder='Type here to search by campaign name'
           value={searchStr}
           onChange={e => setSearchStr(e.target.value)}
         />
-        <select className='font-[Inter] mt-2 px-3 py-2 rounded-full border-[1px] border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#6c63ff]'>
+        <select className='font-[Inter] mt-2 px-3 py-2 rounded-full border-[1px] border-gray-300 text-sm 2xl:text-md focus:ring-0 focus:border-[#7FFBAE]'>
           <option value="nto">Newest to Oldest</option>
           <option value="otn">Oldest to Newest</option>
         </select>
@@ -119,7 +119,7 @@ const Campaign: FC = () => {
               </div>
               <div className='mt-[16px] flex items-center justify-end w-full'>
                 {/* <button
-                  className='underline font-[Inter] text-[#6c63ff] px-4 py-2 me-2 text-[10px]'
+                  className='underline font-[Inter] text-[#7FFBAE] px-4 py-2 me-2 text-[10px]'
                   onClick={() => {
                     setCurrentData({ ...item, currentTab: 'budget' });
                     setShowEdit(true);
@@ -128,7 +128,7 @@ const Campaign: FC = () => {
                   Raise Budget
                 </button> */}
                 <button
-                  className='bg-[#6c63ff] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
+                  className='bg-[#7FFBAE] px-4 py-2 rounded text-white font-[Inter] text-[10px]'
                   onClick={() => {
                     setCurrentData({ ...item, currentTab: 'budget' });
                     setShowEdit(true);

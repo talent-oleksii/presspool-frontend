@@ -2,8 +2,8 @@ import { FC, useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { HiLogout, HiHome, HiSpeakerphone, HiClipboardList, HiSupport, HiPlus } from 'react-icons/hi';
-import { Avatar } from 'antd';
+import { HiLogout } from 'react-icons/hi';
+import { Button, Avatar, Dropdown, MenuProps } from 'antd';
 import { setUnauthenticated, selectAuth, setAuthenticated, setUserData } from '../store/authSlice';
 
 import CreateCampaign from "./dashboard/CreateCampaign";
@@ -85,72 +85,124 @@ const MainContent: FC = () => {
     if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
   };
 
-  // const getOffsetColor = () => {
-  //   if (location.pathname.indexOf('campaign') > -1) return 1;
-  //   if (location.pathname.indexOf('detail') > -1) return 2;
-  //   if (location.pathname.indexOf('billing') > -1) return 3;
-  //   if (location.pathname.indexOf('support') > -1) return 4;
-  // };
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+          1st menu item
+        </a>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+          2nd menu item
+        </a>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+          3rd menu item
+        </a>
+      ),
+    },
+  ];
 
   return (
-    <div className='min-h-screen w-full relative'>
-      {loading && <Loading />}
-      {!loading &&
-        <>
-          <div className='w-[210px] pl-2 py-8 flex flex-col justify-between h-full fixed'>
-            <div className='flex flex-col items-center justify-center'>
-              <Link to="/" className="text-left w-full pl-3 mb-5">
-                <img src={Logo} className='w-[25px] my-2' alt="logo" />
-              </Link>
+    <div className='min-h-screen w-full'>
+      <div className="fixed px-[9px] py-[5px] w-full">
+        <div className="flex bg-[#fffdfd] rounded-full items-center pl-3 pr-5 py-1">
+          <Link to="/" className="text-left w-full pl-3">
+            <img src={Logo} className='h-[20px] 2xl:h-[24px] my-2' alt="logo" />
+          </Link>
 
-              <button
-                className="text-sm 2xl:text-base font-[Inter] flex items-center text-left py-3 px-3 w-full bg-[#6c63ff] rounded-[15px] my-4 text-white"
-                onClick={() => setShowAddDialog(true)}
+          <div className="flex items-center">
+            <button className="flex font-[Inter] bg-[#C1FFD9] rounded-full px-2 py-1 text-[#57D386] text-xs 2xl:text-sm whitespace-nowrap items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="me-1 w-[20px] h-[20px] 2xl:w-[24px] 2xl:h-[24px]">
+                <path d="M100.001-118.464v-669.227q0-30.308 21-51.308t51.308-21h615.382q30.308 0 51.308 21t21 51.308v455.382q0 30.308-21 51.308t-51.308 21H241.539L100.001-118.464ZM480-371.539q13.731 0 23.019-9.289 9.288-9.288 9.288-23.018 0-13.731-9.288-23.019-9.288-9.289-23.019-9.289-13.731 0-23.019 9.289-9.288 9.288-9.288 23.019 0 13.73 9.288 23.018 9.288 9.289 23.019 9.289Zm-29.999-139.23h59.998v-241.538h-59.998v241.538Z" fill="#57D386" />
+              </svg>
+              <span>Beta feedback</span>
+            </button>
+            <div className="ms-9">
+              <Dropdown
+                placement="bottomRight"
+                menu={{ items }}
               >
-                <HiPlus className="mx-2" />
-                New Campaign
-              </button>
-
-              <div className="relative w-full">
-                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
-                  to="/campaign/all">
-                  <HiHome className="mx-2" />
-                  Dashboard
-                </Link>
-                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
-                  to="/detail">
-                  <HiSpeakerphone className="mx-2" />
-                  Campaigns
-                </Link>
-                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
-                  to="/billing">
-                  <HiClipboardList className="mx-2" />
-                  Billing
-                </Link>
-                <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
-                  to="/support">
-                  <HiSupport className="mx-2" />
-                  Support
-                </Link>
-
-                <div className={`absolute h-1/4 bg-white w-full rounded-[15px] -z-[1] transition-all duration-500 transform ${getOffsetBack()}`} />
-              </div>
-            </div>
-            <div className='flex flex-col items-center justify-left'>
-              <div className="my-3">
-                <Link to="/profile" className="flex items-center">
-                  <Avatar className="bg-[#6c63ff]" alt={getPlaceHolder()} size="large">
-                    {getPlaceHolder()}
+                <button className="flex justify-center items-center border-none p-0">
+                  <Avatar className="bg-[#7FFBAE] text-black p-1 items-center justify-center flex 2xl:w-[30px] 2xl:h-[30px] h-[24px] w-[24px]" alt={getPlaceHolder()}>
+                    <span className="text-xs 2xl:text-sm font-[Inter]">{getPlaceHolder()}</span>
                   </Avatar>
-                  <p className="text-gray-800 mx-3 font-[Inter] font-semibold text-[14px]">{fullName}</p>
-                </Link>
-              </div>
-              <div className="flex items-center justify-left border-t-[1px] py-5">
-                <HiLogout className="mx-4" />
-                <button className='text-[Inter] font-semibold' onClick={handleLogout}>Log Out</button>
-              </div>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" className="mx-1">
+                    <path d="M450.001-779.999v485.077L222.154-522.768 180.001-480 480-180.001 779.999-480l-42.153-42.768-227.847 227.846v-485.077h-59.998Z" />
+                  </svg>
+                </button>
+              </Dropdown>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className='w-[210px] pl-2 pt-[60px] pb-2 flex flex-col justify-between h-full fixed'>
+        <div className='flex flex-col items-center justify-center'>
+
+          <button
+            className="text-sm 2xl:text-base font-[Inter] flex items-center text-left py-4 px-3 w-full bg-[#7FFBAE] rounded-[15px] my-4 text-black"
+            onClick={() => setShowAddDialog(true)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
+              <path d="M450.001-290.001h59.998v-160h160v-59.998h-160v-160h-59.998v160h-160v59.998h160v160Zm30.066 190q-78.836 0-148.204-29.92-69.369-29.92-120.682-81.21-51.314-51.291-81.247-120.629-29.933-69.337-29.933-148.173t29.92-148.204q29.92-69.369 81.21-120.682 51.291-51.314 120.629-81.247 69.337-29.933 148.173-29.933t148.204 29.92q69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173t-29.92 148.204q-29.92 69.369-81.21 120.682-51.291 51.314-120.629 81.247-69.337 29.933-148.173 29.933Z" />
+            </svg>
+            New Campaign
+          </button>
+
+          <div className="relative w-full">
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
+              to="/campaign/all">
+              <svg xmlns="http://www.w3.org/2000/svg" className="me-2" height="20" viewBox="0 -960 960 960" width="20">
+                <path d="M180.001-140.001v-449.998L480-815.767l299.999 225.768v449.998H556.154v-267.692H403.846v267.692H180.001Z" />
+              </svg>
+              Dashboard
+            </Link>
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
+              to="/detail">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
+                <path d="M718.461-450.001v-59.998h144.615v59.998H718.461Zm45.693 269.23-115.692-86.768 36.461-47.845 115.691 86.768-36.46 47.845Zm-80.77-465.383-36.46-47.845 115.691-86.769 36.461 47.845-115.692 86.769ZM210.001-220.771v-156.153h-40.77q-29.922 0-51.115-21.192-21.192-21.193-21.192-51.115v-61.538q0-29.922 21.192-51.115 21.193-21.192 51.115-21.192h154.615l179.23-106.922v419.996l-179.23-106.922h-53.847v156.153h-59.998Zm348.46-134.46v-249.538q23.539 21.308 37.923 53.692 14.385 32.385 14.385 71.077t-14.385 71.077Q582-376.539 558.461-355.231Z" />
+              </svg>
+              Campaigns
+            </Link>
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
+              to="/billing">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
+                <path d="M212.309-140.001q-30.308 0-51.308-21t-21-51.308v-535.382q0-30.308 21-51.308t51.308-21h419.229l188.461 188.461v419.229q0 30.308-21 51.308t-51.308 21H212.309ZM320-283.846q15.077 0 25.615-10.539 10.539-10.538 10.539-25.615 0-15.077-10.539-25.615-10.538-10.539-25.615-10.539-15.077 0-25.615 10.539-10.539 10.538-10.539 25.615 0 15.077 10.539 25.615 10.538 10.539 25.615 10.539Zm0-160q15.077 0 25.615-10.539 10.539-10.538 10.539-25.615 0-15.077-10.539-25.615-10.538-10.539-25.615-10.539-15.077 0-25.615 10.539-10.539 10.538-10.539 25.615 0 15.077 10.539 25.615 10.538 10.539 25.615 10.539Zm0-160q15.077 0 25.615-10.539 10.539-10.538 10.539-25.615 0-15.077-10.539-25.615-10.538-10.539-25.615-10.539-15.077 0-25.615 10.539-10.539 10.538-10.539 25.615 0 15.077 10.539 25.615 10.538 10.539 25.615 10.539ZM600-600h160L600-760v160Z" />
+              </svg>
+              Billing
+            </Link>
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm 2xl:text-base rounded-[20px] px-3 py-2.5 flex items-center text-black`}
+              to="/support">
+              <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
+                <path d="M480.067-100.001q-78.836 0-148.204-29.92-69.369-29.92-120.682-81.21-51.314-51.291-81.247-120.629-29.933-69.337-29.933-148.173t29.92-148.204q29.92-69.369 81.21-120.682 51.291-51.314 120.629-81.247 69.337-29.933 148.173-29.933t148.204 29.92q69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173t-29.92 148.204q-29.92 69.369-81.21 120.682-51.291 51.314-120.629 81.247-69.337 29.933-148.173 29.933ZM364-182l58.77-133.848q-37.451-13.225-64.648-40.997-27.197-27.771-41.505-65.156L181.231-366q23.384 64 71.384 112T364-182Zm-47.383-355.999q13.538-37.385 40.961-64.653 27.423-27.269 64.423-40.731L366-778.769q-64.385 24.384-112.385 72.384T181.231-594l135.386 56.001Zm163.292 171.845q47.398 0 80.668-33.179 33.269-33.179 33.269-80.576 0-47.398-33.179-80.668-33.178-33.269-80.576-33.269-47.398 0-80.668 33.179-33.269 33.178-33.269 80.576 0 47.398 33.179 80.668 33.179 33.269 80.576 33.269ZM596-182q63-24 110.5-71.5T778-364l-133.848-58.77q-12.692 37-40.23 64.23-27.538 27.231-63.923 41.923L596-182Zm47.383-357.999L778-596q-24-63-71.5-110.5T596-778l-56.001 135.848q35.615 13.846 62.153 40.307 26.539 26.461 41.231 61.846Z" />
+              </svg>
+              Support
+            </Link>
+
+            <div className={`absolute h-1/4 bg-white w-full rounded-[15px] -z-[1] transition-all duration-500 transform ${getOffsetBack()}`} />
+          </div>
+        </div>
+        <div className='flex flex-col items-center justify-left'>
+          <div className="flex items-center justify-left border-t-[1px] py-5">
+            <HiLogout className="mx-4" />
+            <button className='text-[Inter] font-semibold' onClick={handleLogout}>Log Out</button>
+          </div>
+        </div>
+      </div>
+      {loading && <Loading />}
+      {!loading &&
+        <div className="pt-[55px]">
 
           <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[210px] overflow-auto'>
             <Routes>
@@ -161,7 +213,7 @@ const MainContent: FC = () => {
               <Route path="/admin/*" element={<Admin />} />
             </Routes>
           </div>
-        </>
+        </div>
       }
 
       <CreateCampaign

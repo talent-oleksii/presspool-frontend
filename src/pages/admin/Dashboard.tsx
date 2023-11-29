@@ -59,7 +59,7 @@ const Dashboard: FC = () => {
 
         <div className='relative'>
           <LineChart width={700} height={300} data={data} className='mx-2 my-4 w-full'>
-            <Line type="monotone" dataKey="click" stroke="#6c63ff" />
+            <Line type="monotone" dataKey="click" stroke="#7FFBAE" />
             <Line type="monotone" dataKey="impression" stroke="#ff0000" />
             <CartesianGrid stroke="#ccc" strokeDasharray="5.5" />
             <XAxis dataKey="name" />
@@ -67,7 +67,7 @@ const Dashboard: FC = () => {
             <Tooltip />
           </LineChart>
           <div className='p-4 absolute right-0 top-0'>
-            <p className='font-[Inter] text-[#6c63ff] text-md'>Clicks</p>
+            <p className='font-[Inter] text-[#7FFBAE] text-md'>Clicks</p>
             <p className='font-[Inter] text-[#ff0000] text-md'>Impressions</p>
           </div>
         </div>

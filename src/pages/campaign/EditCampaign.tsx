@@ -242,14 +242,14 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                       <div className='absolute w-1/2 pr-2'>
                         <p className='text-sm 2xl:text-base font-[Inter] text-black font-semibold'>Campaign Name</p>
                         <input
-                          className='px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] mt-1 focus:border-[#6c63ff] focus:ring-0'
+                          className='px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] mt-1 focus:border-[#7FFBAE] focus:ring-0'
                           // placeholder="Give your campaign a name"
                           value={campaignName}
                           onChange={e => setCampaignName(e.target.value)}
                         />
                         <p className='mt-2 text-sm 2xl:text-base font-[Inter] text-black font-semibold'>Website URL</p>
                         <input
-                          className='px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] mt-1 focus:border-[#6c63ff] focus:ring-0'
+                          className='px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] mt-1 focus:border-[#7FFBAE] focus:ring-0'
                           // placeholder="https://example.com"
                           value={url}
                           onChange={e => setUrl(e.target.value)}
@@ -265,7 +265,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                       />
                       <div className='w-full text-center mt-[30px]'>
                         <button
-                          className='rounded-full bg-[#6c63ff] px-[50px] py-[10px] text-white text-sm disabled:bg-gray-400'
+                          className='rounded-full bg-[#7FFBAE] px-[50px] py-[10px] text-white text-sm disabled:bg-gray-400'
                           disabled={validator.isEmpty(campaignName) || !validator.isURL(url)}
                           onClick={handleNextOnCampaign}
                         >
@@ -285,7 +285,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                         <p className='font-[Inter] font-normal text-md 2xl:text-lg font-semibold'>Who are you targeting</p>
                         <div className='flex items-center mt-[18px] w-full gap-[28px]'>
                           <button
-                            className={`relative w-1/2 font-[Inter] font-semibold text-sm flex rounded-lg z-[1] px-4 py-[18px] flex flex-col items-center justify-center transition-all duration-300 ${currentTarget === 'consumer' ? 'bg-[#6c63ff] text-white' : 'bg-[#f5f5f5] text-black'}`}
+                            className={`relative w-1/2 font-[Inter] font-semibold text-sm flex rounded-lg z-[1] px-4 py-[18px] flex flex-col items-center justify-center transition-all duration-300 ${currentTarget === 'consumer' ? 'bg-[#7FFBAE] text-white' : 'bg-[#f5f5f5] text-black'}`}
                             onClick={() => setCurrentTarget('consumer')}
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" width="37" height="36" viewBox="0 0 37 36" fill="none" className='mb-[10px]'>
@@ -297,7 +297,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                             </svg>
                           </button>
                           <button
-                            className={`relative w-1/2 font-[Inter] font-semibold text-sm flex rounded-lg px-4 z-[1] py-[18px] flex flex-col items-center justify-center transition-all duration-300 ${currentTarget === 'professional' ? 'bg-[#6c63ff] text-white' : 'bg-[#f5f5f5] text-black'}`}
+                            className={`relative w-1/2 font-[Inter] font-semibold text-sm flex rounded-lg px-4 z-[1] py-[18px] flex flex-col items-center justify-center transition-all duration-300 ${currentTarget === 'professional' ? 'bg-[#7FFBAE] text-white' : 'bg-[#f5f5f5] text-black'}`}
                             onClick={() => setCurrentTarget('professional')}
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" width="37" height="36" viewBox="0 0 37 36" fill="none" className='mb-[10px]'>
@@ -323,7 +323,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                       </div>
                       <div className='w-full text-center mt-[45px]'>
                         <button
-                          className='rounded-full bg-[#6c63ff] px-[50px] py-[10px] text-white text-sm disabled:bg-gray-400'
+                          className='rounded-full bg-[#7FFBAE] px-[50px] py-[10px] text-white text-sm disabled:bg-gray-400'
                           onClick={() => setCurrentTab('budget')}
                           disabled={currentAudience.length <= 0}
                         >
@@ -354,14 +354,14 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                       </div>
                       {currentPrice &&
                         <div className='mt-[9px]'>
-                          <span className='font-[Inter] text-xs 2xl:text-sm my-3 text-[#6C63FF]'>
+                          <span className='font-[Inter] text-xs 2xl:text-sm my-3 text-[#7FFBAE]'>
                             {`*Estimated clicks for the campaign are ${Math.floor(Number(currentPrice) / (currentTarget === 'consumer' ? 8 : 20))}`}
                           </span>
                         </div>
                       }
                       <div className='mt-[35px] text-center w-full'>
                         <button
-                          className='rounded-full bg-[#6c63ff] px-[50px] py-[10px] text-white disabled:bg-gray-400 text-sm'
+                          className='rounded-full bg-[#7FFBAE] px-[50px] py-[10px] text-white disabled:bg-gray-400 text-sm'
                           onClick={() => setCurrentTab('review')}
                           disabled={Number(currentPrice) < 10000}
                         >
@@ -436,7 +436,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                       <div className='w-full text-center mt-[50px]'>
                         {
                           currentAudience.length >= 1 && currentPrice.length > 3 &&
-                          <button className='rounded-full bg-[#6c63ff] px-[50px] 2xl:px-[60px] py-[10px] text-white mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
+                          <button className='rounded-full bg-[#7FFBAE] px-[50px] 2xl:px-[60px] py-[10px] text-white mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
                             disabled={!isSubmitable()}
                             onClick={handleSubmit}
                           >

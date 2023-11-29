@@ -120,7 +120,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         <div className='flex relative'>
           <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
             <Line type="linear" dataKey="click" stroke="black" />
-            <Line type="linear" dataKey="impression" stroke="#6c63ff" />
+            <Line type="linear" dataKey="impression" stroke="#7FFBAE" />
             {/* <CartesianGrid stroke="#ccc" strokeDasharray="5.5" /> */}
             <XAxis dataKey="name" />
             <YAxis />
@@ -128,7 +128,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           </LineChart>
           <div className='p-4 absolute right-[20px] top-0'>
             <p className='font-[Inter] text-black text-xs 2xl:text-sm mb-2'>Total Impressions</p>
-            <p className='font-[Inter] text-[#6c63ff] text-xs 2xl:text-sm mt-2'>Total Clicks</p>
+            <p className='font-[Inter] text-[#7FFBAE] text-xs 2xl:text-sm mt-2'>Total Clicks</p>
           </div>
         </div>
       </div>

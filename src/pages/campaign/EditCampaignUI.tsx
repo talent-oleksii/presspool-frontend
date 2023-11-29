@@ -155,9 +155,9 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
             {file ? file.name :
               <>
                 <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" className='me-2'>
-                  <path d="M1 14.3945V16.3945C1 16.925 1.21071 17.4337 1.58579 17.8087C1.96086 18.1838 2.46957 18.3945 3 18.3945H15C15.5304 18.3945 16.0391 18.1838 16.4142 17.8087C16.7893 17.4337 17 16.925 17 16.3945V14.3945M4 6.39453L9 1.39453M9 1.39453L14 6.39453M9 1.39453V13.3945" stroke="#6C63FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M1 14.3945V16.3945C1 16.925 1.21071 17.4337 1.58579 17.8087C1.96086 18.1838 2.46957 18.3945 3 18.3945H15C15.5304 18.3945 16.0391 18.1838 16.4142 17.8087C16.7893 17.4337 17 16.925 17 16.3945V14.3945M4 6.39453L9 1.39453M9 1.39453L14 6.39453M9 1.39453V13.3945" stroke="#7FFBAE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <span className='text-[#6c63ff] font-[Inter] text-sm'>Upload image</span>
+                <span className='text-[#7FFBAE] font-[Inter] text-sm'>Upload image</span>
               </>
             }
           </button>
@@ -182,7 +182,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
             value={pageUrl}
             data-tooltip-id='url'
             onChange={e => setPageUrl(e.target.value)}
-            className={`mt-1 w-full rounded-lg text-sm 2xl:text-md border-[1px] focus:ring-0 focus:border-[#6c63ff] py-2 px-3 ${asterick && pageUrl.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 w-full rounded-lg text-sm 2xl:text-md border-[1px] focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && pageUrl.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
           />
           <Tooltip id='url' place="bottom">
             <div className="whitespace-pre-wrap break-normal">

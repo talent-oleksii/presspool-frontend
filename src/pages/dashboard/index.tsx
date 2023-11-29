@@ -48,7 +48,7 @@ const Dashboard: FC = () => {
 					<div className='flex justify-between items-center mt-2 rounded-[15px] p-2'>
 						<div>
 							<Link
-								className={`inline-flex ring-1 ring-[#6c63ff] text-left text-sm 2xl:text-md px-3 py-2.5 text-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white' : 'bg-transparent'}`}
+								className={`inline-flex ring-1 ring-[#7FFBAE] text-left text-sm 2xl:text-md px-3 py-2.5 text-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white' : 'bg-transparent'}`}
 								to="/campaign/all"
 							>
 								Overview

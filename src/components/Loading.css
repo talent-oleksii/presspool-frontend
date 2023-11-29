@@ -1,7 +1,7 @@
 .loader {
   position: relative;
   border-radius: 50%;
-  background: linear-gradient(#6C63FF, #7FFBAE, #D9D9D9);
+  background: linear-gradient(#7FFBAE, #7FFBAE, #D9D9D9);
   animation: animate 1.2s linear infinite;
 }
 
@@ -20,7 +20,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: linear-gradient(#6C63FF, #7FFBAE, #D9D9D9);
+  background: linear-gradient(#7FFBAE, #7FFBAE, #D9D9D9);
 }
 
 .loader span:nth-child(1) {
