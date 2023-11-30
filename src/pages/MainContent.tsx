@@ -10,6 +10,7 @@ import Dashboard from './dashboard';
 import Billing from './billing';
 import Support from "./support";
 import Detail from './campaign';
+import Profile from './Profile';
 import Admin from './admin';
 import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
@@ -97,6 +98,16 @@ const MainContent: FC = () => {
       </Link>
     ),
   }, {
+    key: '3',
+    label: (
+      <button className="font-[Inter] font-semibold text-xs flex items-center 2xl:text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[20px] h-[20px] 2xl:w-[24px] 2xl:h-[24px] -ms-1 me-1">
+          <path d="M450.001-290.001h59.998v-160h160v-59.998h-160v-160h-59.998v160h-160v59.998h160v160Zm30.066 190q-78.836 0-148.204-29.92-69.369-29.92-120.682-81.21-51.314-51.291-81.247-120.629-29.933-69.337-29.933-148.173t29.92-148.204q29.92-69.369 81.21-120.682 51.291-51.314 120.629-81.247 69.337-29.933 148.173-29.933t148.204 29.92q69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173t-29.92 148.204q-29.92 69.369-81.21 120.682-51.291 51.314-120.629 81.247-69.337 29.933-148.173 29.933Z" />
+        </svg>
+        Add a teammate
+      </button>
+    ),
+  }, {
     key: '2',
     label: (
       <button className='font-[Inter] font-semibold text-xs 2xl:text-sm flex items-center' onClick={handleLogout}>
@@ -132,7 +143,7 @@ const MainContent: FC = () => {
 
   return (
     <div className='min-h-screen w-full'>
-      <div className="fixed px-[9px] py-[5px] w-full">
+      <div className="fixed px-[9px] py-[5px] w-full z-[7]">
         <div className="flex bg-[#fffdfd] rounded-full items-center pl-3 pr-5 py-1">
           <Link to="/" className="text-left w-full pl-3">
             <img src={Logo} className='h-[20px] 2xl:h-[24px] my-2' alt="logo" />
@@ -218,12 +229,13 @@ const MainContent: FC = () => {
       {!loading &&
         <div className="pt-[55px]">
 
-          <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[210px] overflow-auto'>
+          <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[230px] overflow-auto'>
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />
               <Route path="/detail" element={<Detail />} />
               <Route path="/billing" element={<Billing />} />
               <Route path="/support" element={<Support />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/admin/*" element={<Admin />} />
             </Routes>
           </div>

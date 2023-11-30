@@ -44,7 +44,7 @@ const Dashboard: FC = () => {
 			animate="show"
 			variants={FADE_UP_ANIMATION_VARIANTS}
 		>
-			<h1 className='font-semibold font-[Inter] text-[26px] 2xl:text-[32px] -tracking-[1.02px]'>Welcome {name} 🤝</h1>
+			<h1 className='font-semibold font-[Inter] text-[24px] 2xl:text-[30px] -tracking-[1.02px]'>Welcome {name} 🤝</h1>
 			<p className='my-2 text-sm 2xl:text-md text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
 
 			<div className='flex'>

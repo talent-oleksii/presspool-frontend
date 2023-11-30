@@ -54,7 +54,7 @@ const Campaign: FC = () => {
       variants={FADE_UP_ANIMATION_VARIANTS}
     >
       {loading && <Loading />}
-      <h2 className='text-[26px] 2xl:text-[32px] font-[Inter] text-black font-semibold -tracking-[1.02px]'>{`${company}'s Campaigns 📈`}</h2>
+      <h2 className='text-[24px] 2xl:text-[30px] font-[Inter] text-black font-semibold -tracking-[1.02px]'>{`${company}'s Campaigns 📈`}</h2>
       <p className='my-2 text-[#43474A] font-normal text-sm 2xl:text-md'>Here's your account at a glance.</p>
 
       <div className='flex items-center justify-center w-full'>

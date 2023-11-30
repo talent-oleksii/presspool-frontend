@@ -175,7 +175,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => { }}>
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 bg-black/[.8]">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-100"
