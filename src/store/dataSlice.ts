@@ -50,9 +50,21 @@ const dataSlice = createSlice({
       ];
       localStorage.setItem('cardList', JSON.stringify(state.cardList));
     },
+    deleteCard: (state, action) => {
+      const cardList = [...state.cardList];
+      state.cardList = cardList.filter(item => item.id !== action.payload.id)
+      localStorage.setItem('cardList', JSON.stringify(state.cardList));
+    },
   },
 });
 
-export const { setCardList, addCard, setCampaign, addCampaign, updateCampaign } = dataSlice.actions;
+export const {
+  setCardList,
+  addCard,
+  setCampaign,
+  addCampaign,
+  updateCampaign,
+  deleteCard,
+} = dataSlice.actions;
 export const selectData = (state: { data: DataState }) => state.data;
 export default dataSlice.reducer;

@@ -53,7 +53,8 @@ const MainContent: FC = () => {
           console.log('err:', err);
         }).finally(() => setLoading(false));
 
-        navigator('/campaign/all');
+        if (location.pathname === '/')
+          navigator('/campaign/all');
       }
     }).catch(err => {
       dispatch(setUnauthenticated());
@@ -220,8 +221,15 @@ const MainContent: FC = () => {
               </svg>
               Support
             </Link>
-
-            <div className={`absolute h-1/4 bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
+            {
+              (
+                location.pathname.indexOf('campaign') > -1 ||
+                location.pathname.indexOf('detail') > -1 ||
+                location.pathname.indexOf('billing') > -1 ||
+                location.pathname.indexOf('support') > -1
+              ) &&
+              <div className={`absolute h-1/4 bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
+            }
           </div>
         </div>
       </div>
