@@ -219,6 +219,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
           </tbody>
         </table>
+        <p className='font-[Inter] mt-4 text-sm'>No data is available. Please create and launch your first campaign</p>
       </div>
       {/* </div> */}
     </div>

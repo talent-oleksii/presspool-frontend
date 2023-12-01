@@ -288,7 +288,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                           disabled={validator.isEmpty(campaignName) || !validator.isURL(url)}
                           onClick={handleNextOnCampaign}
                         >
-                          Save & Continue
+                          Save Changes
                         </button>
                       </div>
                     </motion.div>
@@ -351,7 +351,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                           onClick={() => setCurrentTab('budget')}
                           disabled={currentAudience.length <= 0}
                         >
-                          Save & Continue
+                          Save Changes
                         </button>
                       </div>
                     </motion.div>
@@ -390,7 +390,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                           onClick={() => setCurrentTab('review')}
                           disabled={Number(currentPrice) < 10000}
                         >
-                          Save & Continue
+                          Save Changes
                         </button>
                       </div>
                     </motion.div>

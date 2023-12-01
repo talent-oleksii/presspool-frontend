@@ -277,7 +277,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                           disabled={validator.isEmpty(campaignName) || !validator.isURL(url)}
                           onClick={handleNextOnCampaign}
                         >
-                          Save & Continue
+                          Next Step
                         </button>
                       </div>
                     </motion.div>
