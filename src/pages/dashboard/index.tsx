@@ -52,7 +52,7 @@ const Dashboard: FC = () => {
 					<div className='flex justify-between items-center mt-2 rounded-[15px] p-2'>
 						<div>
 							<Link
-								className={`inline-flex text-left text-sm 2xl:text-md px-3 py-2.5 text-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}
+								className={`inline-flex text-left text-sm 2xl:text-md px-3 py-2.5 font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}
 								to="/campaign/all"
 							>
 								Overview
@@ -86,7 +86,7 @@ const Dashboard: FC = () => {
 				<div className='w-[270px] pl-3 mt-20'>
 					<div className='relative h-[300px]'>
 						<div className='bg-[#7FFBAE] p-[19px] rounded-t-[14px] absolute w-full top-0 z-10'>
-							<p className='text-black text-sm 2xl:text-base font-semibold text-[Inter]'>Quick Actions:</p>
+							<p className='text-black text-sm 2xl:text-base font-semibold font-[Inter]'>Quick Actions:</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs mt-[4px]'>Let’s get you where you need to go</p>
 						</div>
 						<div className='bg-white py-3 pt-[30px] absolute top-[55px] w-full z-0 rounded-[14px] shadow-md'>

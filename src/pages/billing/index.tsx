@@ -53,7 +53,7 @@ const Billing: FC = () => {
           <h2 className='font-[Inter] text-black font-semibold text-[22px] 2xl:text-[25px]'>Invoices</h2>
           <p className='font-[Inter] text-[#43474a] font-medium text-sm 2xl:text-md'>Access to billing portal to view and manage your payments</p>
         </div>
-        <button className='px-4 py-2 text-[Inter] rounded-full bg-black text-white text-sm 2xl:text-md' onClick={handleView}>View billing portal</button>
+        <button className='px-4 py-2 font-[Inter] rounded-full bg-black text-white text-sm 2xl:text-md' onClick={handleView}>View billing portal</button>
       </div>
     </motion.div>
   );

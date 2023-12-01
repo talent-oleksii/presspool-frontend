@@ -235,7 +235,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
               <img src={!image ? SampleLogo : image} alt="sample logo" className='h-[30px] object-cover' />
             </div>
             <div className='py-3 px-2 flex flex-col items-center justify-center'>
-              <h2 className='w-full text-left font-bold text-[Inter] text-md break-words'>{headLine}</h2>
+              <h2 className='w-full text-left font-bold font-[Inter] text-md break-words'>{headLine}</h2>
               <p className='mt-4 w-full text-left font-[Inter] text-gray-500 text-sm break-words'>{body}</p>
               <div className='mt-4 flex justify-between w-full items-center'>
                 <button className='font-[Inter] text-gray-500 px-4 py-2 rounded text-sm border-[1px] font-medium'>{cta}</button>
