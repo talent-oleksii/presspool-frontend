@@ -44,15 +44,15 @@ const Dashboard: FC = () => {
 			animate="show"
 			variants={FADE_UP_ANIMATION_VARIANTS}
 		>
-			<h1 className='font-semibold font-[Inter] text-[24px] 2xl:text-[30px] -tracking-[1.02px]'>Welcome {name} 🤝</h1>
-			<p className='my-2 text-sm 2xl:text-md text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
+			<h1 className='font-semibold font-[Inter] text-[20px] 2xl:text-[24px] -tracking-[.6px]'>Welcome {name} 🤝</h1>
+			<p className='mt-[5px] 2xl:mt-2 text-sm 2xl:text-md text-[#43474A]'>Here’s a snapshot of your account, all in one place</p>
 
 			<div className='flex'>
 				<div className='flex-1'>
-					<div className='flex justify-between items-center mt-2 rounded-[15px] p-2'>
+					<div className='flex justify-between items-center mt-[22px]'>
 						<div>
 							<Link
-								className={`inline-flex text-left text-sm 2xl:text-md px-3 py-2.5 font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}
+								className={`inline-flex text-left text-[#505050] text-sm 2xl:text-md px-3 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}
 								to="/campaign/all"
 							>
 								Overview
@@ -64,17 +64,17 @@ const Dashboard: FC = () => {
 									placement='bottomRight'
 									menu={{ items }}
 								>
-									<button className={`font-[Inter] text-sm 2xl:text-base flex items-center px-4 py-2.5 rounded-[15px] ${id !== 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}>
+									<button className={`font-[Inter] text-sm text-[#505050] 2xl:text-base flex items-center px-4 py-[10px] rounded-[15px] ${id !== 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}>
 										By Campaign
-										<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" className="mx-3">
-											<path d="M450.001-779.999v485.077L222.154-522.768 180.001-480 480-180.001 779.999-480l-42.153-42.768-227.847 227.846v-485.077h-59.998Z" />
+										<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" className="mx-5">
+											<path d="M450.001-779.999v485.077L222.154-522.768 180.001-480 480-180.001 779.999-480l-42.153-42.768-227.847 227.846v-485.077h-59.998Z" fill='#505050' />
 										</svg>
 									</button>
 								</Dropdown>
 							</div>
 						</div>
 						<DatePicker.RangePicker
-							className='font-[Inter] rounded-[15px] py-2.5 border-[#7F8182]'
+							className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182]'
 							onChange={(e) => setRange(e)}
 						/>
 					</div>

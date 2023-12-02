@@ -19,10 +19,10 @@
 .ant-float-btn-body {
   background: #7FFBAE !important;
   width: auto !important;
+}
 
-  .ant-float-btn-content {
-    width: auto !important;
-  }
+.ant-float-btn-content {
+  width: auto !important;
 }
 
 .ant-float-btn-icon {

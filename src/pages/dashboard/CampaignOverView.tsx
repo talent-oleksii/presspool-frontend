@@ -83,30 +83,30 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
   return (
     <div>
-      <div className='mt-3 rounded-[10px] grid grid-cols-4 gap-4'>
-        <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-          <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{getActiveCampaigns()}</h2>
-          <p className='text-xs font-[Inter] font-normal my-1 text-gray-700'>Active Campaigns</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
-          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
+      <div className='mt-[11px] rounded-[10px] grid grid-cols-4 gap-4'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getActiveCampaigns()}</h2>
+          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Active Campaigns</p>
+          <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-          <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{getTotalImpression()}</h2>
-          <p className='text-xs font-[Inter] font-normal my-1 text-gray-700'>Total Impressions</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
-          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalImpression()}</h2>
+          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Impressions</p>
+          <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-          <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{getTotalClick()}</h2>
-          <p className='text-xs font-[Inter] font-normal my-1 text-gray-700'>Total Clicks</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
-          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalClick()}</h2>
+          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Clicks</p>
+          <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-          <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${getTotalSpend()}`}</h2>
-          <p className='text-xs font-[Inter] font-normal my-1 text-gray-700'>Total Spend</p>
-          <div className='bg-[#7ffbae] rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
-          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${getTotalSpend()}`}</h2>
+          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend</p>
+          <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
+          <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
         {/* <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
           <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${getAverageCPC()}`}</h2>
