@@ -83,7 +83,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
   return (
     <div>
-      <div className='mt-[11px] rounded-[10px] grid grid-cols-4 gap-4'>
+      <div className='mt-[11px] rounded-[10px] grid grid-cols-4 gap-[16px]'>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getActiveCampaigns()}</h2>
           <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Active Campaigns</p>
@@ -116,11 +116,11 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         </div> */}
       </div>
 
-      <div className='my-5 p-5 min-h-[250px] rounded-[10px] bg-white shadow-md'>
+      <div className='my-[14px] p-[25px] min-h-[250px] rounded-[10px] bg-white shadow-md'>
         <div className='flex justify-between items-center'>
           <div>
-            <h2 className='font-[Inter] text-md 2xl:text-lg font-semibold'>All Campaigns</h2>
-            <p className='font-[Inter] text-gray-500 text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
+            <h2 className='font-[Inter] text-base 2xl:text-lg font-semibold'>All Campaigns</h2>
+            <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 
           {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-sm 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
@@ -136,9 +136,9 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
             <XAxis dataKey="name" />
             <YAxis />
           </LineChart>
-          <div className='p-4 absolute right-[20px] top-0'>
-            <p className='font-[Inter] text-black text-xs 2xl:text-sm mb-2'>Total Impressions</p>
-            <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2'>Total Clicks</p>
+          <div className='absolute right-[20px] top-0'>
+            <p className='font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2'>Total Impressions</p>
+            <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2 font-semibold'>Total Clicks</p>
           </div>
         </div>
       </div>
