@@ -33,12 +33,12 @@ const Support: FC = () => {
         <div className='py-[30px] px-[35px] bg-white rounded-[10px] shadow-md'>
           <h2 className='font-[Inter] text-black text-base font-semibold -tracking-[.48px]'>Human Support</h2>
           <p className='text-xs font-[Inter] text-[#43474a] font-medium mt-[18px] -tracking-[.36px]'>Email support@presspool.ai anytime, or send us a message on Slack and we will get back to you ASAP!</p>
-          <a target="_blank" href="https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q" rel="noreferrer" className='mt-[63px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Go to Slack</a>
+          <a target="_blank" href="https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q" rel="noreferrer" className='mt-[73px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Go to Slack</a>
         </div>
         <div className='p-[20px] bg-white rounded-[10px] shadow-md'>
           <h2 className='font-[Inter] text-black text-base font-semibold -tracking-[.48px]'>Policies</h2>
           <div className='flex'>
-            <div className='mt-[17px] min-w-[200px]'>
+            <div className='mt-[30px] min-w-[200px]'>
               <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='flex text-[#7f8182] text-sm 2xl:text-md -tracking-[.42px]'>
                 Terms of services
                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none" className='ms-[8px] font-medium font-[Inter] text-[#7f8182] text-sm'>
@@ -54,7 +54,7 @@ const Support: FC = () => {
                 </svg>
               </a>
             </div>
-            <div className='mt-[17px] min-w-[200px]'>
+            <div className='mt-[30px] min-w-[200px]'>
               <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='flex text-[#7f8182] text-sm 2xl:text-md -tracking-[.42px]'>
                 Billing Policy
                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none" className='ms-[8px] font-medium font-[Inter] text-[#7f8182] text-sm'>
