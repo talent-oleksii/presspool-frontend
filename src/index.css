@@ -19,10 +19,10 @@
 .ant-float-btn-body {
   background: #7FFBAE !important;
   width: auto !important;
+}
 
-  .ant-float-btn-content {
-    width: auto !important;
-  }
+.ant-float-btn-content {
+  width: auto !important;
 }
 
 .ant-float-btn-icon {
@@ -42,7 +42,7 @@
 }
 
 .ant-collapse-header {
-  border-radius: 0 0 5px 5px !important;
+  border-radius: 0 !important;
   padding: 0 !important;
   border: none !important;
 }
@@ -58,5 +58,9 @@
 .ant-collapse-content-box {
   border-radius: 0 0 5px 5px !important;
   padding: 0 !important;
+  border: none !important;
+}
+
+.ant-collapse {
   border: none !important;
 }

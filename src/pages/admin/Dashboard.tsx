@@ -21,33 +21,33 @@ const Dashboard: FC = () => {
       <div className="grid grid-cols-4 rounded-[10px]">
         <div className="p-5 flex items-center justify-between rounded-l-[10px] border-[1px] bg-white">
           <div className="text-left">
-            <p className="font-semibold text-[Inter] text-[20px]">Total Users</p>
-            <p className="font-bold text-[Inter] text-black text-[30px] my-3">0</p>
-            <p className="text-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
+            <p className="font-semibold font-[Inter] text-[20px]">Total Users</p>
+            <p className="font-bold font-[Inter] text-black text-[30px] my-3">0</p>
+            <p className="font-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
           </div>
           <span className="rounded-full bg-gray-300 px-4 py-1">- 0%</span>
         </div>
         <div className="p-5 flex items-center justify-between border-[1px] bg-white">
           <div className="text-left">
-            <p className="font-semibold text-[Inter] text-[20px]">Total Clicks</p>
-            <p className="font-bold text-[Inter] text-black text-[30px] my-3">0</p>
-            <p className="text-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
+            <p className="font-semibold font-[Inter] text-[20px]">Total Clicks</p>
+            <p className="font-bold font-[Inter] text-black text-[30px] my-3">0</p>
+            <p className="font-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
           </div>
           <span className="rounded-full bg-gray-300 px-4 py-1">- 0%</span>
         </div>
         <div className="p-5 flex items-center justify-between border-[1px] bg-white">
           <div className="text-left">
-            <p className="font-semibold text-[Inter] text-[20px]">Money In</p>
-            <p className="font-bold text-[Inter] text-black text-[30px] my-3">0</p>
-            <p className="text-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
+            <p className="font-semibold font-[Inter] text-[20px]">Money In</p>
+            <p className="font-bold font-[Inter] text-black text-[30px] my-3">0</p>
+            <p className="font-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
           </div>
           <span className="rounded-full bg-gray-300 px-4 py-1">- 0%</span>
         </div>
         <div className="p-5 flex items-center justify-between rounded-r-[10px] border-[1px] bg-white">
           <div className="text-left">
-            <p className="font-semibold text-[Inter] text-[20px]">Money Out</p>
-            <p className="font-bold text-[Inter] text-black text-[30px] my-3">0</p>
-            <p className="text-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
+            <p className="font-semibold font-[Inter] text-[20px]">Money Out</p>
+            <p className="font-bold font-[Inter] text-black text-[30px] my-3">0</p>
+            <p className="font-[Inter] text-gray-500">from 0 (last 4 weeks)</p>
           </div>
           <span className="rounded-full bg-gray-300 px-4 py-1">- 0%</span>
         </div>
