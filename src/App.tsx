@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import ClientSignUp from './pages/ClientSignUp';
 import MainContent from './pages/MainContent';
 import URLRedirector from './pages/URLRedirector';
+import EmailVerifier from './pages/EmailVerifier';
 
 
 const App: FC = () => {
@@ -26,6 +27,7 @@ const App: FC = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/client-sign-up" element={<ClientSignUp />} />
             <Route path="/cul/:id" element={<URLRedirector />} />
+            <Route path="/verify/:token" element={<EmailVerifier />} />
             <Route path="/*" element={<MainContent />} />
           </Routes>
         </div>

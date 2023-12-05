@@ -2,6 +2,7 @@ import React, { FC, useState, Fragment } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 import { Dialog, Transition } from '@headlessui/react';
+import validator from 'validator';
 
 import { useDispatch } from 'react-redux';
 import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
@@ -20,6 +21,7 @@ interface FormData {
 
 const ClientSignUp: FC = () => {
     const dispatch = useDispatch();
+    const [check, setCheck] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState<FormData>({
@@ -41,6 +43,12 @@ const ClientSignUp: FC = () => {
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
         event.preventDefault();
+        setCheck(true);
+        if (validator.isEmpty(formData.fullName) ||
+            !validator.isEmail(formData.email) ||
+            validator.isEmail(formData.company) ||
+            !validator.isStrongPassword(formData.password)) return;
+
         setLoading(true);
         APIInstance.post('auth/client-sign-up', {
             ...formData
@@ -54,6 +62,7 @@ const ClientSignUp: FC = () => {
                 fullName: ret['fields']['Full Name'],
                 company: ret['fields']['Company Name'],
                 verified: Number(ret['verified']) === 0 ? false : true,
+                email_verified: Number(ret['email_verified'] === 0 ? false : true),
             }));
             setShowDialog(true);
         }).catch(err => {
@@ -64,7 +73,7 @@ const ClientSignUp: FC = () => {
     return (
         <div className='flex h-full relative'>
             {loading && <Loading />}
-            <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#6c63ff] to-[#7FFBAE]'>
+            <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#7FFBAE] to-[#6c63ff]'>
                 <img src={Mark} alt="mark" className="w-[78px]" />
                 <h2 className='font-bold mt-[60px] font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign Up</h2>
                 <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px] mt-[35px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
@@ -77,7 +86,10 @@ const ClientSignUp: FC = () => {
                     </div>
 
                     <form className="text-left" onSubmit={handleSubmit}>
-                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Full Name</label>
+                        <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
+                            Full Name
+                            {check && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red]'>*</span>}
+                        </label>
                         <input
                             id='fullName'
                             name='fullName'
@@ -85,9 +97,12 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             // placeholder='Full Name'
                             type="text"
-                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
                         />
-                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Company Name</label>
+                        <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
+                            Company Name
+                            {check && validator.isEmpty(formData.company) && <span className='ms-1 text-[red]'>*</span>}
+                        </label>
                         <input
                             id='company'
                             name='company'
@@ -95,9 +110,12 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             // placeholder='Company Name'
                             type="text"
-                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
                         />
-                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Email Address</label>
+                        <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
+                            Email Address
+                            {check && !validator.isEmail(formData.email) && <span className='ms-1 text-[red]'>*</span>}
+                        </label>
                         <input
                             id='email'
                             name='email'
@@ -105,9 +123,12 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             // placeholder='Email'
                             type="email"
-                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
                         />
-                        <label className='font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px]'>Password</label>
+                        <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
+                            Password
+                            {check && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red]'>*</span>}
+                        </label>
                         <input
                             id='password'
                             name='password'
@@ -122,7 +143,7 @@ const ClientSignUp: FC = () => {
                                 checked={formData.agreeTerm}
                                 onChange={e => setFormData({ ...formData, agreeTerm: e.target.checked })}
                                 type="checkbox"
-                                className='rounded-sm border-[1px] p-1 rounded-[5px]'
+                                className='rounded-sm border-[1px] border-[#7F8182] p-1 rounded-[5px]'
                             />
                             <span className='ms-2 font-[Inter] text-sm 2xl:text-md font-medium'>
                                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
@@ -177,6 +198,7 @@ const ClientSignUp: FC = () => {
                                             >
                                                 Sign Up Success!
                                             </Dialog.Title>
+                                            <p className='font-[Inter] text-sm mt-[15px]'>Please check your inbox to verify your email address</p>
                                         </div>
                                     </div>
 

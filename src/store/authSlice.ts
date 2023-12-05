@@ -9,6 +9,7 @@ interface AuthState {
   company: string;
   verified: string;
   token: string;
+  email_verified: string;
 }
 
 const initialState: AuthState = {
@@ -19,6 +20,7 @@ const initialState: AuthState = {
   company: localStorage.getItem('company') || '',
   verified: localStorage.getItem('verified') || '',
   token: localStorage.getItem('token') || '',
+  email_verified: localStorage.getItem('email_verified') || '',
 };
 
 const authSlice = createSlice({
@@ -43,11 +45,13 @@ const authSlice = createSlice({
       state.fullName = action.payload.fullName;
       state.company = action.payload.company;
       state.verified = action.payload.verified;
+      state.email_verified = action.payload.email_verified;
       localStorage.setItem('email', action.payload.email);
       localStorage.setItem('name', action.payload.name);
       localStorage.setItem('fullName', action.payload.fullName);
       localStorage.setItem('company', action.payload.company);
       localStorage.setItem('verified', action.payload.verified);
+      localStorage.setItem('email_verified', action.payload.email_verified);
     },
   },
 });

@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, Dropdown, MenuProps } from 'antd';
 import { setUnauthenticated, selectAuth, setAuthenticated, setUserData } from '../store/authSlice';
 
-import StripeUtil from "../utils/stripe";
 import CreateCampaign from "./dashboard/CreateCampaign";
 import Dashboard from './dashboard';
 import Billing from './billing';
@@ -16,7 +15,7 @@ import Admin from './admin';
 import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
-import { addCampaign, selectData, setCampaign } from "../store/dataSlice";
+import { addCampaign, setCampaign } from "../store/dataSlice";
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -24,8 +23,7 @@ const MainContent: FC = () => {
   const dispatch = useDispatch();
   const [showAddDialog, setShowAddDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
-  const { fullName, email } = useSelector(selectAuth);
-  const { cardList } = useSelector(selectData);
+  const { fullName, email, email_verified } = useSelector(selectAuth);
 
   //auth check
   useEffect(() => {
@@ -45,6 +43,7 @@ const MainContent: FC = () => {
           fullName: ret[0]['fields']['Full Name'],
           company: ret[0]['fields']['Company Name'],
           verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
+          email_verified: Number(data.data['email_verified']) === 0 ? 'false' : 'true',
         }));
 
         Promise.all([
@@ -143,6 +142,14 @@ const MainContent: FC = () => {
       </a>
     ),
   }];
+
+  console.log('veri:', email_verified);
+
+  if (email_verified === 'false') {
+    return (
+      <div>Your email is not verified yet, please verify your email</div>
+    );
+  }
 
   return (
     <div className='min-h-screen w-full'>
