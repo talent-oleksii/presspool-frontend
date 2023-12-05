@@ -29,7 +29,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
 
   return (
     <div className='relative'>
-      {/* {loading && <Loading />} */}
+      {loading && <Loading />}
       {!loading && data && <>
         <div className='mt-[11px] rounded-[10px] grid grid-cols-4 gap-[16px]'>
           <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>

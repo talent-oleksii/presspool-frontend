@@ -49,8 +49,8 @@ const CardForm: FC = () => {
     APIInstance.post('stripe/card', {
       email,
       token,
+      source,
     }).then(data => {
-      console.log('card date:', data.data);
       dispatch(addCard({ card: data.data }));
     }).catch(err => {
       console.log('err:', err);
