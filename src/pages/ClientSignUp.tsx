@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
 
 import APIInstance from '../api';
-import Mark from '../assets/logo/logo.png';
+import Mark from '../assets/logo/logo_white.png';
 import Loading from '../components/Loading';
 
 interface FormData {
@@ -65,14 +65,15 @@ const ClientSignUp: FC = () => {
         <div className='flex h-full relative'>
             {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#6c63ff] to-[#7FFBAE]'>
-                {/* <img className='absolute t-0 z-[0] w-full h-full object-cover' src={SignUpBack} alt="limit" /> */}
-                <h2 className='font-bold my-3 font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign Up</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
+                <img src={Mark} alt="mark" className="w-[78px]" />
+                <h2 className='font-bold mt-[60px] font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign Up</h2>
+                <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px] mt-[35px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
             <div className='flex flex-1 justify-center items-center px-[82px] bg-white'>
                 <div className="w-full bg-[white] rounded-[15px] py-[50px]">
                     <div className="flex flex-col items-center justify-center py-3">
-                        <img src={Mark} alt="mark" className="w-[50px]" />
+                        <h2 className='font-[Inter] font-bold text-[44px] -tracking-[1.32px]'>Welcome</h2>
+                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[20px]'>Enter your details to sign up</p>
                     </div>
 
                     <form className="text-left" onSubmit={handleSubmit}>
