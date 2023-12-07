@@ -7,6 +7,8 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import Logo from '../assets/logo/logo.png';
+import Creator from '../assets/image/creator.png';
+import Company from '../assets/image/company.png';
 import Precise from '../assets/image/Precise.png';
 import Launch from '../assets/image/Launch.png';
 import Seamless from '../assets/image/Seamless.png';
@@ -41,17 +43,13 @@ const Landing: FC = () => {
                 {!isAuthenticated ?
                     <>
                         <Link className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md' to="client-sign-up">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='w-[40px] h-[40px]'>
-                                <path d="M109.231-153.846v-650l180-125.385 180 125.385v130h381.538v520H109.231Zm40-40h120v-120h-120v120Zm0-160h120v-120h-120v120Zm0-160h120v-120h-120v120Zm0-160h120v-120h-120v120Zm160 0h120v-120h-120v120Zm0 480h501.538v-440H309.231v440Zm255.384-280v-40H700v40H564.615Zm0 160v-40H700v40H564.615Zm-135.384-160v-40h40v40h-40Zm0 160v-40h40v40h-40Z" />
-                            </svg>
-                            <p className='mb-0 mt-3'>I'm a</p>
+                            <img alt="creator" src={Company} className='w-[40px] h-[40px]' />
+                            <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Company</p>
                         </Link>
                         <button className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md'>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='w-[40px] h-[40px]'>
-                                <path d="M375.385-624.615v-40h329.23v40h-329.23Zm0 110.769v-40h329.23v40h-329.23ZM569.231-120v-88.385l213.307-212.307q5.924-5.154 12.308-7.616 6.385-2.461 12.769-2.461 6.616 0 13.385 2.577t11.923 7.73l37 37.77q4.923 5.923 7.5 12.307Q880-364 880-357.615q0 6.384-2.077 12.884t-8 12.424L657.616-120h-88.385Zm238.384-199.385 37-38.23-37-37.77-38 38 38 38ZM240-120q-33.846 0-56.923-23.077Q160-166.154 160-200v-110.769h120V-840h520v314.846q-10.769.308-20.5 2.269-9.731 1.962-19.5 5.577V-800H320v489.231h213.846l-60 60V-120H240Z" />
-                            </svg>
-                            <p className='mb-0 mt-3'>I'm a</p>
+                            <img alt="creator" src={Creator} className='w-[40px] h-[40px]' />
+                            <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Creator</p>
                         </button>
                     </> :
