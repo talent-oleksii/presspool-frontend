@@ -187,7 +187,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
               </svg>
             </Tooltip>
           </p>
-          <p className='mt-[3px] text-[#7f8182] font-[Inter] text-[13px] font-medium mb-0'>Click below to add your iamge</p>
+          <p className='mt-[3px] text-[#7f8182] font-[Inter] text-[13px] font-medium mb-0'>Click below to add your image</p>
           <div className='flex mt-[7px]'>
             <button
               data-tooltip-id='hero'
