@@ -61,6 +61,31 @@ const MainContent: FC = () => {
       dispatch(setUnauthenticated());
       navigator('/login');
     }).finally();
+    (function (w: any, d: any, s: any, o: any, f: any, js: any, fjs: any) {
+      w['botsonic_widget'] = o;
+      w[o] =
+        w[o] ||
+        function () {
+          (w[o].q = w[o].q || []).push(arguments);
+        };
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+      if (!js) return;
+      js.id = o;
+      js.src = f;
+      js.async = 1;
+      fjs.parentNode?.insertBefore(js, fjs);
+    })(window, document, 'script', 'Botsonic', 'https://widget.writesonic.com/CDN/botsonic.min.js', null, null);
+
+    // Initialize the script
+    (window as any).Botsonic('init', {
+      serviceBaseUrl: 'https://api.botsonic.ai',
+      token: 'c6f96462-0f55-4daf-8060-9b1f72f6ce7e',
+    });
+
+    return () => {
+      (window as any).Botsonic('destory');
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
