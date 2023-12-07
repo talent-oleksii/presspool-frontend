@@ -143,8 +143,6 @@ const MainContent: FC = () => {
     ),
   }];
 
-  console.log('veri:', email_verified);
-
   if (email_verified === 'false') {
     return (
       <div>Your email is not verified yet, please verify your email</div>

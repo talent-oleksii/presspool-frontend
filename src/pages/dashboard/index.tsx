@@ -32,10 +32,14 @@ const Dashboard: FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [fullCampaign, range]);
 
-	const items: MenuProps['items'] = campaign.map(item => ({
+	const items: MenuProps['items'] = campaign.length > 0 ? campaign.map(item => ({
 		key: item.id,
 		label: <Link to={`/campaign/${item.id}`} className='font-[Inter] text-md w-full'>{item.name}</Link>,
-	}));
+	})) : [{
+		key: 'none',
+		label: <span className='font-[Inter] text-md w-full text-gray-400'>No Campaigns yet</span>,
+		disabled: true
+	}];
 
 	return (
 		<motion.div
