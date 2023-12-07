@@ -75,7 +75,7 @@ const ClientSignUp: FC = () => {
             {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#7FFBAE] to-[#6c63ff]'>
                 <img src={Mark} alt="mark" className="w-[78px]" />
-                <h2 className='font-bold mt-[60px] font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign Up</h2>
+                <h2 className='font-bold mt-[42px] font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign Up</h2>
                 <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px] mt-[35px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
             <div className='flex flex-1 justify-center items-center px-[82px] bg-white'>
