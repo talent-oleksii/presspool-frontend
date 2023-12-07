@@ -43,12 +43,12 @@ const Landing: FC = () => {
                 {!isAuthenticated ?
                     <>
                         <Link className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md' to="client-sign-up">
-                            <img alt="creator" src={Company} className='w-[40px] h-[40px]' />
+                            <img alt="creator" src={Company} className='h-[44px]' />
                             <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Company</p>
                         </Link>
                         <button className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md'>
-                            <img alt="creator" src={Creator} className='w-[40px] h-[40px]' />
+                            <img alt="creator" src={Creator} className='h-[44px]' />
                             <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Creator</p>
                         </button>
