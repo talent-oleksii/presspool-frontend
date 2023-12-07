@@ -4,7 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE || '');
 const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET || '');
 
-const GoToPay = async (email: string, campaignId: string, backUrl: string, sourceId: string, priceId: string) => {
+const GoToPay = async (email: string, campaignId: string, backUrl: string, priceId: string) => {
   try {
     // await APIInstance.post('stripe/prepare', { email, campaignId });
     let customer;
@@ -15,13 +15,12 @@ const GoToPay = async (email: string, campaignId: string, backUrl: string, sourc
     if (existingCustomers.data.length > 0) {
       // customer already exists
       customer = existingCustomers.data[0];
-      console.log('cus:', existingCustomers.data);
-      if (!customer.default_source) await stripe.customers.createSource(customer.id, { source: sourceId });
+      // if (!customer.default_source) await stripe.customers.createSource(customer.id, { source: sourceId });
     } else {
       // create a new customer
       customer = await stripe.customers.create({
         email: email as string,
-        source: sourceId,
+        // source: sourceId,
       });
     }
 

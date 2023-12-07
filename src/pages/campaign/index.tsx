@@ -99,7 +99,7 @@ const Campaign: FC = () => {
                 </div>
                 <div className='flex flex-col items-center'>
                   <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>Total Spend:</p>
-                  <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.click_count * (item.demographic === 'consumer' ? 8 : 20)}`}</p>
+                  <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.spent}`}</p>
                 </div>
                 <div className='flex flex-col items-center'>
                   <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>Budget Remaining:</p>

@@ -125,7 +125,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
       DialogUtils.show('success', '', 'Your campaign has been submitted! Our team will review the details and notify you as soon as its live.');
 
       if (verified === 'false') {
-        // await StripeUtil.goToPay(email, data.data.id, 'https://presspool-frontend.onrender.com/#/detail', process.env.REACT_APP_PRICE_250 as string);
+        await StripeUtil.goToPay(email, data.data.id, 'https://presspool-frontend.onrender.com/#/detail', process.env.REACT_APP_PRICE_250 as string);
       }
     }).catch(err => {
       console.log('err:', err);
