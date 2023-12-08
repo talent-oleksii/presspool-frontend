@@ -77,6 +77,17 @@ const Profile: FC = () => {
     }).finally(() => setLoading(false));
   };
 
+  const getPlaceHolder = () => {
+    const names = fullName.split(' ');
+    if (names.length === 2) {
+      return `${names[0].at(0)}${names[1].at(0)}`;
+    } else if (names.length === 1) {
+      return `${names[0].at(0)}`;
+    } else {
+      return '';
+    }
+  };
+
   return (
     <motion.div
       className='text-left relative'
@@ -87,15 +98,20 @@ const Profile: FC = () => {
       {loading && <Loading />}
       <div className='flex items-center justify-between pr-4'>
         <h1 className='font-semibold font-[Inter] text-[24px] 2xl:text-[30px] -tracking-[1.02px]'>My Profile</h1>
-        <button className='rounded-[5px] text-white bg-[#6c63ff] font-[Inter] text-sm px-4 py-1' onClick={handlePublish}>Publish</button>
+        <button className='rounded-[5px] text-black bg-[#7FFBAE] font-[Inter] text-sm px-4 py-1' onClick={handlePublish}>Publish</button>
       </div>
       <div className='pt-[30px] pb-[23px] flex items-end border-b-[1px] border-b-[#bcbcbc]'>
-        <button className='relative overflow-hidden items-center justify-center flex' onClick={() => { if (fileInputRef.current) fileInputRef.current.click(); }}>
-          <Avatar
-            src={!image ? HeadShot : image}
-            className='z-[0] transition-all duration-150  hover:blur-[1.5px] w-[75px] h-[75px]'
-          />
-          <span className='opacity-0 absolute p-6 top-1/2 left-1/2 hover:opacity-100 -translate-x-1/2 -translate-y-1/2 hover:bg-[#505050]/[.5] rounded-full'>
+        <button className='relative items-center justify-center flex' onClick={() => { if (fileInputRef.current) fileInputRef.current.click(); }}>
+          {image ?
+            <Avatar
+              src={image}
+              className='z-[0] transition-all duration-150  hover:blur-[1.5px] w-[75px] h-[75px]'
+            />
+            : <div className='z-[0] transition-all duration-150 hover:blur-[1.5px] w-[75px] h-[75px] bg-[#7ffbae] rounded-full flex items-center justify-center font-[Inter] text-2xl'>
+              {getPlaceHolder()}
+            </div>
+          }
+          <span className='opacity-0 absolute p-[27px] top-1/2 left-1/2 hover:opacity-100 -translate-x-1/2 -translate-y-1/2 hover:bg-[#505050]/[.5] rounded-full'>
             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
               <path d="M482.769-216.923 579.077-313l-96.308-96.077L457.692-384 513-328.692q-46.462.23-82.577-10.923-36.115-11.154-57.884-32.924-22.308-22.307-33.577-50.615-11.27-28.308-11.27-56.615 0-17 3.731-34T342.385-546l-27.077-24Q303.692-548.846 298-526.167q-5.692 22.678-5.692 46.167 0 35.651 13.846 70.364t40.923 62.175q27.077 27.461 71.154 40.807 44.077 13.346 90.538 13.577L457.692-242l25.077 25.077ZM645.462-390q11.615-21.154 17.307-43.833 5.693-22.678 5.693-46.167 0-35.53-13.731-70.592t-41.192-62.177q-26.693-27.462-71.034-40.693-44.341-13.23-90.505-13.23L503.077-718 478-743.077 381.692-647 478-550.923 503.077-576l-55.538-55.538q46.23 0 82.692 11.269 36.461 11.269 58.227 33.094 21.765 21.826 33.192 50.198 11.427 28.373 11.427 56.746 0 17-3.731 34T618.385-414l27.077 24ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120Z" />
             </svg>
@@ -125,7 +141,7 @@ const Profile: FC = () => {
           <p className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb]'>{company}</p>
         </div>
         <div className='col-span-1'>
-          <h4 className='font-[Inter] text-black text-base font-semibold'>Payment Methods</h4>
+          <h4 className='font-[Inter] text-black text-base font-semibold -tracking-[.6px]'>Payment Methods</h4>
           <div className='mt-8'>
             {
               cardList.map(item => (
@@ -145,6 +161,12 @@ const Profile: FC = () => {
                   </div>
                 </div>
               ))
+            }
+            {
+              cardList.length <= 0 &&
+              <div className='text-sm font-[Inter] font-semibold text-black mt-8 -tracking-[.48px]'>
+                You can add your card information here
+              </div>
             }
           </div>
           <div className='flex justify-end my-4'>
