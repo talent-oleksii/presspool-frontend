@@ -33,8 +33,8 @@ const Landing: FC = () => {
     return (
         <div className="pt-[95px] flex flex-col text-center items-center justify-center">
             <img alt="logo" src={Logo} className='w-[30px]' />
-            <h2 className="mt-2 font-[Inter] font-semibold text-[40px] 2xl:text-5xl text-black mb-2 -tracking-[1.2px]">Welcome to</h2>
-            <h2 className="font-[Inter] font-semibold text-black text-[40px] 2xl:text-5xl -tracking-[1.2px] -mt-5">
+            <h2 className="mt-2 font-[Inter] font-semibold text-[40px] text-black mb-2 -tracking-[1.2px]">Welcome to</h2>
+            <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5">
                 the
                 <span className='bg-[#43474a] text-[#7FFBAE] mx-2 rounded-full px-2 py-0'>future</span>
                 of AI marketing
