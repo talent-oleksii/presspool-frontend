@@ -95,7 +95,7 @@ const ClientSignUp: FC = () => {
                             name='fullName'
                             value={formData.fullName}
                             onChange={handleChange}
-                            placeholder='Enter here'
+                            // placeholder='Enter here'
                             type="text"
                             className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
                         />
