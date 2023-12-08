@@ -100,9 +100,9 @@ const Login: FC = () => {
                         <div className="w-full text-right">
                             <button className="font-[Inter] text-[#6c63ff] text-sm 2xl:text-[17px] mt-[22px] underline">Forgot Password?</button>
                         </div>
-                        <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-md 2xl:text-lg text-[white] mt-[32px]">Log In</button>
+                        <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-[white] mt-[32px]">Log In</button>
 
-                        <p className="mt-[35px] font-[Inter] text-black text-md 2xl:text-[19px] flex items-center justify-center -tracking-[.574px]">
+                        <p className="mt-[35px] font-[Inter] text-black text-[19px] flex items-center justify-center -tracking-[.574px]">
                             Don't have an account?
                             <Link className="block text-center text-[#6c63ff] ms-1" to="/">Sign Up</Link>
                         </p>
