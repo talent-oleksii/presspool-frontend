@@ -65,20 +65,20 @@ const Login: FC = () => {
         <div className='flex h-full relative'>
             {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#6c63ff] to-[#7FFBAE]'>
-                <img src={Mark} alt="mark" className="w-[78px]" />
-                <h2 className='font-bold mt-[42px] font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign In</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px] mt-[35px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
+                <img src={Mark} alt="mark" className="w-[57x] h-[59px]" />
+                <h2 className='font-bold mt-[37.89px] font-[Inter] text-[50px] 2xl:text-[50px] text-[white] z-[1] -tracking-[1.5px]'>Log In</h2>
+                <p className='z-[1] font-[Inter] text-[white] text-[20px] mt-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
             <div className="flex flex-1 items-center justify-center bg-white w-full px-[82px]">
                 <div className="rounded-[15px] w-full">
-                    <div className="flex flex-col items-center justify-center py-3">
+                    <div className="flex flex-col items-center justify-center">
                         <h2 className='font-[Inter] font-bold text-[44px] -tracking-[1.32px]'>Welcome Back</h2>
-                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[20px]'>Enter your details to login</p>
+                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[25px]'>Enter your details to login</p>
                     </div>
 
-                    <form className="text-left p-8" onSubmit={handleSubmit}>
+                    <form className="text-left py-8 mt-[60px]" onSubmit={handleSubmit}>
                         <div>
-                            <label className="font-[Inter] text-base block text-sm 2xl:text-md font-semibold my-1">Email Address</label>
+                            <label className="font-[Inter] text-base block text-base font-semibold my-1 -tracking-[.508px]">Email Address</label>
                             <input
                                 id="email"
                                 name="email"
@@ -88,7 +88,7 @@ const Login: FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="font-[Inter] block text-base text-sm 2xl:text-md font-semibold mt-[18px]">Password</label>
+                            <label className="font-[Inter] block text-base text-base font-semibold mt-[18px] -tracking-[.508px]">Password</label>
                             <input
                                 id="password"
                                 name="password"
@@ -100,9 +100,9 @@ const Login: FC = () => {
                         <div className="w-full text-right">
                             <button className="font-[Inter] text-[#6c63ff] text-sm 2xl:text-[17px] mt-[22px] underline">Forgot Password?</button>
                         </div>
-                        <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-md 2xl:text-lg text-[white] mt-[32px]">Sign In</button>
+                        <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-md 2xl:text-lg text-[white] mt-[32px]">Log In</button>
 
-                        <p className="mt-[35px] font-[Inter] text-black text-md 2xl:text-[19px] flex items-center justify-center">
+                        <p className="mt-[35px] font-[Inter] text-black text-md 2xl:text-[19px] flex items-center justify-center -tracking-[.574px]">
                             Don't have an account?
                             <Link className="block text-center text-[#6c63ff] ms-1" to="/">Sign Up</Link>
                         </p>

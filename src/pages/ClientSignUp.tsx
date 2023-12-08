@@ -74,19 +74,19 @@ const ClientSignUp: FC = () => {
         <div className='flex h-full relative'>
             {loading && <Loading />}
             <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#7FFBAE] to-[#6c63ff]'>
-                <img src={Mark} alt="mark" className="w-[78px]" />
-                <h2 className='font-bold mt-[42px] font-[Inter] text-[35px] 2xl:text-[50px] text-[white] z-[1]'>Sign Up</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[18px] 2xl:text-[20px] mt-[35px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
+                <img src={Mark} alt="mark" className="w-[57px] h-[59px]" />
+                <h2 className='font-bold mt-[52px] font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
+                <p className='z-[1] font-[Inter] text-[white] text-[20px] mt-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
             </div>
             <div className='flex flex-1 justify-center items-center px-[82px] bg-white'>
-                <div className="w-full bg-[white] rounded-[15px] py-[50px]">
-                    <div className="flex flex-col items-center justify-center py-3">
+                <div className="w-full bg-[white] rounded-[15px]">
+                    <div className="flex flex-col items-center justify-center">
                         <h2 className='font-[Inter] font-bold text-[44px] -tracking-[1.32px]'>Welcome</h2>
-                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[20px]'>Enter your details to sign up</p>
+                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[24px]'>Enter your details to sign up</p>
                     </div>
 
-                    <form className="text-left" onSubmit={handleSubmit}>
-                        <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
+                    <form className="text-left mt-[50px]" onSubmit={handleSubmit}>
+                        <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
                             Full Name
                             {check && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red]'>*</span>}
                         </label>
@@ -95,11 +95,11 @@ const ClientSignUp: FC = () => {
                             name='fullName'
                             value={formData.fullName}
                             onChange={handleChange}
-                            // placeholder='Full Name'
+                            placeholder='Enter here'
                             type="text"
                             className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
                         />
-                        <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
+                        <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
                             Company Name
                             {check && validator.isEmpty(formData.company) && <span className='ms-1 text-[red]'>*</span>}
                         </label>
@@ -145,12 +145,12 @@ const ClientSignUp: FC = () => {
                                 type="checkbox"
                                 className='rounded-sm border-[1px] border-[#7F8182] p-1 rounded-[5px]'
                             />
-                            <span className='ms-2 font-[Inter] text-sm 2xl:text-md font-medium'>
+                            <span className='ms-2 font-[Inter] text-lg font-medium'>
                                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
                             </span>
                         </div>
                         <button
-                            className="rounded-[6px] text-sm 2xl:text-md bg-black w-full py-[10px] 2xl:py-[15px] mt-[30px] 2xl:mt-[50px] text-[white] disabled:bg-[gray]"
+                            className="rounded-[6px] text-base bg-black w-full py-[10px] 2xl:py-[15px] mt-[50px] text-[white] disabled:bg-[gray]"
                             type="submit"
                             disabled={!formData.agreeTerm}
                         >
@@ -158,7 +158,7 @@ const ClientSignUp: FC = () => {
                         </button>
                     </form>
                     <div className='flex items-center justify-center mt-[36px]'>
-                        <p className="text-md text-center w-full font-[Inter] text-black text-md 2xl:text-lg" >Already have an account? <Link to="/login" className='text-[#6c63ff] underline'>Login</Link></p>
+                        <p className="text-[19px] text-center w-full font-[Inter] text-black text-md 2xl:text-lg -tracking-[.574px]" >Already have an account? <Link to="/login" className='text-[#6c63ff] underline'>Login</Link></p>
                     </div>
                 </div>
             </div>
