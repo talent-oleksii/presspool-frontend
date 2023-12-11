@@ -10,6 +10,7 @@ import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
 import APIInstance from '../api';
 import Mark from '../assets/logo/logo_white.png';
 import Loading from '../components/Loading';
+import DialogUtils from '../utils/DialogUtils';
 
 interface FormData {
     fullName: string;
@@ -66,7 +67,7 @@ const ClientSignUp: FC = () => {
             }));
             setShowDialog(true);
         }).catch(err => {
-            console.log('err:', err);
+            DialogUtils.show('error', '', err.response.data.message);
         }).finally(() => setLoading(false));
     };
 
