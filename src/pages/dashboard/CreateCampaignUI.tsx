@@ -70,40 +70,23 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       setAsterick(false);
       props.setLoading(true);
       const formData = new FormData();
-      if (!props.uiData) {
-        formData.append('email', email);
-        formData.append('headLine', headLine);
-        formData.append('cta', cta);
-        formData.append('body', body);
-        formData.append('image', file);
-        formData.append('pageUrl', pageUrl);
-        APIInstance.post('data/campaign_ui', formData).then(data => {
-          console.log('data:', data);
-          if (props.setUIContent) props.setUIContent(data.data.id);
-          resolve(true);
-        }).catch(err => {
-          console.log('errr:', err);
-          reject();
-        }).finally(() => {
-          props.setLoading(false);
-        });
-      } else {
-        APIInstance.put('data/campaign_ui', {
-          id: props.uiData.id,
-          headLine,
-          cta,
-          body,
-          image,
-          pageUrl,
-          noNeedCheck: noNeedCheck ? 1 : 0,
-        }).then(data => {
-          if (props.afterChange) props.afterChange(data.data);
-          resolve(true);
-        }).catch(err => {
-          console.log('error:', err);
-          reject();
-        }).finally(() => props.setLoading(false));
-      }
+      formData.append('email', email);
+      formData.append('headLine', headLine);
+      formData.append('cta', cta);
+      formData.append('body', body);
+      formData.append('image', file);
+      formData.append('pageUrl', pageUrl);
+      APIInstance.post('data/campaign_ui', formData).then(data => {
+        console.log('data:', data);
+        if (props.setUIContent) props.setUIContent(data.data.id);
+        resolve(true);
+      }).catch(err => {
+        console.log('errr:', err);
+        reject();
+      }).finally(() => {
+        props.setLoading(false);
+      });
+
     });
   };
 

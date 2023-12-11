@@ -39,10 +39,6 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (!file) return;
-      if (file.size > 50000) {
-        DialogUtils.show('error', 'Error While Uploading the file', "File Size can not be larger than 50 KB");
-        return;
-      }
       setFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -65,17 +61,15 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
       }
       setAsterick(false);
       props.setLoading(true);
-      APIInstance.put('data/campaign_ui', {
-        id: props.uiData.ui_id,
-        headLine,
-        cta,
-        body,
-        image,
-        pageUrl,
-        noNeedCheck: noNeedCheck ? 1 : 0,
-      }).then(data => {
+      const formData = new FormData();
+      formData.append('id', props.uiData.ui_id);
+      formData.append('headLine', headLine);
+      formData.append('cta', cta);
+      formData.append('body', body);
+      formData.append('image', file);
+      formData.append('pageUrl', pageUrl);
+      APIInstance.put('data/campaign_ui', formData).then(data => {
         console.log('data:', data);
-        if (props.afterChange) props.afterChange(data.data);
         resolve(true);
       }).catch(err => {
         console.log('error:', err);
@@ -107,7 +101,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
             {/* <p className='font-[Inter] text-sm text-gray-400'>{`${headLine.length}/60`}</p> */}
           </div>
           <input
-            className={`mt-1 w-full rounded-lg text-sm 2xl:text-md border-[1px] py-2 px-3 ${asterick && headLine.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 w-full rounded-lg text-sm 2xl:text-md focus:ring-0 focus:border-[#7FFBAE] border-[1px] py-2 px-3 ${asterick && headLine.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
             maxLength={60}
             data-tooltip-id='headline'
             value={headLine}
@@ -126,7 +120,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
             </Tooltip>
           </p>
           <textarea
-            className={`mt-1 mb-0 text-sm 2xl:text-md w-full rounded-lg border-[1px] py-2 px-3 ${asterick && body.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 mb-0 text-sm 2xl:text-md w-full rounded-lg focus:ring-0 focus:border-[#7FFBAE] border-[1px] py-2 px-3 ${asterick && body.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
             maxLength={110}
             value={body}
             onChange={e => setBody(e.target.value)}
@@ -146,7 +140,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
             </Tooltip>
           </p>
           <input
-            className={`mt-[7px] w-full rounded-lg text-sm 2xl:text-md border-[1px] py-2 px-3 ${asterick && cta.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-[7px] w-full rounded-lg text-sm 2xl:text-md border-[1px] focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && cta.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
             maxLength={20}
             value={cta}
             data-tooltip-id='cta'
@@ -156,7 +150,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
             Hero Image
             {asterick && (!image || (image && image.length <= 0)) && <span className='ms-1 text-[red]'>*</span>}
             <Tooltip
-              title='1200px x 600px'
+              title='Upload your hero image'
               color='#EDECF2'
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='h-[20px] w-[20px] 2xl:w-[24px] 2xl:h-[24px] ms-1'>

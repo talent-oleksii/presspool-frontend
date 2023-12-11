@@ -32,7 +32,7 @@ const dataSlice = createSlice({
 
       state.campaign = campaignList.map(item => {
         if (item.id === action.payload.id) {
-          return { ...item, state: action.payload.state }
+          return action.payload.data;
         }
         return item;
       });

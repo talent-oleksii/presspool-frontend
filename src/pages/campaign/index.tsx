@@ -39,7 +39,7 @@ const Campaign: FC = () => {
       id,
       type: 'state',
     }).then(() => {
-      dispatch(updateCampaign({ id, state }));
+      dispatch(updateCampaign({ id, data: { ...campaign.filter(item => item.id === id)[0], state } }));
       DialogUtils.show('success', state === 'paused' ? 'Campaign Paused' : 'Successfully Started the Campaign', '');
     }).catch(err => {
       console.log('puaseing error:', err);
@@ -113,7 +113,7 @@ const Campaign: FC = () => {
               children: (
                 <div className='bg-white p-[25px] rounded-b-[5px]'>
                   <div className='flex'>
-                    <img className='w-[242px] h-[133px] object-none' alt="market" src={item.image} />
+                    <img className='w-[242px] h-[133px] object-cover' alt="market" src={item.image} />
                     <div className='ms-[16px] py-[10px] flex flex-col items-start justify-center'>
                       <p className='text-black font-[Inter] text-xs font-normal'>Headline</p>
                       <h2 className='font-[Inter] text-black mt-[8px] font-semibold text-base -tracking-[.42px]'>{item.headline}</h2>

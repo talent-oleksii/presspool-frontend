@@ -12,7 +12,7 @@ import APIInstance from '../../api';
 import StripeUtil from '../../utils/stripe';
 import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
-import { setCardList, selectData } from '../../store/dataSlice';
+import { setCardList, selectData, updateCampaign } from '../../store/dataSlice';
 import EditCampaignUI from './EditCampaignUI';
 import CardForm from '../../components/StripeCardForm';
 import { FADE_RIGHT_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
@@ -122,8 +122,6 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   };
 
   const handleSubmit = async () => {
-
-
     if (!uiId) {
       alert('There is not UI assigned for this Campaign, Please save your UI first');
       return;
@@ -133,8 +131,8 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
       id: data.id, type: 'all',
       email, campaignName, url, currentTarget, currentCard,
       currentAudience: currentAudience.map(item => item.value), currentPrice, uiId
-    }).then(async data => {
-      if (afterAdd) afterAdd(data.data);
+    }).then(ret => {
+      dispatch(updateCampaign({ id: data.id, data: ret.data }));
       setShow(false);
     }).catch(err => {
       console.log('err:', err);
@@ -160,8 +158,8 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
       currentPrice,
       uiId,
       currentCard,
-    }).then(data => {
-      if (afterAdd) afterAdd(data.data);
+    }).then(ret => {
+      dispatch(updateCampaign({ id: data.id, data: ret.data }));
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => {
@@ -278,9 +276,6 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                         ref={uiRef}
                         uiData={data}
                         setLoading={(load: boolean) => setLoading(load)}
-                        afterChange={(uiData: any) => {
-                          console.log('data;', uiData);
-                        }}
                       />
                       <div className='w-full text-center mt-[30px]'>
                         <button
