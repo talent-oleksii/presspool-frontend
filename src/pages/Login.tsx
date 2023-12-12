@@ -73,7 +73,7 @@ const Login: FC = () => {
                 <div className="rounded-[15px] w-full">
                     <div className="flex flex-col items-center justify-center">
                         <h2 className='font-[Inter] font-bold text-[44px] -tracking-[1.32px]'>Welcome Back</h2>
-                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[25px]'>Enter your details to login</p>
+                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[10px]'>Enter your details to login</p>
                     </div>
 
                     <form className="text-left py-8 mt-[60px]" onSubmit={handleSubmit}>

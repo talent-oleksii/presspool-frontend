@@ -83,7 +83,7 @@ const ClientSignUp: FC = () => {
                 <div className="w-full bg-[white] rounded-[15px]">
                     <div className="flex flex-col items-center justify-center">
                         <h2 className='font-[Inter] font-bold text-[44px] -tracking-[1.32px]'>Welcome</h2>
-                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[24px]'>Enter your details to sign up</p>
+                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[10px]'>Enter your details to sign up</p>
                     </div>
 
                     <form className="text-left mt-[50px]" onSubmit={handleSubmit}>

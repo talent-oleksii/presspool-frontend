@@ -161,7 +161,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             Hero Image
             {asterick && (!image || (image && image.length <= 0)) && <span className='ms-1 text-[red]'>*</span>}
             <Tooltip
-              title='Upload your hero image'
+              title='Recommended dimensions: 1200px X 600px'
               color='#EDECF2'
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='h-[20px] w-[20px] ms-1'>
