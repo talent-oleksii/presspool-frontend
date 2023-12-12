@@ -15,23 +15,21 @@ interface typeEditCampaignUI {
 const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [headLine, setHeadLine] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
-  const [body, setBody] = useState('Labore et dolore magina alqua, Ut enim ad minim veniam, quis nostrud exercitation ulamco laboris nisi ut aliquip');
-  const [cta, setCta] = useState('Call To Action');
+  const [headLine, setHeadLine] = useState('');
+  const [body, setBody] = useState('');
+  const [cta, setCta] = useState('headLine');
   const [image, setImage] = useState<any>(null);
   const [file, setFile] = useState<any>('');
   const [pageUrl, setPageUrl] = useState('');
-  const [noNeedCheck, setNoNeedCheck] = useState(false);
   const [asterick, setAsterick] = useState(false);
 
   useEffect(() => {
     if (props.uiData) {
-      setHeadLine(props.uiData.headline);
-      setBody(props.uiData.body);
-      setCta(props.uiData.cta);
-      setImage(props.uiData.image);
-      setNoNeedCheck(Number(props.uiData.no_need_check) === 1 ? true : false);
-      setPageUrl(props.uiData.page_url || '');
+      if (headLine.length <= 0) setHeadLine(props.uiData.headline);
+      if (body.length <= 0) setBody(props.uiData.body);
+      if (cta.length <= 0) setCta(props.uiData.cta);
+      if (image === null) setImage(props.uiData.image);
+      if (pageUrl.length <= 0) setPageUrl(props.uiData.page_url || '');
     }
   }, [props]);
 
