@@ -1,4 +1,4 @@
-import { FC, useState, Fragment } from "react";
+import React, { FC, useState, Fragment } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
@@ -10,6 +10,7 @@ import APIInstance from "../api";
 
 import Mark from '../assets/logo/logo_white.png';
 import Loading from "../components/Loading";
+import ForgotPassword from "./ForgotPassword";
 
 interface typeLoginForm {
     email: string;
@@ -24,6 +25,7 @@ const Login: FC = () => {
         password: '',
     });
     const [showDialog, setShowDialog] = useState(false);
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigator = useNavigate();
 
@@ -32,6 +34,11 @@ const Login: FC = () => {
             ...formData,
             [e.target.name]: e.target.value,
         })
+    };
+
+    const handleForgotPassword: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        e.preventDefault();
+        setShowForgotPassword(true);
     };
 
     const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -98,7 +105,7 @@ const Login: FC = () => {
                             />
                         </div>
                         <div className="w-full text-right">
-                            <button className="font-[Inter] text-[#6c63ff] text-sm 2xl:text-[17px] mt-[22px] underline">Forgot Password?</button>
+                            <div className="font-[Inter] text-[#6c63ff] text-sm 2xl:text-[17px] mt-[22px] underline" onClick={handleForgotPassword}>Forgot Password?</div>
                         </div>
                         <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-[white] mt-[32px]">Log In</button>
 
@@ -150,6 +157,7 @@ const Login: FC = () => {
                         </div>
                     </Dialog>
                 </Transition.Root>
+                <ForgotPassword show={showForgotPassword} setShow={(show: boolean) => setShowForgotPassword(show)} />
             </div>
         </div>
     );
