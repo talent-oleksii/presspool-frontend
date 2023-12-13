@@ -47,19 +47,20 @@ const MainContent: FC = () => {
         }));
 
         Promise.all([
-          APIInstance.get('data/campaign', { params: { email } }),
-          APIInstance.get('stripe/card', { params: { email } }),
+          APIInstance.get('data/campaign', { params: { email: ret[0]['fields']['Email'] } }),
+          APIInstance.get('stripe/card', { params: { email: ret[0]['fields']['Email'] } }),
         ]).then((results: Array<any>) => {
           console.log('ddd:', results[1].data);
           dispatch(setClicked(results[0].data.clicked));
           dispatch(setCampaign({ campaign: results[0].data.data }));
           dispatch(setCardList({ cardList: results[1].data }));
+
+          if (location.pathname === '/')
+            navigator('/campaign/all');
         }).catch(err => {
           console.log('err:', err);
         }).finally(() => setLoading(false));
 
-        if (location.pathname === '/')
-          navigator('/campaign/all');
       }
     }).catch(err => {
       dispatch(setUnauthenticated());
