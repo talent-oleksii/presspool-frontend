@@ -63,16 +63,9 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
   };
 
   const handleSubmit = () => {
-    if (!validator.isStrongPassword(newPassword)) {
-      setNotStrong(true);
+    if (!validator.isStrongPassword(newPassword) || newPassword !== confirmPassword) {
       return;
     }
-    setNotStrong(false);
-    if (newPassword !== confirmPassword) {
-      setShowWarning(true);
-      return;
-    }
-    setShowWarning(false);
 
     APIInstance.put('/auth/password', {
       email,
@@ -138,6 +131,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                       className={`w-full text-left mt-[10px] border-[1px] bg-white rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter your email address'
                       value={email}
+                      type='email'
                       onChange={e => setEmail(e.target.value)}
                     />
                     <button className='mt-[20px] flex items-center justify-center text-sm text-white bg-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToVerify}>Next Step</button>
@@ -191,10 +185,10 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                     <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Set your new password for future logins</p>
                     <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[26px]'>
                       New Password
-                      {notStrong && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Your password is not secure</span>}
+                      {newPassword.length > 0 && !validator.isStrongPassword(newPassword) && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Your password is not secure</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[400px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={newPassword}
@@ -202,10 +196,10 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                     />
                     <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[16px]'>
                       Confirm Password
-                      {showWarning && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Password does not match</span>}
+                      {confirmPassword.length > 0 && confirmPassword !== newPassword && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Password does not match</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[400px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={confirmPassword}
