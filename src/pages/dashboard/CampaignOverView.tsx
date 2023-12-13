@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
 import { Tooltip } from 'antd';
 import moment from 'moment-timezone';
+import { useSelector } from 'react-redux';
+import { selectData } from '../../store/dataSlice';
 
 const data01: Array<any> = [];
 
@@ -11,11 +13,26 @@ interface typeOverView {
 
 const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   const [chartData, setChartData] = useState<any>();
+  const { clicked } = useSelector(selectData);
 
   useEffect(() => {
-    setChartData([{ click: getTotalClick(), impression: 0 }]);
+    let grouped: any = {};
+    clicked.forEach((item) => {
+      const date = moment(new Date(Number(item.create_time)));
+      const key = date.format('DD/MM/YYYY');
+      if (!grouped[key]) {
+        grouped[key] = [];
+      }
+      grouped[key].push(item);
+    });
+
+    setChartData(Object.keys(grouped).map(item => ({
+      impression: 0,
+      click: grouped[item].length,
+      date: item,
+    })));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [clicked]);
 
   const getTotalImpression = () => {
     return 0;
@@ -132,8 +149,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
             <Line type="linear" dataKey="click" stroke="black" />
             <Line type="linear" dataKey="impression" stroke="#7FFBAE" />
-            {/* <CartesianGrid stroke="#ccc" strokeDasharray="5.5" /> */}
-            <XAxis dataKey="name" />
+            <XAxis dataKey="date" />
             <YAxis />
           </LineChart>
           <div className='absolute right-[20px] top-0'>

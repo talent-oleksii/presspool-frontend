@@ -64,3 +64,11 @@
 .ant-collapse {
   border: none !important;
 }
+
+.recharts-cartesian-axis-tick {
+  font-size: 10px;
+  font-weight: 600;
+  color: black;
+  letter-spacing: -.3px;
+  font-family: Inter;
+}

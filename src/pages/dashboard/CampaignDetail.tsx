@@ -1,9 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
 import { Tooltip } from 'antd';
+import moment from 'moment-timezone';
 
 import APIInstance from '../../api';
 import Loading from '../../components/Loading';
+import { useSelector } from 'react-redux';
+import { selectData } from '../../store/dataSlice';
 
 const data01: Array<any> = [];
 
@@ -15,17 +18,32 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
   const [data, setData] = useState<any>(undefined);
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState<any>();
+  const { clicked } = useSelector(selectData);
 
   useEffect(() => {
     setLoading(true);
     APIInstance.get('data/campaign_detail', { params: { id } }).then(data => {
       setData(data.data);
 
-      setChartData([{ click: data.data.click_count, impression: 0 }]);
+      let grouped: any = {};
+      clicked.filter(item => Number(item.campaign_id) === Number(id)).forEach((item) => {
+        const date = moment(new Date(Number(item.create_time)));
+        const key = date.format('DD/MM/YYYY');
+        if (!grouped[key]) {
+          grouped[key] = [];
+        }
+        grouped[key].push(item);
+      });
+
+      setChartData(Object.keys(grouped).map(item => ({
+        impression: 0,
+        click: grouped[item].length,
+        date: item,
+      })));
     }).catch(error => {
       console.log('error:', error);
     }).finally(() => setLoading(false));
-  }, [id]);
+  }, [id, clicked]);
 
   return (
     <div className='relative'>
@@ -48,13 +66,13 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${Number(data.click_count) * (data.demographic === 'consumer' ? 8 : 20)}`}</h2>
             <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend</p>
             <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
-            <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from $12,000 (last 4 weeks)</p>
+            <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from $0 (last 4 weeks)</p>
           </div>
           <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.demographic === 'consumer' ? 8 : 20}`}</h2>
             <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>AVG CPC</p>
-            <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>- 20%</div>
-            <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from $10 (last 4 weeks)</p>
+            <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
+            <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from $0 (last 4 weeks)</p>
           </div>
         </div>
 
@@ -78,8 +96,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
               <Line type="linear" dataKey="click" stroke="black" />
               <Line type="linear" dataKey="impression" stroke="#7FFBAE" />
-              {/* <CartesianGrid stroke="#ccc" strokeDasharray="5.5" /> */}
-              <XAxis dataKey="name" />
+              <XAxis dataKey="date" />
               <YAxis />
             </LineChart>
             <div className='p-4 absolute right-[20px] top-0'>

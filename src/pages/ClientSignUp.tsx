@@ -89,7 +89,7 @@ const ClientSignUp: FC = () => {
                     <form className="text-left mt-[50px]" onSubmit={handleSubmit}>
                         <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
                             Full Name
-                            {check && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red]'>*</span>}
+                            {check && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red] text-xs'>*Input your full name</span>}
                         </label>
                         <input
                             id='fullName'
@@ -102,7 +102,7 @@ const ClientSignUp: FC = () => {
                         />
                         <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
                             Company Name
-                            {check && validator.isEmpty(formData.company) && <span className='ms-1 text-[red]'>*</span>}
+                            {check && validator.isEmpty(formData.company) && <span className='ms-1 text-[red] text-xs'>*Input company name</span>}
                         </label>
                         <input
                             id='company'
@@ -115,7 +115,7 @@ const ClientSignUp: FC = () => {
                         />
                         <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
                             Email Address
-                            {check && !validator.isEmail(formData.email) && <span className='ms-1 text-[red]'>*</span>}
+                            {check && !validator.isEmail(formData.email) && <span className='ms-1 text-[red] text-xs'>*Input valid email address</span>}
                         </label>
                         <input
                             id='email'
@@ -128,7 +128,7 @@ const ClientSignUp: FC = () => {
                         />
                         <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
                             Password
-                            {check && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red]'>*</span>}
+                            {check && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red] text-sm'>* Your password is not secure</span>}
                         </label>
                         <input
                             id='password'

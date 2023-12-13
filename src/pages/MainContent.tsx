@@ -15,7 +15,7 @@ import Admin from './admin';
 import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
-import { addCampaign, setCampaign } from "../store/dataSlice";
+import { addCampaign, setCampaign, setClicked } from "../store/dataSlice";
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -49,7 +49,8 @@ const MainContent: FC = () => {
         Promise.all([
           APIInstance.get('data/campaign', { params: { email } }),
         ]).then((results: Array<any>) => {
-          dispatch(setCampaign({ campaign: results[0].data }));
+          dispatch(setClicked(results[0].data.clicked));
+          dispatch(setCampaign({ campaign: results[0].data.data }));
         }).catch(err => {
           console.log('err:', err);
         }).finally(() => setLoading(false));

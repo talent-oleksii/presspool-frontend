@@ -24,15 +24,33 @@ const GoToPay = async (email: string, campaignId: string, backUrl: string, price
       });
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const setupIntent = await stripe.setupIntents.create({
       customer: customer.id,
-      success_url: backUrl,
-      line_items: [{ price: priceId, quantity: 1 }],
-      mode: 'payment',
-      metadata: {
-        custom_param: campaignId,
-      },
     });
+
+    const session = await stripe.billingPortal.sessions.create({
+      customer: customer.id,
+      return_url: backUrl,
+    });
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 250 * 100,
+      currency: 'usd',
+      customer: customer.id,
+      payment_method: setupIntent.payment_method as string,
+      off_session: true,
+      confirm: true,
+    });
+
+    // const session = await stripe.checkout.sessions.create({
+    //   customer: customer.id,
+    //   success_url: backUrl,
+    //   line_items: [{ price: priceId, quantity: 1 }],
+    //   mode: 'payment',
+    //   metadata: {
+    //     custom_param: campaignId,
+    //   },
+    // });
 
     (await stripePromise)?.redirectToCheckout({
       sessionId: session.id

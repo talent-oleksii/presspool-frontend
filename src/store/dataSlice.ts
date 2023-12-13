@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface DataState {
   campaign: Array<any>;
   cardList: Array<any>;
+  clicked: Array<any>;
 }
 
 const initialState: DataState = {
   campaign: localStorage.getItem('campaign') ? JSON.parse(localStorage.getItem('campaign') || '') : [],
-  cardList: localStorage.getItem('cardList') ? JSON.parse(localStorage.getItem('cardList') || '') : []
+  cardList: localStorage.getItem('cardList') ? JSON.parse(localStorage.getItem('cardList') || '') : [],
+  clicked: localStorage.getItem('clicked') ? JSON.parse(localStorage.getItem('clicked') || '') : [],
 };
 
 const dataSlice = createSlice({
@@ -55,6 +57,10 @@ const dataSlice = createSlice({
       state.cardList = cardList.filter(item => item.id !== action.payload.id)
       localStorage.setItem('cardList', JSON.stringify(state.cardList));
     },
+    setClicked: (state, action) => {
+      state.clicked = action.payload;
+      localStorage.setItem('clicked', JSON.stringify(state.clicked));
+    },
   },
 });
 
@@ -65,6 +71,7 @@ export const {
   addCampaign,
   updateCampaign,
   deleteCard,
+  setClicked,
 } = dataSlice.actions;
 export const selectData = (state: { data: DataState }) => state.data;
 export default dataSlice.reducer;
