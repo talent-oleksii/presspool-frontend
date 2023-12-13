@@ -13,25 +13,10 @@ const Billing: FC = () => {
   const { email } = useSelector(selectAuth);
 
   const handleView = async () => {
-    let customer;
-
-    const existingCustomers = await StripeUtil.stripe.customers.list({
-      email: email || ''
-    });
-
-    if (existingCustomers.data.length > 0) {
-      // customer already exists
-      customer = existingCustomers.data[0];
-    } else {
-      // create a new customer
-      customer = await StripeUtil.stripe.customers.create({
-        email: email || '',
-        // add any other customer details here as necessary
-      });
-    }
+    const customerId = await StripeUtil.getCustomerId(email);
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
-      customer: customer.id,
+      customer: customerId,
       return_url: 'https://presspool-frontend.onrender.com/#/campaign/all',
     });
 

@@ -5,16 +5,13 @@ import CreatableSelect from 'react-select/creatable';
 import { useDispatch, useSelector } from 'react-redux';
 import { StylesConfig } from 'react-select';
 import validator from 'validator';
-import { Elements } from '@stripe/react-stripe-js';
 import { Tooltip } from 'antd';
 
 import APIInstance from '../../api';
-import StripeUtil from '../../utils/stripe';
 import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
 import { setCardList, selectData, updateCampaign } from '../../store/dataSlice';
 import EditCampaignUI from './EditCampaignUI';
-import CardForm from '../../components/StripeCardForm';
 import { FADE_RIGHT_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
 
 interface typeEditCampaign {
@@ -50,7 +47,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   const [showAddCard, setShowAddCard] = useState(false);
   const [currentCard, setCurrentCard] = useState('');
 
-  const { email, verified } = useSelector(selectAuth);
+  const { email } = useSelector(selectAuth);
   const { cardList } = useSelector(selectData);
 
   const uiRef = useRef<any>();
@@ -410,49 +407,21 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                       <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
                       <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>We charge a one-time deposit of $250 which will be applied to your campaign as a credit. All further campaign activity is billed at the end of every week or when your account hits its billing threshold. </p>
                       <div className='w-full flex'>
-                        <div className='flex-1 me-[18px]'>
-                          <button
-                            className='flex mt-[17px] py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
-                            onClick={() => setShowAddCard(!showAddCard)}
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
-                              <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="#7F8182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                            Add a Card
-                          </button>
-                        </div>
-                        <div className='flex-col'>
-                          <select
-                            className='w-[500px] mt-[17px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
-                            value={currentCard}
-                            onChange={e => setCurrentCard(e.target.value)}
-                          >
-                            {
-                              cardList.map((item: any) => (
-                                <option value={item.card_id} key={item.id}>
-                                  {item.brand}
-                                  {` **** **** **** ${item.last4}`}
-                                </option>
-                              ))
-                            }
-                          </select>
-                        </div>
+                        <select
+                          className='w-full mt-[17px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
+                          value={currentCard}
+                          onChange={e => setCurrentCard(e.target.value)}
+                        >
+                          {
+                            cardList.map((item: any) => (
+                              <option value={item.card_id} key={item.id}>
+                                {item.brand.toUpperCase()}
+                                {` **** **** **** ${item.last4}`}
+                              </option>
+                            ))
+                          }
+                        </select>
 
-                      </div>
-                      <div className='mt-[28px]'>
-                        {
-                          showAddCard &&
-                          <motion.div
-                            initial={{ opacity: 0, y: '-100%' }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: .3 }}
-                          >
-                            <p className='font-[Inter] text-sm 2xl:text-lg font-medium text-black mb-[19px]'>Add New Card</p>
-                            <Elements stripe={StripeUtil.stripePromise}>
-                              <CardForm />
-                            </Elements>
-                          </motion.div>
-                        }
                       </div>
                       <div className='w-full text-center mt-[50px]'>
                         {
@@ -461,7 +430,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                             disabled={!isSubmitable()}
                             onClick={handleSubmit}
                           >
-                            {verified ? 'Submit' : 'Submit and Pay'}
+                            Submit
                           </button>
                         }
                         <button
