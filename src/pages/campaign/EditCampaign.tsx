@@ -44,7 +44,6 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
   const [uiId, setUIID] = useState(undefined);
   const [url, setUrl] = useState('');
-  const [showAddCard, setShowAddCard] = useState(false);
   const [currentCard, setCurrentCard] = useState('');
 
   const { email } = useSelector(selectAuth);

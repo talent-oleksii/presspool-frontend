@@ -5,7 +5,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import validator from 'validator';
 
 import { useDispatch } from 'react-redux';
-import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
+import { setAuthenticated, setToken } from '../store/authSlice';
 
 import APIInstance from '../api';
 import Mark from '../assets/logo/logo_white.png';

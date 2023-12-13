@@ -37,7 +37,7 @@ const CardForm: FC = () => {
     if (!cardElement) return;
 
     setLoading(true);
-    const { source, error } = await stripe.createSource(cardElement, {
+    const { source } = await stripe.createSource(cardElement, {
       owner: {
         email: email,
       }

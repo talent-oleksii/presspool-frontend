@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { useDispatch } from 'react-redux';
-import { setAuthenticated, setToken, setUserData } from '../store/authSlice';
+import { setAuthenticated, setToken } from '../store/authSlice';
 
 import APIInstance from "../api";
 

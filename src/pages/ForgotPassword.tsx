@@ -17,7 +17,6 @@ interface typeForgotPassword {
 const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPassword) => {
   const [email, setEmail] = useState('');
   const [showWarning, setShowWarning] = useState(false);
-  const [notStrong, setNotStrong] = useState(false);
   const [step, setStep] = useState('initial'); // initial, verify, final
   const [code, setCode] = useState(['', '', '', '', '']);
   const [newPassword, setNewPassword] = useState('');

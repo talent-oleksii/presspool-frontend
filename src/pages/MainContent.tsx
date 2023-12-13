@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -70,7 +70,8 @@ const MainContent: FC = () => {
           (w[o].q = w[o].q || []).push(arguments);
         };
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+      (js = d.createElement(s));
+      (fjs = d.getElementsByTagName(s)[0]);
       if (!js) return;
       js.id = o;
       js.src = f;

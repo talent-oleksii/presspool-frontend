@@ -4,7 +4,6 @@ import { Tooltip } from 'antd';
 import SampleLogo from '../../assets/logo/logo.png';
 
 import APIInstance from '../../api';
-import DialogUtils from '../../utils/DialogUtils';
 
 interface typeEditCampaignUI {
   setLoading: Function;
@@ -31,6 +30,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
       if (image === null) setImage(props.uiData.image);
       if (pageUrl.length <= 0) setPageUrl(props.uiData.page_url || '');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {

@@ -2,17 +2,14 @@ import { FC, useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { Elements } from '@stripe/react-stripe-js';
 
 import { FADE_UP_ANIMATION_VARIANTS } from '../utils/TransitionConstants';
 import { Avatar } from 'antd';
 
-import CardForm from '../components/StripeCardForm';
 import StripeUtil from '../utils/stripe';
-import HeadShot from '../assets/image/Headshot 2.png';
 import { useSelector } from 'react-redux';
 import { selectAuth, setAvatar } from '../store/authSlice';
-import { deleteCard, selectData } from '../store/dataSlice';
+import { selectData } from '../store/dataSlice';
 import APIInstance from '../api';
 import Loading from '../components/Loading';
 import DialogUtils from '../utils/DialogUtils';
@@ -21,7 +18,6 @@ const Profile: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { fullName, email, company } = useSelector(selectAuth);
   const { cardList } = useSelector(selectData);
-  const [showAddCard, setShowAddCard] = useState(false);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<any>(null);
   const [file, setFile] = useState<any>(null);
@@ -39,15 +35,6 @@ const Profile: FC = () => {
     }).finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleRemoveCard = (id: string) => {
-    setLoading(true);
-    APIInstance.delete('stripe/card', { params: { id } }).then(() => {
-      dispatch(deleteCard({ id }));
-    }).catch(err => {
-      console.log('card deleting error:', err);
-    }).finally(() => setLoading(false));
-  };
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files) {
@@ -190,12 +177,6 @@ const Profile: FC = () => {
               Manage Payment Methods
             </button>
           </div>
-          {
-            showAddCard &&
-            <Elements stripe={StripeUtil.stripePromise}>
-              <CardForm />
-            </Elements>
-          }
         </div>
       </div>
       <div className='mt-6 p-5 bg-white rounded-[10px] shadow-md'>

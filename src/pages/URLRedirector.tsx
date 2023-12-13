@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import APIInstance from '../api';
 import Loading from '../components/Loading';
-import { setFlagsFromString } from 'v8';
 
 const URLRedirector: FC = () => {
   const { id } = useParams();

@@ -6,7 +6,6 @@ import SampleLogo from '../../assets/logo/logo.png';
 
 import APIInstance from '../../api';
 import { selectAuth } from '../../store/authSlice';
-import DialogUtils from '../../utils/DialogUtils';
 
 interface typeCreateCampaignUI {
   setLoading: Function;
@@ -25,7 +24,6 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
   const [image, setImage] = useState<any>(null);
   const [file, setFile] = useState<any>('');
   const [pageUrl, setPageUrl] = useState('');
-  const [noNeedCheck, setNoNeedCheck] = useState(false);
   const [asterick, setAsterick] = useState(false);
 
   useEffect(() => {
@@ -34,7 +32,6 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       setBody(props.uiData.body);
       setCta(props.uiData.cta);
       setImage(props.uiData.image);
-      setNoNeedCheck(Number(props.uiData.no_need_check) === 1 ? true : false);
       setPageUrl(props.uiData.page_url || '');
     }
   }, [props]);
@@ -43,10 +40,6 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (!file) return;
-      // if (file.size > 50000) {
-      //   DialogUtils.show('error', 'Error While Uploading the file', "File Size can not be larger than 50 KB");
-      //   return;
-      // }
       setFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
