@@ -206,7 +206,7 @@ const MainContent: FC = () => {
               >
                 <button className="flex justify-center items-center border-none p-0 font-[Inter] text-[11px]">
                   <Avatar className="bg-[#7FFBAE] text-black items-center justify-center flex" src={avatar} alt={getPlaceHolder()} size="small">
-                    {avatar.length <= 3 && <span className="text-xs font-[Inter] font-medium">{getPlaceHolder()}</span>}
+                    {avatar && avatar.length <= 3 && <span className="text-xs font-[Inter] font-medium">{getPlaceHolder()}</span>}
                   </Avatar>
 
                   <span className="font-[Inter] text-xs font-medium ms-1">↓</span>
