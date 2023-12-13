@@ -54,13 +54,13 @@ const Login: FC = () => {
             } else {
                 dispatch(setAuthenticated());
                 dispatch(setToken({ token: data.data.token }));
-                dispatch(setUserData({
-                    email: ret[0]['fields']['Email'],
-                    name: ret[0]['fields']['First Name'],
-                    fullName: ret[0]['fields']['Full Name'],
-                    company: ret[0]['fields']['Company Name'],
-                    verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
-                }));
+                // dispatch(setUserData({
+                //     email: ret[0]['fields']['Email'],
+                //     name: ret[0]['fields']['First Name'],
+                //     fullName: ret[0]['fields']['Full Name'],
+                //     company: ret[0]['fields']['Company Name'],
+                //     verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
+                // }));
                 navigator('/campaign/all');
             }
         }).catch(err => {

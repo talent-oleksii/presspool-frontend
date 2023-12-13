@@ -191,7 +191,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                     <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Set your new password for future logins</p>
                     <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[26px]'>
                       New Password
-                      {notStrong && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Password is not strong enough</span>}
+                      {notStrong && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Your password is not secure</span>}
                     </p>
                     <input
                       className={`w-full text-left mt-[10px] border-[1px] bg-white w-[400px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}

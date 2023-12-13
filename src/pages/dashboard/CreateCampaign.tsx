@@ -75,7 +75,6 @@ const CreateCampaign: FC = () => {
   const handleRefreshCard = () => {
     setLoading(true);
     APIInstance.get('stripe/card', { params: { email } }).then(data => {
-      console.log('list:', data.data);
       dispatch(setCardList({ cardList: data.data }));
     }).catch(err => {
       console.log('get card error:', err);
@@ -146,13 +145,14 @@ const CreateCampaign: FC = () => {
       currentPrice,
       uiId,
       state: 'draft',
-    }).then(data => {
+    }).then(() => {
       setCurrentTab('detail');
       setCampaignName('');
       setCurrentTarget('consumer');
       setUIID(undefined);
       setUrl('');
       setCurrentAudience([]);
+      navigator('/');
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => {

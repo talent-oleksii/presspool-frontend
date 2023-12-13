@@ -10,6 +10,7 @@ interface AuthState {
   verified: string;
   token: string;
   email_verified: string;
+  avatar: string;
 }
 
 const initialState: AuthState = {
@@ -21,6 +22,7 @@ const initialState: AuthState = {
   verified: localStorage.getItem('verified') || '',
   token: localStorage.getItem('token') || '',
   email_verified: localStorage.getItem('email_verified') || '',
+  avatar: localStorage.getItem('avatar') || '',
 };
 
 const authSlice = createSlice({
@@ -46,16 +48,22 @@ const authSlice = createSlice({
       state.company = action.payload.company;
       state.verified = action.payload.verified;
       state.email_verified = action.payload.email_verified;
+      state.avatar = action.payload.avatar;
       localStorage.setItem('email', action.payload.email);
       localStorage.setItem('name', action.payload.name);
       localStorage.setItem('fullName', action.payload.fullName);
       localStorage.setItem('company', action.payload.company);
       localStorage.setItem('verified', action.payload.verified);
       localStorage.setItem('email_verified', action.payload.email_verified);
+      localStorage.setItem('avatar', action.payload.avatar);
+    },
+    setAvatar: (state, action) => {
+      state.avatar = action.payload.avatar;
+      localStorage.setItem('avatar', action.payload.avatar);
     },
   },
 });
 
-export const { setAuthenticated, setUnauthenticated, setUserData, setToken } = authSlice.actions;
+export const { setAuthenticated, setUnauthenticated, setUserData, setToken, setAvatar } = authSlice.actions;
 export const selectAuth = (state: { auth: AuthState }) => state.auth;
 export default authSlice.reducer;

@@ -56,15 +56,16 @@ const ClientSignUp: FC = () => {
         }).then(data => {
             const ret = data.data;
             dispatch(setAuthenticated());
-            dispatch(setToken({ token: data.data.token }));
-            dispatch(setUserData({
-                email: ret['fields']['Email'],
-                name: ret['fields']['First Name'],
-                fullName: ret['fields']['Full Name'],
-                company: ret['fields']['Company Name'],
-                verified: Number(ret['verified']) === 0 ? false : true,
-                email_verified: Number(ret['email_verified'] === 0 ? false : true),
-            }));
+            dispatch(setToken({ token: ret.token }));
+            // dispatch(setUserData({
+            //     email: ret['fields']['Email'],
+            //     name: ret['fields']['First Name'],
+            //     fullName: ret['fields']['Full Name'],
+            //     company: ret['fields']['Company Name'],
+            //     verified: Number(ret['verified']) === 0 ? false : true,
+            //     email_verified: Number(ret['email_verified'] === 0 ? false : true),
+            //     avatar: '',
+            // }));
             setShowDialog(true);
         }).catch(err => {
             DialogUtils.show('error', '', err.response.data.message);
@@ -128,7 +129,7 @@ const ClientSignUp: FC = () => {
                         />
                         <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
                             Password
-                            {check && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red] text-sm'>* Your password is not secure</span>}
+                            {check && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red] text-xs'>* Your password is not secure</span>}
                         </label>
                         <input
                             id='password'
