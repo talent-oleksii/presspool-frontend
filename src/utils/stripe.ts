@@ -33,14 +33,16 @@ const GoToPay = async (email: string, campaignId: string, backUrl: string, price
       return_url: backUrl,
     });
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: 250 * 100,
-      currency: 'usd',
-      customer: customer.id,
-      payment_method: setupIntent.payment_method as string,
-      off_session: true,
-      confirm: true,
-    });
+    console.log('seesion:', session);
+
+    // const paymentIntent = await stripe.paymentIntents.create({
+    //   amount: 250 * 100,
+    //   currency: 'usd',
+    //   customer: customer.id,
+    //   payment_method: setupIntent.payment_method as string,
+    //   off_session: true,
+    //   confirm: true,
+    // });
 
     // const session = await stripe.checkout.sessions.create({
     //   customer: customer.id,
@@ -52,9 +54,7 @@ const GoToPay = async (email: string, campaignId: string, backUrl: string, price
     //   },
     // });
 
-    (await stripePromise)?.redirectToCheckout({
-      sessionId: session.id
-    });
+    // window.location.href = 
 
     // return session.url;
   } catch (error) {

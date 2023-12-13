@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/creatable';
 import { useDispatch, useSelector } from 'react-redux';
 import { StylesConfig } from 'react-select';
 import validator from 'validator';
-import { Elements } from '@stripe/react-stripe-js';
+import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import { Tooltip } from 'antd';
 
 import APIInstance from '../../api';
@@ -124,9 +124,9 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
 
       DialogUtils.show('success', '', 'Your campaign has been submitted! Our team will review the details and notify you as soon as its live.');
 
-      if (verified === 'false') {
-        await StripeUtil.goToPay(email, data.data.id, 'https://presspool-frontend.onrender.com/#/detail', process.env.REACT_APP_PRICE_250 as string);
-      }
+      // if (verified === 'false') {
+      //   await StripeUtil.goToPay(email, data.data.id, 'https://presspool-frontend.onrender.com/#/detail', process.env.REACT_APP_PRICE_250 as string);
+      // }
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => {
@@ -163,6 +163,33 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
     }).finally(() => {
       setLoading(false);
     });
+  };
+
+  const handleAddCard: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+    // StripeUtil.goToPay(email, '', 'https://presspool-frontend.onrender.com/#/detail', process.env.REACT_APP_PRICE_250 as string);
+    let customer;
+
+    const existingCustomers = await StripeUtil.stripe.customers.list({
+      email: email || ''
+    });
+
+    if (existingCustomers.data.length > 0) {
+      // customer already exists
+      customer = existingCustomers.data[0];
+    } else {
+      // create a new customer
+      customer = await StripeUtil.stripe.customers.create({
+        email: email || '',
+        // add any other customer details here as necessary
+      });
+    }
+
+    const session = await StripeUtil.stripe.billingPortal.sessions.create({
+      customer: customer.id,
+      return_url: 'http://localhost:3000/#/',
+    });
+
+    window.location.href = session.url + '/payment-methods';
   };
 
   const getOffsetBack = () => {
@@ -408,7 +435,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                         <div className='flex-1 me-[18px]'>
                           <button
                             className='flex mt-[17px] py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
-                            onClick={() => setShowAddCard(!showAddCard)}
+                            onClick={handleAddCard}
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
                               <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="#7F8182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -443,7 +470,7 @@ const CreateCampaign: FC<typeCreateCampaign> = ({ show, setShow, afterAdd }: typ
                             transition={{ duration: .3 }}
                           >
                             <p className='font-[Inter] text-sm 2xl:text-lg font-medium text-black mb-[19px]'>Add New Card</p>
-                            <Elements stripe={StripeUtil.stripePromise}>
+                            <Elements stripe={StripeUtil.stripePromise} >
                               <CardForm />
                             </Elements>
                           </motion.div>
