@@ -1,6 +1,7 @@
 import React, { useEffect, useImperativeHandle, useRef, forwardRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Tooltip } from 'antd';
+import validator from 'validator';
 
 import SampleLogo from '../../assets/logo/logo.png';
 
@@ -56,7 +57,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
 
   const handleSave = () => {
     return new Promise((resolve, reject) => {
-      if (headLine.length <= 0 || body.length <= 0 || cta.length <= 0 || (!image || (image && image.length <= 0)) || pageUrl.length <= 0) {
+      if (headLine.length <= 0 || body.length <= 0 || cta.length <= 0 || (!image || (image && image.length <= 0)) || (!validator.isURL(pageUrl) || !pageUrl.startsWith('https://'))) {
         setAsterick(true);
         return;
       }
@@ -90,7 +91,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
           <div className='flex justify-between'>
             <p className='font-[Inter] text-sm font-semibold mb-0 flex'>
               Campaign Headline
-              {asterick && headLine.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
+              {asterick && headLine.length <= 0 && <span className='ms-1 text-[red] text-xs'>*</span>}
               <Tooltip
                 title="The headline of your campaign. This should be roughly 7 words
                 or less and have a specific outcome.
@@ -113,7 +114,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
           />
           <p className='font-[Inter] mt-2 text-sm font-semibold flex'>
             Campaign Body
-            {asterick && body.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
+            {asterick && body.length <= 0 && <span className='ms-1 text-[red] text-xs'>*</span>}
             <Tooltip
               title="The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline."
               color='#EDECF2'
@@ -133,7 +134,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
           />
           <p className='font-[Inter] text-sm font-semibold mt-1 mb-0 flex'>
             CTA
-            {asterick && cta.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
+            {asterick && cta.length <= 0 && <span className='ms-1 text-[red] text-xs'>*</span>}
             <Tooltip
               title='The call to action for your button. This should be something like "Free trial" or "Learn more" or "Try for free"'
               color='#EDECF2'
@@ -152,7 +153,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
           />
           <p className='font-[Inter] text-sm font-semibold mt-2 mb-0 flex'>
             Hero Image
-            {asterick && (!image || (image && image.length <= 0)) && <span className='ms-1 text-[red]'>*</span>}
+            {asterick && (!image || (image && image.length <= 0)) && <span className='ms-1 text-[red] text-xs'>*</span>}
             <Tooltip
               title='Recommended dimensions: 1200px X 600px'
               color='#EDECF2'
@@ -193,11 +194,11 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             accept='image/*'
             onChange={handleFileChange}
           />
-          <p className='font-[Inter] text-sm font-semibold mt-2 mb-0 flex'>
+          <p className='font-[Inter] text-sm font-semibold mt-2 mb-0 flex items-center'>
             URL for your landing page
-            {asterick && pageUrl.length <= 0 && <span className='ms-1 text-[red]'>*</span>}
+            {asterick && (!pageUrl.startsWith('https://') || !validator.isURL(pageUrl)) && <span className='ms-1 text-[red] text-xs'>*</span>}
             <Tooltip
-              title='Where do you want to direct the clicks to?'
+              title={<p>Where do you want to direct the clicks to? <br /> URL must stars with "https://"</p>}
               color='#EDECF2'
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='h-[20px] w-[20px] ms-1'>
@@ -210,7 +211,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             value={pageUrl}
             data-tooltip-id='url'
             onChange={e => setPageUrl(e.target.value)}
-            className={`mt-1 w-full rounded-lg border-[1px] text-sm focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && pageUrl.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 w-full rounded-lg border-[1px] text-sm focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && (!pageUrl.startsWith('https://') || !validator.isURL(pageUrl)) ? 'border-[red]' : 'border-[#7F8182]'}`}
           />
         </div>
       </div>
@@ -227,8 +228,8 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
           <br />
           With GPT’s just being released, the excitement has continued to grow at an unprecedented rate for AI products and solutions that are reshaping how consumers and executives alike do their work better, faster and easier.
         </p>
-        <div className='bg-white z-10 w-full rounded-[14px]'>
-          <div className=''>
+        <div className='bg-white z-10 w-full rounded-[14px] flex flex-col h-full'>
+          <div className='flex-1'>
             <div className='py-4 px-2 flex items-center justify-center'>
               <img src={!image ? SampleLogo : image} alt="sample logo" className='h-[30px] object-cover' />
             </div>

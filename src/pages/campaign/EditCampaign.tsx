@@ -89,7 +89,12 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
       setCurrentPrice(data.price);
       setUIID(data.ui_id);
       setUrl(data.url);
-      setCurrentCard(data.card_id);
+      if (cardList.filter(item => item.card_id === data.card_id).length <= 0) {
+        if (cardList.length <= 0) setCurrentCard('');
+        else setCurrentCard(cardList[0].card_id)
+      } else {
+        setCurrentCard(data.card_id);
+      }
 
       if (data.currentTab) {
         setCurrentTab(data.currentTab);

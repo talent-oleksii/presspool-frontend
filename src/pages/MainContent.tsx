@@ -15,7 +15,7 @@ import Admin from './admin';
 import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
-import { setCampaign, setClicked } from "../store/dataSlice";
+import { setCampaign, setClicked, setCardList } from "../store/dataSlice";
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -48,9 +48,12 @@ const MainContent: FC = () => {
 
         Promise.all([
           APIInstance.get('data/campaign', { params: { email } }),
+          APIInstance.get('stripe/card', { params: { email } }),
         ]).then((results: Array<any>) => {
+          console.log('ddd:', results[1].data);
           dispatch(setClicked(results[0].data.clicked));
           dispatch(setCampaign({ campaign: results[0].data.data }));
+          dispatch(setCardList({ cardList: results[1].data }));
         }).catch(err => {
           console.log('err:', err);
         }).finally(() => setLoading(false));

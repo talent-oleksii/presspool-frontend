@@ -11,7 +11,7 @@ import APIInstance from '../../api';
 import StripeUtil from '../../utils/stripe';
 import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
-import { setCardList, selectData } from '../../store/dataSlice';
+import { setCardList, selectData, addCampaign } from '../../store/dataSlice';
 import CreateCampaignUI from './CreateCampaignUI';
 import DialogUtils from '../../utils/DialogUtils';
 import { FADE_RIGHT_ANIMATION_VARIANTS, FADE_UP_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
@@ -112,7 +112,8 @@ const CreateCampaign: FC = () => {
       email, campaignName, url, currentTarget,
       currentAudience: currentAudience.map(item => item.value), currentPrice, uiId, currentCard,
       state: 'active',
-    }).then(() => {
+    }).then((data) => {
+      dispatch(addCampaign({ campaign: data.data }));
       setCurrentTab('detail');
       setCampaignName('');
       setCurrentTarget('consumer');
@@ -143,9 +144,11 @@ const CreateCampaign: FC = () => {
       currentTarget,
       currentAudience: currentAudience.map(item => item.value),
       currentPrice,
+      currentCard,
       uiId,
       state: 'draft',
-    }).then(() => {
+    }).then((data) => {
+      dispatch(addCampaign({ campaign: data.data }));
       setCurrentTab('detail');
       setCampaignName('');
       setCurrentTarget('consumer');
@@ -186,7 +189,7 @@ const CreateCampaign: FC = () => {
       animate="show"
       variants={FADE_UP_ANIMATION_VARIANTS}
     >
-      <div className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col border-[1px] border-black px-[70px] pt-[15px] pb-[26px]`}>
+      <div className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col px-[70px] pt-[15px] pb-[26px]`}>
         {loading && <Loading />}
         <div className='grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[700px]'>
           <button
@@ -426,7 +429,7 @@ const CreateCampaign: FC = () => {
                       ))
                     }
                   </select>
-                  <button className='text-black font-[Inter] mx-2' onClick={handleRefreshCard}>Refresh</button>
+                  <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button>
                 </div>
               </div>
               <div className='w-full text-center mt-[50px]'>

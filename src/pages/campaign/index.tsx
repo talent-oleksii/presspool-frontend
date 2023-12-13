@@ -42,7 +42,8 @@ const Campaign: FC = () => {
       dispatch(updateCampaign({ id, data: { ...campaign.filter(item => item.id === id)[0], state } }));
       DialogUtils.show('success', state === 'paused' ? 'Campaign Paused' : 'Successfully Started the Campaign', '');
     }).catch(err => {
-      console.log('puaseing error:', err);
+      console.log('err:', err);
+      DialogUtils.show('error', '', err.response.data.message);
     }).finally(() => setLoading(false));
   };
 
