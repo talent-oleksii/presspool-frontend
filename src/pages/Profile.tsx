@@ -80,7 +80,7 @@ const Profile: FC = () => {
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: 'http://localhost:3000/#/profile',
+      return_url: 'https://presspool-frontend.onrender.com/profile',
     });
 
     // window.location.href = session.url + '/payment-methods';

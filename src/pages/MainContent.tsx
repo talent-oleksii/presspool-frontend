@@ -11,7 +11,6 @@ import Billing from './billing';
 import Support from "./support";
 import Detail from './campaign';
 import Profile from './Profile';
-import Admin from './admin';
 import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
@@ -206,7 +205,7 @@ const MainContent: FC = () => {
               >
                 <button className="flex justify-center items-center border-none p-0 font-[Inter] text-[11px]">
                   <Avatar className="bg-[#7FFBAE] text-black items-center justify-center flex" src={avatar} alt={getPlaceHolder()} size="small">
-                    {avatar && avatar.length <= 3 && <span className="text-xs font-[Inter] font-medium">{getPlaceHolder()}</span>}
+                    {(!avatar || avatar.length <= 3) && <span className="text-xs font-[Inter] font-medium">{getPlaceHolder()}</span>}
                   </Avatar>
 
                   <span className="font-[Inter] text-xs font-medium ms-1">↓</span>
@@ -282,7 +281,6 @@ const MainContent: FC = () => {
               <Route path="/billing" element={<Billing />} />
               <Route path="/support" element={<Support />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/admin/*" element={<Admin />} />
             </Routes>
           </div>
         </div>
