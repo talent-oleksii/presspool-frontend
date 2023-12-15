@@ -29,12 +29,12 @@ const InfoDialog: FC<typeInfoDialog> = ({ type, title, content, onClose }) => {
                   <path d="M3 3.38867V24.4998M3 45.6109H3.05278" stroke="white" strokeWidth="4.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
-              <h2 className='mt-[12px] font-[Inter] text-black text-[20px] font-semibold'>{title.length > 0 ? title : 'Something Wrong'}</h2>
+              <h2 className='mt-[12px] font-[Inter] text-black text-[20px] font-semibold text-center'>{title.length > 0 ? title : 'Something Wrong'}</h2>
             </div>
           }
 
           <div className="mt-[10px]">
-            <p className='text-[15px] font-[Inter] text-normal text-[#43474a]'>{content}</p>
+            <p className='text-[15px] font-[Inter] text-normal text-center text-[#43474a]'>{content}</p>
           </div>
           <button onClick={onClose} className='mt-[25px] bg-[#7FFBAE] rounded-[5px] px-[52px] py-[11px] font-[Inter] text-white text-sm font-semibold'>OK</button>
         </div>

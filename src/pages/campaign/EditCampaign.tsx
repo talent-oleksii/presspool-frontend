@@ -13,6 +13,7 @@ import { selectAuth } from '../../store/authSlice';
 import { setCardList, selectData, updateCampaign } from '../../store/dataSlice';
 import EditCampaignUI from './EditCampaignUI';
 import { FADE_RIGHT_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
+import StripeUtil from '../../utils/stripe';
 
 interface typeEditCampaign {
   data: any;
@@ -78,6 +79,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
 
   useEffect(() => {
     if (data) {
+      setCurrentTab('detail');
       setCampaignName(data.name);
       setCurrentTarget(data.demographic);
       setCurrentAudience(data.audience.map((item: string) => {
@@ -94,10 +96,6 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
         else setCurrentCard(cardList[0].card_id)
       } else {
         setCurrentCard(data.card_id);
-      }
-
-      if (data.currentTab) {
-        setCurrentTab(data.currentTab);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -167,6 +165,28 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
       setLoading(false);
     });
   };
+
+  const handleRefreshCard = () => {
+    setLoading(true);
+    APIInstance.get('stripe/card', { params: { email } }).then(data => {
+      dispatch(setCardList({ cardList: data.data }));
+    }).catch(err => {
+      console.log('get card error:', err);
+    }).finally(() => setLoading(false));
+  };
+
+  const handleAddCard: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+    const customerId = await StripeUtil.getCustomerId(email);
+
+    const session = await StripeUtil.stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: 'https://go.presspool.ai.com/new',
+    });
+
+    // window.location.href = session.url + '/payment-methods';
+    window.open(session.url + '/payment-methods', '_blank');
+  };
+
   const getOffsetBack = () => {
     if (currentTab === 'detail') return 'left-2';
     if (currentTab === 'audience') return 'left-[25%]';
@@ -409,10 +429,21 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                         </div>
                       }
                       <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
-                      <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>We charge a one-time deposit of $250 which will be applied to your campaign as a credit. All further campaign activity is billed at the end of every week or when your account hits its billing threshold. </p>
-                      <div className='w-full flex'>
+                      <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>Billing is simple: weekly or when your account's threshold is reached.</p>
+                      <div className='w-full flex mt-[17px]'>
+                        <div className='flex-1 me-[18px]'>
+                          <button
+                            className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
+                            onClick={handleAddCard}
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
+                              <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="#7F8182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            Add a Card
+                          </button>
+                        </div>
                         <select
-                          className='w-full mt-[17px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
+                          className='w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
                           value={currentCard}
                           onChange={e => setCurrentCard(e.target.value)}
                         >
@@ -425,7 +456,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                             ))
                           }
                         </select>
-
+                        <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button>
                       </div>
                       <div className='w-full text-center mt-[50px]'>
                         {
@@ -440,7 +471,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                         <button
                           className='bg-transparent text-md text-gray-600 font-[Inter] px-[30px] 2xl:px-[60px] py-[10px] rounded-[5px] text-sm 2xl:text-md'
                           onClick={handleSave}>
-                          Save Draft
+                          Save
                         </button>
                       </div>
                     </motion.div>

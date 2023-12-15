@@ -147,8 +147,8 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
         <div className='flex relative'>
           <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
-            <Line type="linear" dataKey="click" stroke="black" />
-            <Line type="linear" dataKey="impression" stroke="#7FFBAE" />
+            <Line type="linear" dataKey="click" stroke="#7F8182" />
+            <Line type="linear" dataKey="impression" stroke="black" />
             <XAxis dataKey="date" />
             <YAxis />
           </LineChart>

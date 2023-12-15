@@ -83,7 +83,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                 {data.name}
               </h2>
 
-              <span className='text-xs'>{`https://presspool-frontend.onrender.com/cul/${data.uid}`}</span>
+              <span className='text-xs'>{`https://go.presspool.ai/cul/${data.uid}`}</span>
               <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let's see how your campaign is performing</p>
 
             </div>
@@ -94,8 +94,8 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
 
           <div className='flex relative'>
             <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
-              <Line type="linear" dataKey="click" stroke="black" />
-              <Line type="linear" dataKey="impression" stroke="#7FFBAE" />
+              <Line type="linear" dataKey="click" stroke="#7F8182" />
+              <Line type="linear" dataKey="impression" stroke="black" />
               <XAxis dataKey="date" />
               <YAxis />
             </LineChart>

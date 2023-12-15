@@ -168,7 +168,7 @@ const CreateCampaign: FC = () => {
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: 'https://presspool-frontend.onrender.com/new',
+      return_url: 'https://go.presspool.ai.com/new',
     });
 
     // window.location.href = session.url + '/payment-methods';
@@ -401,7 +401,7 @@ const CreateCampaign: FC = () => {
                 </div>
               }
               <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
-              <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>We charge a one-time deposit of $250 which will be applied to your campaign as a credit. All further campaign activity is billed at the end of every week or when your account hits its billing threshold. </p>
+              <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>Billing is simple: weekly or when your account's threshold is reached.</p>
               <div className='w-full flex mt-[17px]'>
                 <div className='flex-1 me-[18px]'>
                   <button

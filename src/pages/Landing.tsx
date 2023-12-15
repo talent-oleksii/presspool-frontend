@@ -31,7 +31,7 @@ const Landing: FC = () => {
     };
 
     return (
-        <div className="pt-[95px] flex flex-col text-center items-center justify-center">
+        <div className="pt-[45px] 2xl:pt-[95px] flex flex-col text-center items-center justify-center">
             <img alt="logo" src={Logo} className='w-[30px]' />
             <h2 className="mt-2 font-[Inter] font-semibold text-[40px] text-black mb-2 -tracking-[1.2px]">Welcome to</h2>
             <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5">
@@ -43,12 +43,12 @@ const Landing: FC = () => {
                 {!isAuthenticated ?
                     <>
                         <Link className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md' to="client-sign-up">
-                            <img alt="creator" src={Company} className='h-[50px]' />
+                            <img alt="creator" src={Company} className='h-[40px] 2xl:h-[50px]' />
                             <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Company</p>
                         </Link>
                         <button className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md'>
-                            <img alt="creator" src={Creator} className='h-[50px]' />
+                            <img alt="creator" src={Creator} className='h-[40px] 2xl:h-[50px]' />
                             <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Creator</p>
                         </button>

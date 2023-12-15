@@ -128,7 +128,7 @@ const Campaign: FC = () => {
                     <button
                       className='bg-[#6c63ff] px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs'
                       onClick={() => {
-                        setCurrentData({ ...item, currentTab: 'budget' });
+                        setCurrentData({ ...item });
                         setShowEdit(true);
                       }}
                     >
