@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setAuthenticated, setToken } from '../store/authSlice';
 
 import APIInstance from '../api';
-import Mark from '../assets/logo/logo_white.png';
+import Mark from '../assets/logo/logo.png';
 import Loading from '../components/Loading';
 import DialogUtils from '../utils/DialogUtils';
 
@@ -32,6 +32,7 @@ const ClientSignUp: FC = () => {
         password: '',
         agreeTerm: false,
     });
+    const [passwordType, setPasswordType] = useState('password');
 
     const navigator = useNavigate();
 
@@ -57,37 +58,29 @@ const ClientSignUp: FC = () => {
             const ret = data.data;
             dispatch(setAuthenticated());
             dispatch(setToken({ token: ret.token }));
-            // dispatch(setUserData({
-            //     email: ret['fields']['Email'],
-            //     name: ret['fields']['First Name'],
-            //     fullName: ret['fields']['Full Name'],
-            //     company: ret['fields']['Company Name'],
-            //     verified: Number(ret['verified']) === 0 ? false : true,
-            //     email_verified: Number(ret['email_verified'] === 0 ? false : true),
-            //     avatar: '',
-            // }));
             setShowDialog(true);
         }).catch(err => {
             DialogUtils.show('error', '', err.response.data.message);
         }).finally(() => setLoading(false));
     };
 
+    const handleShowPassword: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault();
+        setPasswordType(passwordType === 'password' ? 'text' : 'password');
+    };
+
     return (
-        <div className='flex h-full relative'>
+        <div className='flex h-full relative items-center justify-center'>
             {loading && <Loading />}
-            <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#7FFBAE] to-[#6c63ff]'>
-                <img src={Mark} alt="mark" className="w-[57px] h-[59px]" />
-                <h2 className='font-bold mt-[52px] font-[Inter] text-[50px] text-[white] z-[1]'>Sign Up</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[20px] mt-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
-            </div>
-            <div className='flex flex-1 justify-center items-center px-[82px] bg-white'>
-                <div className="w-full bg-[white] rounded-[15px]">
+            <div className='flex justify-center items-center px-[82px] xl:max-w-[56%]'>
+                <div className="w-full rounded-[15px]">
                     <div className="flex flex-col items-center justify-center">
-                        <h2 className='font-[Inter] font-bold text-[44px] -tracking-[1.32px]'>Welcome</h2>
-                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[10px]'>Enter your details to sign up</p>
+                        <img src={Mark} alt="mark" className="w-[32px] h-[34px]" />
+                        <h2 className='font-[Inter] font-semibold text-[40px] mt-[26px] -tracking-[1.2px]'>Welcome</h2>
+                        <p className='font-[Inter] text-base text-center -tracking-[.54px] font-medium text-[#444545] mt-[10px]'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
                     </div>
 
-                    <form className="text-left mt-[50px]" onSubmit={handleSubmit}>
+                    <form className="text-left mt-[30px]" onSubmit={handleSubmit}>
                         <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
                             Full Name
                             {formData.fullName.length > 0 && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red] text-xs'>*Input your full name</span>}
@@ -97,9 +90,9 @@ const ClientSignUp: FC = () => {
                             name='fullName'
                             value={formData.fullName}
                             onChange={handleChange}
-                            // placeholder='Enter here'
+                            placeholder='Enter here...'
                             type="text"
-                            className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-black mt-[12px] mb-[18px] rounded-[9.6px] px-4 py-2"
                         />
                         <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
                             Company Name
@@ -110,9 +103,9 @@ const ClientSignUp: FC = () => {
                             name='company'
                             value={formData.company}
                             onChange={handleChange}
-                            // placeholder='Company Name'
+                            placeholder='Enter here...'
                             type="text"
-                            className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-black mt-[12px] mb-[18px] rounded-[9.6px] px-4 py-2"
                         />
                         <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
                             Email Address
@@ -123,32 +116,40 @@ const ClientSignUp: FC = () => {
                             name='email'
                             value={formData.email}
                             onChange={handleChange}
-                            // placeholder='Email'
+                            placeholder='Enter here...'
                             type="email"
-                            className="w-full border-[1px] border-[#7F8182] my-3 rounded-[10px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-black mt-[12px] mb-[18px] rounded-[9.6px] px-4 py-2"
                         />
                         <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
                             Password
                             {formData.password.length > 0 && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red] text-xs'>* Your password is not secure</span>}
                         </label>
-                        <input
-                            id='password'
-                            name='password'
-                            value={formData.password}
-                            onChange={handleChange}
-                            // placeholder='Password'
-                            type="password"
-                            className="w-full border-[1px] my-3 rounded-[10px] px-4 py-2"
-                        />
-                        <div className='my-3 flex items-center'>
+                        <div className='w-full border-[1px] bg-transparent border-black rounded-[9.6px] px-4 flex mt-[12px]'>
+                            <input
+                                id='password'
+                                name='password'
+                                value={formData.password}
+                                onChange={handleChange}
+                                placeholder='Enter here...'
+                                type={passwordType}
+                                className="flex-1 rounded-[10px] border-none bg-transparent px-0 py-2 focus:ring-0 focus:border-none"
+                            />
+                            <button onClick={handleShowPassword}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="21" viewBox="0 0 30 21" fill="none">
+                                    <path d="M12.3915 10.2433C12.3915 11.0273 12.7029 11.7792 13.2573 12.3336C13.8117 12.888 14.5636 13.1995 15.3477 13.1995C16.1317 13.1995 16.8836 12.888 17.438 12.3336C17.9924 11.7792 18.3038 11.0273 18.3038 10.2433C18.3038 9.45926 17.9924 8.70735 17.438 8.15295C16.8836 7.59856 16.1317 7.28711 15.3477 7.28711C14.5636 7.28711 13.8117 7.59856 13.2573 8.15295C12.7029 8.70735 12.3915 9.45926 12.3915 10.2433Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M28.6505 10.2435C25.1031 16.1559 20.6688 19.1121 15.3477 19.1121C10.0266 19.1121 5.59234 16.1559 2.04492 10.2435C5.59234 4.33118 10.0266 1.375 15.3477 1.375C20.6688 1.375 25.1031 4.33118 28.6505 10.2435Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div className='mt-[30px] flex items-center'>
                             <input
                                 checked={formData.agreeTerm}
                                 onChange={e => setFormData({ ...formData, agreeTerm: e.target.checked })}
                                 type="checkbox"
-                                className='rounded-sm border-[1px] border-[#7F8182] p-1 rounded-[5px]'
+                                className='w-4 h-4 text-[#6c63ff] bg-gray-100 rounded border-[1px] border-black focus:ring-0'
                             />
-                            <span className='ms-2 font-[Inter] text-lg font-medium'>
-                                I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff]'>Terms</a> and <a className='text-[#6c63ff]' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
+                            <span className='ms-2 font-[Inter] text-[18px] -tracking-[.544px]'>
+                                I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff] underline'>Terms</a> and <a className='text-[#6c63ff] underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
                             </span>
                         </div>
                         <button

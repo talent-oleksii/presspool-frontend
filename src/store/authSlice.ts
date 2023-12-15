@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface AuthState {
+  // state for client.
   isAuthenticated: boolean;
   email: string;
   name: string;
@@ -11,6 +12,11 @@ interface AuthState {
   token: string;
   email_verified: string;
   avatar: string;
+
+  //state for admin.
+  isAdminAuthenticated: boolean;
+  adminToken: string;
+  adminName: string;
 }
 
 const initialState: AuthState = {
@@ -23,6 +29,11 @@ const initialState: AuthState = {
   token: localStorage.getItem('token') || '',
   email_verified: localStorage.getItem('email_verified') || '',
   avatar: localStorage.getItem('avatar') || '',
+
+  // date for admin.
+  isAdminAuthenticated: localStorage.getItem('isAdminAuthenticated') === 'true',
+  adminToken: localStorage.getItem('adminToken') || '',
+  adminName: localStorage.getItem('adminName') || '',
 };
 
 const authSlice = createSlice({
@@ -61,9 +72,24 @@ const authSlice = createSlice({
       state.avatar = action.payload.avatar;
       localStorage.setItem('avatar', action.payload.avatar);
     },
+
+    // For admin
+    setAdminAuthenticated: (state, action) => {
+      state.isAdminAuthenticated = action.payload.state;
+      localStorage.setItem('isAdminAuthenticated', action.payload.state ? 'true' : 'false');
+    },
+    setAdminToken: (state, action) => {
+      state.adminToken = action.payload.token;
+      localStorage.setItem('adminToken', action.payload.token);
+    },
   },
 });
 
-export const { setAuthenticated, setUnauthenticated, setUserData, setToken, setAvatar } = authSlice.actions;
+export const {
+  // For Client
+  setAuthenticated, setUnauthenticated, setUserData, setToken, setAvatar,
+  // For Admin,
+  setAdminAuthenticated, setAdminToken,
+} = authSlice.actions;
 export const selectAuth = (state: { auth: AuthState }) => state.auth;
 export default authSlice.reducer;

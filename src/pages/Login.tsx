@@ -8,7 +8,7 @@ import { setAuthenticated, setToken } from '../store/authSlice';
 
 import APIInstance from "../api";
 
-import Mark from '../assets/logo/logo_white.png';
+import Mark from '../assets/logo/logo.png';
 import Loading from "../components/Loading";
 import ForgotPassword from "./ForgotPassword";
 
@@ -27,6 +27,7 @@ const Login: FC = () => {
     const [showDialog, setShowDialog] = useState(false);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [passwordType, setPasswordType] = useState('password');
     const navigator = useNavigate();
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -54,13 +55,6 @@ const Login: FC = () => {
             } else {
                 dispatch(setAuthenticated());
                 dispatch(setToken({ token: data.data.token }));
-                // dispatch(setUserData({
-                //     email: ret[0]['fields']['Email'],
-                //     name: ret[0]['fields']['First Name'],
-                //     fullName: ret[0]['fields']['Full Name'],
-                //     company: ret[0]['fields']['Company Name'],
-                //     verified: Number(data.data['verified']) === 0 ? 'false' : 'true',
-                // }));
                 navigator('/campaign/all');
             }
         }).catch(err => {
@@ -68,44 +62,55 @@ const Login: FC = () => {
         }).finally(() => setLoading(false));
     };
 
+    const handleShowPassword: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.preventDefault();
+        setPasswordType(passwordType === 'password' ? 'text' : 'password');
+    };
+
     return (
-        <div className='flex h-full relative'>
+        <div className='h-full relative flex items-center justify-center'>
             {loading && <Loading />}
-            <div className='h-full flex flex-col justify-center items-center relative px-[104px] w-[46%] bg-gradient-to-b from-[#6c63ff] to-[#7FFBAE]'>
-                <img src={Mark} alt="mark" className="w-[57x] h-[59px]" />
-                <h2 className='font-bold mt-[37.89px] font-[Inter] text-[50px] 2xl:text-[50px] text-[white] z-[1] -tracking-[1.5px]'>Log In</h2>
-                <p className='z-[1] font-[Inter] text-[white] text-[20px] mt-[20px]'>Access the power of the Presspool Platform to deliver your solution directly in front of targeted, engaged readers.</p>
-            </div>
-            <div className="flex flex-1 items-center justify-center bg-white w-full px-[82px]">
+            <div className="flex flex-1 items-center justify-center xl:max-w-[56%] px-[82px]">
                 <div className="rounded-[15px] w-full">
                     <div className="flex flex-col items-center justify-center">
-                        <h2 className='font-[Inter] font-bold text-[44px] -tracking-[1.32px]'>Welcome Back</h2>
-                        <p className='font-[Inter] text-lg -tracking-[.54px] text-[#7f8182] mt-[10px]'>Enter your details to login</p>
+                        <img src={Mark} alt="mark" className="w-[32x] h-[34px]" />
+                        <h2 className='font-[Inter] font-semibold text-[40px] -tracking-[1.2px] mt-[26px]'>Welcome Back</h2>
+                        <p className='font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-[10px]'>Enter your details to login</p>
                     </div>
 
-                    <form className="text-left py-8 mt-[60px]" onSubmit={handleSubmit}>
+                    <form className="text-left py-8 mt-[20px] w-full flex justify-center flex-col" onSubmit={handleSubmit}>
                         <div>
-                            <label className="font-[Inter] text-base block text-base font-semibold my-1 -tracking-[.508px]">Email Address</label>
+                            <label className="font-[Inter] text-base block font-medium my-1 -tracking-[.508px]">Email Address</label>
                             <input
                                 id="email"
                                 name="email"
                                 type="email"
+                                placeholder="Enter here..."
                                 onChange={handleChange}
-                                className="w-full border-[#7F8182] border-[1px] my-1 rounded-[10px] px-4 py-2"
+                                className="w-full border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
                             />
                         </div>
                         <div>
-                            <label className="font-[Inter] block text-base text-base font-semibold mt-[18px] -tracking-[.508px]">Password</label>
-                            <input
-                                id="password"
-                                name="password"
-                                type="password"
-                                onChange={handleChange}
-                                className="w-full border-[#7F8182] border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
-                            />
+                            <label className="font-[Inter] block text-base font-medium mt-[18px] -tracking-[.508px]">Password</label>
+                            <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4">
+                                <input
+                                    id="password"
+                                    name="password"
+                                    type={passwordType}
+                                    placeholder="Enter here..."
+                                    onChange={handleChange}
+                                    className="flex-1 py-2 px-0 bg-transparent border-none focus:ring-0 focus:border-none"
+                                />
+                                <button onClick={handleShowPassword}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="21" viewBox="0 0 30 21" fill="none">
+                                        <path d="M12.3915 10.2433C12.3915 11.0273 12.7029 11.7792 13.2573 12.3336C13.8117 12.888 14.5636 13.1995 15.3477 13.1995C16.1317 13.1995 16.8836 12.888 17.438 12.3336C17.9924 11.7792 18.3038 11.0273 18.3038 10.2433C18.3038 9.45926 17.9924 8.70735 17.438 8.15295C16.8836 7.59856 16.1317 7.28711 15.3477 7.28711C14.5636 7.28711 13.8117 7.59856 13.2573 8.15295C12.7029 8.70735 12.3915 9.45926 12.3915 10.2433Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M28.6505 10.2435C25.1031 16.1559 20.6688 19.1121 15.3477 19.1121C10.0266 19.1121 5.59234 16.1559 2.04492 10.2435C5.59234 4.33118 10.0266 1.375 15.3477 1.375C20.6688 1.375 25.1031 4.33118 28.6505 10.2435Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                         <div className="w-full text-right">
-                            <div className="font-[Inter] text-[#6c63ff] text-sm 2xl:text-[17px] mt-[22px] underline" onClick={handleForgotPassword}>Forgot Password?</div>
+                            <div className="font-[Inter] text-[#6c63ff] text-base 2xl:text-[17px] mt-[22px] underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
                         </div>
                         <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-[white] mt-[32px]">Log In</button>
 

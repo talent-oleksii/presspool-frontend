@@ -42,12 +42,12 @@ const Landing: FC = () => {
             <div className='flex items-center justify-center mt-[15px]'>
                 {!isAuthenticated ?
                     <>
-                        <Link className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md' to="client-sign-up">
+                        <Link className='flex flex-col font-bold text-black px-[92px] py-[20px] 2xl:py-[40px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md' to="client-sign-up">
                             <img alt="creator" src={Company} className='h-[40px] 2xl:h-[50px]' />
                             <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Company</p>
                         </Link>
-                        <button className='flex flex-col font-bold text-black px-[92px] py-[20px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md'>
+                        <button className='flex flex-col font-bold text-black px-[92px] py-[20px] 2xl:py-[40px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md'>
                             <img alt="creator" src={Creator} className='h-[40px] 2xl:h-[50px]' />
                             <p className='mb-0 mt-[9px]'>I'm a</p>
                             <p className='mb-0 -mt-1'>Creator</p>
@@ -58,10 +58,6 @@ const Landing: FC = () => {
                     </>
                 }
             </div>
-            {!isAuthenticated ?
-                <p className='mt-[20px] font-[Inter] font-semibold text-sm'>Already have an account? Sign in <Link to="/login" className='text-purple underline'>here</Link></p> :
-                <button className='mt-3 text-sm 2xl:text-md font-[Inter] text-[red]' onClick={handleLogout}>Log out</button>
-            }
             <div className='mt-[20px] rounded-[20px] bg-[#1B1A1A] px-[40px] pt-[27px] pb-[35px]'>
                 <p className='text-white text-lg font-semibold -tracking-[.54px]'>Discover Features</p>
 
@@ -91,6 +87,7 @@ const Landing: FC = () => {
                         className='mt-[30px] w-[430px]'
                         showStatus={false}
                         showThumbs={false}
+                        animationHandler="slide"
                         selectedItem={current}
                         showArrows={false}
                         showIndicators={false}
@@ -107,6 +104,10 @@ const Landing: FC = () => {
                     </Carousel>
                 </div>
             </div>
+            {!isAuthenticated ?
+                <p className='mt-[20px] font-[Inter] font-medium text-sm'>Already have an account? Sign in <Link to="/login" className='text-purple underline'>here</Link></p> :
+                <button className='mt-3 text-sm 2xl:text-md font-[Inter] text-[red]' onClick={handleLogout}>Log out</button>
+            }
         </div>
     );
 };
