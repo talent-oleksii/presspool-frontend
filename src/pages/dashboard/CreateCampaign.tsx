@@ -168,7 +168,7 @@ const CreateCampaign: FC = () => {
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: 'https://go.presspool.ai.com/new',
+      return_url: 'https://go.presspool.ai/new',
     });
 
     // window.location.href = session.url + '/payment-methods';
