@@ -4,6 +4,10 @@ import { Tooltip } from 'antd';
 import moment from 'moment-timezone';
 import { useSelector } from 'react-redux';
 import { selectData } from '../../store/dataSlice';
+import APIInstance from '../../api';
+import Loading from '../../components/Loading';
+import { selectAuth } from '../../store/authSlice';
+import StripeUtil from '../../utils/stripe';
 
 const data01: Array<any> = [];
 
@@ -13,7 +17,9 @@ interface typeOverView {
 
 const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   const [chartData, setChartData] = useState<any>();
+  const [loading, setLoading] = useState(false);
   const { clicked } = useSelector(selectData);
+  const { email } = useSelector(selectAuth);
 
   useEffect(() => {
     let grouped: any = {};
@@ -51,16 +57,6 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     return click;
   };
 
-  const getAverageCPC = () => {
-    if (data.length <= 0) return 0;
-    let cpc = 0;
-    for (const item of data) {
-      cpc += item.demographic === 'consumer' ? 8 : 20;
-    }
-
-    return cpc / data.length;
-  };
-
   const getTotalSpend = () => {
     let spend = 0;
     for (const item of data) {
@@ -68,6 +64,15 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     }
 
     return spend;
+  };
+
+  const getUnbilled = () => {
+    let unbilled = 0;
+    for (const item of data) {
+      unbilled += Number(item.spent) - Number(item.billed);
+    }
+
+    return unbilled;
   };
 
   const handleDownloadCSV = () => {
@@ -98,32 +103,84 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     hiddenElement.click();
   };
 
+  const handlePayNow = () => {
+    setLoading(true);
+    APIInstance.get('data/unbilled', { params: { email } }).then(async data => {
+      console.log('data:', data.data);
+
+      if (Number(data.data.unbilled) <= 0) return;
+      const customerId = await StripeUtil.getCustomerId(email);
+
+      const newPrice = await StripeUtil.stripe.prices.create({
+        currency: 'usd',
+        unit_amount: Number(data.data.unbilled) * 100,
+        product_data: {
+          name: 'Presspool AI Unbilled Services',
+        },
+        metadata: { state: 'unbilled' },
+      });
+
+      const session = await StripeUtil.stripe.checkout.sessions.create({
+        customer: customerId,
+        mode: "payment",
+        line_items: [{ price: newPrice.id, quantity: 1 }],
+        success_url: 'http://localhost:3000/campaign/all',
+        cancel_url: 'http://localhost:3000/campaign/all',
+        payment_intent_data: {
+          metadata: {
+            state: 'unbilled',
+          }
+        }
+      });
+
+      (await StripeUtil.stripePromise)?.redirectToCheckout({ sessionId: session.id });
+    }).catch(err => {
+      console.log('error:', err);
+    }).finally(() => setLoading(false));
+  };
+
   return (
     <div>
+      {loading && <Loading />}
       <div className='mt-[11px] rounded-[10px] grid grid-cols-4 gap-[16px]'>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getActiveCampaigns()}</h2>
-          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Active Campaigns</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Active Campaigns</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalImpression()}</h2>
-          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Impressions</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Impressions</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalClick()}</h2>
-          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Clicks</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Clicks</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${getTotalSpend()}`}</h2>
-          <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend</p>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md relative'>
+          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>
+            <span>{`$${getTotalSpend()} / `}</span>
+            <span className={`${getUnbilled() > 0 ? 'text-[red]' : 'text-black'}`}>{`$${getUnbilled()}`}</span>
+          </h2>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend / Unbilled</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
+
+          {getUnbilled() > 0 &&
+            <button
+              className='font-[Inter] text-sm absolute w-full h-full rounded-[20px] hover:bg-[#7ffbae]/[.7] top-0 left-0 opacity-0 hover:opacity-100 flex flex-col items-center justify-center transition-all duration-300'
+              onClick={handlePayNow}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path d="M184.615-200Q157-200 138.5-218.5 120-237 120-264.615v-430.77Q120-723 138.5-741.5 157-760 184.615-760h590.77Q803-760 821.5-741.5 840-723 840-695.385v430.77Q840-237 821.5-218.5 803-200 775.385-200h-590.77ZM160-512.307h640v-95.386H160v95.386Z" />
+              </svg>
+              <span className='mt-1'>Pay Now</span>
+            </button>
+          }
         </div>
         {/* <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
           <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${getAverageCPC()}`}</h2>
@@ -159,26 +216,6 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         </div>
       </div>
 
-      {/* <div className='grid grid-cols-2 gap-8'> */}
-      {/* <div className='col-span-1 p-5 flex items-center bg-white rounded-[20px]'>
-          <PieChart width={150} height={150}>
-            <Pie data={data01} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={40} outerRadius={60} fill="#82ca9d" />
-          </PieChart>
-          <div className='flex-1'>
-            <p className='font-[Inter] text-xs text-gray-700 mb-2'>Newsletters (by attribution)</p>
-            {
-              data01.map((item, index) => (
-                <div className='flex justify-between items-center' key={index}>
-                  <div className='flex my-2'>
-                    <div className={`w-[15px] h-[15px] rounded-[5px] me-2`} style={{ backgroundColor: item.color }} />
-                    <p className='font-[Inter] font-semibold text-xs'>{item.name}</p>
-                  </div>
-                  <p>{`${item.value}%`}</p>
-                </div>
-              ))
-            }
-          </div>
-        </div> */}
       <div className='col-span-1 p-5 flex flex-col items-center bg-white rounded-[10px] shadow-md'>
         <p className='font-[Inter] text-black mb-4 text-left font-semibold w-full text-md 2xl:text-lg'>Newsletters (by the numbers)</p>
         <table className='w-full'>
@@ -237,7 +274,6 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         </table>
         <p className='font-[Inter] mt-4 text-sm'>No data is available. Please create and launch your first campaign</p>
       </div>
-      {/* </div> */}
     </div>
   );
 };

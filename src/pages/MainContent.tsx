@@ -49,13 +49,11 @@ const MainContent: FC = () => {
           APIInstance.get('data/campaign', { params: { email: ret[0]['fields']['Email'] } }),
           APIInstance.get('stripe/card', { params: { email: ret[0]['fields']['Email'] } }),
         ]).then((results: Array<any>) => {
-          console.log('ddd:', results[1].data);
           dispatch(setClicked(results[0].data.clicked));
           dispatch(setCampaign({ campaign: results[0].data.data }));
           dispatch(setCardList({ cardList: results[1].data }));
 
-          if (location.pathname === '/')
-            navigator('/campaign/all');
+          if (location.pathname === '/') navigator('/campaign/all');
         }).catch(err => {
           console.log('err:', err);
         }).finally(() => setLoading(false));
@@ -95,7 +93,6 @@ const MainContent: FC = () => {
   }, []);
 
   const handleLogout = () => {
-    console.log('here');
     dispatch(setUnauthenticated());
     navigator('/');
   };
@@ -175,6 +172,23 @@ const MainContent: FC = () => {
     ),
   }];
 
+
+  const handleReload = () => {
+    setLoading(true);
+    Promise.all([
+      APIInstance.get('data/campaign', { params: { email } }),
+      APIInstance.get('stripe/card', { params: { email } }),
+    ]).then((results: Array<any>) => {
+      dispatch(setClicked(results[0].data.clicked));
+      dispatch(setCampaign({ campaign: results[0].data.data }));
+      dispatch(setCardList({ cardList: results[1].data }));
+
+      if (location.pathname === '/') navigator('/campaign/all');
+    }).catch(err => {
+      console.log('err:', err);
+    }).finally(() => setLoading(false));
+  };
+
   if (email_verified === 'false') {
     return (
       <div>Your email is not verified yet, please verify your email</div>
@@ -184,10 +198,18 @@ const MainContent: FC = () => {
   return (
     <div className='min-h-screen w-full'>
       <div className="fixed px-[9px] py-[5px] w-full z-[7]">
-        <div className="flex bg-[#fffdfd] rounded-full items-center px-[18px] py-[6px]">
-          <Link to="/" className="text-left w-full">
-            <img src={Logo} className='h-[18px]' alt="logo" />
-          </Link>
+        <div className="flex bg-[#fffdfd] rounded-full items-center px-[18px] py-[6px] w-full justify-between">
+          <div className="flex items-center justify-center">
+            <Link to="/" className="text-left w-full">
+              <img src={Logo} className='h-[18px]' alt="logo" />
+            </Link>
+            <button
+              className="ms-2 font-[Inter] -tracking-[.6px] text-sm whitespace-nowrap rounded-full bg-black text-white px-2 py-[2px]"
+              onClick={handleReload}
+            >
+              Reload Data
+            </button>
+          </div>
 
           <div className="flex items-center">
             <Dropdown placement="bottomRight" menu={{ items: feedbackItems }}>
@@ -221,7 +243,7 @@ const MainContent: FC = () => {
 
           <Link
             to="/new"
-            className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-[#7FFBAE] rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'border-black border-[1px]' : 'border-none'}`}
+            className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-[#7FFBAE] rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[19px] h-[18px] me-2">
               <path d="M450.001-290.001h59.998v-160h160v-59.998h-160v-160h-59.998v160h-160v59.998h160v160Zm30.066 190q-78.836 0-148.204-29.92-69.369-29.92-120.682-81.21-51.314-51.291-81.247-120.629-29.933-69.337-29.933-148.173t29.92-148.204q29.92-69.369 81.21-120.682 51.291-51.314 120.629-81.247 69.337-29.933 148.173-29.933t148.204 29.92q69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173t-29.92 148.204q-29.92 69.369-81.21 120.682-51.291 51.314-120.629 81.247-69.337 29.933-148.173 29.933Z" />

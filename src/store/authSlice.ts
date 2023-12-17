@@ -17,6 +17,7 @@ interface AuthState {
   isAdminAuthenticated: boolean;
   adminToken: string;
   adminName: string;
+  adminEmail: string;
 }
 
 const initialState: AuthState = {
@@ -34,6 +35,7 @@ const initialState: AuthState = {
   isAdminAuthenticated: localStorage.getItem('isAdminAuthenticated') === 'true',
   adminToken: localStorage.getItem('adminToken') || '',
   adminName: localStorage.getItem('adminName') || '',
+  adminEmail: localStorage.getItem('adminEmail') || '',
 };
 
 const authSlice = createSlice({
@@ -82,6 +84,12 @@ const authSlice = createSlice({
       state.adminToken = action.payload.token;
       localStorage.setItem('adminToken', action.payload.token);
     },
+    setAdminUserData: (state, action) => {
+      state.adminName = action.payload.userName;
+      state.adminEmail = action.payload.email;
+      localStorage.setItem('adminName', action.payload.userName);
+      localStorage.setItem('adminEmail', action.payload.email);
+    },
   },
 });
 
@@ -89,7 +97,7 @@ export const {
   // For Client
   setAuthenticated, setUnauthenticated, setUserData, setToken, setAvatar,
   // For Admin,
-  setAdminAuthenticated, setAdminToken,
+  setAdminAuthenticated, setAdminToken, setAdminUserData,
 } = authSlice.actions;
 export const selectAuth = (state: { auth: AuthState }) => state.auth;
 export default authSlice.reducer;

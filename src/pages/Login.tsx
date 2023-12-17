@@ -101,12 +101,12 @@ const Login: FC = () => {
                                     onChange={handleChange}
                                     className="flex-1 py-2 px-0 bg-transparent border-none focus:ring-0 focus:border-none"
                                 />
-                                <button onClick={handleShowPassword}>
+                                <span onClick={handleShowPassword} className="cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="21" viewBox="0 0 30 21" fill="none">
                                         <path d="M12.3915 10.2433C12.3915 11.0273 12.7029 11.7792 13.2573 12.3336C13.8117 12.888 14.5636 13.1995 15.3477 13.1995C16.1317 13.1995 16.8836 12.888 17.438 12.3336C17.9924 11.7792 18.3038 11.0273 18.3038 10.2433C18.3038 9.45926 17.9924 8.70735 17.438 8.15295C16.8836 7.59856 16.1317 7.28711 15.3477 7.28711C14.5636 7.28711 13.8117 7.59856 13.2573 8.15295C12.7029 8.70735 12.3915 9.45926 12.3915 10.2433Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
                                         <path d="M28.6505 10.2435C25.1031 16.1559 20.6688 19.1121 15.3477 19.1121C10.0266 19.1121 5.59234 16.1559 2.04492 10.2435C5.59234 4.33118 10.0266 1.375 15.3477 1.375C20.6688 1.375 25.1031 4.33118 28.6505 10.2435Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
-                                </button>
+                                </span>
                             </div>
                         </div>
                         <div className="w-full text-right">

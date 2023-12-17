@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 
-const Campaign: FC = () => {
+const AdminCampaign: FC = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [searchKey, setSearchKey] = useState('');
   const [searchLoading, setSearchLoading] = useState(false);
@@ -37,4 +37,4 @@ const Campaign: FC = () => {
   );
 };
 
-export default Campaign;
+export default AdminCampaign;
