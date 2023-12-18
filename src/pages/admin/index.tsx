@@ -28,9 +28,10 @@ const Admin: FC = () => {
     else {
       setLoading(true);
       AdminAPIInstance.post('auth/check', { token: adminToken }).then(() => {
-        if (!location.pathname.includes('/admin')) navigator('/admin/dashboard');
+        if (!location.pathname.includes('/admin/')) navigator('/admin/dashboard/overview');
       }).catch(err => {
-        console.log('err:', err);
+        setAdminAuthenticated({ state: false });
+        navigator('/admin/login');
       }).finally(() => setLoading(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
