@@ -163,14 +163,14 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         </div>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md relative'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>
-            <span>{`$${getTotalSpend()} / `}</span>
-            <span className={`${getUnbilled() > 0 ? 'text-[red]' : 'text-black'}`}>{`$${getUnbilled()}`}</span>
+            <span>{`$${getTotalSpend()}`}</span>
+            {/* <span className={` / ${getUnbilled() > 0 ? 'text-[red]' : 'text-black'}`}>{`$${getUnbilled()}`}</span> */}
           </h2>
-          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend / Unbilled</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
 
-          {getUnbilled() > 0 &&
+          {/* {getUnbilled() > 0 &&
             <button
               className='font-[Inter] text-sm absolute w-full h-full rounded-[20px] hover:bg-[#7ffbae]/[.7] top-0 left-0 opacity-0 hover:opacity-100 flex flex-col items-center justify-center transition-all duration-300'
               onClick={handlePayNow}
@@ -180,7 +180,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
               </svg>
               <span className='mt-1'>Pay Now</span>
             </button>
-          }
+          } */}
         </div>
         {/* <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
           <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${getAverageCPC()}`}</h2>
