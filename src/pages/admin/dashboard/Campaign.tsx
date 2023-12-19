@@ -93,8 +93,6 @@ const AdminDashboardCampaign: FC = () => {
     }).finally(() => setLoading(false));
   };
 
-  console.log('data:', data);
-
   return (
     <div>
       {loading && <Loading />}
