@@ -17,8 +17,6 @@ const AdminDashboard: FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log('range:', range);
-
   const getOffsetBack = () => {
     if (location.pathname.indexOf('overview') > -1) return 'left-0';
     if (location.pathname.indexOf('campaign') > -1) return 'left-[33.4%]';

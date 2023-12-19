@@ -72,3 +72,13 @@
   letter-spacing: -.3px;
   font-family: Inter;
 }
+
+.ant-select-selector {
+  border: 1px solid #7f8182 !important;
+}
+
+.ant-select-selection-search-input:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}

@@ -203,12 +203,12 @@ const MainContent: FC = () => {
             <Link to="/" className="text-left w-full">
               <img src={Logo} className='h-[18px]' alt="logo" />
             </Link>
-            <button
+            {/* <button
               className="ms-2 font-[Inter] -tracking-[.6px] text-sm whitespace-nowrap rounded-full bg-black text-white px-2 py-[2px]"
               onClick={handleReload}
             >
               Reload Data
-            </button>
+            </button> */}
           </div>
 
           <div className="flex items-center">
