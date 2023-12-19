@@ -18,9 +18,9 @@ const AdminDashboard: FC = () => {
   }, []);
 
   const getOffsetBack = () => {
-    if (location.pathname.indexOf('overview') > -1) return 'left-0';
+    if (location.pathname.indexOf('overview') > -1) return 'left-[1%]';
     if (location.pathname.indexOf('campaign') > -1) return 'left-[33.4%]';
-    if (location.pathname.indexOf('client') > -1) return 'left-[66.7%]';
+    if (location.pathname.indexOf('client') > -1) return 'left-[67%]';
 
     return 'left-0';
   };
@@ -33,16 +33,16 @@ const AdminDashboard: FC = () => {
 
         <div className="flex w-full items-center justify-between mt-4">
           <div className="flex relative">
-            <Link to="/admin/dashboard/overview" className="z-[1] text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Overview</Link>
-            <Link to="/admin/dashboard/campaign" className="z-[1] text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Campaigns</Link>
-            <Link to="/admin/dashboard/client" className="z-[1] text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Clients</Link>
+            <Link to="/admin/dashboard/overview" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Overview</Link>
+            <Link to="/admin/dashboard/campaign" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Campaigns</Link>
+            <Link to="/admin/dashboard/client" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Clients</Link>
 
             <div
               className={`h-full w-[33.3%] bg-white absolute z-0 rounded-[15px] border-[1px] border-[#7ffbae] transition-all duration-500 ${getOffsetBack()}`}
             />
           </div>
           <DatePicker.RangePicker
-            className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182]'
+            className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[270px]'
             onChange={(e) => setRange(e)}
           />
         </div>
