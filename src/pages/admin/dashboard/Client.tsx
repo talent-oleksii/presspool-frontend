@@ -8,6 +8,7 @@ import moment from 'moment';
 const AdminDashboardClient: FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState('');
+  const [currentTab, setCurrentTab] = useState('active');
   const [data, setData] = useState<Array<any>>([]);
 
   useEffect(() => {
@@ -58,9 +59,23 @@ const AdminDashboardClient: FC = () => {
           <option>All</option>
         </select>
       </div>
+      <div className='mt-4'>
+        <button
+          className={`bg-[#7ffbae] font-[Inter] font-semibold text-sm px-6 py-2 rounded-lg ring-[#7f8182] ${currentTab === 'active' ? 'ring-[1px]' : 'ring-0'}`}
+          onClick={() => setCurrentTab('active')}
+        >
+          Active Clients
+        </button>
+        <button
+          className={`bg-[#ffc3c0] font-[Inter] font-semibold text-sm px-6 py-2 rounded-lg ms-4 ring-[#7f8182] ${currentTab === 'inactive' ? 'ring-[1px]' : 'ring-0'}`}
+          onClick={() => setCurrentTab('inactive')}
+        >
+          Inactive Clients
+        </button>
+      </div>
       <div className='mt-4 bg-white rounded-[15px] px-[20px]'>
         {
-          data.map((item, index) => (
+          data.filter(item => item.state === currentTab).map((item, index) => (
             <div key={item.id} className={`relative flex py-4 justify-between ${index !== data.length - 1 && 'border-b-[1px] border-[#d9d9d9]'}`}>
               <div className='text-left'>
                 <p className='font-[Inter] text-[#a3a3a3] text-xs font-medium -tracking-[.36px]'>Name</p>
@@ -112,7 +127,7 @@ const AdminDashboardClient: FC = () => {
                   </button>
                 </Dropdown>
               </div>
-              <span className={`absolute rounded-full px-3 py-1 right-1 bg-black bottom-1 text-xs font-[Inter] ${item.state === 'inactive' ? 'text-[red]' : 'text-[#7ffbae]'}`}>{item.state}</span>
+              {/* <span className={`absolute rounded-full px-3 py-1 right-1 bg-black bottom-1 text-xs font-[Inter] ${item.state === 'inactive' ? 'text-[red]' : 'text-[#7ffbae]'}`}>{item.state}</span> */}
             </div>
           ))
         }
