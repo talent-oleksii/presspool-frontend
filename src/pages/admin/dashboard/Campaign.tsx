@@ -3,7 +3,10 @@ import { Select } from 'antd';
 import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
 
+import DialogUtils from '../../../utils/DialogUtils';
+import EditCampaign from '../../campaign/EditCampaign';
 import AdminAPIInstance from '../../../api/adminApi';
+import APIInstance from '../../../api';
 import Loading from '../../../components/Loading';
 
 const AdminDashboardCampaign: FC = () => {
@@ -13,6 +16,7 @@ const AdminDashboardCampaign: FC = () => {
   const [fetching, setFetching] = useState(false);
   const [nameList, setNameList] = useState<Array<any>>([]);
   const [data, setData] = useState<any>({});
+  const [showEdit, setShowEdit] = useState(false);
   const filterOptions = [{
     label: 'All',
     value: 'all'
@@ -69,6 +73,27 @@ const AdminDashboardCampaign: FC = () => {
   const handleSearch = (value: string) => {
     loadData(value);
   };
+
+  const handlePauseCampaign = () => {
+    const newState = data.state === 'active' ? 'paused' : 'active';
+    setLoading(true);
+    APIInstance.put('data/campaign_detail', {
+      state: newState,
+      id: currentId,
+      type: 'state',
+    }).then(() => {
+      setData({
+        ...data,
+        state: newState,
+      })
+      DialogUtils.show('success', newState === 'paused' ? 'Campaign Paused' : 'Successfully Started the Campaign', '');
+    }).catch(err => {
+      console.log('err:', err);
+      DialogUtils.show('error', '', err.response.data.message);
+    }).finally(() => setLoading(false));
+  };
+
+  console.log('data:', data);
 
   return (
     <div>
@@ -156,7 +181,8 @@ const AdminDashboardCampaign: FC = () => {
       <div className='my-[14px] p-[25px] min-h-[250px] rounded-[10px] bg-white shadow-md'>
         <div className='flex justify-between items-center'>
           <div>
-            <h2 className='font-[Inter] text-base 2xl:text-lg font-semibold'>{data.name || ''}</h2>
+            {data.state && <span className={`rounded-full text-[10px] px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{data.state}</span>}
+            <h2 className='font-[Inter] mt-4 text-base 2xl:text-lg font-semibold'>{data.name || ''}</h2>
             <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 
@@ -178,7 +204,31 @@ const AdminDashboardCampaign: FC = () => {
           </div>
         </div>
       </div>
-    </div >
+      {data.state &&
+        <div className='mt-4'>
+          <button
+            className='px-4 py-2 text-white bg-black rounded-[5px] text-xs font-semibold'
+            onClick={() => setShowEdit(true)}
+          >
+            Edit Campaign
+          </button>
+          <button
+            className='px-4 py-2 text-[red] text-xs font-semibold'
+            onClick={handlePauseCampaign}
+          >
+            {data.state !== 'active' ? 'Start Campaign' : 'Pause Campaign'}
+          </button>
+        </div>
+      }
+      {
+        data.state &&
+        <EditCampaign
+          show={showEdit}
+          setShow={(show: boolean) => setShowEdit(show)}
+          data={data}
+        />
+      }
+    </div>
   );
 };
 
