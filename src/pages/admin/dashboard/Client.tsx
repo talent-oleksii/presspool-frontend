@@ -4,6 +4,7 @@ import Loading from '../../../components/Loading';
 import AdminAPIInstance from '../../../api/adminApi';
 import { Avatar } from 'antd';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 const AdminDashboardClient: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -114,6 +115,9 @@ const AdminDashboardClient: FC = () => {
                   menu={{
                     items: [{
                       key: '1',
+                      label: <Link className='w-full h-full text-xs' to={`/admin/client/${item.id}`}>Details</Link>
+                    }, {
+                      key: '2',
                       label: <span className='w-full h-full text-xs'>{item.state === 'active' ? 'Deactivate User' : 'Activate User'}</span>,
                       onClick: () => handleChangeState(item.id, item.state),
                     }]

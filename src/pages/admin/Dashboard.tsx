@@ -42,7 +42,7 @@ const AdminDashboard: FC = () => {
             />
           </div>
           <DatePicker.RangePicker
-            className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[270px]'
+            className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[230px]'
             onChange={(e) => setRange(e)}
           />
         </div>
@@ -55,7 +55,7 @@ const AdminDashboard: FC = () => {
           </Routes>
         </div>
       </div>
-      <div className='min-w-[370px] pl-[30px] pr-[100px] mt-[130px] text-left'>
+      <div className='w-[300px] pl-[30px] pr-[20px] mt-[130px] text-left'>
         <div className='relative h-[300px]'>
           <div className='bg-[#7FFBAE] p-[19px] rounded-t-[14px] w-full top-0 z-10'>
             <p className='text-black text-base font-semibold font-[Inter]'>Quick Actions:</p>

@@ -111,12 +111,10 @@ const Admin: FC = () => {
   };
 
   const getOffsetBack = () => {
-    if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
-    if (location.pathname.indexOf('client') > -1) return 'top-[16.7%]';
-    if (location.pathname.indexOf('member') > -1) return 'top-[33.3%]';
-    if (location.pathname.indexOf('campaign') > -1) return 'top-[50%]';
-    if (location.pathname.indexOf('billing') > -1) return 'top-[66.67%]';
-    if (location.pathname.indexOf('support') > -1) return 'top-[82.7%]';
+    if (location.pathname.indexOf('dashboard') > -1 || location.pathname.includes('client')) return 'top-[1%]';
+    if (location.pathname.indexOf('member') > -1) return 'top-[25%]';
+    if (location.pathname.indexOf('billing') > -1) return 'top-[50%]';
+    if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
 
     return 'top-0';
   };
@@ -177,13 +175,13 @@ const Admin: FC = () => {
               </svg>
               Dashboard
             </Link>
-            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
+            {/* <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
               to="/admin/client">
               <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
                 <path d="M247.846-260.615q51-36.693 108.231-58.039Q413.308-340 480-340q66.692 0 123.923 21.346 57.231 21.346 108.231 58.039 39.615-41 63.731-96.847Q800-413.308 800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 66.692 24.115 122.538 24.116 55.847 63.731 96.847ZM480-460q-50.539 0-85.269-34.731Q360-529.461 360-580q0-50.539 34.731-85.269Q429.461-700 480-700q50.539 0 85.269 34.731Q600-630.539 600-580q0 50.539-34.731 85.269Q530.539-460 480-460Zm0 340q-75.308 0-141-28.038-65.692-28.039-114.308-76.654Q176.077-273.308 148.038-339 120-404.692 120-480t28.038-141q28.039-65.692 76.654-114.308Q273.308-783.923 339-811.962 404.692-840 480-840t141 28.038q65.692 28.039 114.308 76.654Q783.923-686.692 811.962-621 840-555.308 840-480t-28.038 141q-28.039 65.692-76.654 114.308Q686.692-176.077 621-148.038 555.308-120 480-120Z" />
               </svg>
               Clients
-            </Link>
+            </Link> */}
             <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
               to="/admin/member">
               <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
@@ -191,13 +189,13 @@ const Admin: FC = () => {
               </svg>
               Team Members
             </Link>
-            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
+            {/* <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
               to="/admin/campaign">
               <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
                 <path d="M716.923-460v-40h129.231v40H716.923Zm43.385 258.462-103.385-77.539 24.923-31.692 103.385 77.538-24.923 31.693Zm-81.539-450.77L653.846-684l103.385-77.539 24.923 31.693-103.385 77.538ZM220-241.538v-152.308h-41.539q-26.846 0-45.73-18.885-18.885-18.884-18.885-45.73v-43.078q0-26.846 18.885-45.73 18.884-18.885 45.73-18.885h149.231L486.154-660v360l-158.462-93.846H260v152.308h-40Zm336.923-122.923v-231.078q20.077 18.616 32.346 48.885 12.27 30.269 12.27 66.654t-12.27 66.654Q577-383.077 556.923-364.461Z" />
               </svg>
               Campaigns
-            </Link>
+            </Link> */}
             <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
               to="/admin/billing">
               <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
@@ -214,14 +212,12 @@ const Admin: FC = () => {
             </Link>
             {
               (
-                location.pathname.indexOf('dashboard') > -1 ||
-                location.pathname.indexOf('client') > -1 ||
+                location.pathname.indexOf('dashboard') > -1 || location.pathname.indexOf('client') > -1 ||
                 location.pathname.indexOf('member') > -1 ||
-                location.pathname.indexOf('campaign') > -1 ||
                 location.pathname.indexOf('billing') > -1 ||
                 location.pathname.indexOf('support') > -1
               ) &&
-              <div className={`absolute h-[16.7%] bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
+              <div className={`absolute h-[25%] bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
             }
           </div>
         </div>
@@ -232,7 +228,7 @@ const Admin: FC = () => {
           <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[230px]'>
             <Routes>
               <Route path="/dashboard/*" element={<AdminDashboard />} />
-              <Route path="/client" element={<AdminClient />} />
+              <Route path="/client/:id" element={<AdminClient />} />
               <Route path="/member" element={<AdminMember />} />
               <Route path="/campaign" element={<AdminCampaign />} />
               <Route path="/billing" element={<AdminBilling />} />
