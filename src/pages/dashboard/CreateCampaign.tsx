@@ -460,11 +460,12 @@ const CreateCampaign: FC = () => {
                   <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Max Budget:</span>{`$${currentPrice}`}</p>
                   <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
                   <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Target Audience Tags:</span>{currentAudience.map((item: any) => item.label).join(', ')}</p>
+                  <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Payment Method:</span>{`**** **** **** ${cardList.filter(item => item.card_id === currentCard)[0].last4}`}</p>
                 </div>
               }
               <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
               <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>Billing is simple: weekly or when your account's threshold is reached.</p>
-              <div className='w-full flex mt-[17px]'>
+              {/* <div className='w-full flex mt-[17px]'>
                 <div className='flex-1 me-[18px]'>
                   <button
                     className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
@@ -493,7 +494,7 @@ const CreateCampaign: FC = () => {
                   </select>
                   <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button>
                 </div>
-              </div>
+              </div> */}
               <div className='w-full text-center mt-[50px]'>
                 {
                   currentAudience.length >= 1 && currentPrice.length > 3 &&

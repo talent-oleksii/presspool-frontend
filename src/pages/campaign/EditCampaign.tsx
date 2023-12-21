@@ -37,7 +37,7 @@ const customStyles: StylesConfig = {
 
 const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: typeEditCampaign) => {
   const [loading, setLoading] = useState(false);
-  const [currentTab, setCurrentTab] = useState('detail');
+  const [currentTab, setCurrentTab] = useState('billing');
   const [campaignName, setCampaignName] = useState('');
   const [currentTarget, setCurrentTarget] = useState('consumer');
   const [currentPrice, setCurrentPrice] = useState('10000');
@@ -78,6 +78,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   }, [cardList]);
 
   useEffect(() => {
+    console.log('data:', data);
     if (data) {
       setCurrentTab('detail');
       setCampaignName(data.name);
@@ -102,6 +103,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   }, [data]);
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
+    if (e.target.id !== 'billing' && !currentCard) return;
     setCurrentTab(e.target.id);
   };
 
@@ -180,18 +182,19 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: 'https://go.presspool.ai/new',
+      return_url: 'https://go.presspool.ai/detail',
     });
 
-    // window.location.href = session.url + '/payment-methods';
-    window.open(session.url + '/payment-methods', '_blank');
+    window.location.href = session.url + '/payment-methods';
+    // window.open(session.url + '/payment-methods', '_blank');
   };
 
   const getOffsetBack = () => {
-    if (currentTab === 'detail') return 'left-2';
-    if (currentTab === 'audience') return 'left-[25%]';
-    if (currentTab === 'budget') return 'left-[50%]';
-    if (currentTab === 'review') return 'left-[74%]';
+    if (currentTab === 'billing') return 'left-1';
+    if (currentTab === 'detail') return 'left-[20%]';
+    if (currentTab === 'audience') return 'left-[40%]';
+    if (currentTab === 'budget') return 'left-[60%]';
+    if (currentTab === 'review') return 'left-[79%]';
   };
 
   return (
@@ -215,7 +218,14 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                     <path d="M13.4444 13.4444L20.5556 20.5556M20.5556 13.4444L13.4444 20.5556M17 1C29.8 1 33 4.2 33 17C33 29.8 29.8 33 17 33C4.2 33 1 29.8 1 17C1 4.2 4.2 1 17 1Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
-                <div className='grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[700px]'>
+                <div className='grid grid-cols-5 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]'>
+                  <button
+                    className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'billing' ? 'text-white' : 'text-black'}`}
+                    onClick={handleClick}
+                    id="billing"
+                  >
+                    Billing
+                  </button>
                   <button
                     className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'detail' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
@@ -244,11 +254,60 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                   >
                     Review
                   </button>
-                  <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/4 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
+                  <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/5 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
 
                 </div>
-                <h2 className='font-[Inter] text-[18px] 2xl:text-[24px] font-bold mt-[24px] text-left w-full'>Edit Campaign</h2>
+                <h2 className='font-[Inter] text-[18px] 2xl:text-[24px] font-bold mt-[24px] text-center w-full'>Edit Campaign</h2>
                 <div className='pt-[20px] 2xl:pt-[34px]'>
+                  {
+                    currentTab === 'billing' &&
+                    <motion.div
+                      variants={FADE_RIGHT_ANIMATION_VARIANTS}
+                      initial="hidden"
+                      animate="show"
+                      className='relative w-[720px]'
+                    >
+                      <h2 className='font-medium text-md 2xl:text-lg font-[Inter]'>Billing</h2>
+                      <div className='w-full flex mt-[17px]'>
+                        <div className='flex-1 me-[18px]'>
+                          <button
+                            className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
+                            onClick={handleAddCard}
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
+                              <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="#7F8182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                            Add a Card
+                          </button>
+                        </div>
+                        <div className='flex items-center justify-center w-[60%]'>
+                          <select
+                            className='w-full pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
+                            value={currentCard}
+                            onChange={e => setCurrentCard(e.target.value)}
+                          >
+                            {
+                              cardList.map((item: any) => (
+                                <option value={item.card_id} key={item.id}>
+                                  {item.brand.toUpperCase()}
+                                  {` **** **** **** ${item.last4}`}
+                                </option>
+                              ))
+                            }
+                          </select>
+                        </div>
+                      </div>
+                      <div className='w-full text-center mt-[30px]'>
+                        <button
+                          className='rounded-[5px] text-black font-semibold bg-[#7FFBAE] px-[50px] py-[10px] text-sm disabled:bg-gray-400'
+                          onClick={() => setCurrentTab('detail')}
+                          disabled={!currentCard}
+                        >
+                          Next Step
+                        </button>
+                      </div>
+                    </motion.div>
+                  }
                   {
                     currentTab === 'detail' &&
                     <motion.div
@@ -426,11 +485,12 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                           <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Max Budget:</span>{`$${currentPrice}`}</p>
                           <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
                           <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Target Audience Tags:</span>{currentAudience.map((item: any) => item.label).join(', ')}</p>
+                          <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Payment Method:</span>{`**** **** **** ${cardList.filter(item => item.card_id === currentCard)[0].last4}`}</p>
                         </div>
                       }
                       <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
                       <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>Billing is simple: weekly or when your account's threshold is reached.</p>
-                      <div className='w-full flex mt-[17px]'>
+                      {/* <div className='w-full flex mt-[17px]'>
                         <div className='flex-1 me-[18px]'>
                           <button
                             className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
@@ -457,10 +517,10 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                           }
                         </select>
                         <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button>
-                      </div>
+                      </div> */}
                       <div className='w-full text-center mt-[50px]'>
                         {
-                          currentAudience.length >= 1 && currentPrice.length > 3 &&
+                          currentAudience.length >= 1 && currentPrice &&
                           <button className='rounded-[5px] text-black bg-[#7FFBAE] px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
                             disabled={!isSubmitable()}
                             onClick={handleSubmit}
