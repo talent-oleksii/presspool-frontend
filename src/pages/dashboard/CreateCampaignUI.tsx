@@ -72,7 +72,6 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       formData.append('pageUrl', pageUrl);
       if (!props.uiData) {
         APIInstance.post('data/campaign_ui', formData).then(data => {
-          console.log('data:', data);
           if (props.setUIContent) props.setUIContent(data.data);
           resolve(true);
         }).catch(err => {

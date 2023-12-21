@@ -31,7 +31,7 @@ const customStyles: StylesConfig = {
 
 const CreateCampaign: FC = () => {
   const [loading, setLoading] = useState(false);
-  const [currentTab, setCurrentTab] = useState('detail');
+  const [currentTab, setCurrentTab] = useState('billing');
   const [campaignName, setCampaignName] = useState('');
   const [currentTarget, setCurrentTarget] = useState('consumer');
   const [currentPrice, setCurrentPrice] = useState('10000');
@@ -83,6 +83,7 @@ const CreateCampaign: FC = () => {
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
     // if (e.target.id === 'detail' && uiId) return;
+    if (e.target.id !== 'billing' && !currentCard) return;
     setCurrentTab(e.target.id);
   };
 
@@ -98,7 +99,6 @@ const CreateCampaign: FC = () => {
         console.log('err:', err);
       });
     }
-    // setCurrentTab('audience');
   };
 
   const handleSubmit = async () => {
@@ -171,15 +171,16 @@ const CreateCampaign: FC = () => {
       return_url: 'https://go.presspool.ai/new',
     });
 
-    // window.location.href = session.url + '/payment-methods';
-    window.open(session.url + '/payment-methods', '_blank');
+    window.location.href = session.url + '/payment-methods';
+    // window.open(session.url + '/payment-methods', '_blank');
   };
 
   const getOffsetBack = () => {
-    if (currentTab === 'detail') return 'left-2';
-    if (currentTab === 'audience') return 'left-[25%]';
-    if (currentTab === 'budget') return 'left-[50%]';
-    if (currentTab === 'review') return 'left-[74%]';
+    if (currentTab === 'billing') return 'left-1';
+    if (currentTab === 'detail') return 'left-[20%]';
+    if (currentTab === 'audience') return 'left-[40%]';
+    if (currentTab === 'budget') return 'left-[60%]';
+    if (currentTab === 'review') return 'left-[79%]';
   };
 
   return (
@@ -191,7 +192,14 @@ const CreateCampaign: FC = () => {
     >
       <div className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col px-[70px] pt-[15px] pb-[26px]`}>
         {loading && <Loading />}
-        <div className='grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[700px]'>
+        <div className='grid grid-cols-5 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]'>
+          <button
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'billing' ? 'text-white' : 'text-black'}`}
+            onClick={handleClick}
+            id="billing"
+          >
+            Billing
+          </button>
           <button
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'detail' ? 'text-white' : 'text-black'}`}
             onClick={handleClick}
@@ -220,11 +228,60 @@ const CreateCampaign: FC = () => {
           >
             Review
           </button>
-          <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/4 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
+          <div className={`absolute h-[50px] bg-[#2D2C2D] w-[20%] rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
 
         </div>
         <h2 className='font-[Inter] text-[18px] font-bold mt-[24px] text-center w-full'>New Campaign</h2>
         <div className='pt-[20px]'>
+          {
+            currentTab === 'billing' &&
+            <motion.div
+              variants={FADE_RIGHT_ANIMATION_VARIANTS}
+              initial="hidden"
+              animate="show"
+              className='relative w-[1000px]'
+            >
+              <h2 className='font-medium text-md 2xl:text-lg font-[Inter]'>Billing</h2>
+              <div className='w-full flex mt-[17px]'>
+                <div className='flex-1 me-[18px]'>
+                  <button
+                    className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
+                    onClick={handleAddCard}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
+                      <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="#7F8182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    Add a Card
+                  </button>
+                </div>
+                <div className='flex items-center justify-center w-[60%]'>
+                  <select
+                    className='w-full pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
+                    value={currentCard}
+                    onChange={e => setCurrentCard(e.target.value)}
+                  >
+                    {
+                      cardList.map((item: any) => (
+                        <option value={item.card_id} key={item.id}>
+                          {item.brand.toUpperCase()}
+                          {` **** **** **** ${item.last4}`}
+                        </option>
+                      ))
+                    }
+                  </select>
+                </div>
+              </div>
+              <div className='w-full text-center mt-[30px]'>
+                <button
+                  className='rounded-[5px] text-black font-semibold bg-[#7FFBAE] px-[50px] py-[10px] text-sm disabled:bg-gray-400'
+                  onClick={() => setCurrentTab('detail')}
+                  disabled={!currentCard}
+                >
+                  Next Step
+                </button>
+              </div>
+            </motion.div>
+          }
           {
             currentTab === 'detail' &&
             <motion.div
