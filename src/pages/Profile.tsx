@@ -29,7 +29,7 @@ const Profile: FC = () => {
     setLoading(true);
     APIInstance.get('data/profile', { params: { email } }).then(data => {
       setImage(data.data.avatar);
-      setDate(moment(new Date(Number(data.data.create_time))).format('d MMM, yyyy'));
+      setDate(moment(new Date(Number(data.data.create_time))).format('DD MMM, yyyy'));
     }).catch(err => {
       console.log('error:', err);
     }).finally(() => setLoading(false));
@@ -159,7 +159,7 @@ const Profile: FC = () => {
                 <div key={item.id}>
                   <div className='flex justify-between w-full'>
                     <p className='font-[Inter] text-sm text-black -tracking-[.54px] font-medium'>{item.brand.toUpperCase()}</p>
-                    <p className='font-[Inter] text-[#7f8182] text-xs -tracking-[.42px]'>{`Added Date: ${moment(new Date(Number(item.create_time))).format('d MMM, yyyy')}`}</p>
+                    <p className='font-[Inter] text-[#7f8182] text-xs -tracking-[.42px]'>{`Added Date: ${moment(new Date(Number(item.create_time))).format('DD MMM, yyyy')}`}</p>
                   </div>
                   <div className='bg-[#fbfbfb] text-sm border-[1px] border-[rgba(127, 129, 130, 0.13)] rounded-[10px] px-3 py-2 my-1.5'>{`**** **** **** ${item.last4}`}</div>
                 </div>

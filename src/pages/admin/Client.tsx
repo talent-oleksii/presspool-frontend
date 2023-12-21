@@ -1,10 +1,11 @@
-import { Avatar } from 'antd';
+import { Avatar, DatePicker } from 'antd';
 import { FC, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import AdminAPIInstance from '../../api/adminApi';
 import Loading from '../../components/Loading';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const AdminClient: FC = () => {
   const { id } = useParams();
@@ -12,7 +13,9 @@ const AdminClient: FC = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>({});
   const [campaignData, setCampaignData] = useState<Array<any>>([]);
-  const [currentTab, setCurrentTab] = useState('user');
+  const [filteredData, setFilteredData] = useState<Array<any>>([]);
+  const [currentTab, setCurrentTab] = useState('campaign');
+  const [range, setRange] = useState<any>([]);
 
   useEffect(() => {
     setLoading(true);
@@ -24,6 +27,18 @@ const AdminClient: FC = () => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    if (!range || !range[1] || !range[0]) {
+      setFilteredData(campaignData);
+      return;
+    }
+    const startTime = range[0];
+    const endTime = range[1];
+    console.log('star:', startTime.valueOf(), endTime.valueOf(), Number(campaignData[0].create_time));
+    console.log('ttt:', Number(campaignData[0].create_time) >= range[0].valueOf() && Number(campaignData[0].create_time) <= range[1].valueOf());
+    setFilteredData(campaignData.filter(item => Number(item.create_time) >= range[0].valueOf() && Number(item.create_time) <= range[1].valueOf()));
+  }, [range, campaignData]);
 
   const goBack = () => {
     navigator(-1);
@@ -109,25 +124,64 @@ const AdminClient: FC = () => {
                 Campaigns
               </button>
             </div>
-            <p className='text-[#a3a3a3] text-base font-medium -tracking-[.48px]'>{`Date Joined: ${moment(new Date(Number(userData.create_time))).format('d MMM, yyyy')}`}</p>
+            <p className='text-[#a3a3a3] text-base font-medium -tracking-[.48px]'>{`Date Joined: ${moment(Number(userData.create_time)).format('DD MMM, yyyy').toString()}`}</p>
           </div>
-          <div>
-            <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Client Details</p>
-            <div className='mt-4 rounded-[10px] bg-white px-[23px] py-[28px] grid grid-cols-2 gap-16'>
-              <div className='col-span-1'>
-                <h2 className='font-[Inter] text-[20px] -tracking-[.6px] font-medium mb-4'>Company Information</h2>
-                <p className='text-base font-[Inter] -tracking-[.48px] font-medium'>Company Users</p>
+          {
+            currentTab === 'user' &&
+            <div>
+              <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Client Details</p>
+              <div className='mt-4 rounded-[10px] bg-white px-[23px] py-[28px] grid grid-cols-2 gap-16'>
+                <div className='col-span-1'>
+                  <h2 className='font-[Inter] text-[20px] -tracking-[.6px] font-medium mb-4'>Company Information</h2>
+                  <p className='text-base font-[Inter] -tracking-[.48px] font-medium'>Company Users</p>
 
-                <p className='mt-4 text-base font-[Inter] -tracking-[.48px] font-medium'>Company Name</p>
-                <p className='mt-2 text-lg italic -tracking-[.54px] text-[#7f8182] font-medium bg-[#fbfbfb] rounded-[10px] px-4 py-2 border-[1px] border-[rgba(127, 129, 130, 0.13)]'>{userData.company}</p>
-              </div>
-              <div className='col-span-1'>
-                <h2 className='font-[Inter] text-[20px] -tracking-[.6px] font-medium mb-4'>Payment Methods</h2>
-                <p className='text-lg font-[Inter] -tracking-[.48px] font-medium'>Visa Card</p>
-                <p className='text-[20px] font-[Inter] font-medium -tracking-[.6px] mt-4'>Assign Manager To</p>
+                  <p className='mt-4 text-base font-[Inter] -tracking-[.48px] font-medium'>Company Name</p>
+                  <p className='mt-2 text-lg italic -tracking-[.54px] text-[#7f8182] font-medium bg-[#fbfbfb] rounded-[10px] px-4 py-2 border-[1px] border-[rgba(127, 129, 130, 0.13)]'>{userData.company}</p>
+                </div>
+                <div className='col-span-1'>
+                  <h2 className='font-[Inter] text-[20px] -tracking-[.6px] font-medium mb-4'>Payment Methods</h2>
+                  <p className='text-lg font-[Inter] -tracking-[.48px] font-medium'>Visa Card</p>
+                  <p className='text-[20px] font-[Inter] font-medium -tracking-[.6px] mt-4'>Assign Manager To</p>
+                </div>
               </div>
             </div>
-          </div>
+          }
+          {
+            currentTab === 'campaign' &&
+            <div>
+              <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Campaign Details</p>
+              <div className='mt-4 rounded-[10px] bg-white px-[23px] py-[28px] grid grid-cols-2 gap-8'>
+                <DatePicker.RangePicker
+                  className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[270px] col-span-full'
+                  onChange={(e) => setRange(e)}
+                />
+                {
+                  filteredData.map(item => (
+                    <div className='col-span-1' key={item.id}>
+                      <p className='font-[Inter] text-[13px] font-semibold -tracking-[.39px]'>{`Launch Date: ${moment(new Date(Number(item.create_time))).format('DD MMM, yyyy')}`}</p>
+                      <div className='rounded-lg bg-[#f5f5f5] w-full px-[20px] py-[16px] mt-2'>
+                        <div className='flex items-center justify-between'>
+                          <div className=''>
+                            <p className='text-base font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Tracking No.</p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`#${item.id}`}</p>
+                          </div>
+                          <div className=''>
+                            <p className='text-base font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Compaign Name</p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`#${item.name}`}</p>
+                          </div>
+                          <div className=''>
+                            <p className='text-base font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Budget/<span className='text-xs -tracking-[.36px]'>week</span></p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`#${Number(item.price) / 4}`}</p>
+                          </div>
+                        </div>
+                        <Link to="/" className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
+                      </div>
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          }
         </div>
       }
     </div>
