@@ -70,17 +70,27 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       formData.append('body', body);
       formData.append('image', file);
       formData.append('pageUrl', pageUrl);
-      APIInstance.post('data/campaign_ui', formData).then(data => {
-        console.log('data:', data);
-        if (props.setUIContent) props.setUIContent(data.data.id);
-        resolve(true);
-      }).catch(err => {
-        console.log('errr:', err);
-        reject();
-      }).finally(() => {
-        props.setLoading(false);
-      });
-
+      if (!props.uiData) {
+        APIInstance.post('data/campaign_ui', formData).then(data => {
+          console.log('data:', data);
+          if (props.setUIContent) props.setUIContent(data.data);
+          resolve(true);
+        }).catch(err => {
+          console.log('errr:', err);
+          reject();
+        }).finally(() => {
+          props.setLoading(false);
+        });
+      } else {
+        formData.append('id', props.uiData.id);
+        APIInstance.put('data/campaign_ui', formData).then(data => {
+          if (props.setUIContent) props.setUIContent(data.data);
+          resolve(true);
+        }).catch((error: any) => {
+          console.log('update campaign ui error:', error);
+          reject();
+        }).finally(() => props.setLoading(false));
+      }
     });
   };
 

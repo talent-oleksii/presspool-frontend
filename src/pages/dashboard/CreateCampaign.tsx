@@ -37,7 +37,7 @@ const CreateCampaign: FC = () => {
   const [currentPrice, setCurrentPrice] = useState('10000');
   const [audience, setAudience] = useState([]);
   const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
-  const [uiId, setUIID] = useState(undefined);
+  const [uiData, setUiData] = useState<any>(undefined);
   const [url, setUrl] = useState('');
   const [currentCard, setCurrentCard] = useState('');
   const navigator = useNavigate();
@@ -82,12 +82,12 @@ const CreateCampaign: FC = () => {
   };
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
-    if (e.target.id === 'detail' && uiId) return;
+    // if (e.target.id === 'detail' && uiId) return;
     setCurrentTab(e.target.id);
   };
 
   const isSubmitable = () => {
-    return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice && currentCard.length > 3 && uiId;
+    return !validator.isEmpty(campaignName) && validator.isURL(url) && currentPrice && currentCard.length > 3 && uiData;
   };
 
   const handleNextOnCampaign = async () => {
@@ -103,14 +103,14 @@ const CreateCampaign: FC = () => {
 
   const handleSubmit = async () => {
 
-    if (!uiId) {
+    if (!uiData) {
       alert('There is not UI assigned for this Campaign, Please save your UI first');
       return;
     }
     setLoading(true);
     APIInstance.post('data/campaign', {
       email, campaignName, url, currentTarget,
-      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId, currentCard,
+      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId: uiData.id, currentCard,
       state: 'active',
     }).then((data) => {
       dispatch(addCampaign({ campaign: data.data }));
@@ -118,7 +118,7 @@ const CreateCampaign: FC = () => {
       setCampaignName('');
       setCurrentTarget('consumer');
       setCurrentPrice('10000');
-      setUIID(undefined);
+      setUiData(undefined);
       setUrl('');
       setCurrentAudience([]);
 
@@ -132,7 +132,7 @@ const CreateCampaign: FC = () => {
   }
 
   const handleSave = () => {
-    if (!uiId) {
+    if (!uiData) {
       alert('There is not UI assigned for this Campaign, Please save your UI first');
       return;
     }
@@ -145,14 +145,14 @@ const CreateCampaign: FC = () => {
       currentAudience: currentAudience.map(item => item.value),
       currentPrice,
       currentCard,
-      uiId,
+      uiId: uiData.id,
       state: 'draft',
     }).then((data) => {
       dispatch(addCampaign({ campaign: data.data }));
       setCurrentTab('detail');
       setCampaignName('');
       setCurrentTarget('consumer');
-      setUIID(undefined);
+      setUiData(undefined);
       setUrl('');
       setCurrentAudience([]);
       navigator('/');
@@ -223,7 +223,7 @@ const CreateCampaign: FC = () => {
           <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/4 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
 
         </div>
-        <h2 className='font-[Inter] text-[18px] font-bold mt-[24px] text-left w-full'>New Campaign</h2>
+        <h2 className='font-[Inter] text-[18px] font-bold mt-[24px] text-center w-full'>New Campaign</h2>
         <div className='pt-[20px]'>
           {
             currentTab === 'detail' &&
@@ -269,7 +269,12 @@ const CreateCampaign: FC = () => {
                   onChange={e => setUrl(e.target.value)}
                 />
               </div>
-              <CreateCampaignUI ref={uiRef} setUIContent={(data: any) => setUIID(data)} setLoading={(load: boolean) => setLoading(load)} />
+              <CreateCampaignUI
+                ref={uiRef}
+                uiData={uiData}
+                setUIContent={(data: any) => setUiData(data)}
+                setLoading={(load: boolean) => setLoading(load)}
+              />
               <div className='w-full text-center mt-[30px]'>
                 <button
                   className='rounded-[5px] bg-[#7FFBAE] px-[50px] py-[10px] text-black font-semibold text-sm disabled:bg-gray-400'
