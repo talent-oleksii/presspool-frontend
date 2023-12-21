@@ -1,4 +1,6 @@
 import { FC, useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Select } from 'antd';
 import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
@@ -17,6 +19,8 @@ const AdminDashboardCampaign: FC = () => {
   const [nameList, setNameList] = useState<Array<any>>([]);
   const [data, setData] = useState<any>({});
   const [showEdit, setShowEdit] = useState(false);
+  const { id } = useParams();
+  const navigator = useNavigate();
   const filterOptions = [{
     label: 'All',
     value: 'all'
@@ -36,9 +40,9 @@ const AdminDashboardCampaign: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (currentId.length <= 0) return;
+    if (id === 'list') return;
     setLoading(true);
-    AdminAPIInstance.get('/dashboard/campaign/detail', { params: { id: currentId } }).then(data => {
+    AdminAPIInstance.get('/dashboard/campaign/detail', { params: { id } }).then(data => {
       setData(data.data);
 
       let grouped: any = {};
@@ -59,7 +63,7 @@ const AdminDashboardCampaign: FC = () => {
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
-  }, [currentId]);
+  }, [id]);
 
   const loadData = (searchStr: string) => {
     setFetching(true);
@@ -79,7 +83,7 @@ const AdminDashboardCampaign: FC = () => {
     setLoading(true);
     APIInstance.put('data/campaign_detail', {
       state: newState,
-      id: currentId,
+      id,
       type: 'state',
     }).then(() => {
       setData({
@@ -107,7 +111,10 @@ const AdminDashboardCampaign: FC = () => {
           suffixIcon={null}
           filterOption={false}
           onSearch={handleSearch}
-          onChange={value => setCurrentId(value)}
+          onChange={value => {
+            setCurrentId(value);
+            navigator(`/admin/dashboard/campaign/${value}`);
+          }}
           className='flex-1 h-full'
           notFoundContent={null}
           options={(nameList || []).map((d) => ({
@@ -123,7 +130,7 @@ const AdminDashboardCampaign: FC = () => {
           ))}
         </select>
       </div>
-      {currentId.length <= 0 && <p className='mt-2 text-sm font-[Inter]'>Select Campaign to see the details here</p>}
+      {id === 'list' && <p className='mt-2 text-sm font-[Inter]'>Select Campaign to see the details here</p>}
       <div className='mt-2'>
         <div className='grid grid-cols-4 gap-4'>
           <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>

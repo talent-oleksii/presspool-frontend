@@ -34,7 +34,7 @@ const AdminDashboard: FC = () => {
         <div className="flex w-full items-center justify-between mt-4">
           <div className="flex relative">
             <Link to="/admin/dashboard/overview" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Overview</Link>
-            <Link to="/admin/dashboard/campaign" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Campaigns</Link>
+            <Link to="/admin/dashboard/campaign/list" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Campaigns</Link>
             <Link to="/admin/dashboard/client" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Clients</Link>
 
             <div
@@ -50,7 +50,7 @@ const AdminDashboard: FC = () => {
         <div className="mt-4">
           <Routes>
             <Route path="/overview" element={<AdminDashboardOverview />} />
-            <Route path="/campaign" element={<ADminDashboardCampaign />} />
+            <Route path="/campaign/:id" element={<ADminDashboardCampaign />} />
             <Route path="/client" element={<AdminDashboardClient />} />
           </Routes>
         </div>

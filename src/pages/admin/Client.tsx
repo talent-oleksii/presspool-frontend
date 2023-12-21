@@ -174,7 +174,7 @@ const AdminClient: FC = () => {
                             <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`#${Number(item.price) / 4}`}</p>
                           </div>
                         </div>
-                        <Link to="/" className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
+                        <Link to={`/admin/dashboard/campaign/${item.id}`} className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
                       </div>
                     </div>
                   ))
