@@ -27,7 +27,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
 
       let grouped: any = {};
       clicked.filter(item => Number(item.campaign_id) === Number(id)).forEach((item) => {
-        const date = moment(new Date(Number(item.create_time)));
+        const date = moment(Number(item.create_time));
         const key = date.format('DD/MM/YYYY');
         if (!grouped[key]) {
           grouped[key] = [];

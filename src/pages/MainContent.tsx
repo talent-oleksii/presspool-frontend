@@ -15,6 +15,9 @@ import Logo from '../assets/logo/logo.png';
 import APIInstance from "../api";
 import Loading from "../components/Loading";
 import { setCampaign, setClicked, setCardList } from "../store/dataSlice";
+import AddTeammate from "./AddTeammate";
+
+import './style.scss';
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -22,6 +25,7 @@ const MainContent: FC = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { fullName, email, email_verified, avatar } = useSelector(selectAuth);
+  const [showAddTeamModal, setShowAddTeamModal] = useState(false);
 
   //auth check
   useEffect(() => {
@@ -130,7 +134,7 @@ const MainContent: FC = () => {
   }, {
     key: '3',
     label: (
-      <button className="font-[Inter] font-medium text-xs flex items-center">
+      <button className="font-[Inter] font-medium text-xs flex items-center" onClick={() => setShowAddTeamModal(true)}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[16px] h-[16px] me-2 -ms-1">
           <path d="M450.001-290.001h59.998v-160h160v-59.998h-160v-160h-59.998v160h-160v59.998h160v160Zm30.066 190q-78.836 0-148.204-29.92-69.369-29.92-120.682-81.21-51.314-51.291-81.247-120.629-29.933-69.337-29.933-148.173t29.92-148.204q29.92-69.369 81.21-120.682 51.291-51.314 120.629-81.247 69.337-29.933 148.173-29.933t148.204 29.92q69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173t-29.92 148.204q-29.92 69.369-81.21 120.682-51.291 51.314-120.629 81.247-69.337 29.933-148.173 29.933Z" />
         </svg>
@@ -307,6 +311,10 @@ const MainContent: FC = () => {
           </div>
         </div>
       }
+      <AddTeammate
+        show={showAddTeamModal}
+        setShow={() => setShowAddTeamModal(false)}
+      />
     </div>
   );
 };

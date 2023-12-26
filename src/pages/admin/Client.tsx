@@ -158,7 +158,7 @@ const AdminClient: FC = () => {
                 {
                   filteredData.map(item => (
                     <div className='col-span-1' key={item.id}>
-                      <p className='font-[Inter] text-[13px] font-semibold -tracking-[.39px]'>{`Launch Date: ${moment(new Date(Number(item.create_time))).format('DD MMM, yyyy')}`}</p>
+                      <p className='font-[Inter] text-[13px] font-semibold -tracking-[.39px]'>{`Launch Date: ${moment(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>
                       <div className='rounded-lg bg-[#f5f5f5] w-full px-[20px] py-[16px] mt-2'>
                         <div className='flex items-center justify-between'>
                           <div className=''>

@@ -92,7 +92,7 @@ const AdminDashboardClient: FC = () => {
               </div>
               <div>
                 <p className='font-[Inter] text-[#a3a3a3] text-xs font-medium -tracking-[.36px]'>Joined Date</p>
-                <p className='font-[Inter] text-[#43474a] text-xs font-medium -tracking-[.36px] mt-4'>{moment(new Date(Number(item.create_time))).format('DD/MM/YYYY')}</p>
+                <p className='font-[Inter] text-[#43474a] text-xs font-medium -tracking-[.36px] mt-4'>{moment(Number(item.create_time)).format('DD/MM/YYYY')}</p>
               </div>
               <div>
                 <p className='font-[Inter] text-[#a3a3a3] text-xs font-medium -tracking-[.36px]'>Users</p>

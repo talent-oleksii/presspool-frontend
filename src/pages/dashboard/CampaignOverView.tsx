@@ -24,7 +24,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   useEffect(() => {
     let grouped: any = {};
     clicked.forEach((item) => {
-      const date = moment(new Date(Number(item.create_time)));
+      const date = moment(Number(item.create_time));
       const key = date.format('DD/MM/YYYY');
       if (!grouped[key]) {
         grouped[key] = [];
@@ -80,7 +80,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
     //merge the data with CSV  
     data.forEach(function (row) {
-      csv += moment(new Date(Number(row.create_time))).format('mm-dd-yyyy') + ',';
+      csv += moment(Number(row.create_time)).format('mm-dd-yyyy') + ',';
       csv += row.url + ',';
       csv += row.demographic + ',';
       csv += `"${row.headline}",`;

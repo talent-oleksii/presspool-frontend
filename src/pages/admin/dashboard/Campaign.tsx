@@ -47,7 +47,7 @@ const AdminDashboardCampaign: FC = () => {
 
       let grouped: any = {};
       data.data.clicked.forEach((item: any) => {
-        const date = moment(new Date(Number(item.create_time)));
+        const date = moment(Number(item.create_time));
         const key = date.format('DD/MM/YYYY');
         if (!grouped[key]) {
           grouped[key] = [];
