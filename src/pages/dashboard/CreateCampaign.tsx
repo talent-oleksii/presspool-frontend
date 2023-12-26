@@ -192,6 +192,7 @@ const CreateCampaign: FC = () => {
     >
       <div className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col px-[70px] pt-[15px] pb-[26px]`}>
         {loading && <Loading />}
+        <h2 className='font-[Inter] text-[18px] font-bold my-[24px] text-center w-full'>New Campaign</h2>
         <div className='grid grid-cols-5 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]'>
           <button
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'billing' ? 'text-white' : 'text-black'}`}
@@ -231,7 +232,6 @@ const CreateCampaign: FC = () => {
           <div className={`absolute h-[50px] bg-[#2D2C2D] w-[20%] rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
 
         </div>
-        <h2 className='font-[Inter] text-[18px] font-bold mt-[24px] text-center w-full'>New Campaign</h2>
         <div className='pt-[20px]'>
           {
             currentTab === 'billing' &&

@@ -213,6 +213,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
             >
               <Dialog.Panel className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col sm:min-h-[500px] border-[1px] border-black px-[70px] pt-[15px] pb-[26px]`}>
                 {loading && <Loading />}
+                <h2 className='font-[Inter] text-[18px] 2xl:text-[24px] font-bold my-[24px] text-center w-full'>Edit Campaign</h2>
                 <button onClick={() => setShow(false)} className='absolute right-4 top-4'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
                     <path d="M13.4444 13.4444L20.5556 20.5556M20.5556 13.4444L13.4444 20.5556M17 1C29.8 1 33 4.2 33 17C33 29.8 29.8 33 17 33C4.2 33 1 29.8 1 17C1 4.2 4.2 1 17 1Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -257,7 +258,6 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                   <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/5 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
 
                 </div>
-                <h2 className='font-[Inter] text-[18px] 2xl:text-[24px] font-bold mt-[24px] text-center w-full'>Edit Campaign</h2>
                 <div className='pt-[20px] 2xl:pt-[34px]'>
                   {
                     currentTab === 'billing' &&
