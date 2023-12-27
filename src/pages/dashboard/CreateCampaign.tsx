@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import CreatableSelect from 'react-select/creatable';
 import { useDispatch, useSelector } from 'react-redux';
 import { StylesConfig } from 'react-select';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import validator from 'validator';
 import { Tooltip } from 'antd';
 
@@ -30,16 +30,19 @@ const customStyles: StylesConfig = {
 };
 
 const CreateCampaign: FC = () => {
+  const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const [currentTab, setCurrentTab] = useState('billing');
+  const [currentTab, setCurrentTab] = useState('detail');
   const [campaignName, setCampaignName] = useState('');
   const [currentTarget, setCurrentTarget] = useState('consumer');
   const [currentPrice, setCurrentPrice] = useState('10000');
-  const [audience, setAudience] = useState([]);
+  const [audience, setAudience] = useState<Array<any>>([]);
   const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
   const [uiData, setUiData] = useState<any>(undefined);
   const [url, setUrl] = useState('');
   const [currentCard, setCurrentCard] = useState('');
+  const [currentId, setCurrentId] = useState('');
+  const [templateAudience, setTemplateAudience] = useState<Array<any>>([]);
   const navigator = useNavigate();
 
   const { email } = useSelector(selectAuth);
@@ -62,8 +65,45 @@ const CreateCampaign: FC = () => {
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
+
+    const index = location.pathname.lastIndexOf('/');
+    if (index === 0 || index === location.pathname.length - 1) return;
+    const id = location.pathname.substring(index + 1);
+    setCurrentId(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (currentId.length <= 0) return;
+    setLoading(true);
+    APIInstance.get('data/campaign_detail', { params: { id: currentId } }).then(data => {
+      setCurrentTab('review');
+      setCampaignName(data.data.name);
+      setCurrentTarget(data.data.demographic);
+      setTemplateAudience(data.data.audience);
+      setCurrentPrice(data.data.price);
+      setUiData({
+        id: data.data.ui_id,
+        headline: data.data.headline,
+        body: data.data.body,
+        cta: data.data.cta,
+        image: data.data.image,
+        page_url: data.data.page_url,
+      });
+      setUrl(data.data.url);
+    }).catch(err => {
+      console.log('error:', err);
+    }).finally(() => setLoading(false));
+  }, [currentId]);
+
+  useEffect(() => {
+    setCurrentAudience(templateAudience.map((item: string) => {
+      return {
+        value: item,
+        label: audience.filter((i: any) => i.name === item).length > 0 ? audience.filter((i: any) => i.name === item)[0].name : '',
+      };
+    }));
+  }, [audience, templateAudience]);
 
   useEffect(() => {
     if (cardList.length > 0 && currentCard.length < 3) {
@@ -108,27 +148,56 @@ const CreateCampaign: FC = () => {
       return;
     }
     setLoading(true);
-    APIInstance.post('data/campaign', {
-      email, campaignName, url, currentTarget,
-      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId: uiData.id, currentCard,
-      state: 'active',
-    }).then((data) => {
-      dispatch(addCampaign({ campaign: data.data }));
-      setCurrentTab('detail');
-      setCampaignName('');
-      setCurrentTarget('consumer');
-      setCurrentPrice('10000');
-      setUiData(undefined);
-      setUrl('');
-      setCurrentAudience([]);
+    if (currentId.length <= 0) {
+      APIInstance.post('data/campaign', {
+        email, campaignName, url, currentTarget,
+        currentAudience: currentAudience.map(item => item.value), currentPrice, uiId: uiData.id, currentCard,
+        state: 'active',
+      }).then((data) => {
+        dispatch(addCampaign({ campaign: data.data }));
+        setCurrentTab('detail');
+        setCampaignName('');
+        setCurrentTarget('consumer');
+        setCurrentPrice('10000');
+        setUiData(undefined);
+        setUrl('');
+        setCurrentAudience([]);
 
-      DialogUtils.show('success', '', 'Your campaign has been submitted! Our team will review the details and notify you as soon as its live.');
-      navigator('/');
-    }).catch(err => {
-      console.log('err:', err);
-    }).finally(() => {
-      setLoading(false);
-    });
+        DialogUtils.show('success', '', 'Your campaign has been submitted! Our team will review the details and notify you as soon as its live.');
+        navigator('/');
+      }).catch(err => {
+        console.log('err:', err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    } else {
+      APIInstance.put('data/campaign_detail', {
+        type: 'all',
+        id: currentId,
+        email,
+        campaignName,
+        url,
+        currentTarget,
+        currentAudience: currentAudience.map(item => item.value),
+        currentPrice,
+        uiId: uiData.id,
+        currentCard,
+        state: 'active',
+      }).then(ret => {
+        dispatch(addCampaign({ campaign: ret.data }));
+        setCurrentTab('detail');
+        setCampaignName('');
+        setCurrentTarget('consumer');
+        setUiData(undefined);
+        setUrl('');
+        setCurrentAudience([]);
+        navigator('/');
+      }).catch(err => {
+        console.log('err:', err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    }
   }
 
   const handleSave = () => {
@@ -137,30 +206,58 @@ const CreateCampaign: FC = () => {
       return;
     }
     setLoading(true);
-    APIInstance.post('data/campaign', {
-      email,
-      campaignName,
-      url,
-      currentTarget,
-      currentAudience: currentAudience.map(item => item.value),
-      currentPrice,
-      currentCard,
-      uiId: uiData.id,
-      state: 'draft',
-    }).then((data) => {
-      dispatch(addCampaign({ campaign: data.data }));
-      setCurrentTab('detail');
-      setCampaignName('');
-      setCurrentTarget('consumer');
-      setUiData(undefined);
-      setUrl('');
-      setCurrentAudience([]);
-      navigator('/');
-    }).catch(err => {
-      console.log('err:', err);
-    }).finally(() => {
-      setLoading(false);
-    });
+    if (currentId.length <= 0) {
+      APIInstance.post('data/campaign', {
+        email,
+        campaignName,
+        url,
+        currentTarget,
+        currentAudience: currentAudience.map(item => item.value),
+        currentPrice,
+        currentCard,
+        uiId: uiData.id,
+        state: 'draft',
+      }).then((data) => {
+        dispatch(addCampaign({ campaign: data.data }));
+        setCurrentTab('detail');
+        setCampaignName('');
+        setCurrentTarget('consumer');
+        setUiData(undefined);
+        setUrl('');
+        setCurrentAudience([]);
+        navigator('/');
+      }).catch(err => {
+        console.log('err:', err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    } else {
+      APIInstance.put('data/campaign_detail', {
+        type: 'all',
+        id: currentId,
+        email,
+        campaignName,
+        url,
+        currentTarget,
+        currentAudience: currentAudience.map(item => item.value),
+        currentPrice,
+        uiId: uiData.id,
+        currentCard,
+      }).then(ret => {
+        dispatch(addCampaign({ campaign: ret.data }));
+        setCurrentTab('detail');
+        setCampaignName('');
+        setCurrentTarget('consumer');
+        setUiData(undefined);
+        setUrl('');
+        setCurrentAudience([]);
+        navigator('/');
+      }).catch(err => {
+        console.log('err:', err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    }
   };
 
   const handleAddCard: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
@@ -168,7 +265,7 @@ const CreateCampaign: FC = () => {
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: 'https://go.presspool.ai/new',
+      return_url: `https://go.presspool.ai/new/${currentId}`,
     });
 
     window.location.href = session.url + '/payment-methods';
@@ -176,11 +273,61 @@ const CreateCampaign: FC = () => {
   };
 
   const getOffsetBack = () => {
-    if (currentTab === 'billing') return 'left-1';
-    if (currentTab === 'detail') return 'left-[20%]';
-    if (currentTab === 'audience') return 'left-[40%]';
-    if (currentTab === 'budget') return 'left-[60%]';
-    if (currentTab === 'review') return 'left-[79%]';
+    // if (currentTab === 'billing') return 'left-1';
+    if (currentTab === 'detail') return 'left-1';
+    if (currentTab === 'audience') return 'left-[25%]';
+    if (currentTab === 'budget') return 'left-[50%]';
+    if (currentTab === 'review') return 'left-[74%]';
+  };
+
+  const handleBeforeReview: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+
+    if (!uiData) {
+      alert('There is not UI assigned for this Campaign, Please save your UI first');
+      return;
+    }
+    setLoading(true);
+    if (currentId.length <= 0) {
+      APIInstance.post('data/campaign', {
+        email,
+        campaignName,
+        url,
+        currentTarget,
+        currentAudience: currentAudience.map(item => item.value),
+        currentPrice,
+        // currentCard,
+        uiId: uiData.id,
+        state: 'draft',
+      }).then((data) => {
+        setCurrentId(data.data.id);
+        setCurrentTab('review');
+      }).catch(err => {
+        console.log('err:', err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    } else {
+      APIInstance.put('data/campaign_detail', {
+        type: 'all',
+        id: currentId,
+        email,
+        campaignName,
+        url,
+        currentTarget,
+        currentAudience: currentAudience.map(item => item.value),
+        currentPrice,
+        uiId: uiData.id,
+        currentCard,
+      }).then(ret => {
+        console.log('ret:', ret.data);
+        setCurrentTab('review');
+      }).catch(err => {
+        console.log('err:', err);
+      }).finally(() => {
+        setLoading(false);
+      });
+    }
   };
 
   return (
@@ -193,14 +340,14 @@ const CreateCampaign: FC = () => {
       <div className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col px-[70px] pt-[15px] pb-[26px]`}>
         {loading && <Loading />}
         <h2 className='font-[Inter] text-[18px] font-bold my-[24px] text-center w-full'>New Campaign</h2>
-        <div className='grid grid-cols-5 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]'>
-          <button
+        <div className='grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]'>
+          {/* <button
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'billing' ? 'text-white' : 'text-black'}`}
             onClick={handleClick}
             id="billing"
           >
             Billing
-          </button>
+          </button> */}
           <button
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'detail' ? 'text-white' : 'text-black'}`}
             onClick={handleClick}
@@ -229,11 +376,11 @@ const CreateCampaign: FC = () => {
           >
             Review
           </button>
-          <div className={`absolute h-[50px] bg-[#2D2C2D] w-[20%] rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
+          <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/4 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
 
         </div>
         <div className='pt-[20px]'>
-          {
+          {/* {
             currentTab === 'billing' &&
             <motion.div
               variants={FADE_RIGHT_ANIMATION_VARIANTS}
@@ -281,7 +428,7 @@ const CreateCampaign: FC = () => {
                 </button>
               </div>
             </motion.div>
-          }
+          } */}
           {
             currentTab === 'detail' &&
             <motion.div
@@ -437,7 +584,7 @@ const CreateCampaign: FC = () => {
               <div className='mt-[35px] text-center w-full'>
                 <button
                   className='rounded-[5px] bg-[#7FFBAE] px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm'
-                  onClick={() => setCurrentTab('review')}
+                  onClick={handleBeforeReview}
                   disabled={Number(currentPrice) < 10000}
                 >
                   Next Step
@@ -465,7 +612,7 @@ const CreateCampaign: FC = () => {
               }
               <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
               <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>Billing is simple: weekly or when your account's threshold is reached.</p>
-              {/* <div className='w-full flex mt-[17px]'>
+              <div className='w-full flex mt-[17px]'>
                 <div className='flex-1 me-[18px]'>
                   <button
                     className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
@@ -492,12 +639,12 @@ const CreateCampaign: FC = () => {
                       ))
                     }
                   </select>
-                  <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button>
+                  {/* <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button> */}
                 </div>
-              </div> */}
+              </div>
               <div className='w-full text-center mt-[50px]'>
                 {
-                  currentAudience.length >= 1 && currentPrice.length > 3 &&
+                  currentAudience.length >= 1 && Number(currentPrice) >= 10000 &&
                   <button className='rounded-[5px] text-black bg-[#7FFBAE] px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
                     disabled={!isSubmitable()}
                     onClick={handleSubmit}

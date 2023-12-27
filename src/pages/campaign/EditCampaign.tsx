@@ -37,7 +37,7 @@ const customStyles: StylesConfig = {
 
 const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: typeEditCampaign) => {
   const [loading, setLoading] = useState(false);
-  const [currentTab, setCurrentTab] = useState('billing');
+  const [currentTab, setCurrentTab] = useState('detail');
   const [campaignName, setCampaignName] = useState('');
   const [currentTarget, setCurrentTarget] = useState('consumer');
   const [currentPrice, setCurrentPrice] = useState('10000');
@@ -78,7 +78,6 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   }, [cardList]);
 
   useEffect(() => {
-    console.log('data:', data);
     if (data) {
       setCurrentTab('detail');
       setCampaignName(data.name);
@@ -103,7 +102,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   }, [data]);
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
-    if (e.target.id !== 'billing' && !currentCard) return;
+    // if (e.target.id !== 'billing' && !currentCard) return;
     setCurrentTab(e.target.id);
   };
 
@@ -131,7 +130,8 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
     APIInstance.put('data/campaign_detail', {
       id: data.id, type: 'all',
       email, campaignName, url, currentTarget, currentCard,
-      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId
+      currentAudience: currentAudience.map(item => item.value), currentPrice, uiId,
+      state: 'active',
     }).then(ret => {
       dispatch(updateCampaign({ id: data.id, data: ret.data }));
       setShow(false);
@@ -190,11 +190,11 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
   };
 
   const getOffsetBack = () => {
-    if (currentTab === 'billing') return 'left-1';
-    if (currentTab === 'detail') return 'left-[20%]';
-    if (currentTab === 'audience') return 'left-[40%]';
-    if (currentTab === 'budget') return 'left-[60%]';
-    if (currentTab === 'review') return 'left-[79%]';
+    // if (currentTab === 'billing') return 'left-1';
+    if (currentTab === 'detail') return 'left-1';
+    if (currentTab === 'audience') return 'left-[25%]';
+    if (currentTab === 'budget') return 'left-[50%]';
+    if (currentTab === 'review') return 'left-[74%]';
   };
 
   return (
@@ -219,14 +219,14 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                     <path d="M13.4444 13.4444L20.5556 20.5556M20.5556 13.4444L13.4444 20.5556M17 1C29.8 1 33 4.2 33 17C33 29.8 29.8 33 17 33C4.2 33 1 29.8 1 17C1 4.2 4.2 1 17 1Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
-                <div className='grid grid-cols-5 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]'>
-                  <button
+                <div className='grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]'>
+                  {/* <button
                     className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'billing' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
                     id="billing"
                   >
                     Billing
-                  </button>
+                  </button> */}
                   <button
                     className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'detail' ? 'text-white' : 'text-black'}`}
                     onClick={handleClick}
@@ -255,7 +255,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                   >
                     Review
                   </button>
-                  <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/5 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
+                  <div className={`absolute h-[50px] bg-[#2D2C2D] w-1/4 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`} />
 
                 </div>
                 <div className='pt-[20px] 2xl:pt-[34px]'>
@@ -490,7 +490,7 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                       }
                       <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
                       <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>Billing is simple: weekly or when your account's threshold is reached.</p>
-                      {/* <div className='w-full flex mt-[17px]'>
+                      <div className='w-full flex mt-[17px]'>
                         <div className='flex-1 me-[18px]'>
                           <button
                             className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
@@ -516,8 +516,8 @@ const EditCampaign: FC<typeEditCampaign> = ({ data, show, setShow, afterAdd }: t
                             ))
                           }
                         </select>
-                        <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button>
-                      </div> */}
+                        {/* <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button> */}
+                      </div>
                       <div className='w-full text-center mt-[50px]'>
                         {
                           currentAudience.length >= 1 && currentPrice &&

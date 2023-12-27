@@ -16,7 +16,7 @@ const EditCampaignUI = forwardRef((props: typeEditCampaignUI, ref) => {
 
   const [headLine, setHeadLine] = useState('');
   const [body, setBody] = useState('');
-  const [cta, setCta] = useState('headLine');
+  const [cta, setCta] = useState('');
   const [image, setImage] = useState<any>(null);
   const [file, setFile] = useState<any>('');
   const [pageUrl, setPageUrl] = useState('');

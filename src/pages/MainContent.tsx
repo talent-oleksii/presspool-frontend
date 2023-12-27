@@ -302,7 +302,7 @@ const MainContent: FC = () => {
           <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[230px]'>
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />
-              <Route path="/new" element={<CreateCampaign />} />
+              <Route path="/new/*" element={<CreateCampaign />} />
               <Route path="/detail" element={<Detail />} />
               <Route path="/billing" element={<Billing />} />
               <Route path="/support" element={<Support />} />
