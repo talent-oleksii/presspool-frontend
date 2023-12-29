@@ -30,7 +30,6 @@ const Profile: FC = () => {
   useEffect(() => {
     setLoading(true);
     APIInstance.get('data/profile', { params: { email } }).then(data => {
-      console.log('dat:', data.data);
       setImage(data.data.profile.avatar);
       setDate(moment(Number(data.data.profile.create_time)).format('DD MMM, yyyy'));
       setTeamData(data.data.teamData);
