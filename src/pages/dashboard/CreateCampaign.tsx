@@ -607,7 +607,7 @@ const CreateCampaign: FC = () => {
                   <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Max Budget:</span>{`$${currentPrice}`}</p>
                   <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Target Audience Demographic:</span>{currentTarget === 'consumer' ? 'Consumers' : 'Professional'}</p>
                   <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Target Audience Tags:</span>{currentAudience.map((item: any) => item.label).join(', ')}</p>
-                  <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Payment Method:</span>{`**** **** **** ${cardList.filter(item => item.card_id === currentCard)[0].last4}`}</p>
+                  {/* <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Payment Method:</span>{`**** **** **** ${cardList.filter(item => item.card_id === currentCard)[0].last4}`}</p> */}
                 </div>
               }
               <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>

@@ -124,8 +124,8 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         customer: customerId,
         mode: "payment",
         line_items: [{ price: newPrice.id, quantity: 1 }],
-        success_url: 'http://localhost:3000/campaign/all',
-        cancel_url: 'http://localhost:3000/campaign/all',
+        success_url: 'https://go.presspool.ai/campaign/all',
+        cancel_url: 'https://go.presspool.ai/campaign/all',
         payment_intent_data: {
           metadata: {
             state: 'unbilled',
