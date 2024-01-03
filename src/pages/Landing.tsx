@@ -43,12 +43,12 @@ const Landing: FC = () => {
                 <div className='flex items-center justify-center mt-[15px]'>
                     {!isAuthenticated ?
                         <>
-                            <Link className='flex flex-col font-bold text-black px-[92px] py-[20px] 2xl:py-[40px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md' to="client-sign-up">
+                            <Link className='flex flex-col font-bold text-black px-[105px] py-[25px] 2xl:py-[40px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md' to="client-sign-up">
                                 <img alt="creator" src={Company} className='h-[40px] 2xl:h-[50px]' />
                                 <p className='mb-0 mt-[9px]'>I'm a</p>
                                 <p className='mb-0 -mt-1'>Company</p>
                             </Link>
-                            <button className='flex flex-col font-bold text-black px-[92px] py-[20px] 2xl:py-[40px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md'>
+                            <button className='flex flex-col font-bold text-black px-[110px] py-[25px] 2xl:py-[40px] text-sm 2xl:text-base items-center justify-center mx-[10px] bg-white rounded-[20px] shadow-md'>
                                 <img alt="creator" src={Creator} className='h-[40px] 2xl:h-[50px]' />
                                 <p className='mb-0 mt-[9px]'>I'm a</p>
                                 <p className='mb-0 -mt-1'>Creator</p>
@@ -85,7 +85,7 @@ const Landing: FC = () => {
                     </div>
                     <div className='flex items-center justify-center'>
                         <Carousel
-                            className='mt-[15px] w-[500px]'
+                            className='mt-[15px] w-[550px]'
                             showStatus={false}
                             showThumbs={false}
                             animationHandler="slide"
@@ -93,13 +93,13 @@ const Landing: FC = () => {
                             showArrows={false}
                             showIndicators={false}
                         >
-                            <div className='w-[500px]'>
+                            <div className='w-[550px]'>
                                 <img src={Precise} alt="..." className='rounded-[5px]' />
                             </div>
-                            <div className='w-[500px]'>
+                            <div className='w-[550px]'>
                                 <img src={Launch} alt="..." className='rounded-[5px]' />
                             </div>
-                            <div className='w-[500px]'>
+                            <div className='w-[550px]'>
                                 <img src={Seamless} alt="..." className='rounded-[5px]' />
                             </div>
                         </Carousel>
