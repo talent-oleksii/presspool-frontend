@@ -77,7 +77,8 @@ const CreateCampaign: FC = () => {
     if (currentId.length <= 0) return;
     setLoading(true);
     APIInstance.get('data/campaign_detail', { params: { id: currentId } }).then(data => {
-      setCurrentTab('review');
+      if (location.pathname.includes('new')) setCurrentTab('review');
+      else if (location.pathname.includes('edit')) setCurrentTab('detail');
       setCampaignName(data.data.name);
       setCurrentTarget(data.data.demographic);
       setTemplateAudience(data.data.audience);
@@ -191,6 +192,8 @@ const CreateCampaign: FC = () => {
         setUiData(undefined);
         setUrl('');
         setCurrentAudience([]);
+
+        DialogUtils.show('success', '', 'Your campaign has been submitted! Our team will review the details and notify you as soon as its live.');
         navigator('/');
       }).catch(err => {
         console.log('err:', err);

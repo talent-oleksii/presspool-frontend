@@ -4,6 +4,7 @@ import { Tooltip } from 'antd';
 import validator from 'validator';
 
 import SampleLogo from '../../assets/logo/logo.png';
+import ALogoImage from '../../assets/icon/alogo.png';
 
 import APIInstance from '../../api';
 import { selectAuth } from '../../store/authSlice';
@@ -226,27 +227,30 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       </div>
       <div className='col-span-1 bg-[#43434A] h-full sm:max-h-[80vh] overflow-hidden relative flex flex-col items-center bg-[#43474A] rounded-[5px] px-2 py-4'>
         {/* Content for Campaign */}
-        <div className='bg-[#D1CEFF] w-full flex items-center justify-center py-3 rounded-[14px]'>
-          <p className='text-black border-black border-[5px] p-3 text-2xl 2xl:text-lg font-bold'>ALOGO</p>
+        <div className='bg-[#D1CEFF] w-full flex items-center justify-center rounded-[14px] mt-2'>
+          {/* <p className='text-black border-black border-[5px] p-3 text-2xl 2xl:text-lg font-bold'>ALOGO</p> */}
+          <img alt="alogo" src={ALogoImage} className='h-[100px]' />
         </div>
 
-        <p className='text-gray-200 my-4 text-sm'>
+        <p className='text-gray-200 my-4 text-xs font-normal'>
           Happy Friday AI legends,
-          <br />
+          <br /><br />
           Today we are diving deep into some of the newest AI solutions that are taking place this week.
-          <br />
+          <br /><br />
           With GPT’s just being released, the excitement has continued to grow at an unprecedented rate for AI products and solutions that are reshaping how consumers and executives alike do their work better, faster and easier.
         </p>
         <div className='bg-white z-10 w-full rounded-[14px] flex flex-col h-full'>
           <div className='flex-1'>
             <div className='py-4 px-2 flex items-center justify-center'>
-              <img src={!image ? SampleLogo : image} alt="sample logo" className='h-[30px] object-cover' />
+              <img src={!image ? SampleLogo : image} alt="sample logo" className='h-[140px] object-cover' />
             </div>
-            <div className='py-3 px-2 flex flex-col items-center justify-center'>
-              <h2 className='w-full text-left font-bold font-[Inter] text-md break-words'>{headLine}</h2>
-              <p className='mt-4 w-full text-left font-[Inter] text-gray-500 text-sm break-words'>{body}</p>
-              <div className='mt-4 flex justify-between w-full items-center'>
-                <button className='font-[Inter] text-gray-500 px-4 py-2 rounded border-[1px] text-sm font-medium'>{cta}</button>
+            <div className='pb-2 px-2 flex flex-col items-center justify-between'>
+              <div>
+                <h2 className='w-full text-left font-bold font-[Inter] text-base break-words'>{headLine}</h2>
+                <p className='mt-2 w-full text-left font-[Inter] text-black text-xs break-words'>{body}</p>
+              </div>
+              <div className='mt-8 flex justify-between w-full items-center'>
+                <button className='font-[Inter] text-gray-500 px-4 py-2 rounded-[5px] border-[1px] text-sm font-medium border-[#D1CEFF]'>{cta}</button>
               </div>
             </div>
           </div>

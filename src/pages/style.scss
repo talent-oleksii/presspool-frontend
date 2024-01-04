@@ -4,3 +4,10 @@
     background: #FBFBFB !important;
     padding: .5rem .5rem .5rem .5rem;
   }
+
+  .select-campaign {
+    .ant-select-selector {
+      padding: .5rem .5rem .5rem .5rem;
+      border-radius: 10px;
+    }
+  }
