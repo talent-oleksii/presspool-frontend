@@ -42,8 +42,13 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
 
-  const getTotalImpression = () => {
-    return 0;
+  const getUniqueClicks = () => {
+    let click = 0;
+
+    for (const item of data) {
+      click += Number(item.unique_clicks);
+    }
+    return click;
   };
 
   const getActiveCampaigns = () => {
@@ -62,7 +67,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   const getTotalSpend = () => {
     let spend = 0;
     for (const item of data) {
-      spend += (item.demographic === 'consumer' ? 8 : 20) * Number(item.click_count);
+      spend += (item.demographic === 'consumer' ? 8 : 20) * Number(item.unique_clicks);
     }
 
     return spend;
@@ -152,14 +157,14 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalImpression()}</h2>
-          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Impressions</p>
+          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalClick()}</h2>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Clicks</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalClick()}</h2>
-          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Clicks</p>
+          <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getUniqueClicks()}</h2>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Unique Clicks</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
