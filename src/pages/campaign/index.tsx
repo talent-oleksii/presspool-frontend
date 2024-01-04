@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion } from "framer-motion";
 import { Collapse } from 'antd';
+import { Link } from 'react-router-dom';
 
 import { selectAuth } from '../../store/authSlice';
 import { selectData, updateCampaign } from '../../store/dataSlice';
@@ -9,13 +10,10 @@ import { selectData, updateCampaign } from '../../store/dataSlice';
 import APIInstance from '../../api';
 import Loading from '../../components/Loading';
 import DialogUtils from '../../utils/DialogUtils';
-import EditCampaign from './EditCampaign';
 
 import { FADE_UP_ANIMATION_VARIANTS } from '../../utils/TransitionConstants';
 
 const Campaign: FC = () => {
-  const [showEdit, setShowEdit] = useState(false);
-  const [currentData, setCurrentData] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState('');
   const { company } = useSelector(selectAuth);
@@ -120,21 +118,27 @@ const Campaign: FC = () => {
                       <h2 className='font-[Inter] text-black mt-[8px] font-semibold text-base -tracking-[.42px]'>{item.headline}</h2>
                       <p className='text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]'>Description</p>
                       <p className='text-black font-[Inter] font-medium text-sm mt-[8px]'>{item.body}</p>
-                      <p className='text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]'>Audiences</p>
-                      <p className='text-black font-[Inter] font-normal text-sm mt-[8px]'>{item.audience.join(',')}</p>
-                    </div>
-                  </div>
-                  <div className='mt-[16px] flex items-center justify-end w-full'>
-                    <button
-                      className='bg-[#6c63ff] px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs'
-                      onClick={() => {
-                        setCurrentData({ ...item });
-                        setShowEdit(true);
-                      }}
-                    >
-                      Edit Campaign
-                    </button>
-                    {
+                      <p className='text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]'>Landing Page Link</p>
+                      <p className='text-[#6C63FF] font-[Inter] font-medium text-sm mt-[8px]'>{item.page_url}</p>
+                      <div className='flex items-center justify-between w-full'>
+                        <div className='w-auto'>
+                          <p className='text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]'>Audience Tags</p>
+                          <p className='text-black font-[Inter] font-medium text-sm mt-[8px] -tracking-[.47px]'>{item.audience.join(',')}</p>
+                        </div>
+                        <div className='mt-[16px] flex items-center justify-end w-full'>
+                          <Link
+                            to={`/edit/${item.id}`}
+                            className='px-4 py-2 rounded text-[#6c63ff] font-semibold font-[Inter] text-[10px] 2xl:text-xs'
+                          >
+                            Raise Budget
+                          </Link>
+                          <Link
+                            to={`/edit/${item.id}`}
+                            className='bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs'
+                          >
+                            Edit Campaign
+                          </Link>
+                          {/* {
                       item.state !== 'paused' ?
                         <button
                           className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-[10px] 2xl:text-xs'
@@ -148,8 +152,12 @@ const Campaign: FC = () => {
                         >
                           Start
                         </button>
-                    }
+                    } */}
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                 </div>
               )
             }]}
@@ -158,11 +166,11 @@ const Campaign: FC = () => {
         }
       </div>
 
-      <EditCampaign
+      {/* <EditCampaign
         show={showEdit}
         setShow={(show: boolean) => setShowEdit(show)}
         data={currentData}
-      />
+      /> */}
     </motion.div>
   );
 };

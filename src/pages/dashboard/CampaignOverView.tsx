@@ -9,6 +9,8 @@ import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
 import StripeUtil from '../../utils/stripe';
 
+import DownloadImage from '../../assets/icon/download.png';
+
 const data01: Array<any> = [];
 
 interface typeOverView {
@@ -16,7 +18,7 @@ interface typeOverView {
 }
 
 const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
-  const [chartData, setChartData] = useState<any>();
+  const [chartData, setChartData] = useState<Array<any>>([]);
   const [loading, setLoading] = useState(false);
   const { clicked } = useSelector(selectData);
   const { email } = useSelector(selectAuth);
@@ -145,19 +147,19 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
       <div className='mt-[11px] rounded-[10px] grid grid-cols-4 gap-[16px]'>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getActiveCampaigns()}</h2>
-          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Active Campaigns</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Active Campaigns</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalImpression()}</h2>
-          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Impressions</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Impressions</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
         <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{getTotalClick()}</h2>
-          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Clicks</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Clicks</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
         </div>
@@ -166,7 +168,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
             <span>{`$${getTotalSpend()}`}</span>
             {/* <span className={` / ${getUnbilled() > 0 ? 'text-[red]' : 'text-black'}`}>{`$${getUnbilled()}`}</span> */}
           </h2>
-          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend</p>
+          <p className='text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Spend</p>
           <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
           <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
 
@@ -191,24 +193,32 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
       </div>
 
       <div className='my-[14px] p-[25px] min-h-[250px] rounded-[10px] bg-white shadow-md'>
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-baseline'>
           <div>
             <h2 className='font-[Inter] text-base 2xl:text-lg font-semibold'>All Campaigns</h2>
             <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 
-          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-sm 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
-            Download as CSV
-          </button> */}
+          <button className='border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-sm font-medium border-black rounded-lg' onClick={handleDownloadCSV}>
+            <img src={DownloadImage} className='w-[12px] me-2 -ms-1' alt="download" />
+            Download PDF
+          </button>
         </div>
 
         <div className='flex relative'>
-          <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
-            <Line type="linear" dataKey="click" stroke="#7F8182" />
-            <Line type="linear" dataKey="impression" stroke="black" />
-            <XAxis dataKey="date" />
-            <YAxis />
-          </LineChart>
+          <div className='w-[700px] h-[200px] flex items-center justify-center'>
+            {chartData.length > 0 &&
+              <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
+                <Line type="linear" dataKey="click" stroke="#7F8182" />
+                <Line type="linear" dataKey="impression" stroke="black" />
+                <XAxis dataKey="date" />
+                <YAxis />
+              </LineChart>
+            }
+            {chartData.length <= 0 &&
+              <p className='font-[Inter] mt-4 text-sm'>No active data yet.</p>
+            }
+          </div>
           <div className='absolute right-[20px] top-0'>
             <p className='font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2'>Total Impressions</p>
             <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2 font-semibold'>Total Clicks</p>

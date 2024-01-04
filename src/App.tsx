@@ -17,7 +17,8 @@ const App: FC = () => {
     <ConfigProvider
       theme={{
         token: {
-          fontFamily: "Inter"
+          fontFamily: "Inter",
+          fontWeightStrong: 500,
         }
       }}
     >

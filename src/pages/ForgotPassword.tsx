@@ -133,7 +133,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                       type='email'
                       onChange={e => setEmail(e.target.value)}
                     />
-                    <button className='mt-[20px] flex items-center justify-center text-sm text-white bg-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToVerify}>Next Step</button>
+                    <button className='mt-[20px] flex items-center justify-center text-sm bg-[#7ffbae] text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToVerify}>Continue</button>
                   </motion.div>
                 }
                 {
@@ -169,7 +169,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                         />
                       ))}
                     </div>
-                    <button className='mt-[20px] flex items-center justify-center text-sm text-white bg-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToFinal}>Continue</button>
+                    <button className='mt-[20px] flex items-center justify-center text-sm bg-[#7ffbae] text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToFinal}>Continue</button>
                   </motion.div>
                 }
                 {
@@ -204,7 +204,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                       value={confirmPassword}
                       onChange={e => setConfirmPassword(e.target.value)}
                     />
-                    <button className='mt-[20px] flex items-center justify-center text-sm text-white bg-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleSubmit}>Submit</button>
+                    <button className='mt-[20px] flex items-center justify-center text-sm bg-[#7ffbae] text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleSubmit}>Submit</button>
                   </motion.div>
                 }
               </Dialog.Panel>

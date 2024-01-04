@@ -123,7 +123,7 @@ const CreateCampaign: FC = () => {
 
   const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e: any) => {
     // if (e.target.id === 'detail' && uiId) return;
-    if (e.target.id !== 'billing' && !currentCard) return;
+    // if (e.target.id !== 'billing' && !currentCard) return;
     setCurrentTab(e.target.id);
   };
 
@@ -265,7 +265,7 @@ const CreateCampaign: FC = () => {
 
     const session = await StripeUtil.stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: `https://go.presspool.ai/new/${currentId}`,
+      return_url: `https://go.presspool.ai/${location.pathname.includes('new') ? 'new' : 'edit'}/${currentId}`,
     });
 
     window.location.href = session.url + '/payment-methods';
@@ -301,7 +301,8 @@ const CreateCampaign: FC = () => {
         state: 'draft',
       }).then((data) => {
         setCurrentId(data.data.id);
-        setCurrentTab('review');
+        if (location.pathname.includes('new')) setCurrentTab('review');
+        else if (location.pathname.includes('edit')) setCurrentTab('detail');
       }).catch(err => {
         console.log('err:', err);
       }).finally(() => {

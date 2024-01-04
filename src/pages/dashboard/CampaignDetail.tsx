@@ -8,6 +8,8 @@ import Loading from '../../components/Loading';
 import { useSelector } from 'react-redux';
 import { selectData } from '../../store/dataSlice';
 
+import DownloadImage from '../../assets/icon/download.png';
+
 const data01: Array<any> = [];
 
 interface typeCampaignDetail {
@@ -15,9 +17,11 @@ interface typeCampaignDetail {
 }
 
 const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
-  const [data, setData] = useState<any>(undefined);
+  const [data, setData] = useState<any>({
+    click_count: 0,
+  });
   const [loading, setLoading] = useState(false);
-  const [chartData, setChartData] = useState<any>();
+  const [chartData, setChartData] = useState<Array<any>>([]);
   const { clicked } = useSelector(selectData);
 
   useEffect(() => {
@@ -45,32 +49,35 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     }).finally(() => setLoading(false));
   }, [id, clicked]);
 
+  const handleDownloadCSV = () => {
+  };
+
   return (
-    <div className='relative'>
+    <div className='relative min-w-screen h-full'>
       {loading && <Loading />}
-      {!loading && data && <>
+      <>
         <div className='mt-[11px] rounded-[10px] grid grid-cols-4 gap-[16px]'>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>0</h2>
-            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Impressions</p>
+            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Impressions</p>
             <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{data.click_count}</h2>
-            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Clicks</p>
+          <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white shadow-md'>
+            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{data.click_count || '0'}</h2>
+            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Clicks</p>
             <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${Number(data.click_count) * (data.demographic === 'consumer' ? 8 : 20)}`}</h2>
-            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>Total Spend</p>
+          <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white shadow-md'>
+            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${Number(data.click_count || '0') * (data.demographic === 'consumer' ? 8 : 20)}`}</h2>
+            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>Total Spend</p>
             <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from $0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.demographic === 'consumer' ? 8 : 20}`}</h2>
-            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A]'>AVG CPC</p>
+          <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white shadow-md'>
+            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${(data.demographic || 'consumer') === 'consumer' ? 8 : 20}`}</h2>
+            <p className='text-[10px] 2xl:text-xs font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold'>AVG CPC</p>
             <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from $0 (last 4 weeks)</p>
           </div>
@@ -80,25 +87,33 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <div className='flex justify-between items-center'>
             <div>
               <h2 className='font-[Inter] text-base 2xl:text-lg font-semibold'>
-                {data.name}
+                {data.name || ''}
               </h2>
 
-              <span className='text-xs'>{`https://go.presspool.ai/cul/${data.uid}`}</span>
+              {/* <span className='text-xs'>{`https://go.presspool.ai/cul/${data.uid || 1}`}</span> */}
               <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let's see how your campaign is performing</p>
 
             </div>
-            <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-sm font-semibold border-[#7f8182]'>
-              Download as PDF
+            <button className='border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-sm font-medium border-black rounded-lg' onClick={handleDownloadCSV}>
+              <img src={DownloadImage} className='w-[12px] me-2 -ms-1' alt="download" />
+              Download PDF
             </button>
           </div>
 
           <div className='flex relative'>
-            <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
-              <Line type="linear" dataKey="click" stroke="#7F8182" />
-              <Line type="linear" dataKey="impression" stroke="black" />
-              <XAxis dataKey="date" />
-              <YAxis />
-            </LineChart>
+            <div className='w-[700px] h-[200px] flex items-center justify-center'>
+              {chartData.length > 0 &&
+                <LineChart width={700} height={200} data={chartData} className='mt-[50px] w-full'>
+                  <Line type="linear" dataKey="click" stroke="#7F8182" />
+                  <Line type="linear" dataKey="impression" stroke="black" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                </LineChart>
+              }
+              {chartData.length <= 0 &&
+                <p className='font-[Inter] mt-4 text-sm'>No active data yet.</p>
+              }
+            </div>
             <div className='p-4 absolute right-[20px] top-0'>
               <p className='font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2'>Total Impressions</p>
               <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2 font-semibold'>Total Clicks</p>
@@ -164,7 +179,6 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <p className='font-[Inter] mt-4 text-sm'>No data is available. Please create and launch your first campaign</p>
         </div>
       </>
-      }
     </div>
   );
 };

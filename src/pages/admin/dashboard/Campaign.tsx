@@ -225,14 +225,14 @@ const AdminDashboardCampaign: FC = () => {
           </button>
         </div>
       }
-      {
+      {/* {
         data.state &&
         <EditCampaign
           show={showEdit}
           setShow={(show: boolean) => setShowEdit(show)}
           data={data}
         />
-      }
+      } */}
     </div>
   );
 };

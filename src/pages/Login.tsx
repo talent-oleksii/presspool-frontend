@@ -84,22 +84,22 @@ const Login: FC = () => {
                             <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
                         </div>
                     </div>
-                    <div className="mt-8 flex">
+                    <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
                         <div className="text-left">
-                            <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients/campaigns</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Access your assigned Clients and their<br />campaigns all in one place</p>
+                            <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
+                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
                         </div>
                     </div>
-                    <div className="mt-8 flex">
+                    <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">The more campaigns you manage<br />successfully, the more money you can<br />make by increasing your Client’s spend</p>
+                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className="mb-4">
                     <p className="font-[Inter] text-sm -tracking-[.24px] text-left">
                         "Was a game-changer, helping me generate sign-<br />ups and connect with a highly targeted audience. It's<br />the secret weapon that boosted our awareness as a<br />new player in the market."
                     </p>
@@ -131,12 +131,12 @@ const Login: FC = () => {
                                 type="email"
                                 placeholder="Enter here..."
                                 onChange={handleChange}
-                                className="w-full border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
+                                className="w-full border-[#7F8182] bg-transparent border-[1px] mt-2 rounded-[10px] px-4 py-2"
                             />
                         </div>
                         <div>
-                            <label className="font-[Inter] block text-base font-medium mt-[18px] -tracking-[.508px]">Password</label>
-                            <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4">
+                            <label className="font-[Inter] block text-base font-medium mt-4 -tracking-[.508px]">Password</label>
+                            <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-2 rounded-[10px] px-4">
                                 <input
                                     id="password"
                                     name="password"
@@ -154,13 +154,13 @@ const Login: FC = () => {
                             </div>
                         </div>
                         <div className="w-full text-right">
-                            <div className="font-[Inter] text-[#6c63ff] text-base 2xl:text-[17px] mt-[22px] underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
+                            <div className="font-[Inter] text-black text-base 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
                         </div>
-                        <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-[white] mt-[32px]">Log In</button>
+                        <button className="rounded-[6px] bg-[#7FFBAE] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-black mt-[32px] font-semibold">Log In</button>
 
-                        <p className="mt-[35px] font-[Inter] text-black text-[19px] flex items-center justify-center -tracking-[.574px]">
+                        <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
                             Don't have an account?
-                            <Link className="block text-center text-[#6c63ff] ms-1" to="/">Sign Up</Link>
+                            <Link className="block text-center text-black ms-1 underline" to="/">Sign Up</Link>
                         </p>
                     </form>
                 </div>

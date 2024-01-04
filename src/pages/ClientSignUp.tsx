@@ -86,22 +86,22 @@ const ClientSignUp: FC = () => {
                             <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
                         </div>
                     </div>
-                    <div className="mt-8 flex">
+                    <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
                         <div className="text-left">
-                            <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients/campaigns</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Access your assigned Clients and their<br />campaigns all in one place</p>
+                            <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
+                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
                         </div>
                     </div>
-                    <div className="mt-8 flex">
+                    <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">The more campaigns you manage<br />successfully, the more money you can<br />make by increasing your Client’s spend</p>
+                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className="mb-4">
                     <p className="font-[Inter] text-sm -tracking-[.24px] text-left">
                         "Was a game-changer, helping me generate sign-<br />ups and connect with a highly targeted audience. It's<br />the secret weapon that boosted our awareness as a<br />new player in the market."
                     </p>
@@ -120,8 +120,8 @@ const ClientSignUp: FC = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="47" height="44" viewBox="0 0 47 44" fill="none">
                             <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <h2 className='font-[Inter] font-semibold text-[40px] mt-[26px] -tracking-[1.2px]'>Welcome</h2>
-                        <p className='font-[Inter] text-base text-center -tracking-[.54px] font-medium text-[#444545] mt-[10px]'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
+                        <h2 className='font-[Inter] font-semibold text-[40px] mt-4 -tracking-[1.2px]'>Welcome Back</h2>
+                        <p className='font-[Inter] text-base text-center -tracking-[.54px] font-medium text-[#797979] mt-1'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
                     </div>
 
                     <form className="text-left mt-[30px]" onSubmit={handleSubmit}>
@@ -136,7 +136,7 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Enter here...'
                             type="text"
-                            className="w-full border-[1px] bg-transparent border-black mt-[12px] mb-[18px] rounded-[9.6px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
                         />
                         <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
                             Company Name
@@ -149,7 +149,7 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Enter here...'
                             type="text"
-                            className="w-full border-[1px] bg-transparent border-black mt-[12px] mb-[18px] rounded-[9.6px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
                         />
                         <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
                             Email Address
@@ -162,13 +162,13 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Enter here...'
                             type="email"
-                            className="w-full border-[1px] bg-transparent border-black mt-[12px] mb-[18px] rounded-[9.6px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
                         />
                         <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
                             Password
                             {formData.password.length > 0 && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red] text-xs'>* Your password is not secure</span>}
                         </label>
-                        <div className='w-full border-[1px] bg-transparent border-black rounded-[9.6px] px-4 flex mt-[12px]'>
+                        <div className='w-full border-[1px] bg-transparent border-[#797979] rounded-[9.6px] px-4 flex mt-2'>
                             <input
                                 id='password'
                                 name='password'
@@ -180,32 +180,32 @@ const ClientSignUp: FC = () => {
                             />
                             <button onClick={handleShowPassword}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="21" viewBox="0 0 30 21" fill="none">
-                                    <path d="M12.3915 10.2433C12.3915 11.0273 12.7029 11.7792 13.2573 12.3336C13.8117 12.888 14.5636 13.1995 15.3477 13.1995C16.1317 13.1995 16.8836 12.888 17.438 12.3336C17.9924 11.7792 18.3038 11.0273 18.3038 10.2433C18.3038 9.45926 17.9924 8.70735 17.438 8.15295C16.8836 7.59856 16.1317 7.28711 15.3477 7.28711C14.5636 7.28711 13.8117 7.59856 13.2573 8.15295C12.7029 8.70735 12.3915 9.45926 12.3915 10.2433Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M28.6505 10.2435C25.1031 16.1559 20.6688 19.1121 15.3477 19.1121C10.0266 19.1121 5.59234 16.1559 2.04492 10.2435C5.59234 4.33118 10.0266 1.375 15.3477 1.375C20.6688 1.375 25.1031 4.33118 28.6505 10.2435Z" stroke="black" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M12.3915 10.2433C12.3915 11.0273 12.7029 11.7792 13.2573 12.3336C13.8117 12.888 14.5636 13.1995 15.3477 13.1995C16.1317 13.1995 16.8836 12.888 17.438 12.3336C17.9924 11.7792 18.3038 11.0273 18.3038 10.2433C18.3038 9.45926 17.9924 8.70735 17.438 8.15295C16.8836 7.59856 16.1317 7.28711 15.3477 7.28711C14.5636 7.28711 13.8117 7.59856 13.2573 8.15295C12.7029 8.70735 12.3915 9.45926 12.3915 10.2433Z" stroke="#525252" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M28.6505 10.2435C25.1031 16.1559 20.6688 19.1121 15.3477 19.1121C10.0266 19.1121 5.59234 16.1559 2.04492 10.2435C5.59234 4.33118 10.0266 1.375 15.3477 1.375C20.6688 1.375 25.1031 4.33118 28.6505 10.2435Z" stroke="#525252" strokeWidth="2.17682" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </button>
                         </div>
-                        <div className='mt-[30px] flex items-center'>
+                        <div className='mt-4 flex items-center'>
                             <input
                                 checked={formData.agreeTerm}
                                 onChange={e => setFormData({ ...formData, agreeTerm: e.target.checked })}
                                 type="checkbox"
-                                className='w-4 h-4 text-[#6c63ff] bg-gray-100 rounded border-[1px] border-black focus:ring-0'
+                                className='w-4 h-4 text-[#7ffbae] bg-gray-100 rounded border-[1px] border-black focus:ring-0'
                             />
-                            <span className='ms-2 font-[Inter] text-[18px] -tracking-[.544px]'>
-                                I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-[#6c63ff] underline'>Terms</a> and <a className='text-[#6c63ff] underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
+                            <span className='ms-2 font-[Inter] -tracking-[.544px] text-base text-[#525252]'>
+                                I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-black underline'>Terms</a> and <a className='text-black underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
                             </span>
                         </div>
                         <button
-                            className="rounded-[6px] text-base bg-black w-full py-[10px] 2xl:py-[15px] mt-[50px] text-[white] disabled:bg-[gray]"
+                            className="rounded-[6px] text-base bg-[#7ffbae] w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
                             type="submit"
                             disabled={!formData.agreeTerm}
                         >
                             Sign Up
                         </button>
                     </form>
-                    <div className='flex items-center justify-center mt-[36px]'>
-                        <p className="text-[19px] text-center w-full font-[Inter] text-black text-md 2xl:text-lg -tracking-[.574px]" >Already have an account? <Link to="/login" className='text-[#6c63ff] underline'>Login</Link></p>
+                    <div className='flex items-center justify-center mt-8'>
+                        <p className="text-lg text-center w-full font-[Inter] text-[#525252] 2xl:text-lg -tracking-[.574px]" >Already have an account? <Link to="/login" className='text-black underline'>Login</Link></p>
                     </div>
                 </div>
             </div>
