@@ -134,8 +134,8 @@ const AdminDashboardCampaign: FC = () => {
       <div className='mt-2'>
         <div className='grid grid-cols-4 gap-4'>
           <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
-            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{0}</h2>
-            <p className='text-xs font-[Inter] font-semibold mt-[5px] text-[#43474A]'>Total Impressions</p>
+            <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{data.unique_clicks || 0}</h2>
+            <p className='text-xs font-[Inter] font-semibold mt-[5px] text-[#43474A]'>Unique Clicks</p>
             <div className='bg-[#7ffbae] rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-[10px] 2xl:text-xs font-semibold text-black my-1'>0%</div>
             <p className='text-[#7F8182] text-[8px] mt-[5px] 2xl:text-[10px] font-semibold'>from 0 (last 4 weeks)</p>
           </div>

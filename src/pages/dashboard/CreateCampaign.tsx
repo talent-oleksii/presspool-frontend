@@ -35,7 +35,7 @@ const CreateCampaign: FC = () => {
   const [currentTab, setCurrentTab] = useState('detail');
   const [campaignName, setCampaignName] = useState('');
   const [currentTarget, setCurrentTarget] = useState('consumer');
-  const [currentPrice, setCurrentPrice] = useState('10000');
+  const [currentPrice, setCurrentPrice] = useState('20000');
   const [audience, setAudience] = useState<Array<any>>([]);
   const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
   const [uiData, setUiData] = useState<any>(undefined);
@@ -160,7 +160,7 @@ const CreateCampaign: FC = () => {
         setCurrentTab('detail');
         setCampaignName('');
         setCurrentTarget('consumer');
-        setCurrentPrice('10000');
+        setCurrentPrice('20000');
         setUiData(undefined);
         setUrl('');
         setCurrentAudience([]);
@@ -575,7 +575,7 @@ const CreateCampaign: FC = () => {
                   className='border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 text-sm 2xl:text-md'
                   onChange={e => setCurrentPrice(e.target.value)}
                   type="number"
-                  min="10000"
+                  min="20000"
                 />
                 <p className='text-[#f76363] font-normal text-xs right-[23px] top-[10px] ms-2'>*minimum input must be $10,000</p>
               </div>
@@ -590,7 +590,7 @@ const CreateCampaign: FC = () => {
                 <button
                   className='rounded-[5px] bg-[#7FFBAE] px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm'
                   onClick={handleBeforeReview}
-                  disabled={Number(currentPrice) < 10000}
+                  disabled={Number(currentPrice) < 20000}
                 >
                   Next Step
                 </button>
@@ -694,7 +694,7 @@ const CreateCampaign: FC = () => {
               </div>
               <div className='w-full text-center mt-[50px]'>
                 {
-                  currentAudience.length >= 1 && Number(currentPrice) >= 10000 &&
+                  currentAudience.length >= 1 && Number(currentPrice) >= 20000 &&
                   <button className='rounded-[5px] text-black bg-[#7FFBAE] px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
                     disabled={!isSubmitable()}
                     onClick={handleSubmit}
