@@ -31,7 +31,6 @@ const AddTeammate: FC<typeAddTeammate> = ({ show, setShow }: typeAddTeammate) =>
       type: accountType,
       campaignIds: selected,
     }).then(data => {
-      console.log('data:', data);
       DialogUtils.show('success', '', data.data.mesage);
     }).catch(err => {
       DialogUtils.show('error', '', err.response.data.message);
