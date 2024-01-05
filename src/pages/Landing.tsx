@@ -96,13 +96,13 @@ const Landing: FC = () => {
                             showArrows={false}
                             showIndicators={false}
                         >
-                            <div className='w-[500px] h-[270px] bg-[#7ffbae] h-full flex items-center justify-center rounded-[5px]'>
+                            <div className='w-[500px] min-h-[270px] bg-[#7ffbae] flex items-center justify-center rounded-[5px]'>
                                 <img src={Precise} alt="..." className='rounded-[5px] max-h-[235px] !w-[300px] rounded-md' />
                             </div>
-                            <div className='w-[500px] h-[270px] bg-[#7ffbae] h-full flex items-center justify-center rounded-[5px]'>
+                            <div className='w-[500px] h-[270px] bg-[#7ffbae] flex items-center justify-center rounded-[5px]'>
                                 <img src={Launch} alt="..." className='rounded-[5px] max-h-[235px] !w-[300px] rounded-md' />
                             </div>
-                            <div className='w-[500px] h-[270px] bg-[#7ffbae] h-full flex items-center justify-center rounded-[5px]'>
+                            <div className='w-[500px] h-[270px] bg-[#7ffbae] flex items-center justify-center rounded-[5px]'>
                                 <img src={Seamless} alt="..." className='rounded-[5px] max-h-[235px] !w-[300px] rounded-md' />
                             </div>
                         </Carousel>
