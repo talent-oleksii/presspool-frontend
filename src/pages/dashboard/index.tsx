@@ -90,36 +90,40 @@ const Dashboard: FC = () => {
 
 				</div>
 				<div className='min-w-[300px] pl-[30px] pr-[20px] sm:pr-[50px] mt-[22px]'>
-					<div className='relative h-[300px]'>
-						<div className='bg-[#7FFBAE] p-[19px] rounded-t-[14px] w-full top-0 z-10'>
+					<div className='relative h-auto'>
+						<div className='bg-[#7FFBAE] px-[18px] py-[12px] rounded-t-[14px] w-full top-0 z-10'>
 							<p className='text-black text-base font-semibold font-[Inter]'>Quick Actions:</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[4px]'>Let’s get you where you need to go</p>
 						</div>
 						<div className='bg-white py-2 w-full z-0 rounded-b-[14px] shadow-md'>
+							<Link to="/new" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
+								Create New Campaign
+							</Link>
 							<Link to="/detail" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Manage Campaigns
 							</Link>
-							<a href="https://forms.gle/j1HCrRcrGK9roPhGA" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' target='_blank' rel="noreferrer">
-								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
-								Feature Request
-							</a>
 							<Link to="/billing" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								View Billing
 							</Link>
-							<Link to="/support" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+							<a href="https://forms.gle/j1HCrRcrGK9roPhGA" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' target='_blank' rel="noreferrer">
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
-								Contact Support
-							</Link>
+								Request a Feature
+							</a>
 							<a href="https://forms.gle/T9Kc6JvaVhzwozYR8" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' target='_blank' rel="noreferrer">
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Give Feedback
 							</a>
+							<Link to="/profile" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
+								My Profile
+							</Link>
 						</div>
 					</div>
-					<div className='relative'>
-						<div className='bg-[#7FFBAE] p-[19px] rounded-t-[14px] w-full z-10'>
+					<div className='relative mt-4'>
+						<div className='bg-[#7FFBAE] px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
 							<p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]'>We are always here for you</p>
 						</div>
@@ -128,9 +132,9 @@ const Dashboard: FC = () => {
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Blog
 							</a>
-							<a href="https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' target='_blank' rel='noreferrer'>
+							<a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
-								Go to Slack
+								Support
 							</a>
 						</div>
 					</div>
