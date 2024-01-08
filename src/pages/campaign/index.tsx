@@ -132,18 +132,24 @@ const Campaign: FC = () => {
                           <p className='text-black font-[Inter] font-medium text-sm mt-[8px] -tracking-[.47px]'>{item.audience.join(',')}</p>
                         </div>
                         <div className='mt-[16px] flex items-center justify-end'>
-                          <Link
-                            to={`/edit/${item.id}`}
-                            className='px-4 py-2 rounded text-[#6c63ff] font-semibold font-[Inter] text-[10px] 2xl:text-xs'
-                          >
-                            Raise Budget
-                          </Link>
-                          <Link
-                            to={`/edit/${item.id}`}
-                            className='bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs'
-                          >
-                            Edit Campaign
-                          </Link>
+                          {
+                            item.state === 'active' &&
+                            <Link
+                              to={`/raise-budget/${item.id}`}
+                              className='bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs'
+                            >
+                              Raise Budget
+                            </Link>
+                          }
+                          {
+                            item.state !== 'active' &&
+                            <Link
+                              to={`/edit/${item.id}`}
+                              className='bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs'
+                            >
+                              Edit Campaign
+                            </Link>
+                          }
                           {/* {
                       item.state !== 'paused' ?
                         <button

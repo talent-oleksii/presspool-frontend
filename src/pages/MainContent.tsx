@@ -23,6 +23,7 @@ import FeedbackImage from '../assets/icon/topbar-help.png';
 import LogoutImage from '../assets/icon/logout.png';
 
 import './style.scss';
+import RaiseBudget from "./campaign/RaiseBudget";
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -305,6 +306,7 @@ const MainContent: FC = () => {
               <Route path="/campaign/:id" element={<Dashboard />} />
               <Route path="/new/*" element={<CreateCampaign />} />
               <Route path="/edit/*" element={<CreateCampaign />} />
+              <Route path="/raise-budget/:id" element={<RaiseBudget />} />
               <Route path="/detail" element={<Detail />} />
               <Route path="/billing" element={<Billing />} />
               <Route path="/support" element={<Support />} />
