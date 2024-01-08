@@ -6,7 +6,6 @@ import moment from 'moment';
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
 
 import DialogUtils from '../../../utils/DialogUtils';
-import EditCampaign from '../../campaign/EditCampaign';
 import AdminAPIInstance from '../../../api/adminApi';
 import APIInstance from '../../../api';
 import Loading from '../../../components/Loading';
@@ -18,7 +17,6 @@ const AdminDashboardCampaign: FC = () => {
   const [fetching, setFetching] = useState(false);
   const [nameList, setNameList] = useState<Array<any>>([]);
   const [data, setData] = useState<any>({});
-  const [showEdit, setShowEdit] = useState(false);
   const { id } = useParams();
   const navigator = useNavigate();
   const filterOptions = [{
@@ -188,6 +186,7 @@ const AdminDashboardCampaign: FC = () => {
           <div>
             {data.state && <span className={`rounded-full text-[10px] px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{data.state}</span>}
             <h2 className='font-[Inter] mt-4 text-base 2xl:text-lg font-semibold'>{data.name || ''}</h2>
+            <p className='text-xs'>{`https://go.presspool.ai/cul/${data.uid || 1}`}</p>
             <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 
@@ -210,20 +209,23 @@ const AdminDashboardCampaign: FC = () => {
         </div>
       </div>
       {data.state &&
-        <div className='mt-4'>
-          <button
-            className='px-4 py-2 text-white bg-black rounded-[5px] text-xs font-semibold'
-            onClick={() => setShowEdit(true)}
-          >
-            Edit Campaign
-          </button>
-          <button
-            className='px-4 py-2 text-[red] text-xs font-semibold'
-            onClick={handlePauseCampaign}
-          >
-            {data.state !== 'active' ? 'Start Campaign' : 'Pause Campaign'}
-          </button>
-        </div>
+        <>
+          <p className='text-[red] text-xs'>Do not use this features now. It's still in consideration cuz we admins can not change client's payment method</p>
+          <div className='mt-4'>
+            <Link
+              className='px-4 py-2 text-white bg-black rounded-[5px] text-xs font-semibold'
+              to={`/edit/${data.id}`}
+            >
+              Edit Campaign
+            </Link>
+            <button
+              className='px-4 py-2 text-[red] text-xs font-semibold'
+              onClick={handlePauseCampaign}
+            >
+              {data.state !== 'active' ? 'Start Campaign' : 'Pause Campaign'}
+            </button>
+          </div>
+        </>
       }
       {/* {
         data.state &&
