@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StylesConfig } from 'react-select';
 import { useLocation, useNavigate } from 'react-router';
 import validator from 'validator';
-import { Tooltip } from 'antd';
+import { Tooltip, Popconfirm } from 'antd';
 
 import APIInstance from '../../api';
 import StripeUtil from '../../utils/stripe';
@@ -44,6 +44,7 @@ const CreateCampaign: FC = () => {
   const [currentId, setCurrentId] = useState('');
   const [templateAudience, setTemplateAudience] = useState<Array<any>>([]);
   const [checked, setChecked] = useState(true);
+  const [openConfirm, setOpenConfirm] = useState(false);
   const navigator = useNavigate();
 
   const { email } = useSelector(selectAuth);
@@ -711,12 +712,24 @@ const CreateCampaign: FC = () => {
               <div className='w-full text-center mt-[50px]'>
                 {
                   currentAudience.length >= 1 && Number(currentPrice) >= 10000 &&
-                  <button className='rounded-[5px] text-black bg-[#7FFBAE] px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
-                    disabled={!isSubmitable()}
-                    onClick={handleSubmit}
+                  <Popconfirm
+                    title="Confirm"
+                    description={<p>Once your campaign is live, you can’t make edits.<br /> Are you sure everything is set? It’s a good idea to double-check.</p>}
+                    open={openConfirm}
+                    onConfirm={handleSubmit}
+                    onCancel={() => setOpenConfirm(false)}
+                    okButtonProps={{ style: { background: '#bff7ae', padding: '1rem 1rem 1rem 1rem', color: 'black', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' } }}
+                    cancelButtonProps={{ style: { padding: '1rem 1rem 1rem 1rem', color: 'black', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' } }}
+                    okText="Confirm"
+                    cancelText="Cancel"
                   >
-                    Submit
-                  </button>
+                    <button className='rounded-[5px] text-black bg-[#7FFBAE] px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
+                      disabled={!isSubmitable()}
+                      onClick={() => setOpenConfirm(true)}
+                    >
+                      Submit
+                    </button>
+                  </Popconfirm>
                 }
                 <button
                   className='bg-transparent text-md text-gray-600 font-[Inter] px-[30px] 2xl:px-[60px] py-[10px] rounded-[5px] text-sm 2xl:text-md'
@@ -728,7 +741,7 @@ const CreateCampaign: FC = () => {
           }
         </div>
       </div>
-    </motion.div>
+    </motion.div >
   );
 };
 
