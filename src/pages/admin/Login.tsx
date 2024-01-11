@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setAdminAuthenticated, setAdminToken, setAdminUserData } from "../../store/authSlice";
 
 import AdminAPIInstance from "../../api/adminApi";
+import SignUpAvatar from '../../assets/image/signup-avatar.jpeg';
 
 import Mark from '../../assets/logo/logo.png';
 import Loading from "../../components/Loading";
@@ -42,7 +43,7 @@ const AdminLogin: FC = () => {
     AdminAPIInstance.post('auth/login', formData).then(data => {
       dispatch(setAdminAuthenticated({ state: true }));
       dispatch(setAdminToken({ token: data.data.token }));
-      dispatch(setAdminUserData({ userName: data.data.name, email: data.data.email }));
+      dispatch(setAdminUserData({ userName: data.data.name, email: data.data.email, role: data.data.role }));
       navigator('/admin/dashboard');
     }).catch(err => {
       setShowDialog(true);
@@ -55,12 +56,55 @@ const AdminLogin: FC = () => {
   };
 
   return (
-    <div className='h-full relative flex items-center justify-center'>
+    <div className='h-full w-full relative flex items-center justify-center'>
       {loading && <Loading />}
-      <div className="flex flex-1 items-center justify-center xl:max-w-[56%] px-[82px]">
-        <div className="rounded-[15px] w-full">
+      <div className="min-w-[400px] h-full bg-[#edecf2] px-[40px] py-[60px] flex flex-col justify-between border-r-[1px] border-black">
+        <div>
+          <div className="flex items-center">
+            <img src={Mark} alt="mark" className="w-[50px] me-2" />
+            <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
+          </div>
+          <div className="mt-10 flex">
+            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-[#7FFBAE] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
+            <div className="text-left">
+              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
+              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
+            </div>
+          </div>
+          <div className="mt-6 flex">
+            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
+            <div className="text-left">
+              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
+              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
+            </div>
+          </div>
+          <div className="mt-6 flex">
+            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
+            <div className="text-left">
+              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
+              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
+            </div>
+          </div>
+        </div>
+        <div className="mb-4">
+          <p className="font-[Inter] text-sm -tracking-[.24px] text-left">
+            "Was a game-changer, helping me generate sign-<br />ups and connect with a highly targeted audience. It's<br />the secret weapon that boosted our awareness as a<br />new player in the market."
+          </p>
+          <div className="mt-5 flex items-center">
+            <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
+            <div className="text-left">
+              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-base">Morgan A.</p>
+              <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-1 items-center justify-center px-[82px] bg-white h-full">
+        <div className="rounded-[15px] w-full xl:max-w-[72%] px-[42px]">
           <div className="flex flex-col items-center justify-center">
-            <img src={Mark} alt="mark" className="w-[32x] h-[34px]" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="47" height="44" viewBox="0 0 47 44" fill="none">
+              <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
             <h2 className='font-[Inter] font-semibold text-[40px] -tracking-[1.2px] mt-[26px]'>Welcome Back To Admin</h2>
             <p className='font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-[10px]'>Enter your details to login</p>
           </div>
@@ -96,11 +140,11 @@ const AdminLogin: FC = () => {
                 </span>
               </div>
             </div>
-            <button className="rounded-[6px] bg-black w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-[white] mt-[32px]">Log In</button>
+            <button className="rounded-[6px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-black text-semibold mt-[32px]">Log In</button>
 
-            <p className="mt-[35px] font-[Inter] text-black text-[19px] flex items-center justify-center -tracking-[.574px]">
+            <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
               Don't have an account?
-              <Link className="block text-center text-[#6c63ff] ms-1" to="/">Sign Up</Link>
+              <Link className="block text-center text-black ms-1 underline" to="/admin/signup">Sign Up</Link>
             </p>
           </form>
         </div>

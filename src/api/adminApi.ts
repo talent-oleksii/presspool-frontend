@@ -6,7 +6,9 @@ const AdminAPIInstance = axios.create({
 
 AdminAPIInstance.interceptors.request.use(config => {
   const authToken = localStorage.getItem('adminToken');
+  const role = localStorage.getItem('adminRole');
   config.headers.Authorization = `Bearer ${authToken}`;
+  config.headers.role = role;
   return config;
 });
 

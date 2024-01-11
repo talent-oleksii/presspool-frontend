@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, Route, Routes, useNavigate } from "react-router-dom";
 import { Avatar, Dropdown, MenuProps } from "antd";
-import { selectAuth, setAdminAuthenticated } from "../../store/authSlice";
+import { selectAuth, setAdminAuthenticated, setAdminToken, setAdminUserData } from "../../store/authSlice";
 
 import Logo from '../../assets/logo/logo.png';
 
@@ -27,7 +27,10 @@ const Admin: FC = () => {
     if (!isAdminAuthenticated) navigator('/admin/login');
     else {
       setLoading(true);
-      AdminAPIInstance.post('auth/check', { token: adminToken }).then(() => {
+      AdminAPIInstance.post('auth/check', { token: adminToken }).then((data) => {
+        dispatch(setAdminAuthenticated({ state: true }));
+        dispatch(setAdminToken({ token: data.data.token }));
+        dispatch(setAdminUserData({ userName: data.data.name, email: data.data.email, role: data.data.role }));
         if (!location.pathname.includes('/admin/')) navigator('/admin/dashboard/overview');
       }).catch(err => {
         setAdminAuthenticated({ state: false });
@@ -69,7 +72,7 @@ const Admin: FC = () => {
   const profileItems: MenuProps['items'] = [{
     key: '1',
     label: (
-      <Link to="/profile" className="font-[Inter] font-medium text-xs flex items-center">
+      <Link to="/admin/profile" className="font-[Inter] font-medium text-xs flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[16px] h-[16px] me-2 -ms-1">
           <path d="M480-380q45.231 0 82.923-20.577 37.693-20.577 62.154-54.808-31.154-22.077-67.846-33.346Q520.539-500 480-500q-40.539 0-77.231 11.269-36.692 11.269-67.846 33.346 24.461 34.231 62.154 54.808Q434.769-380 480-380Zm0-200q25.308 0 42.654-17.346Q540-614.692 540-640q0-25.308-17.346-42.654Q505.308-700 480-700q-25.308 0-42.654 17.346Q420-665.308 420-640q0 25.308 17.346 42.654Q454.692-580 480-580Zm0 460.769Q339-243.923 267.577-351.808q-71.423-107.884-71.423-196.346 0-126.923 82.654-209.385Q361.461-840 480-840t201.192 82.461q82.654 82.462 82.654 209.385 0 88.462-71.423 196.346Q621-243.923 480-119.231Z" />
         </svg>
@@ -164,11 +167,11 @@ const Admin: FC = () => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className="w-[19px] h-[18px] me-2">
               <path d="M450.001-290.001h59.998v-160h160v-59.998h-160v-160h-59.998v160h-160v59.998h160v160Zm30.066 190q-78.836 0-148.204-29.92-69.369-29.92-120.682-81.21-51.314-51.291-81.247-120.629-29.933-69.337-29.933-148.173t29.92-148.204q29.92-69.369 81.21-120.682 51.291-51.314 120.629-81.247 69.337-29.933 148.173-29.933t148.204 29.92q69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173t-29.92 148.204q-29.92 69.369-81.21 120.682-51.291 51.314-120.629 81.247-69.337 29.933-148.173 29.933Z" />
             </svg>
-            Add a new user
+            Add Account Manager
           </Link>
 
           <div className="relative w-full">
-            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
               to="/admin/dashboard">
               <svg xmlns="http://www.w3.org/2000/svg" className="me-2" height="20" viewBox="0 -960 960 960" width="20">
                 <path d="M180.001-140.001v-449.998L480-815.767l299.999 225.768v449.998H556.154v-267.692H403.846v267.692H180.001Z" />
@@ -182,7 +185,7 @@ const Admin: FC = () => {
               </svg>
               Clients
             </Link> */}
-            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
               to="/admin/member">
               <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
                 <path d="M103.846-215.384v-65.847q0-27.846 14.423-47.884 14.423-20.039 38.765-32.029 52.043-24.779 103.35-39.51 51.308-14.731 123.462-14.731t123.462 14.731q51.307 14.731 103.35 39.51 24.342 11.99 38.765 32.029 14.423 20.038 14.423 47.884v65.847h-560Zm640 0v-67.693q0-34.769-14.074-65.64-14.075-30.871-39.926-52.976 29.462 6 56.769 16.654 27.308 10.654 54.001 23.962 26 13.077 40.769 33.469 14.769 20.393 14.769 44.531v67.693H743.846Zm-360-289.231q-49.5 0-84.75-35.25t-35.25-84.75q0-49.501 35.25-84.751 35.25-35.25 84.75-35.25t84.75 35.25q35.25 35.25 35.25 84.751 0 49.5-35.25 84.75t-84.75 35.25Zm290.77-120q0 49.5-35.25 84.75t-84.75 35.25q-2.539 0-6.462-.577-3.923-.577-6.462-1.269 20.325-24.895 31.239-55.235 10.915-30.34 10.915-63.015 0-32.674-11.423-62.443t-30.731-55.616q3.231-1.153 6.462-1.5 3.231-.346 6.462-.346 49.5 0 84.75 35.25t35.25 84.751Z" />
@@ -196,14 +199,14 @@ const Admin: FC = () => {
               </svg>
               Campaigns
             </Link> */}
-            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
               to="/admin/billing">
               <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
                 <path d="M184.615-200Q157-200 138.5-218.5 120-237 120-264.615v-430.77Q120-723 138.5-741.5 157-760 184.615-760h590.77Q803-760 821.5-741.5 840-723 840-695.385v430.77Q840-237 821.5-218.5 803-200 775.385-200h-590.77ZM160-512.307h640v-95.386H160v95.386Z" />
               </svg>
               Billing
             </Link>
-            <Link className={`w-full text-left my-1.5 font-[Inter] text-sm rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
+            <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
               to="/admin/support">
               <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
                 <path d="M480.067-100.001q-78.836 0-148.204-29.92-69.369-29.92-120.682-81.21-51.314-51.291-81.247-120.629-29.933-69.337-29.933-148.173t29.92-148.204q29.92-69.369 81.21-120.682 51.291-51.314 120.629-81.247 69.337-29.933 148.173-29.933t148.204 29.92q69.369 29.92 120.682 81.21 51.314 51.291 81.247 120.629 29.933 69.337 29.933 148.173t-29.92 148.204q-29.92 69.369-81.21 120.682-51.291 51.314-120.629 81.247-69.337 29.933-148.173 29.933ZM364-182l58.77-133.848q-37.451-13.225-64.648-40.997-27.197-27.771-41.505-65.156L181.231-366q23.384 64 71.384 112T364-182Zm-47.383-355.999q13.538-37.385 40.961-64.653 27.423-27.269 64.423-40.731L366-778.769q-64.385 24.384-112.385 72.384T181.231-594l135.386 56.001Zm163.292 171.845q47.398 0 80.668-33.179 33.269-33.179 33.269-80.576 0-47.398-33.179-80.668-33.178-33.269-80.576-33.269-47.398 0-80.668 33.179-33.269 33.178-33.269 80.576 0 47.398 33.179 80.668 33.179 33.269 80.576 33.269ZM596-182q63-24 110.5-71.5T778-364l-133.848-58.77q-12.692 37-40.23 64.23-27.538 27.231-63.923 41.923L596-182Zm47.383-357.999L778-596q-24-63-71.5-110.5T596-778l-56.001 135.848q35.615 13.846 62.153 40.307 26.539 26.461 41.231 61.846Z" />

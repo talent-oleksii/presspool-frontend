@@ -1,0 +1,16 @@
+.select-account-manager {
+  height: auto !important;
+
+  .ant-select-selector {
+    padding: .4rem 1rem .4rem 1rem !important;
+    border: 1px solid #7F8182 !important;
+    border-radius: 9.675px;
+
+    .ant-select-selection-item {
+      font-size: 16px !important;
+      color: #43474a !important;
+      font-weight: 500 !important;
+      letter-spacing: -0.54px !important;
+    }
+  }
+}

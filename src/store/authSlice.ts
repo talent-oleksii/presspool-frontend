@@ -18,6 +18,7 @@ interface AuthState {
   adminToken: string;
   adminName: string;
   adminEmail: string;
+  adminRole: string;
 }
 
 const initialState: AuthState = {
@@ -36,6 +37,7 @@ const initialState: AuthState = {
   adminToken: localStorage.getItem('adminToken') || '',
   adminName: localStorage.getItem('adminName') || '',
   adminEmail: localStorage.getItem('adminEmail') || '',
+  adminRole: localStorage.getItem('adminRole') || '',
 };
 
 const authSlice = createSlice({
@@ -87,8 +89,10 @@ const authSlice = createSlice({
     setAdminUserData: (state, action) => {
       state.adminName = action.payload.userName;
       state.adminEmail = action.payload.email;
+      state.adminRole = action.payload.role;
       localStorage.setItem('adminName', action.payload.userName);
       localStorage.setItem('adminEmail', action.payload.email);
+      localStorage.setItem('adminRole', action.payload.role);
     },
   },
 });
