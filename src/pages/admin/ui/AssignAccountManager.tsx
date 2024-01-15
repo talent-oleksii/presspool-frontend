@@ -10,10 +10,11 @@ import Loading from '../../../components/Loading';
 interface typeAssignAccountManager {
   show: boolean,
   company: string,
+  userId: string,
   onClose: Function,
 }
 
-const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onClose }: typeAssignAccountManager) => {
+const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onClose, userId }: typeAssignAccountManager) => {
   const [loading, setLoading] = useState(false);
   const [manager, setManager] = useState('');
   const [accountManagers, setAccountManagers] = useState([]);
@@ -30,6 +31,13 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
 
   const handleSubmit = () => {
     if (manager.length <= 0) return;
+
+    setLoading(true);
+    AdminAPIInstance.post('/user/account-manager', { userId, manager }).then(data => {
+      console.log('data:', data);
+    }).catch(e => {
+      console.log('e:', e);
+    }).finally(() => setLoading(false));
   };
 
   return (

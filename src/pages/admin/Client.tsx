@@ -175,6 +175,7 @@ const AdminClient: FC = () => {
               <AssignAccountManager
                 show={showAssignModal}
                 company={userData.company}
+                userId={userData.id}
                 onClose={(show: boolean) => setShowAssignModal(show)}
               />
             </div>

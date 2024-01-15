@@ -336,6 +336,11 @@ const CreateCampaign: FC = () => {
     }
   };
 
+  const getCPC = (budget: number) => {
+    const beehiivBudget = Math.round((budget / ((4 * (1 + 0.10)) / (1 - 0.50))) * 4) - 2;
+    return budget / (beehiivBudget / 4);
+  };
+
   return (
     <motion.div
       className='text-left relative'
@@ -585,7 +590,7 @@ const CreateCampaign: FC = () => {
               {currentPrice &&
                 <div className='mt-[9px]'>
                   <span className='font-[Inter] text-xs 2xl:text-sm my-3 text-black'>
-                    {`*Estimated clicks for the campaign are ${Math.floor(Number(currentPrice) / (currentTarget === 'consumer' ? 8 : 20))}`}
+                    {`*Estimated clicks for the campaign are ${Math.floor(Number(currentPrice) / getCPC(Number(currentPrice)))}`}
                   </span>
                 </div>
               }
