@@ -604,7 +604,7 @@ const CreateCampaign: FC = () => {
                   </div>
 
                   <span className='text-[#525252] text-xs font-medium'>
-                    We recommend setting your budget to $20,000 or more to ensure top-tier newsletter placements—highest bidders receive the best spots. This also accelerates data collection, enabling quicker campaign optimization and enhanced results.
+                    We recommend setting your budget to $20,000 or more to accelerate data collection, enabling quicker campaign optimization and enhanced results.
                   </span>
                 </div>
               }

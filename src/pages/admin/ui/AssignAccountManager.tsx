@@ -11,10 +11,11 @@ interface typeAssignAccountManager {
   show: boolean,
   company: string,
   userId: string,
+  afterAdd: Function,
   onClose: Function,
 }
 
-const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onClose, userId }: typeAssignAccountManager) => {
+const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onClose, userId, afterAdd }: typeAssignAccountManager) => {
   const [loading, setLoading] = useState(false);
   const [manager, setManager] = useState('');
   const [accountManagers, setAccountManagers] = useState([]);
@@ -35,6 +36,7 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
     setLoading(true);
     AdminAPIInstance.post('/user/account-manager', { userId, manager }).then(data => {
       console.log('data:', data);
+      if (afterAdd) afterAdd(data.data);
     }).catch(e => {
       console.log('e:', e);
     }).finally(() => setLoading(false));
