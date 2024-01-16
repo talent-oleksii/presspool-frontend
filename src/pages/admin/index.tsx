@@ -14,6 +14,7 @@ import AdminMember from './Member';
 import AdminCampaign from './Campaign';
 import AdminBilling from './Billing';
 import AdminSupport from './Support';
+import AdminProfile from './Profile';
 
 const Admin: FC = () => {
   const location = useLocation();
@@ -236,6 +237,7 @@ const Admin: FC = () => {
               <Route path="/campaign" element={<AdminCampaign />} />
               <Route path="/billing" element={<AdminBilling />} />
               <Route path="/support" element={<AdminSupport />} />
+              <Route path="/profile" element={<AdminProfile />} />
             </Routes>
           </div>
         </div>
