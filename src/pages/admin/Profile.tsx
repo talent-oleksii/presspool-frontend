@@ -178,7 +178,7 @@ const Profile: FC = () => {
                     mode="multiple"
                     disabled={item.role === 'admin'}
                     className='mt-2 w-full w-full'
-                    value={item.assigned_users.length > 1 ? item.assigned_users.split(',').map((value: string) => Number(value)) : []}
+                    value={item.assigned_users && item.assigned_users.length > 1 ? item.assigned_users.split(',').map((value: string) => Number(value)) : []}
                     onChange={e => {
                       setAccountManagers(accountManagers.map(manager => {
                         if (manager.id === item.id) {

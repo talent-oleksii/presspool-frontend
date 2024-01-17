@@ -19,6 +19,7 @@ interface AuthState {
   adminName: string;
   adminEmail: string;
   adminRole: string;
+  adminId: string;
 }
 
 const initialState: AuthState = {
@@ -38,6 +39,7 @@ const initialState: AuthState = {
   adminName: localStorage.getItem('adminName') || '',
   adminEmail: localStorage.getItem('adminEmail') || '',
   adminRole: localStorage.getItem('adminRole') || '',
+  adminId: localStorage.getItem('adminId') || '',
 };
 
 const authSlice = createSlice({
@@ -90,9 +92,11 @@ const authSlice = createSlice({
       state.adminName = action.payload.userName;
       state.adminEmail = action.payload.email;
       state.adminRole = action.payload.role;
+      state.adminId = action.payload.id;
       localStorage.setItem('adminName', action.payload.userName);
       localStorage.setItem('adminEmail', action.payload.email);
       localStorage.setItem('adminRole', action.payload.role);
+      localStorage.setItem('adminId', action.payload.id);
     },
   },
 });

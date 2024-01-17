@@ -31,7 +31,7 @@ const Admin: FC = () => {
       AdminAPIInstance.post('auth/check', { token: adminToken }).then((data) => {
         dispatch(setAdminAuthenticated({ state: true }));
         dispatch(setAdminToken({ token: data.data.token }));
-        dispatch(setAdminUserData({ userName: data.data.name, email: data.data.email, role: data.data.role }));
+        dispatch(setAdminUserData({ userName: data.data.name, email: data.data.email, role: data.data.role, id: data.data.id }));
         if (!location.pathname.includes('/admin/')) navigator('/admin/dashboard/overview');
       }).catch(err => {
         setAdminAuthenticated({ state: false });

@@ -9,6 +9,7 @@ AdminAPIInstance.interceptors.request.use(config => {
   const role = localStorage.getItem('adminRole');
   config.headers.Authorization = `Bearer ${authToken}`;
   config.headers.role = role;
+  config.headers.id = localStorage.getItem('adminId');
   return config;
 });
 
