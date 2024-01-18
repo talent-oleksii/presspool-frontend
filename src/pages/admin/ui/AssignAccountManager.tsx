@@ -23,7 +23,6 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
   useEffect(() => {
     setLoading(true);
     AdminAPIInstance.get('/user/account-manager').then(data => {
-      console.log('data:', data.data);
       setAccountManagers(data.data);
     }).catch(e => {
       console.log('e:', e);

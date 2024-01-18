@@ -9,6 +9,7 @@ import AdminAPIInstance from '../../api/adminApi';
 import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
 import AssignAccountManager from './ui/AssignAccountManager';
+import DialogUtils from '../../utils/DialogUtils';
 
 const AdminClient: FC = () => {
   const { id } = useParams();
@@ -21,6 +22,7 @@ const AdminClient: FC = () => {
   const [currentTab, setCurrentTab] = useState('user');
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [range, setRange] = useState<any>([]);
+  const [note, setNote] = useState('');
 
   const { adminRole } = useSelector(selectAuth);
 
@@ -28,6 +30,7 @@ const AdminClient: FC = () => {
     setLoading(true);
     AdminAPIInstance.get('/client', { params: { id } }).then(data => {
       setUserData(data.data.userData);
+      setNote(data.data.userData.note || '');
       setCampaignData(data.data.campaignData);
       setAccountManager(data.data.assignedAdmins);
     }).catch(err => {
@@ -65,6 +68,18 @@ const AdminClient: FC = () => {
       manager: accountManager.id,
     }).then(data => {
       setAccountManager(undefined);
+    }).catch(err => {
+      console.log('err:', err);
+    }).finally(() => setLoading(false));
+  };
+
+  const handleSaveNote = () => {
+    setLoading(true);
+    AdminAPIInstance.put('/client', {
+      id: userData.id,
+      note,
+    }).then(() => {
+      DialogUtils.show('success', '', 'Successfully Updated!');
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
@@ -190,6 +205,19 @@ const AdminClient: FC = () => {
                 afterAdd={(data: any) => setAccountManager(data)}
                 onClose={(show: boolean) => setShowAssignModal(show)}
               />
+              <div className='mt-3 rounded-[10px] bg-white p-4'>
+                <p className='font-[Inter] text-lg font-medium -tracking-[.6px] text-black'>Notes</p>
+                <textarea
+                  value={note}
+                  className='bg-[#fbfbfb] border-[1px] border-[#7f8182] rounded-[10px] min-h-[140px] w-full mt-4'
+                  onChange={e => setNote(e.target.value)}
+                />
+                <div className='w-full text-right mt-2'>
+                  <button className='bg-[#7ffbae] px-5 py-2 font-semibold text-sm font-[Inter] rounded-[6px]' onClick={handleSaveNote}>
+                    Save
+                  </button>
+                </div>
+              </div>
             </div>
           }
           {
