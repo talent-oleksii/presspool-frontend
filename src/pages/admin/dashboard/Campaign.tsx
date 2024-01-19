@@ -186,7 +186,7 @@ const AdminDashboardCampaign: FC = () => {
           <div>
             {data.state && <span className={`rounded-full text-[10px] px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{data.state}</span>}
             <h2 className='font-[Inter] mt-4 text-base 2xl:text-lg font-semibold'>{data.name || ''}</h2>
-            <p className='text-xs'>{`https://go.presspool.ai/cul/${data.uid || 1}`}</p>
+            <p className='text-xs'>{`https://track.presspool.ai/${data.uid || 1}`}</p>
             <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 
