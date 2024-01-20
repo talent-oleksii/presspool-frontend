@@ -91,17 +91,17 @@ const Campaign: FC = () => {
                   <p className='font-semibold font-[Inter] text-[12px]'>{new Date(Number(item.create_time)).toLocaleDateString()}</p>
                 </div>
                 <div className='flex flex-col items-center'>
-                  <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>Total Impressions:</p>
-                  <p className='font-semibold font-[Inter] text-[12px]'>0</p>
-                </div>
-                <div className='flex flex-col items-center'>
                   <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>Total Clicks:</p>
                   <p className='font-semibold font-[Inter] text-[12px]'>{item.click_count}</p>
                 </div>
                 <div className='flex flex-col items-center'>
+                  <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>Unique Clicks:</p>
+                  <p className='font-semibold font-[Inter] text-[12px]'>{item.unique_clicks}</p>
+                </div>
+                {/* <div className='flex flex-col items-center'>
                   <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>AVG CPC:</p>
                   <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
-                </div>
+                </div> */}
                 <div className='flex flex-col items-center'>
                   <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>Total Spend:</p>
                   <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.spent}`}</p>
