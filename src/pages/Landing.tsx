@@ -31,27 +31,26 @@ const Landing: FC = () => {
     };
 
     return (
-        <div className='flex items-center justify-center h-screen w-screen overflow-auto'>
+        <div className='flex items-center flex-col w-screen h-screen overflow-hidden pt-12 px-8'>
             <div className="flex flex-col text-center items-center justify-center">
                 <img alt="logo" src={Logo} className='w-[30px]' />
-                <h2 className="mt-2 font-[Inter] font-semibold text-[40px] mt-[12px] text-black mb-2 -tracking-[1.2px]">Welcome to</h2>
-                <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5">
-                    the
+                <h2 className="mt-2 font-[Inter] font-semibold text-[34px] mt-[12px] text-black mb-2 -tracking-[1.2px]">Welcome to the
+                    {/* <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5"> */}
                     <span className='bg-[#43474a] text-[#7FFBAE] mx-2 rounded-full px-2 py-0'>future</span>
                     of AI marketing
                 </h2>
-                <div className='flex items-center justify-center mt-8'>
+                <div className='flex items-center justify-center mt-4'>
                     {!isAuthenticated ?
                         <>
                             <Link
-                                className='flex flex-col font-bold text-black py-[25px] text-sm 2xl:text-base items-center justify-center me-[12px] bg-white rounded-[20px] shadow-md w-[250px]'
+                                className='flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-base items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]'
                                 to="client-sign-up"
                             >
                                 <img alt="creator" src={Company} className='h-[40px] 2xl:h-[50px]' />
                                 <p className='mb-0 mt-[9px]'>I'm a Company</p>
                                 {/* <p className='mb-0 -mt-1'>Company</p> */}
                             </Link>
-                            <button className='flex flex-col font-bold text-black py-[25px] text-sm 2xl:text-base items-center justify-center ms-[12px] bg-white rounded-[20px] shadow-md w-[250px]'>
+                            <button className='flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-base items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]'>
                                 <img alt="creator" src={Creator} className='h-[40px] 2xl:h-[50px]' />
                                 <p className='mb-0 mt-[9px]'>I'm a Creator</p>
                                 {/* <p className='mb-0 -mt-1'>Creator</p> */}
@@ -62,33 +61,38 @@ const Landing: FC = () => {
                         </>
                     }
                 </div>
-                <div className='mt-[20px] rounded-[20px] bg-[#1B1A1A] px-[15px] pt-[19px] pb-[14px]'>
-                    <p className='text-white text-lg font-semibold -tracking-[.54px]'>Discover Features</p>
+                {!isAuthenticated ?
+                    <p className='mt-[20px] font-[Inter] font-medium text-sm text-[#7F8182]'>Already have an account? Sign in <Link to="/login" className='text-black underline'>here</Link></p> :
+                    <button className='mt-3 text-sm 2xl:text-md font-[Inter] text-[red]' onClick={handleLogout}>Log out</button>
+                }
+            </div>
+            <div className='flex items-center flex-col mt-[20px] rounded-[10px] px-[15px] pt-[19px] pb-[14px] w-full px-8 shadow-md bg-[#fffdfd]'>
+                <p className='text-black text-xl font-semibold -tracking-[.54px]'>Discover Features</p>
 
+                <div className=''>
                     <div className='flex justify-center items-center mt-[15px]'>
-                        <button className={`text-white font-medium text-xs justify-center py-[8.3px] min-w-[145px] rounded-[4.5px] flex items-center mx-1 hover:border-[#7FFBAE] ${current === 0 ? 'border-[#7ffbae] border-[1px]' : 'border-white border-[.59px]'}`} onClick={() => setCurrent(0)}>
-                            <svg viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" className='me-[3.5px] w-[14px]'>
-                                <path d="M5.02433 1.60256L6.77348 3.24576M1.52605 4.88896L3.27519 6.53216M0.870117 7.14848H2.61926L7.21076 2.83508C7.44272 2.61718 7.57302 2.32164 7.57302 2.01348C7.57302 1.70532 7.44272 1.40978 7.21076 1.19188C6.97881 0.973978 6.66422 0.851563 6.33619 0.851562C6.00816 0.851562 5.69357 0.973978 5.46162 1.19188L0.870117 5.50528V7.14848ZM8.74127 5.50516V7.14836H5.24298L6.99212 5.50516H8.74127Z" stroke="white" strokeWidth="0.787115" strokeLinecap="round" strokeLinejoin="round" />
+                        <button className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-[#7FFBAE] border-b-[1px] ${current === 0 ? 'text-black border-[#7ffbae]' : 'text-[#525252] border-[#EDECF2]'}`} onClick={() => setCurrent(0)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="31" height="30" viewBox="0 0 31 30" fill="none" className='mb-2'>
+                                <path d="M15.5028 7.22525C13.9098 7.22525 12.3527 7.68141 11.0282 8.53604C9.7037 9.39068 8.6714 10.6054 8.06181 12.0266C7.45222 13.4478 7.29272 15.0117 7.60349 16.5204C7.91425 18.0291 8.68132 19.415 9.8077 20.5027C10.9341 21.5905 12.3692 22.3312 13.9315 22.6313C15.4938 22.9315 17.1132 22.7774 18.5849 22.1887C20.0566 21.6001 21.3144 20.6032 22.1994 19.3241C23.0844 18.0451 23.5568 16.5413 23.5568 15.003M17.1135 1.08729C14.1272 0.763756 11.1106 1.34439 8.48091 2.74889C5.85124 4.15339 3.73851 6.31233 2.43498 8.92707C1.13144 11.5418 0.701515 14.4831 1.20468 17.3441C1.70784 20.2051 3.11922 22.8445 5.24358 24.897C7.36794 26.9495 10.1003 28.3138 13.0627 28.8012C16.0251 29.2885 19.071 28.8748 21.7793 27.6173C24.4876 26.3598 26.7243 24.3206 28.18 21.7819C29.6357 19.2431 30.2385 16.3302 29.9049 13.4462M20.3352 10.3364V5.6697L25.1676 1.00304V5.6697H30L25.1676 10.3364H20.3352ZM20.3352 10.3364L15.5028 15.003M13.8919 15.003C13.8919 15.4156 14.0617 15.8112 14.3637 16.103C14.6658 16.3947 15.0755 16.5586 15.5028 16.5586C15.93 16.5586 16.3397 16.3947 16.6418 16.103C16.9438 15.8112 17.1136 15.4156 17.1136 15.003C17.1136 14.5905 16.9438 14.1948 16.6418 13.9031C16.3397 13.6114 15.93 13.4475 15.5028 13.4475C15.0755 13.4475 14.6658 13.6114 14.3637 13.9031C14.0617 14.1948 13.8919 14.5905 13.8919 15.003Z" stroke={current === 0 ? "black" : "#525252"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            Precise Targeting
+                            Easy Campaign Creation
                         </button>
-                        <button className={`text-white font-medium text-xs justify-center py-[8.3px] min-w-[145px] rounded-[4.5px] flex items-center mx-1 hover:border-[#7FFBAE] ${current === 1 ? 'border-[#7ffbae] border-[1px]' : 'border-white border-[.59px]'}`} onClick={() => setCurrent(1)}>
-                            <svg viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg" className='me-[3.5px] w-[14px]'>
-                                <path d="M4.56596 2.81402C4.13361 2.81402 3.71096 2.94225 3.35148 3.1825C2.99199 3.42275 2.7118 3.76422 2.54635 4.16374C2.38089 4.56326 2.3376 5.00288 2.42195 5.427C2.5063 5.85113 2.7145 6.24071 3.02022 6.54649C3.32593 6.85227 3.71545 7.0605 4.13949 7.14487C4.56354 7.22923 5.00307 7.18593 5.40251 7.02045C5.80195 6.85496 6.14336 6.57472 6.38357 6.21516C6.62377 5.85561 6.75198 5.43289 6.75198 5.00045M5.00316 1.08899C4.19261 0.998042 3.37384 1.16127 2.6601 1.55609C1.94636 1.95091 1.37292 2.55781 1.01912 3.29285C0.665314 4.02789 0.548624 4.85472 0.685192 5.65899C0.821759 6.46326 1.20483 7.2052 1.78143 7.78219C2.35802 8.35919 3.09963 8.74271 3.90368 8.87971C4.70772 9.0167 5.53446 8.90041 6.26954 8.54691C7.00461 8.19341 7.61169 7.62017 8.0068 6.90649C8.4019 6.19281 8.56551 5.37397 8.47499 4.56323M5.87757 3.68859V2.37674L7.18918 1.06488V2.37674H8.50079L7.18918 3.68859H5.87757ZM5.87757 3.68859L4.56596 5.00045M4.12876 5.00045C4.12876 5.11643 4.17482 5.22765 4.25681 5.30966C4.3388 5.39167 4.45001 5.43774 4.56596 5.43774C4.68191 5.43774 4.79312 5.39167 4.87511 5.30966C4.9571 5.22765 5.00316 5.11643 5.00316 5.00045C5.00316 4.88448 4.9571 4.77325 4.87511 4.69124C4.79312 4.60924 4.68191 4.56316 4.56596 4.56316C4.45001 4.56316 4.3388 4.60924 4.25681 4.69124C4.17482 4.77325 4.12876 4.88448 4.12876 5.00045Z" stroke="white" strokeWidth="0.787115" strokeLinecap="round" strokeLinejoin="round" />
+                        <button className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-[#7FFBAE] border-b-[1px] ${current === 1 ? 'text-black border-[#7ffbae]' : 'text-[#525252] border-[#EDECF2]'}`} onClick={() => setCurrent(1)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none" className='mb-2'>
+                                <path d="M6.51132 19.0682C4.63083 20.1299 3.11026 21.7289 2.14452 23.6604C1.17877 25.5919 0.811876 27.7678 1.09086 29.9091C3.23223 30.1881 5.40812 29.8212 7.33961 28.8555C9.27109 27.8897 10.8701 26.3692 11.9318 24.4887M1.09087 17.2614C4.3126 17.6443 7.31184 19.0999 9.60598 21.394C11.9001 23.6882 13.3557 26.6874 13.7386 29.9091C15.3357 28.9884 16.6716 27.6756 17.6201 26.0948C18.5685 24.514 19.0982 22.7175 19.1591 20.875C22.1929 19.8078 24.8422 17.8649 26.7718 15.292C28.7015 12.7191 29.8249 9.6318 30 6.42046C30 4.98287 29.4289 3.60415 28.4124 2.58762C27.3959 1.57108 26.0171 1 24.5795 1C21.3682 1.17509 18.2809 2.2985 15.708 4.22816C13.1351 6.15782 11.1922 8.80708 10.125 11.8409C8.28249 11.9018 6.48596 12.4315 4.90518 13.3799C3.32441 14.3284 2.01161 15.6643 1.09087 17.2614ZM19.1591 10.0341C19.1591 10.5133 19.3494 10.9729 19.6883 11.3117C20.0271 11.6506 20.4867 11.8409 20.9659 11.8409C21.4451 11.8409 21.9047 11.6506 22.2435 11.3117C22.5824 10.9729 22.7727 10.5133 22.7727 10.0341C22.7727 9.55491 22.5824 9.09534 22.2435 8.75649C21.9047 8.41765 21.4451 8.22729 20.9659 8.22729C20.4867 8.22729 20.0271 8.41765 19.6883 8.75649C19.3494 9.09534 19.1591 9.55491 19.1591 10.0341Z" stroke={current === 1 ? "black" : "#525252"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            Easy Launch
+                            Transparent Analytics
                         </button>
-                        <button className={`text-white font-medium text-xs justify-center py-[8.3px] min-w-[145px] rounded-[4.5px] flex items-center mx-1 hover:border-[#7FFBAE] ${current === 2 ? 'border-[#7ffbae] border-[1px]' : 'border-white border-[.59px]'}`} onClick={() => setCurrent(2)}>
-                            <svg viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg" className='me-[3.5px] w-[14px]'>
-                                <path d="M5.63659 2.37631L6.94845 3.68817M1.70102 8.9356L8.26031 2.37631L6.94845 1.06445L0.38916 7.62374L1.70102 8.9356ZM3.01288 1.06445C3.01288 1.2964 3.10502 1.51885 3.26903 1.68287C3.43305 1.84688 3.6555 1.93903 3.88745 1.93903C3.6555 1.93903 3.43305 2.03117 3.26903 2.19518C3.10502 2.3592 3.01288 2.58165 3.01288 2.8136C3.01288 2.58165 2.92073 2.3592 2.75672 2.19518C2.59271 2.03117 2.37026 1.93903 2.1383 1.93903C2.37026 1.93903 2.59271 1.84688 2.75672 1.68287C2.92073 1.51885 3.01288 1.2964 3.01288 1.06445ZM7.38574 5.43731C7.38574 5.66926 7.47788 5.89171 7.64189 6.05573C7.80591 6.21974 8.02836 6.31189 8.26031 6.31189C8.02836 6.31189 7.80591 6.40403 7.64189 6.56804C7.47788 6.73206 7.38574 6.95451 7.38574 7.18646C7.38574 6.95451 7.29359 6.73206 7.12958 6.56804C6.96557 6.40403 6.74312 6.31189 6.51116 6.31189C6.74312 6.31189 6.96557 6.21974 7.12958 6.05573C7.29359 5.89171 7.38574 5.66926 7.38574 5.43731Z" stroke="white" strokeWidth="0.787115" strokeLinecap="round" strokeLinejoin="round" />
+                        <button className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-[#7FFBAE] border-b-[1px] ${current === 2 ? 'text-black border-[#7ffbae]' : 'text-[#525252] border-[#EDECF2]'}`} onClick={() => setCurrent(2)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="31" height="31" viewBox="0 0 31 31" fill="none" className='mb-2'>
+                                <path d="M10.6667 28.1875V17.3125C10.6667 16.8318 10.4969 16.3708 10.1948 16.0309C9.89264 15.691 9.48285 15.5 9.05556 15.5H2.61111C2.18382 15.5 1.77403 15.691 1.47188 16.0309C1.16974 16.3708 1 16.8318 1 17.3125V28.1875C1 28.6682 1.16974 29.1292 1.47188 29.4691C1.77403 29.809 2.18382 30 2.61111 30M10.6667 28.1875C10.6667 28.6682 10.4969 29.1292 10.1948 29.4691C9.89264 29.809 9.48285 30 9.05556 30H2.61111M10.6667 28.1875C10.6667 28.6682 10.8364 29.1292 11.1386 29.4691C11.4407 29.809 11.8505 30 12.2778 30H18.7222C19.1495 30 19.5593 29.809 19.8615 29.4691C20.1636 29.1292 20.3333 28.6682 20.3333 28.1875M10.6667 28.1875V10.0625C10.6667 9.5818 10.8364 9.12078 11.1386 8.78087C11.4407 8.44096 11.8505 8.25 12.2778 8.25H18.7222C19.1495 8.25 19.5593 8.44096 19.8615 8.78087C20.1636 9.12078 20.3333 9.5818 20.3333 10.0625V28.1875M2.61111 30H25.1667M20.3333 28.1875C20.3333 28.6682 20.5031 29.1292 20.8052 29.4691C21.1074 29.809 21.5172 30 21.9444 30H28.3889C28.8162 30 29.226 29.809 29.5281 29.4691C29.8303 29.1292 30 28.6682 30 28.1875V2.8125C30 2.3318 29.8303 1.87078 29.5281 1.53087C29.226 1.19096 28.8162 1 28.3889 1H21.9444C21.5172 1 21.1074 1.19096 20.8052 1.53087C20.5031 1.87078 20.3333 2.3318 20.3333 2.8125V28.1875Z" stroke={current === 2 ? "black" : "#525252"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-
-                            Seamless Tracking
+                            Real, Measureable ROI
                         </button>
                     </div>
                     <div className='flex items-center justify-center'>
                         <Carousel
-                            className='mt-[15px] w-[500px]'
+                            className='mt-[15px]'
                             showStatus={false}
                             showThumbs={false}
                             animationHandler="slide"
@@ -96,22 +100,18 @@ const Landing: FC = () => {
                             showArrows={false}
                             showIndicators={false}
                         >
-                            <div className='w-[500px] min-h-[270px] bg-[#7ffbae] flex items-center justify-center rounded-[5px]'>
-                                <img src={Precise} alt="..." className='rounded-[5px] max-h-[235px] !w-[300px] rounded-md' />
+                            <div>
+                                <img src={Precise} alt="..." className='!w-[70%] rounded-md' />
                             </div>
-                            <div className='w-[500px] h-[270px] bg-[#7ffbae] flex items-center justify-center rounded-[5px]'>
-                                <img src={Launch} alt="..." className='rounded-[5px] max-h-[235px] !w-[300px] rounded-md' />
+                            <div>
+                                <img src={Launch} alt="..." className='!w-[70%] rounded-md' />
                             </div>
-                            <div className='w-[500px] h-[270px] bg-[#7ffbae] flex items-center justify-center rounded-[5px]'>
-                                <img src={Seamless} alt="..." className='rounded-[5px] max-h-[235px] !w-[300px] rounded-md' />
+                            <div>
+                                <img src={Seamless} alt="..." className='!w-[70%] rounded-md' />
                             </div>
                         </Carousel>
                     </div>
                 </div>
-                {!isAuthenticated ?
-                    <p className='mt-[20px] font-[Inter] font-medium text-sm text-[#7F8182]'>Already have an account? Sign in <Link to="/login" className='text-black underline'>here</Link></p> :
-                    <button className='mt-3 text-sm 2xl:text-md font-[Inter] text-[red]' onClick={handleLogout}>Log out</button>
-                }
             </div>
         </div>
     );
