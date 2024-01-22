@@ -54,7 +54,8 @@ const AdminSignUp: FC = () => {
 
     setLoading(true);
     AdminAPIInstance.post('auth/sign-up', {
-      ...formData
+      ...formData,
+      link: formData.company,
     }).then(data => {
       const ret = data.data;
       dispatch(setAdminAuthenticated({ state: true }));
@@ -122,7 +123,7 @@ const AdminSignUp: FC = () => {
             <svg xmlns="http://www.w3.org/2000/svg" width="47" height="44" viewBox="0 0 47 44" fill="none">
               <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <h2 className='font-[Inter] font-semibold text-[40px] mt-4 -tracking-[1.2px]'>Welcome Back</h2>
+            <h2 className='font-[Inter] font-semibold text-[40px] mt-4 -tracking-[1.2px]'>Welcome</h2>
             <p className='font-[Inter] text-base text-center -tracking-[.54px] font-medium text-[#797979] mt-1'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
           </div>
 
@@ -141,7 +142,7 @@ const AdminSignUp: FC = () => {
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
             />
             <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
-              Company Name
+              Affiliate Link (TrackDesk)
               {formData.company.length > 0 && validator.isEmpty(formData.company) && <span className='ms-1 text-[red] text-xs'>*Input company name</span>}
             </label>
             <input
