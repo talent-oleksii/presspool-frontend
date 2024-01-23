@@ -74,15 +74,15 @@ const AdminLogin: FC = () => {
           <div className="mt-6 flex">
             <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
-              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
+              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
+              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Access your assigned Clients and<br />their campaigns all in one place</p>
             </div>
           </div>
           <div className="mt-6 flex">
             <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
             <div className="text-left">
               <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
-              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
+              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">The more campaigns you manage <br />successfully, the more money you<br />can make by increasing your <br />Client's spent</p>
             </div>
           </div>
         </div>

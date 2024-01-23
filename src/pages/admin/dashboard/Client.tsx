@@ -76,7 +76,7 @@ const AdminDashboardClient: FC = () => {
       </div>
       <div className='mt-4 bg-white rounded-[15px] px-[20px]'>
         {
-          data.filter(item => item.state === currentTab).map((item, index) => (
+          data && data.filter(item => item.state === currentTab).map((item, index) => (
             <div key={item.id} className={`relative flex py-4 justify-between ${index !== data.length - 1 && 'border-b-[1px] border-[#d9d9d9]'}`}>
               <div className='text-left'>
                 <p className='font-[Inter] text-[#a3a3a3] text-xs font-medium -tracking-[.36px]'>Name</p>
