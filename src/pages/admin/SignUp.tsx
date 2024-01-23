@@ -60,7 +60,7 @@ const AdminSignUp: FC = () => {
       const ret = data.data;
       dispatch(setAdminAuthenticated({ state: true }));
       dispatch(setAdminToken({ token: ret.token }));
-      dispatch(setAdminUserData({ userName: data.data.name, email: data.data.email, role: data.data.role, id: data.data.id }));
+      dispatch(setAdminUserData({ userName: data.data.name, email: data.data.email, role: data.data.role, id: data.data.id, link: data.data.link }));
       setShowDialog(true);
       navigator('/admin/dashboard');
     }).catch(err => {
