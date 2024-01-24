@@ -4,6 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import Loading from '../../../components/Loading';
 import PIN from '../../../assets/image/ping.png';
 import AdminAPIInstance from '../../../api/adminApi';
+import DialogUtils from '../../../utils/DialogUtils';
 
 interface typeInviteNewClient {
   show: boolean;
@@ -20,7 +21,9 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
     AdminAPIInstance.post('invite', {
       link,
       emails,
-    }).then(() => { }).catch(err => {
+    }).then(() => {
+      DialogUtils.show('success', '', 'Invitation Emails are sent!');
+    }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
   };
