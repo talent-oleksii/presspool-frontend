@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUnauthenticated } from '../store/authSlice';
 
@@ -18,8 +18,13 @@ const Landing: FC = () => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
+
+        if (location.search.length > 10) {
+            navigate(`/client-sign-up/${location.search}`);
+        }
         if (isAuthenticated) {
             navigate('/campaign/all');
         }

@@ -27,7 +27,7 @@ const App: FC = () => {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/client-sign-up" element={<ClientSignUp />} />
+            <Route path="/client-sign-up/*" element={<ClientSignUp />} />
             <Route path="/cul/:id" element={<URLRedirector />} />
             <Route path="/verify/:token" element={<EmailVerifier />} />
             <Route path="/admin/*" element={<AdminRoute />} />

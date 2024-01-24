@@ -13,11 +13,13 @@ interface typeInviteNewClient {
 
 const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeInviteNewClient) => {
   const [loading, setLoading] = useState(false);
+  const [emails, setEmails] = useState('');
 
   const handleSendInvite = () => {
     setLoading(true);
     AdminAPIInstance.post('invite', {
-
+      link,
+      emails,
     }).then(() => { }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
@@ -63,6 +65,8 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                 <input
                   className='mt-2 w-full px-4 py-2.5 flex border-[1px] rounded-[9.675px] border-[#7f8182] items-center justify-between'
                   placeholder="Use comma's to separate multiple emails"
+                  value={emails}
+                  onChange={e => setEmails(e.target.value)}
                 />
                 <button
                   className='bg-[#7ffbae] rounded-[6.047px] text-base font-semibold w-full mt-6 flex items-center justify-center py-3'

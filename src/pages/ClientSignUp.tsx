@@ -1,5 +1,5 @@
 import React, { FC, useState, Fragment } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 import { Dialog, Transition } from '@headlessui/react';
 import validator from 'validator';
@@ -23,6 +23,7 @@ interface FormData {
 
 const ClientSignUp: FC = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const [check, setCheck] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -54,7 +55,8 @@ const ClientSignUp: FC = () => {
 
         setLoading(true);
         APIInstance.post('auth/client-sign-up', {
-            ...formData
+            ...formData,
+            linkUrl: location.search,
         }).then(data => {
             const ret = data.data;
             dispatch(setAuthenticated());
