@@ -15,6 +15,7 @@ interface typeInviteNewClient {
 const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeInviteNewClient) => {
   const [loading, setLoading] = useState(false);
   const [emails, setEmails] = useState('');
+  const [copyText, setCopyText] = useState('Copy');
 
   const handleSendInvite = () => {
     setLoading(true);
@@ -23,6 +24,7 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
       emails,
     }).then(() => {
       DialogUtils.show('success', '', 'Invitation Emails are sent!');
+      if (onClose) onClose();
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
@@ -56,12 +58,15 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                     <p className='text-[#0af] text-base max-w-[300px] truncate font-medium -tracking-[.54px] underline'>{link}</p>
                   </div>
                   <button
-                    className='bg-[#7ffbae] ms-2 rounded-lg text-base font-semibold px-6 py-3'
-                    onClick={async () => {
-                      await navigator.clipboard.writeText(link);
+                    className='bg-[#7ffbae] ms-2 rounded-lg text-base font-semibold px-6 py-3 w-[100px]'
+                    onClick={() => {
+                      navigator.clipboard.writeText(link).then(() => {
+                        setCopyText('Copied');
+                        setTimeout(() => setCopyText('Copy'), 3000);
+                      });
                     }}
                   >
-                    Copy
+                    {copyText}
                   </button>
                 </div>
                 <p className='mt-4 text-base w-full -tracking-[.48px] text-black font-medium'>Email Invite</p>
