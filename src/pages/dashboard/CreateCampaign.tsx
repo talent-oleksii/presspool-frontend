@@ -37,7 +37,9 @@ const CreateCampaign: FC = () => {
   const [currentTarget, setCurrentTarget] = useState('consumer');
   const [currentPrice, setCurrentPrice] = useState('10000');
   const [audience, setAudience] = useState<Array<any>>([]);
+  const [regions, setRegions] = useState<Array<any>>([]);
   const [currentAudience, setCurrentAudience] = useState<Array<any>>([]);
+  const [currentRegions, setCurrentRegions] = useState<Array<any>>([]);
   const [uiData, setUiData] = useState<any>(undefined);
   const [url, setUrl] = useState('');
   const [currentCard, setCurrentCard] = useState('');
@@ -59,9 +61,11 @@ const CreateCampaign: FC = () => {
     Promise.all([
       APIInstance.get('data/audience'),
       APIInstance.get('stripe/card', { params: { email } }),
+      APIInstance.get('data/region'),
     ]).then((results: Array<any>) => {
       const audienceData = results[0].data;
       setAudience(audienceData);
+      setRegions(results[2].data);
       dispatch(setCardList({ cardList: results[1].data }));
       if (results[1].data.length >= 1) { setCurrentCard(results[1].data[0].card_id); }
     }).catch(err => {
@@ -300,6 +304,7 @@ const CreateCampaign: FC = () => {
         url,
         currentTarget,
         currentAudience: currentAudience.map(item => item.value),
+        currentRegion: currentRegions.map(item => item.value),
         currentPrice,
         // currentCard,
         uiId: uiData.id,
@@ -322,6 +327,7 @@ const CreateCampaign: FC = () => {
         url,
         currentTarget,
         currentAudience: currentAudience.map(item => item.value),
+        currentRegion: currentRegions.map(item => item.value),
         currentPrice,
         uiId: uiData.id,
         currentCard,
@@ -552,12 +558,23 @@ const CreateCampaign: FC = () => {
                     options={audience.map((item: any) => ({ value: item.name, label: item.name }))}
                   />
                 </div>
+                <div className="mt-[26px]">
+                  <p className='text-md 2xl:text-lg font-[Inter] font-bold mb-[12px]'>Please add specific geography/region tags you would like to target:</p>
+                  <CreatableSelect
+                    styles={customStyles}
+                    value={currentRegions}
+                    placeholder="Type your tag(s) and press enter"
+                    onChange={e => setCurrentRegions(e.map(item => ({ value: item.value, label: item.label })))}
+                    isMulti
+                    options={regions.map((item: any) => ({ value: item.name, label: item.name }))}
+                  />
+                </div>
               </div>
               <div className='w-full text-center mt-[45px]'>
                 <button
                   className='rounded-[5px] text-black font-semibold bg-[#7FFBAE] px-[50px] py-[10px] text-sm disabled:bg-gray-400'
                   onClick={() => setCurrentTab('budget')}
-                  disabled={currentAudience.length <= 0}
+                  disabled={currentAudience.length <= 0 || currentRegions.length <= 0}
                 >
                   Next Step
                 </button>

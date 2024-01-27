@@ -19,8 +19,10 @@ import AddTeammate from "./AddTeammate";
 
 import HelpImage from '../assets/icon/help.png';
 import CampaignImage from '../assets/icon/campaign.png';
+import AccountImage from '../assets/image/account.png';
 import FeedbackImage from '../assets/icon/topbar-help.png';
 import LogoutImage from '../assets/icon/logout.png';
+import LinkImage from '../assets/icon/link.png';
 
 import './style.scss';
 import RaiseBudget from "./campaign/RaiseBudget";
@@ -121,7 +123,7 @@ const MainContent: FC = () => {
   const getOffsetBack = () => {
     if (location.pathname.indexOf('campaign') > -1) return 'top-[2%]';
     if (location.pathname.indexOf('detail') > -1) return 'top-[26%]';
-    if (location.pathname.indexOf('billing') > -1) return 'top-[50%]';
+    if (location.pathname.indexOf('profile') > -1) return 'top-[50%]';
     if (location.pathname.indexOf('support') > -1) return 'top-[74%]';
 
     return 'top-0';
@@ -202,7 +204,7 @@ const MainContent: FC = () => {
   return (
     <div className='min-h-screen w-full'>
       <div className="fixed px-[9px] py-[5px] w-full z-[7]">
-        <div className="flex bg-[#fffdfd] rounded-full items-center px-[18px] py-[6px] w-full justify-between">
+        <div className="flex bg-[#fffdfd] rounded-[15px] items-center pl-[18px] pr-[5px] py-[6px] w-full justify-between">
           <div className="flex items-center justify-center">
             <Link to="/" className="text-left w-full">
               <img src={Logo} className='h-[18px]' alt="logo" />
@@ -217,12 +219,12 @@ const MainContent: FC = () => {
 
           <div className="flex items-center">
             <Dropdown placement="bottomRight" menu={{ items: feedbackItems }}>
-              <button className="flex font-[Inter] bg-[#C1FFD9] rounded-full px-[10px] py-[3px] text-[#57D386] text-xs whitespace-nowrap items-center">
+              <button className="flex font-[Inter] bg-[#7FFBAE] rounded-[10px] px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center">
                 <img alt="Support" src={FeedbackImage} className="w-[14px] me-1 -ms-1" />
-                <span className="font-[Inter] text-xs">Beta feedback</span>
+                <span className="font-[Inter] text-xs ms-1">Beta feedback</span>
               </button>
             </Dropdown>
-            <div className="ms-[44px]">
+            {/* <div className="ms-[44px]">
               <Dropdown
                 placement="bottomRight"
                 menu={{ items: profileItems }}
@@ -235,12 +237,12 @@ const MainContent: FC = () => {
                   <span className="font-[Inter] text-xs font-medium ms-1">↓</span>
                 </button>
               </Dropdown>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
 
-      <div className='min-w-[210px] pl-2 pt-[50px] pb-2 flex flex-col justify-between h-full fixed'>
+      <div className='w-[210px] pl-2 pt-[50px] pb-2 flex flex-col h-full fixed'>
         <div className='flex flex-col items-center justify-center'>
 
           <Link
@@ -267,18 +269,9 @@ const MainContent: FC = () => {
               Campaigns
             </Link>
             <Link className={`w-full text-left my-1.5 font-[Inter] text-xs font-medium rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
-              to="/billing">
-              <svg
-                height="100%"
-                // style={fill - rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;strokeMiterlimit:2;}
-                viewBox="0 0 32 32"
-                width="100%"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-[16px] me-2 ms-1"
-              >
-                <path d="M15.002,8l-0.998,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1l1.002,-0l0.002,1.002c0.001,0.552 0.45,0.999 1.002,0.998c0.552,-0.001 0.999,-0.45 0.998,-1.002l-0.002,-0.998l0.998,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1l-1.002,0l-0.002,-1.002c-0.001,-0.552 -0.45,-0.999 -1.002,-0.998c-0.552,0.001 -0.999,0.45 -0.998,1.002l0.002,0.998Z" /><path d="M26,9l-0,-4c-0,-0.796 -0.316,-1.559 -0.879,-2.121c-0.562,-0.563 -1.325,-0.879 -2.121,-0.879c-3.463,0 -10.537,0 -14,-0c-0.796,-0 -1.559,0.316 -2.121,0.879c-0.563,0.562 -0.879,1.325 -0.879,2.121l0,22c0,0.796 0.316,1.559 0.879,2.121c0.562,0.563 1.325,0.879 2.121,0.879c2.6,-0 10.316,0 13.999,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1c-3.683,0 -11.399,-0 -13.999,-0c-0.265,0 -0.52,-0.105 -0.707,-0.293c-0.188,-0.187 -0.293,-0.442 -0.293,-0.707c-0,-0 -0,-22 -0,-22c0,-0.265 0.105,-0.52 0.293,-0.707c0.187,-0.188 0.442,-0.293 0.707,-0.293l14,0c0.265,-0 0.52,0.105 0.707,0.293c0.188,0.187 0.293,0.442 0.293,0.707c-0,-0 -0,4 -0,4c-0,0.552 0.448,1 1,1c0.552,0 1,-0.448 1,-1Z" /><path d="M23.982,14.206c-1.159,0.414 -1.99,1.523 -1.99,2.825c0,1.659 1.333,2.987 2.992,2.987c0.553,0 1.008,0.448 1.008,1.001c0,0.552 -0.448,1 -1,1c-0.552,-0 -1,-0.448 -1,-1c0,-0.552 -0.448,-1 -1,-1c-0.552,-0 -1,0.448 -1,1c0,1.302 0.832,2.412 1.993,2.826l-0.005,1.163c-0.002,0.552 0.444,1.002 0.996,1.004c0.552,0.003 1.002,-0.444 1.004,-0.996l0.005,-1.166c1.168,-0.41 2.007,-1.523 2.007,-2.831c0,-1.655 -1.354,-3.001 -3.008,-3.001c-0.549,0 -0.992,-0.438 -0.992,-0.987c0,-0.552 0.448,-1 1,-1c0.55,0 0.997,0.445 1,0.994l0,0.013c0.004,0.548 0.45,0.993 1,0.993c0.552,0 1,-0.448 1,-1c0,-1.309 -0.84,-2.423 -2.01,-2.832l0.01,-1.179c0.004,-0.552 -0.44,-1.003 -0.992,-1.008c-0.552,-0.004 -1.004,0.441 -1.008,0.992l-0.01,1.202Z" /><path d="M11,17.019l8,-0c0.552,-0 1,-0.448 1,-1c-0,-0.552 -0.448,-1 -1,-1l-8,-0c-0.552,-0 -1,0.448 -1,1c-0,0.552 0.448,1 1,1Z" /><path d="M11,21.031l8,-0c0.552,-0 1,-0.448 1,-1c-0,-0.552 -0.448,-1 -1,-1l-8,-0c-0.552,-0 -1,0.448 -1,1c-0,0.552 0.448,1 1,1Z" /><path d="M11,25.012l8,0c0.552,0 1,-0.448 1,-1c0,-0.552 -0.448,-1 -1,-1l-8,0c-0.552,0 -1,0.448 -1,1c0,0.552 0.448,1 1,1Z" />
-              </svg>
-              Billing
+              to="/profile">
+              <img alt="account" src={AccountImage} className="w-[16px] me-2 ms-1" />
+              Account
             </Link>
             <Link className={`w-full text-left my-1.5 font-[Inter] text-xs font-medium rounded-[15px] px-3 py-2.5 flex items-center text-black hover:bg-white`}
               to="/support">
@@ -289,11 +282,27 @@ const MainContent: FC = () => {
               (
                 location.pathname.indexOf('campaign') > -1 ||
                 location.pathname.indexOf('detail') > -1 ||
-                location.pathname.indexOf('billing') > -1 ||
+                location.pathname.indexOf('profile') > -1 ||
                 location.pathname.indexOf('support') > -1
               ) &&
               <div className={`absolute h-[22%] bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
             }
+          </div>
+        </div>
+        <div className='relative mt-4 text-left'>
+          <div className='bg-[#7FFBAE] px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
+            <p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
+            <p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]'>We are always here for you</p>
+          </div>
+          <div className='bg-white py-2 rounded-b-[14px] w-full z-0 top-[70px] shadow-md'>
+            <a href="https://blog.presspool.ai" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>
+              <img src={LinkImage} alt="link" className='w-[17px] me-2' />
+              Blog
+            </a>
+            <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+              <img src={LinkImage} alt="link" className='w-[17px] me-2' />
+              Support
+            </a>
           </div>
         </div>
       </div>
@@ -301,7 +310,7 @@ const MainContent: FC = () => {
       {
         !loading &&
         <div className="pt-[40px]">
-          <div className='bg-[#EDECF2] px-[15px] py-[20px] ml-[230px]'>
+          <div className='bg-[#EDECF2] pr-[15px] py-[20px] pl-[230px]'>
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />
               <Route path="/new/*" element={<CreateCampaign />} />

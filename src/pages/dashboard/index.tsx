@@ -89,7 +89,7 @@ const Dashboard: FC = () => {
 					}
 
 				</div>
-				<div className='min-w-[300px] pl-[30px] pr-[20px] sm:pr-[50px] mt-[22px]'>
+				{/* <div className='min-w-[300px] pl-[30px] pr-[20px] sm:pr-[50px] mt-[22px]'>
 					<div className='relative h-auto'>
 						<div className='bg-[#7FFBAE] px-[18px] py-[12px] rounded-t-[14px] w-full top-0 z-10'>
 							<p className='text-black text-base font-semibold font-[Inter]'>Quick Actions:</p>
@@ -138,7 +138,7 @@ const Dashboard: FC = () => {
 							</a>
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</motion.div >
 	);

@@ -18,6 +18,7 @@ interface typeCreateCampaignUI {
 
 const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const addtionalFileInputRef = useRef<HTMLInputElement>(null);
   const { email } = useSelector(selectAuth);
 
   const [headLine, setHeadLine] = useState('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
@@ -27,6 +28,8 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
   const [file, setFile] = useState<any>('');
   const [pageUrl, setPageUrl] = useState('');
   const [asterick, setAsterick] = useState(false);
+  const [additionalFiles, setAdditionalFiles] = useState<any>([]);
+  const [additionalFileCount, setAdditionalFileCount] = useState<number>(0);
 
   useEffect(() => {
     if (props.uiData) {
@@ -34,9 +37,15 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       setBody(props.uiData.body);
       setCta(props.uiData.cta);
       setImage(props.uiData.image);
+      const aFiles = props.uiData.additional_files ? props.uiData.additional_files.split(',') : [''];
+      setAdditionalFileCount(aFiles[0] !== '' ? aFiles.length : 0);
       setPageUrl(props.uiData.page_url || '');
     }
   }, [props]);
+
+  useEffect(() => {
+    if (additionalFiles.length > 0) setAdditionalFileCount(additionalFiles.length);
+  }, [additionalFiles]);
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files) {
@@ -49,6 +58,12 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       };
 
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAdditionalFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.target.files) {
+      setAdditionalFiles(e.target.files);
     }
   };
 
@@ -70,6 +85,9 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       formData.append('cta', cta);
       formData.append('body', body);
       formData.append('image', file);
+      for (const aFile of additionalFiles) {
+        formData.append('additional_file', aFile);
+      }
       formData.append('pageUrl', pageUrl);
       if (!props.uiData) {
         APIInstance.post('data/campaign_ui', formData).then(data => {
@@ -203,6 +221,49 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             hidden
             accept='image/*'
             onChange={handleFileChange}
+          />
+          <p className='font-[Inter] text-sm font-semibold mt-2 mb-0 flex'>
+            Additional Assets
+            <Tooltip
+              title='Additional files for your campaign'
+              color='#EDECF2'
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='h-[20px] w-[20px] ms-1'>
+                <path d="M460-300h40v-220h-40v220Zm20-276.923q10.462 0 17.539-7.077 7.076-7.077 7.076-17.539 0-10.461-7.076-17.538-7.077-7.077-17.539-7.077-10.462 0-17.539 7.077-7.076 7.077-7.076 17.538 0 10.462 7.076 17.539 7.077 7.077 17.539 7.077ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120ZM480-160q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+              </svg>
+            </Tooltip>
+          </p>
+          <p className='mt-[3px] text-[#7f8182] font-[Inter] text-[13px] font-medium mb-0'>Click below to add your files</p>
+          <div className='flex mt-[7px]'>
+            <button
+              data-tooltip-id='hero'
+              onClick={() => { if (addtionalFileInputRef.current) addtionalFileInputRef.current.click(); }}
+              className='overflow-hidden truncate px-2 text-sm py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-[#7F8182]'
+            >
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" className='me-1 -ms-1'>
+                  <path fill='#505050' d="M460-336.923v-346l-93.231 93.231-28.308-28.769L480-760l141.539 141.539-28.308 28.769L500-682.923v346h-40ZM264.615-200Q237-200 218.5-218.5 200-237 200-264.615v-96.923h40v96.923q0 9.23 7.692 16.923Q255.385-240 264.615-240h430.77q9.23 0 16.923-7.692Q720-255.385 720-264.615v-96.923h40v96.923Q760-237 741.5-218.5 723-200 695.385-200h-430.77Z" />
+                </svg>
+                <span className='text-[#7F8182] font-[Inter] text-sm'>Upload files</span>
+              </>
+            </button>
+            {
+              additionalFileCount > 0 &&
+              <div className='relative ms-2 cursor-pointer flex items-center' onClick={() => { setAdditionalFiles([]); setAdditionalFileCount(0); }}>
+                <p className='text-xs'>{`${additionalFileCount} file${additionalFileCount > 1 ? 's' : ''} are selected`}</p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" className='w-[18px] h-[18px] absolute -top-1 right-0'>
+                  <path fill="red" d="m336-307.692 144-144 144 144L652.308-336l-144-144 144-144L624-652.308l-144 144-144-144L307.692-624l144 144-144 144L336-307.692ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120Z" />
+                </svg>
+              </div>
+            }
+          </div>
+          <input
+            ref={addtionalFileInputRef}
+            type="file"
+            hidden
+            multiple
+            accept='*'
+            onChange={handleAdditionalFileChange}
           />
           <p className='font-[Inter] text-sm font-semibold mt-2 mb-0 flex items-center'>
             URL for your landing page
