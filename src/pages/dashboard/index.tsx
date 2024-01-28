@@ -58,23 +58,23 @@ const Dashboard: FC = () => {
 					<div className='flex justify-between items-center mt-[22px]'>
 						<div>
 							<Link
-								className={`inline-flex text-left text-[#505050] text-sm 2xl:text-md px-3 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}
+								className={`inline-flex items-center justify-center text-[#505050] text-sm 2xl:text-md px-3 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${id === 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}
 								to="/campaign/all"
 							>
 								Overview
 							</Link>
-							<div className="group inline-flex flex-col">
+							<div className="group inline-flex flex-col w-[170px]">
 
 								<Dropdown
 									className='text-left'
 									placement='bottomRight'
 									menu={{ items }}
 								>
-									<button className={`font-[Inter] text-sm text-[#505050] 2xl:text-base flex items-center px-4 py-[10px] rounded-[15px] ${id !== 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}>
+									<button className={`font-[Inter] text-sm items-center justify-center text-[#505050] 2xl:text-base flex px-4 py-[10px] rounded-[15px] ${id !== 'all' ? 'bg-white ring-1 ring-[#7FFBAE]' : 'bg-transparent ring-none'}`}>
 										By Campaign
-										<svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" className="mx-5">
+										{/* <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16" className="mx-5">
 											<path d="M450.001-779.999v485.077L222.154-522.768 180.001-480 480-180.001 779.999-480l-42.153-42.768-227.847 227.846v-485.077h-59.998Z" fill='#505050' />
-										</svg>
+										</svg> */}
 									</button>
 								</Dropdown>
 							</div>
