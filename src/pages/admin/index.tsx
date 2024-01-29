@@ -22,6 +22,7 @@ import AccountImage from '../../assets/image/account.png';
 import LinkImage from '../../assets/icon/link.png';
 import InviteNewClient from './ui/InviteNewClient';
 import AdminDashboardClient from './dashboard/Client';
+import AdminClient from './Client';
 
 const Admin: FC = () => {
   const location = useLocation();
@@ -259,6 +260,7 @@ const Admin: FC = () => {
             <Routes>
               <Route path="/dashboard/*" element={<AdminDashboard />} />
               <Route path="/client" element={<AdminDashboardClient />} />
+              <Route path="/client/:id" element={<AdminClient />} />
               <Route path="/member" element={<AdminMember />} />
               <Route path="/campaign" element={<AdminCampaign />} />
               <Route path="/billing" element={<AdminBilling />} />
