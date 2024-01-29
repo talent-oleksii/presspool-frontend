@@ -118,19 +118,19 @@ const AdminDashboardClient: FC = () => {
                     <p className='font-[Inter] text-[#a3a3a3] text-xs font-medium -tracking-[.36px]'>Account Manager</p>
                     <p className='font-[Inter] text-[#43474a] text-xs font-medium -tracking-[.36px] mt-4'>{adminName}</p>
                   </div>
-                  <div>
+                  <div className='flex flex-col items-center justify-center'>
                     <p className='font-[Inter] text-[#a3a3a3] text-xs font-medium -tracking-[.36px]'>Status</p>
                     <p className={`font-[Inter] text-black text-xs font-medium -tracking-[.36px] mt-4 px-2 rounded-full py-1 ${item.state === 'active' ? 'bg-[#7ffbae]' : 'bg-[#FF4D42]'}`}>{item.state === 'active' ? 'Active' : 'Inactive'}</p>
                   </div>
                   <div className='items-center flex justify-center'>
-                    <Dropdown
+                    {/* <Dropdown
                       menu={{
                         items: [{
                           key: '1',
                           label: <Link className='w-full h-full text-xs' to={`/admin/client/${item.id}`}>Details</Link>
                         }, {
                           key: '2',
-                          label: <span className='w-full h-full text-xs'>{item.state === 'active' ? 'Deactivate User' : 'Activate User'}</span>,
+                          label: <span className='w-full h-full text-xs'>{item.state === 'active' ? '`Deactiv`ate User' : 'Activate User'}</span>,
                           onClick: () => handleChangeState(item.id, item.state),
                         }]
                       }}
@@ -141,7 +141,8 @@ const AdminDashboardClient: FC = () => {
                           <path d="M258.461-440q-16.5 0-28.25-11.75T218.461-480q0-16.5 11.75-28.25t28.25-11.75q16.501 0 28.251 11.75t11.75 28.25q0 16.5-11.75 28.25T258.461-440ZM480-440q-16.5 0-28.25-11.75T440-480q0-16.5 11.75-28.25T480-520q16.5 0 28.25 11.75T520-480q0 16.5-11.75 28.25T480-440Zm221.539 0q-16.501 0-28.251-11.75T661.538-480q0-16.5 11.75-28.25T701.539-520q16.5 0 28.25 11.75t11.75 28.25q0 16.5-11.75 28.25T701.539-440Z" />
                         </svg>
                       </button>
-                    </Dropdown>
+                    </Dropdown> */}
+                    <Link className='w-full h-full text-[10px] rounded-lg bg-black font-medium text-white px-4 py-2' to={`/admin/client/${item.id}`}>Client Details</Link>
                   </div>
                   {/* <span className={`absolute rounded-full px-3 py-1 right-1 bg-black bottom-1 text-xs font-[Inter] ${item.state === 'inactive' ? 'text-[red]' : 'text-[#7ffbae]'}`}>{item.state}</span> */}
                 </div>
