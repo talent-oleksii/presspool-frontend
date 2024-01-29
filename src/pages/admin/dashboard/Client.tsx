@@ -83,7 +83,7 @@ const AdminDashboardClient: FC = () => {
           </div> */}
           <div className='mt-4 bg-white rounded-[15px] px-[20px]'>
             {
-              data.map((item, index) => (
+              data && data.map((item, index) => (
                 <div key={item.id} className={`relative flex py-4 items-center justify-between ${index !== data.length - 1 && 'border-b-[1px] border-[#d9d9d9]'}`}>
                   <div className='text-left min-w-[170px] pr-2'>
                     <div className='mt-1 flex items-center'>
