@@ -5,10 +5,13 @@ import { DatePicker } from "antd";
 import AdminDashboardOverview from "./dashboard/Overview";
 import ADminDashboardCampaign from './dashboard/Campaign';
 import AdminDashboardClient from "./dashboard/Client";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../store/authSlice";
 
 const AdminDashboard: FC = () => {
   const location = useLocation();
   const navigator = useNavigate();
+  const { adminName } = useSelector(selectAuth);
   const [range, setRange] = useState<any>([]);
 
   useEffect(() => {
@@ -26,12 +29,21 @@ const AdminDashboard: FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex">
+    <div className="w-full flex">
       <div className="text-left flex-1">
-        <h2 className="font-[Inter] font-semibold -tracking-[.6px] text-[20px]">Welcome To Admin Dashboard 🤝</h2>
-        <p className="mt-1 text-[#43474a] font-[Inter] text-sm">Here's a snapshot of Presspool.ai, all in one place</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="font-[Inter] font-semibold -tracking-[.6px] text-[20px]">{`Welcome ${adminName} 🤝`}</h2>
+            <p className="mt-1 text-[#43474a] font-[Inter] text-sm">Here's a snapshot of Presspool.ai, all in one place</p>
+          </div>
 
-        <div className="flex w-full items-center justify-between mt-4">
+          <DatePicker.RangePicker
+            className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[230px]'
+            onChange={(e) => setRange(e)}
+          />
+        </div>
+
+        {/* <div className="flex w-full items-center justify-between mt-4">
           <div className="flex relative">
             <Link to="/admin/dashboard/overview" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Overview</Link>
             <Link to="/admin/dashboard/campaign/list" className="z-[1] text-center text-[#505050] font-semibold text-sm px-4 py-3 min-w-[150px]">Campaigns</Link>
@@ -41,11 +53,7 @@ const AdminDashboard: FC = () => {
               className={`h-full w-[33.3%] bg-white absolute z-0 rounded-[15px] border-[1px] border-[#7ffbae] transition-all duration-500 ${getOffsetBack()}`}
             />
           </div>
-          <DatePicker.RangePicker
-            className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[230px]'
-            onChange={(e) => setRange(e)}
-          />
-        </div>
+        </div> */}
 
         <div className="mt-4">
           <Routes>
@@ -55,7 +63,7 @@ const AdminDashboard: FC = () => {
           </Routes>
         </div>
       </div>
-      <div className='w-[300px] pl-[30px] pr-[20px] mt-[130px] text-left'>
+      {/* <div className='w-[300px] pl-[30px] pr-[20px] mt-[130px] text-left'>
         <div className='relative h-[300px]'>
           <div className='bg-[#7FFBAE] p-[19px] rounded-t-[14px] w-full top-0 z-10'>
             <p className='text-black text-base font-semibold font-[Inter]'>Quick Actions:</p>
@@ -121,7 +129,7 @@ const AdminDashboard: FC = () => {
             </a>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
