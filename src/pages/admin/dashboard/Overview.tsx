@@ -16,20 +16,22 @@ const AdminDashboardOverview: FC = () => {
       setData(data.data);
 
       let grouped: any = {};
-      data.data.clicked.forEach((item: any) => {
-        const date = moment(Number(item.create_time));
-        const key = date.format('DD/MM/YYYY');
-        if (!grouped[key]) {
-          grouped[key] = [];
-        }
-        grouped[key].push(item);
-      });
+      if (data.data.clicked) {
+        data.data.clicked.forEach((item: any) => {
+          const date = moment(Number(item.create_time));
+          const key = date.format('DD/MM/YYYY');
+          if (!grouped[key]) {
+            grouped[key] = [];
+          }
+          grouped[key].push(item);
+        });
 
-      setChartData(Object.keys(grouped).map(item => ({
-        impression: 0,
-        click: grouped[item].length,
-        date: item,
-      })));
+        setChartData(Object.keys(grouped).map(item => ({
+          impression: 0,
+          click: grouped[item].length,
+          date: item,
+        })));
+      }
     }).catch(err => {
       console.log('err:', err);
     }).finally(() => setLoading(false));
