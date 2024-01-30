@@ -1,4 +1,4 @@
-import { Avatar, DatePicker } from 'antd';
+import { Table, Avatar, DatePicker } from 'antd';
 import { FC, useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,8 @@ import Loading from '../../components/Loading';
 import { selectAuth } from '../../store/authSlice';
 import AssignAccountManager from './ui/AssignAccountManager';
 import DialogUtils from '../../utils/DialogUtils';
+
+const { Column } = Table;
 
 const AdminClient: FC = () => {
   const { id } = useParams();
@@ -23,6 +25,7 @@ const AdminClient: FC = () => {
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [range, setRange] = useState<any>([]);
   const [note, setNote] = useState('');
+  const [fileData, setFileData] = useState<Array<any>>([]);
 
   const { adminRole } = useSelector(selectAuth);
 
@@ -39,12 +42,36 @@ const AdminClient: FC = () => {
   }, [id]);
 
   useEffect(() => {
+    // set campaign data
+    const temp: Array<any> = [];
+    console.log('dd:', campaignData);
+    campaignData.forEach((item: any, index: number) => {
+      if (item.additional_files) {
+        const files = item.additional_files.split(',');
+        files.forEach(async (fileName: string, fileIndex: number) => {
+          const parts = fileName.split('/');
+          // const fetchData = await fetch(fileName);
+          // console.log('dd:', fetchData.headers);
+
+          temp.push({
+            key: index * campaignData.length + fileIndex,
+            name: parts[parts.length - 1],
+            date: moment(Number(item.create_time)).format('MM/DD/YYYY HH:MM'),
+            // size: Number(fetchData) / 1024 / 1024,
+            fullUrl: fileName,
+            campaignName: item.name,
+          });
+        });
+      }
+    });
+    setFileData(temp);
+
     if (!range || !range[1] || !range[0]) {
       setFilteredData(campaignData);
       return;
     }
     setFilteredData(campaignData.filter(item => Number(item.create_time) >= range[0].valueOf() && Number(item.create_time) <= range[1].valueOf()));
-  }, [range, campaignData]);
+  }, [campaignData, range]);
 
   const goBack = () => {
     navigator(-1);
@@ -85,6 +112,15 @@ const AdminClient: FC = () => {
     }).finally(() => setLoading(false));
   };
 
+  const handleDownload = (url: string, fileName: string) => {
+    const aElement = document.createElement('a');
+    aElement.href = url;
+    aElement.download = fileName;
+    document.body.appendChild(aElement);
+    aElement.click();
+    document.body.removeChild(aElement);
+  };
+
   return (
     <div>
       {loading && <Loading />}
@@ -95,17 +131,21 @@ const AdminClient: FC = () => {
             <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className='mx-1'>
               <path d="M683.154-460H200v-40h483.154L451.461-731.692 480-760l280 280-280 280-28.539-28.308L683.154-460Z" />
             </svg>
+            <span>{userData.name}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className='mx-1'>
+              <path d="M683.154-460H200v-40h483.154L451.461-731.692 480-760l280 280-280 280-28.539-28.308L683.154-460Z" />
+            </svg>
             <span>Client Details</span>
           </h2>
-          <p className='text-[#43474a] text-sm font-[Inter] mt-1'>One-stop shop to manage all clients</p>
+          {/* <p className='text-[#43474a] text-sm font-[Inter] mt-1'>One-stop shop to manage all clients</p> */}
           <div className='mt-4 flex justify-between items-center border-b-[1px] border-[#bcbcbc] py-4'>
             <div className='flex items-center'>
               <Avatar size={77} src={userData.avatar} className='bg-[#7f8182]'>
                 {!userData.avatar && getPlaceHolder(userData.name)}
               </Avatar>
               <div className='ms-2 py-[20px]'>
-                <p className='font-[Inter] text-xs text-[#a3a3a3] -tracking-[.36px]'>{`ID: ${userData.id}`}</p>
-                <p className='font-[Inter] text-lg text-[#43474a] -tracking-[.54px]'>{userData.name}</p>
+                {/* <p className='font-[Inter] text-xs text-[#a3a3a3] -tracking-[.36px]'>{`ID: ${userData.id}`}</p> */}
+                <p className='font-[Inter] text-lg text-[#43474a] -tracking-[.54px]'>{userData.company}</p>
               </div>
             </div>
             <div className='flex gap-4'>
@@ -159,43 +199,62 @@ const AdminClient: FC = () => {
             currentTab === 'user' &&
             <div>
               <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Client Details</p>
-              <div className='mt-4 rounded-[10px] bg-white px-[23px] py-[28px] grid grid-cols-2 gap-16'>
-                <div className='col-span-1'>
-                  <h2 className='font-[Inter] text-lg -tracking-[.6px] font-medium mb-4'>Company Information</h2>
-                  <p className='text-base font-[Inter] -tracking-[.48px] font-medium'>Company Users</p>
-
+              <div className='mt-4 rounded-[10px] bg-white px-[23px] py-[28px] '>
+                <div className='grid grid-cols-4 gap-16 border-b-[1px] border-[#bcbcbc]'>
+                  <div className='col-span-3'>
+                    {/* <h2 className='font-[Inter] text-lg -tracking-[.6px] font-medium mb-4'>Company Information</h2> */}
+                    <p className='font-[Inter] text-lg -tracking-[.6px] font-medium mb-4'>Company Users</p>
+                    {/* 
                   <p className='mt-4 text-base font-[Inter] -tracking-[.48px] font-medium'>Company Name</p>
-                  <p className='mt-2 text-lg italic -tracking-[.54px] text-[#7f8182] font-medium bg-[#fbfbfb] rounded-[10px] px-4 py-2 border-[1px] border-[rgba(127, 129, 130, 0.13)]'>{userData.company}</p>
+                  <p className='mt-2 text-lg italic -tracking-[.54px] text-[#7f8182] font-medium bg-[#fbfbfb] rounded-[10px] px-4 py-2 border-[1px] border-[rgba(127, 129, 130, 0.13)]'>{userData.company}</p> */}
+                  </div>
+                  <div className='col-span-1'>
+                    <h2 className='font-[Inter] text-lg -tracking-[.6px] font-medium mb-4'>Payment Methods</h2>
+                    {/* <p className='text-lg font-[Inter] -tracking-[.48px] font-medium'>Visa Card</p> */}
+                    {
+                      adminRole === 'super_admin' &&
+                      <div>
+                        <p className='text-lg font-[Inter] font-medium -tracking-[.6px] mt-4'>Assign Account Manager(s)</p>
+                        {
+                          accountManager &&
+                          <div className='rounded-[10px] bg-[#fbfbfb] border-[1px] border-[#7f8183]/[.13] my-2 px-4 py-2 flex items-center justify-between'>
+                            <p className='text-[#43474a] font-[Inter] -tracking-[.5px] font-medium text-sm'>{accountManager.name}</p>
+                            <button className='text-xs font-[Inter] text-white px-3 py-1 rounded-lg bg-[#e3392e] flex items-center justify-center' onClick={handleRemove}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
+                                <path d="M11.5358 2.82128C11.7001 2.82147 11.8581 2.889 11.9776 3.01006C12.0971 3.13112 12.169 3.29658 12.1787 3.47262C12.1883 3.64867 12.1349 3.82202 12.0295 3.95725C11.924 4.09248 11.7744 4.17939 11.6112 4.20022L11.5358 4.20506H11.4835L10.891 11.8159C10.8911 12.3453 10.7026 12.8548 10.3641 13.24C10.0257 13.6252 9.56284 13.857 9.07034 13.8881L8.95687 13.8915H3.79908C2.76881 13.8915 1.9268 13.0274 1.87006 11.9888L1.86684 11.8733L1.27176 4.20506H1.22018C1.05585 4.20487 0.897799 4.13734 0.778308 4.01628C0.658818 3.89522 0.586911 3.72977 0.577281 3.55372C0.567651 3.37767 0.621023 3.20432 0.726494 3.06909C0.831964 2.93386 0.981572 2.84695 1.14475 2.82612L1.22018 2.82128H11.5358ZM5.41798 6.3776C5.2829 6.29131 5.12309 6.26095 4.96861 6.29224C4.81414 6.32354 4.67564 6.41432 4.57916 6.54752C4.48268 6.68072 4.43488 6.84716 4.44474 7.01553C4.4546 7.1839 4.52145 7.34261 4.63271 7.4618L5.46569 8.35641L4.63271 9.25103L4.57919 9.31607C4.479 9.45513 4.43188 9.62991 4.44741 9.80491C4.46295 9.9799 4.53997 10.142 4.66283 10.2583C4.78569 10.3745 4.94518 10.4362 5.10891 10.4309C5.27264 10.4255 5.42832 10.3535 5.54435 10.2294L6.37797 9.33544L7.2116 10.2294L7.27221 10.2868C7.40179 10.3943 7.56465 10.4449 7.72772 10.4282C7.89079 10.4115 8.04182 10.3289 8.15016 10.197C8.25849 10.0652 8.316 9.89403 8.311 9.71832C8.306 9.54262 8.23887 9.37554 8.12324 9.25103L7.29026 8.35641L8.12324 7.4618L8.17675 7.39676C8.27695 7.2577 8.32407 7.08292 8.30853 6.90792C8.293 6.73292 8.21598 6.57084 8.09312 6.45457C7.97026 6.33831 7.81077 6.2766 7.64704 6.28196C7.48331 6.28733 7.32762 6.35937 7.2116 6.48346L6.37797 7.37739L5.54435 6.48346L5.48374 6.42604L5.41798 6.3776Z" fill="white" />
+                                <path d="M7.66688 0.0537109C8.00886 0.0537109 8.33684 0.199502 8.57865 0.459012C8.82047 0.718522 8.95632 1.07049 8.95632 1.43749C8.95614 1.61384 8.89322 1.78346 8.78041 1.9117C8.66761 2.03993 8.51343 2.11709 8.34938 2.12743C8.18534 2.13776 8.02381 2.08049 7.8978 1.9673C7.77178 1.85411 7.6908 1.69356 7.67139 1.51845L7.66688 1.43749H5.08798L5.08347 1.51845C5.06406 1.69356 4.98307 1.85411 4.85706 1.9673C4.73105 2.08049 4.56952 2.13776 4.40547 2.12743C4.24143 2.11709 4.08725 2.03993 3.97444 1.9117C3.86164 1.78346 3.79871 1.61384 3.79853 1.43749C3.79843 1.08838 3.92129 0.75213 4.14249 0.496143C4.36369 0.240155 4.66688 0.0833539 4.99127 0.0571705L5.08798 0.0537109H7.66688Z" fill="white" />
+                              </svg>
+                              Remove
+                            </button>
+                          </div>
+                        }
+                        <button
+                          className='mt-4 px-6 py-2 rounded-[10px] text-white font-[Inter] text-base font-semibold bg-black disabled:bg-[#a3a3a3]'
+                          disabled={userData.accountManager}
+                          onClick={() => setShowAssignModal(true)}
+                        >
+                          + Assign
+                        </button>
+                      </div>
+                    }
+                  </div>
                 </div>
-                <div className='col-span-1'>
-                  <h2 className='font-[Inter] text-lg -tracking-[.6px] font-medium mb-4'>Payment Methods</h2>
-                  <p className='text-lg font-[Inter] -tracking-[.48px] font-medium'>Visa Card</p>
-                  {
-                    adminRole === 'super_admin' &&
-                    <div>
-                      <p className='text-lg font-[Inter] font-medium -tracking-[.6px] mt-4'>Assign Account Manager(s)</p>
-                      {
-                        accountManager &&
-                        <div className='rounded-[10px] bg-[#fbfbfb] border-[1px] border-[#7f8183]/[.13] my-2 px-4 py-2 flex items-center justify-between'>
-                          <p className='text-[#43474a] font-[Inter] -tracking-[.5px] font-medium text-sm'>{accountManager.name}</p>
-                          <button className='text-xs font-[Inter] text-white px-3 py-1 rounded-lg bg-[#e3392e] flex items-center justify-center' onClick={handleRemove}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
-                              <path d="M11.5358 2.82128C11.7001 2.82147 11.8581 2.889 11.9776 3.01006C12.0971 3.13112 12.169 3.29658 12.1787 3.47262C12.1883 3.64867 12.1349 3.82202 12.0295 3.95725C11.924 4.09248 11.7744 4.17939 11.6112 4.20022L11.5358 4.20506H11.4835L10.891 11.8159C10.8911 12.3453 10.7026 12.8548 10.3641 13.24C10.0257 13.6252 9.56284 13.857 9.07034 13.8881L8.95687 13.8915H3.79908C2.76881 13.8915 1.9268 13.0274 1.87006 11.9888L1.86684 11.8733L1.27176 4.20506H1.22018C1.05585 4.20487 0.897799 4.13734 0.778308 4.01628C0.658818 3.89522 0.586911 3.72977 0.577281 3.55372C0.567651 3.37767 0.621023 3.20432 0.726494 3.06909C0.831964 2.93386 0.981572 2.84695 1.14475 2.82612L1.22018 2.82128H11.5358ZM5.41798 6.3776C5.2829 6.29131 5.12309 6.26095 4.96861 6.29224C4.81414 6.32354 4.67564 6.41432 4.57916 6.54752C4.48268 6.68072 4.43488 6.84716 4.44474 7.01553C4.4546 7.1839 4.52145 7.34261 4.63271 7.4618L5.46569 8.35641L4.63271 9.25103L4.57919 9.31607C4.479 9.45513 4.43188 9.62991 4.44741 9.80491C4.46295 9.9799 4.53997 10.142 4.66283 10.2583C4.78569 10.3745 4.94518 10.4362 5.10891 10.4309C5.27264 10.4255 5.42832 10.3535 5.54435 10.2294L6.37797 9.33544L7.2116 10.2294L7.27221 10.2868C7.40179 10.3943 7.56465 10.4449 7.72772 10.4282C7.89079 10.4115 8.04182 10.3289 8.15016 10.197C8.25849 10.0652 8.316 9.89403 8.311 9.71832C8.306 9.54262 8.23887 9.37554 8.12324 9.25103L7.29026 8.35641L8.12324 7.4618L8.17675 7.39676C8.27695 7.2577 8.32407 7.08292 8.30853 6.90792C8.293 6.73292 8.21598 6.57084 8.09312 6.45457C7.97026 6.33831 7.81077 6.2766 7.64704 6.28196C7.48331 6.28733 7.32762 6.35937 7.2116 6.48346L6.37797 7.37739L5.54435 6.48346L5.48374 6.42604L5.41798 6.3776Z" fill="white" />
-                              <path d="M7.66688 0.0537109C8.00886 0.0537109 8.33684 0.199502 8.57865 0.459012C8.82047 0.718522 8.95632 1.07049 8.95632 1.43749C8.95614 1.61384 8.89322 1.78346 8.78041 1.9117C8.66761 2.03993 8.51343 2.11709 8.34938 2.12743C8.18534 2.13776 8.02381 2.08049 7.8978 1.9673C7.77178 1.85411 7.6908 1.69356 7.67139 1.51845L7.66688 1.43749H5.08798L5.08347 1.51845C5.06406 1.69356 4.98307 1.85411 4.85706 1.9673C4.73105 2.08049 4.56952 2.13776 4.40547 2.12743C4.24143 2.11709 4.08725 2.03993 3.97444 1.9117C3.86164 1.78346 3.79871 1.61384 3.79853 1.43749C3.79843 1.08838 3.92129 0.75213 4.14249 0.496143C4.36369 0.240155 4.66688 0.0833539 4.99127 0.0571705L5.08798 0.0537109H7.66688Z" fill="white" />
-                            </svg>
-                            Remove
-                          </button>
-                        </div>
-                      }
-                      <button
-                        className='mt-4 px-6 py-2 rounded-[10px] text-white font-[Inter] text-base font-semibold bg-black disabled:bg-[#a3a3a3]'
-                        disabled={userData.accountManager}
-                        onClick={() => setShowAssignModal(true)}
-                      >
-                        + Assign
-                      </button>
-                    </div>
-                  }
+                <div>
+                  <p className='font-[Inter] text-lg -tracking-[.6px] font-medium mb-4 mt-4'>Company Files</p>
+                  <Table
+                    className='mt-2 file-table'
+                    dataSource={fileData}
+                  >
+                    <Column title="Name" dataIndex="name" key="name" />
+                    <Column title="Campaign Name" dataIndex="campaignName" key="campaign name" />
+                    <Column title="Date Added" dataIndex="date" key="date" />
+                    <Column title="" key="action" render={(_: any, record: any) => (
+                      <>
+                        <button className='text-xs font-bold -tracking-[.45px] text-[#7f8182]' onClick={e => { e.preventDefault(); handleDownload(record.fullUrl, record.name); }}>VIEW</button>
+                        {/* <button className='text-xs font-bold -tracking-[.45px] text-[#7f8182] ms-2'>DELETE</button> */}
+                      </>
+                    )} />
+                  </Table>
                 </div>
               </div>
               <AssignAccountManager

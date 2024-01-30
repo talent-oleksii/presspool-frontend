@@ -254,23 +254,6 @@ const Profile: FC = () => {
           <Table
             className='mt-2 file-table'
             dataSource={fileData}
-          // columns={[{
-          //   title: 'Name',
-          //   dataIndex: 'name',
-          //   key: 'name',
-          // }, {
-          //   title: 'Campaign Name',
-          //   dataIndex: 'campaignName',
-          //   key: 'campaignName',
-          // }, {
-          //   title: 'Size',
-          //   dataIndex: 'size',
-          //   key: 'size',
-          // }, {
-          //   title: 'Date Added',
-          //   dataIndex: 'date',
-          //   key: 'date',
-          // }]}
           >
             <Column title="Name" dataIndex="name" key="name" />
             <Column title="Campaign Name" dataIndex="campaignName" key="campaign name" />
