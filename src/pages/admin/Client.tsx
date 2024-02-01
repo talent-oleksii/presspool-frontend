@@ -19,6 +19,7 @@ const AdminClient: FC = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>({});
   const [campaignData, setCampaignData] = useState<Array<any>>([]);
+  const [showCampaignData, setShowCampaignData] = useState<Array<any>>([]);
   const [filteredData, setFilteredData] = useState<Array<any>>([]);
   const [accountManager, setAccountManager] = useState<any>();
   const [currentTab, setCurrentTab] = useState('user');
@@ -26,6 +27,7 @@ const AdminClient: FC = () => {
   const [range, setRange] = useState<any>([]);
   const [note, setNote] = useState('');
   const [fileData, setFileData] = useState<Array<any>>([]);
+  const [searchKey, setSearchKey] = useState('');
 
   const { adminRole } = useSelector(selectAuth);
 
@@ -44,7 +46,6 @@ const AdminClient: FC = () => {
   useEffect(() => {
     // set campaign data
     const temp: Array<any> = [];
-    console.log('dd:', campaignData);
     campaignData.forEach((item: any, index: number) => {
       if (item.additional_files) {
         const files = item.additional_files.split(',');
@@ -67,11 +68,11 @@ const AdminClient: FC = () => {
     setFileData(temp);
 
     if (!range || !range[1] || !range[0]) {
-      setFilteredData(campaignData);
+      setFilteredData(campaignData.filter(item => item.name.includes(searchKey)));
       return;
     }
-    setFilteredData(campaignData.filter(item => Number(item.create_time) >= range[0].valueOf() && Number(item.create_time) <= range[1].valueOf()));
-  }, [campaignData, range]);
+    setFilteredData(campaignData.filter(item => (Number(item.create_time) >= range[0].valueOf() && Number(item.create_time) <= range[1].valueOf()) && item.name.includes(searchKey)));
+  }, [campaignData, range, searchKey]);
 
   const goBack = () => {
     navigator(-1);
@@ -135,7 +136,7 @@ const AdminClient: FC = () => {
             <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className='mx-1'>
               <path d="M683.154-460H200v-40h483.154L451.461-731.692 480-760l280 280-280 280-28.539-28.308L683.154-460Z" />
             </svg>
-            <span>Client Details</span>
+            <span>{currentTab === 'user' ? 'Details' : 'Campaign'}</span>
           </h2>
           {/* <p className='text-[#43474a] text-sm font-[Inter] mt-1'>One-stop shop to manage all clients</p> */}
           <div className='mt-4 flex justify-between items-center border-b-[1px] border-[#bcbcbc] py-4'>
@@ -198,7 +199,7 @@ const AdminClient: FC = () => {
           {
             currentTab === 'user' &&
             <div>
-              <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Client Details</p>
+              {/* <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Client Details</p> */}
               <div className='mt-4 rounded-[10px] bg-white px-[23px] py-[28px] '>
                 <div className='grid grid-cols-4 gap-16 border-b-[1px] border-[#bcbcbc]'>
                   <div className='col-span-3'>
@@ -281,17 +282,35 @@ const AdminClient: FC = () => {
           }
           {
             currentTab === 'campaign' &&
-            <div>
-              <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Campaign Details</p>
-              <div className='mt-4 rounded-[10px] bg-white px-[23px] py-[28px] grid grid-cols-2 gap-8'>
+            <div className='rounded-[10px] bg-white px-[23px] py-[28px] '>
+              {/* <p className='font-[Inter] text-base font-medium -tracking-[.51px]'>Campaign Details</p> */}
+              <div className='flex items-center justify-between'>
+                <div>
+                  <div className='flex items-center px-4 py-2 border-[#7f8182] border-[1px] rounded-lg'>
+                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12.0016 1.07199C12.9542 1.62201 13.7832 2.36255 14.4368 3.24735C15.0903 4.13216 15.5544 5.14222 15.8 6.21444C16.0456 7.28666 16.0675 8.39801 15.8643 9.47908C15.6611 10.5601 15.2372 11.5877 14.619 12.4976L19.5637 17.4412C19.839 17.7125 19.9989 18.0795 20.0102 18.4659C20.0216 18.8522 19.8833 19.228 19.6244 19.5149C19.3655 19.8018 19.0058 19.9777 18.6203 20.006C18.2349 20.0342 17.8534 19.9126 17.5554 19.6665L17.4414 19.5635L12.4977 14.6188C11.3149 15.4222 9.93848 15.894 8.51156 15.9851C7.08464 16.0761 5.65938 15.7832 4.38408 15.1366C3.10878 14.4901 2.03003 13.5136 1.26007 12.3088C0.490105 11.104 0.0570647 9.71489 0.00600086 8.28598L0 8.00094L0.0050008 7.7159C0.0542013 6.33646 0.459431 4.99321 1.18131 3.8167C1.90318 2.64019 2.91715 1.67044 4.12465 1.00171C5.33216 0.332977 6.69213 -0.0119965 8.07239 0.00031853C9.45265 0.0126336 10.8063 0.381819 12.0016 1.07199Z" fill="#7F8182" />
+                      <circle cx="8.00781" cy="8.00391" r="6" fill="#F5F5F5" />
+                    </svg>
+
+                    <input
+                      className='focus:ring-0 focus:outline-0 border-0 text-sm p-0 ms-2'
+                      placeholder='Search by Campaign Name'
+                      value={searchKey}
+                      onChange={e => setSearchKey(e.target.value)}
+                    />
+                  </div>
+                </div>
                 <DatePicker.RangePicker
                   className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[270px] col-span-full'
                   onChange={(e) => setRange(e)}
                 />
+              </div>
+              <div className='mt-4 grid grid-cols-2 gap-8'>
+
                 {
                   filteredData.map(item => (
                     <div className='col-span-1' key={item.id}>
-                      <p className='font-[Inter] text-[13px] font-semibold -tracking-[.39px]'>{`Launch Date: ${moment(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>
+                      <p className='font-[Inter] text-[13px] font-semibold -tracking-[.39px]'>{`Launch Date: ${item.state === 'active' ? moment(Number(item.create_time)).format('DD MMM, yyyy') : 'Draft'}`}</p>
                       <div className='rounded-lg bg-[#f5f5f5] w-full px-[20px] py-[16px] mt-2'>
                         <div className='flex items-center justify-between'>
                           <div className=''>
@@ -300,11 +319,15 @@ const AdminClient: FC = () => {
                           </div>
                           <div className=''>
                             <p className='text-base font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Compaign Name</p>
-                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`#${item.name}`}</p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`${item.name}`}</p>
                           </div>
                           <div className=''>
                             <p className='text-base font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Budget/<span className='text-xs -tracking-[.36px]'>week</span></p>
-                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`#${Number(item.price) / 4}`}</p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`$${Number(item.price) / 4}`}</p>
+                          </div>
+                          <div className=''>
+                            <p className='text-base font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Status</p>
+                            <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-[#43474a] ${item.state === 'active' ? 'bg-[#7ffbae]' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
                           </div>
                         </div>
                         <Link to={`/admin/dashboard/campaign/${item.id}`} className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>

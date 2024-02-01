@@ -269,6 +269,7 @@ const Admin: FC = () => {
               <Route path="/dashboard/*" element={<AdminDashboard />} />
               <Route path="/client" element={<AdminDashboardClient />} />
               <Route path="/client/:id" element={<AdminClient />} />
+              <Route path="/client/:id/:campaignId" element={<AdminCampaign />} />
               <Route path="/member" element={<AdminMember />} />
               <Route path="/campaign" element={<AdminCampaign />} />
               <Route path="/billing" element={<AdminBilling />} />
