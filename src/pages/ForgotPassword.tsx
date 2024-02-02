@@ -127,13 +127,13 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                       {showWarning && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Enter Valid Email Address</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter your email address'
                       value={email}
                       type='email'
                       onChange={e => setEmail(e.target.value)}
                     />
-                    <button className='mt-[20px] flex items-center justify-center text-sm bg-[#7ffbae] text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToVerify}>Continue</button>
+                    <button className='mt-5 flex items-center justify-center text-sm bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToVerify}>Continue</button>
                   </motion.div>
                 }
                 {
@@ -169,7 +169,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                         />
                       ))}
                     </div>
-                    <button className='mt-[20px] flex items-center justify-center text-sm bg-[#7ffbae] text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToFinal}>Continue</button>
+                    <button className='mt-5 flex items-center justify-center text-sm bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToFinal}>Continue</button>
                   </motion.div>
                 }
                 {
@@ -187,7 +187,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                       {newPassword.length > 0 && !validator.isStrongPassword(newPassword) && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Your password is not secure</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={newPassword}
@@ -198,13 +198,13 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                       {confirmPassword.length > 0 && confirmPassword !== newPassword && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Password does not match</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-[#7FFBAE] ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={confirmPassword}
                       onChange={e => setConfirmPassword(e.target.value)}
                     />
-                    <button className='mt-[20px] flex items-center justify-center text-sm bg-[#7ffbae] text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleSubmit}>Submit</button>
+                    <button className='mt-5 flex items-center justify-center text-sm bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleSubmit}>Submit</button>
                   </motion.div>
                 }
               </Dialog.Panel>

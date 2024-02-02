@@ -134,7 +134,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             {/* <p className='font-[Inter] text-sm text-gray-400'>{`${headLine.length}/60`}</p> */}
           </div>
           <input
-            className={`mt-1 w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && headLine.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${asterick && headLine.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
             maxLength={60}
             data-tooltip-id='headline'
             value={headLine}
@@ -153,7 +153,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             </Tooltip>
           </p>
           <textarea
-            className={`mt-1 mb-0 w-full text-sm rounded-lg border-[1px] focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && body.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 mb-0 w-full text-sm rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${asterick && body.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
             maxLength={500}
             value={body}
             onChange={e => setBody(e.target.value)}
@@ -173,7 +173,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             </Tooltip>
           </p>
           <input
-            className={`mt-1 w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && cta.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${asterick && cta.length <= 0 ? 'border-[red]' : 'border-[#7F8182]'}`}
             maxLength={20}
             value={cta}
             data-tooltip-id='cta'
@@ -282,7 +282,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             value={pageUrl}
             data-tooltip-id='url'
             onChange={e => setPageUrl(e.target.value)}
-            className={`mt-1 w-full rounded-lg border-[1px] text-sm focus:ring-0 focus:border-[#7FFBAE] py-2 px-3 ${asterick && (!pageUrl.startsWith('https://') || !validator.isURL(pageUrl)) ? 'border-[red]' : 'border-[#7F8182]'}`}
+            className={`mt-1 w-full rounded-lg border-[1px] text-sm focus:ring-0 focus:border-main py-2 px-3 ${asterick && (!pageUrl.startsWith('https://') || !validator.isURL(pageUrl)) ? 'border-[red]' : 'border-[#7F8182]'}`}
           />
         </div>
       </div>
@@ -320,7 +320,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
     </div>
     // <div className='col-span-full mt-5 text-center'>
     //   <button
-    //     className='border-black bg-[#7FFBAE] rounded-[5px] px-5 py-2 text-white'
+    //     className='border-black bg-main rounded-[5px] px-5 py-2 text-white'
     //     onClick={handleSave}
     //   >
     //     Save & Continue

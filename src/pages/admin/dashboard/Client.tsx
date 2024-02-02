@@ -154,7 +154,7 @@ const AdminDashboardClient: FC = () => {
           </div>
           {/* <div className='mt-4'>
             <button
-              className={`bg-[#7ffbae] font-[Inter] font-semibold text-sm px-6 py-2 rounded-lg ring-[#7f8182] ${currentTab === 'active' ? 'ring-[1px]' : 'ring-0'}`}
+              className={`bg-main font-[Inter] font-semibold text-sm px-6 py-2 rounded-lg ring-[#7f8182] ${currentTab === 'active' ? 'ring-[1px]' : 'ring-0'}`}
               onClick={() => setCurrentTab('active')}
             >
               Active Clients
@@ -205,7 +205,7 @@ const AdminDashboardClient: FC = () => {
                   </div>
                   <div className='flex flex-col items-center justify-center'>
                     <p className='font-[Inter] text-[#a3a3a3] text-xs font-medium -tracking-[.36px]'>Status</p>
-                    <p className={`font-[Inter] text-black text-xs font-medium -tracking-[.36px] mt-4 px-2 rounded-full py-1 ${item.state === 'active' ? 'bg-[#7ffbae]' : 'bg-[#FF4D42]'}`}>{item.state === 'active' ? 'Active' : 'Inactive'}</p>
+                    <p className={`font-[Inter] text-black text-xs font-medium -tracking-[.36px] mt-4 px-2 rounded-full py-1 ${item.state === 'active' ? 'bg-main' : 'bg-[#FF4D42]'}`}>{item.state === 'active' ? 'Active' : 'Inactive'}</p>
                   </div>
                   <div className='items-center flex justify-center'>
                     {/* <Dropdown
@@ -229,7 +229,7 @@ const AdminDashboardClient: FC = () => {
                     </Dropdown> */}
                     <Link className='w-full h-full text-[10px] rounded-lg bg-black font-medium text-white px-4 py-2' to={`/admin/client/${item.id}`}>Client Details</Link>
                   </div>
-                  {/* <span className={`absolute rounded-full px-3 py-1 right-1 bg-black bottom-1 text-xs font-[Inter] ${item.state === 'inactive' ? 'text-[red]' : 'text-[#7ffbae]'}`}>{item.state}</span> */}
+                  {/* <span className={`absolute rounded-full px-3 py-1 right-1 bg-black bottom-1 text-xs font-[Inter] ${item.state === 'inactive' ? 'text-[red]' : 'text-main'}`}>{item.state}</span> */}
                 </div>
               ))
             }

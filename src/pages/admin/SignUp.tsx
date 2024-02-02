@@ -83,7 +83,7 @@ const AdminSignUp: FC = () => {
             <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
           </div>
           <div className="mt-10 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-[#7FFBAE] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
+            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
             <div className="text-left">
               <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
@@ -193,14 +193,14 @@ const AdminSignUp: FC = () => {
                 checked={formData.agreeTerm}
                 onChange={e => setFormData({ ...formData, agreeTerm: e.target.checked })}
                 type="checkbox"
-                className='w-4 h-4 text-[#7ffbae] bg-gray-100 rounded border-[1px] border-black focus:ring-0'
+                className='w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0'
               />
               <span className='ms-2 font-[Inter] -tracking-[.544px] text-base text-[#525252]'>
                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-black underline'>Terms</a> and <a className='text-black underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
               </span>
             </div>
             <button
-              className="rounded-[6px] text-base bg-[#7ffbae] w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
+              className="rounded-[6px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >

@@ -2,22 +2,19 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  content: [
-    "./src/**/*.{html,js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     extend: {
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        'normal': '#383b3d',
-        'purple': '#6c63ff',
-      }
+        main: "#7FFBAE",
+      },
+      height: {
+        'calc-vh': 'calc(100vh - 90px)',
+      },
     },
   },
-  plugins: [
-    require("@tailwindcss/forms")
-  ],
-}
-
+  plugins: [require("@tailwindcss/forms")],
+};

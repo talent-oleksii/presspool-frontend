@@ -170,9 +170,9 @@ const RaiseBudget: FC = () => {
           </>
           }
         </div>
-        <div className='mt-[20px] flex justify-top'>
+        <div className='mt-5 flex justify-top'>
           <input
-            className='me-[9px] text-[#7ffbae] focus:ring-0'
+            className='me-[9px] text-main focus:ring-0'
             type="checkbox"
             checked={checked}
             onChange={e => setChecked(e.target.checked)}
@@ -183,7 +183,7 @@ const RaiseBudget: FC = () => {
         </div>
         <div className='w-full mt-8 text-center'>
           <button
-            className='font-[Inter] text-sm font-semibold px-4 py-2 rounded-[5px] bg-[#7ffbae] disabled:bg-[gray]'
+            className='font-[Inter] text-sm font-semibold px-4 py-2 rounded-[5px] bg-main disabled:bg-[gray]'
             disabled={Number(newPrice) < 10000}
             onClick={handleSubmit}
           >
