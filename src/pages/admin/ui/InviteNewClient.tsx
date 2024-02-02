@@ -58,7 +58,7 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                     <p className='text-[#0af] text-base max-w-[300px] truncate font-medium -tracking-[.54px] underline'>{link}</p>
                   </div>
                   <button
-                    className='bg-[#7ffbae] ms-2 rounded-lg text-base font-semibold px-6 py-3 w-[100px]'
+                    className='bg-main ms-2 rounded-lg text-base font-semibold px-6 py-3 w-[100px]'
                     onClick={() => {
                       navigator.clipboard.writeText(link).then(() => {
                         setCopyText('Copied');
@@ -77,7 +77,7 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                   onChange={e => setEmails(e.target.value)}
                 />
                 <button
-                  className='bg-[#7ffbae] rounded-[6.047px] text-base font-semibold w-full mt-6 flex items-center justify-center py-3'
+                  className='bg-main rounded-[6.047px] text-base font-semibold w-full mt-6 flex items-center justify-center py-3'
                   onClick={handleSendInvite}
                 >
                   Send Email Invite(s)

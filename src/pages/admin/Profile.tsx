@@ -73,7 +73,7 @@ const Profile: FC = () => {
       {loading && <Loading />}
       <div className='flex items-center justify-between pr-4'>
         <h1 className='font-semibold font-[Inter] text-[24px] 2xl:text-[30px] -tracking-[1.02px]'>My Profile</h1>
-        {/* <button className='rounded-[5px] text-black bg-[#7FFBAE] font-[Inter] text-sm px-4 py-1' onClick={handlePublish}>Publish</button> */}
+        {/* <button className='rounded-[5px] text-black bg-main font-[Inter] text-sm px-4 py-1' onClick={handlePublish}>Publish</button> */}
       </div>
       <div className='pt-[30px] pb-[23px] flex items-center border-b-[1px] border-b-[#bcbcbc]'>
         <button className='relative items-center justify-center flex' onClick={() => { if (fileInputRef.current) fileInputRef.current.click(); }}>
@@ -82,7 +82,7 @@ const Profile: FC = () => {
               src={image}
               className='z-[0] transition-all duration-150  hover:blur-[1.5px] w-[75px] h-[75px]'
             />
-            : <div className='z-[0] transition-all duration-150 hover:blur-[1.5px] w-[75px] h-[75px] bg-[#7ffbae] rounded-full flex items-center justify-center font-[Inter] text-2xl'>
+            : <div className='z-[0] transition-all duration-150 hover:blur-[1.5px] w-[75px] h-[75px] bg-main rounded-full flex items-center justify-center font-[Inter] text-2xl'>
               {getPlaceHolder(adminName)}
             </div>
           }
@@ -110,13 +110,13 @@ const Profile: FC = () => {
           <h4 className='font-[Inter] text-black text-base font-semibold -tracking-[.6px]'>Personal Information</h4>
           <p className='text-sm font-[Inter] font-semibold text-black mt-8 -tracking-[.48px]'>Full Name</p>
           <input
-            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-[#7FFBAE]'
+            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-main'
             value={adminName}
             disabled
           />
           <p className='text-sm font-[Inter] font-semibold text-black mt-3 -tracking-[.48px]'>Email Address</p>
           <input
-            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-[#7FFBAE]'
+            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-main'
             value={adminEmail}
             disabled
           />
@@ -125,13 +125,13 @@ const Profile: FC = () => {
           <h4 className='font-[Inter] text-black text-base font-semibold -tracking-[.6px]'>Change Password</h4>
           <p className='text-sm font-[Inter] font-semibold text-black mt-8 -tracking-[.48px]'>Old Password</p>
           <input
-            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-[#7FFBAE]'
+            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-main'
             value={adminName}
             disabled
           />
           <p className='text-sm font-[Inter] font-semibold text-black mt-3 -tracking-[.48px]'>Enter New Password</p>
           <input
-            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-[#7FFBAE]'
+            className='p-3 rounded-[9.5px] border-[1px] border-[rgba(127, 129, 130, .13)] italic text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-main'
             value={adminEmail}
             disabled
           />
@@ -142,7 +142,7 @@ const Profile: FC = () => {
         <div className='mt-6 p-5 bg-white rounded-[10px] shadow-md'>
           <div className='flex items-center justify-between'>
             <h4 className='font-[Inter] text-black text-base font-semibold -tracking-[.6px]'>My Team (Manage their Access Below)</h4>
-            {/* <button className="font-[Inter] font-medium -tracking-[.45px] text-sm flex items-center bg-[#7ffbae] rounded-lg px-4 py-2">
+            {/* <button className="font-[Inter] font-medium -tracking-[.45px] text-sm flex items-center bg-main rounded-lg px-4 py-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='ms-1 me-2'>
               <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -156,7 +156,7 @@ const Profile: FC = () => {
                   <p className='font-[Inter] text-xs font-medium -tracking-[.36px] text-[#a3a3a3]'>Account Manager</p>
                   <div className='flex items-center justify-between mt-2'>
                     <div className='flex'>
-                      <Avatar className="bg-[#7FFBAE] text-black items-center justify-center flex" src={item.avatar} alt={getPlaceHolder(item.name)} size={40}>
+                      <Avatar className="bg-main text-black items-center justify-center flex" src={item.avatar} alt={getPlaceHolder(item.name)} size={40}>
                         {(!item.avatar || item.avatar.length <= 3) && <span className="text-xs font-[Inter] font-medium">{getPlaceHolder(item.name)}</span>}
                       </Avatar>
                       <div className='text-left ms-2'>
@@ -203,7 +203,7 @@ const Profile: FC = () => {
               </div>
             ))}
           </div>
-          <button className="mt-8 font-[Inter] text-sm font-semibold flex items-center px-8 py-2 bg-[#7ffbae] rounded-[5px]" onClick={handleSaveTeam}>
+          <button className="mt-8 font-[Inter] text-sm font-semibold flex items-center px-8 py-2 bg-main rounded-[5px]" onClick={handleSaveTeam}>
             Save
           </button>
         </div>

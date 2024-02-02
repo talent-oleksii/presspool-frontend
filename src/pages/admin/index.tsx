@@ -144,7 +144,7 @@ const Admin: FC = () => {
 
           <div className="flex items-center">
             <Dropdown placement="bottomRight" menu={{ items: feedbackItems }}>
-              <button className="flex font-[Inter] bg-[#7FFBAE] rounded-[10px] px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center">
+              <button className="flex font-[Inter] bg-main rounded-[10px] px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center">
                 <img alt="Support" src={FeedbackImage} className="w-[14px] me-1 -ms-1" />
                 <span className="font-[Inter] text-xs ms-1">Beta feedback</span>
               </button>
@@ -155,7 +155,7 @@ const Admin: FC = () => {
                 menu={{ items: profileItems }}
               >
                 <button className="flex justify-center items-center border-none p-0 font-[Inter] text-[11px]">
-                  <Avatar className="bg-[#7FFBAE] text-black items-center justify-center flex" alt={getPlaceHolder()} size="small">
+                  <Avatar className="bg-main text-black items-center justify-center flex" alt={getPlaceHolder()} size="small">
                     <span className="text-xs font-[Inter] font-medium">{getPlaceHolder()}</span>
                   </Avatar>
 
@@ -174,7 +174,7 @@ const Admin: FC = () => {
               adminRole === 'super_admin' &&
               <Link
                 to="/admin/new"
-                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-[#7FFBAE] rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
+                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-main rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-2'>
                   <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
@@ -185,7 +185,7 @@ const Admin: FC = () => {
             {
               adminRole === 'account_manager' &&
               <button
-                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-[#7FFBAE] rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
+                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-main rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
                 onClick={() => setShowInvite(true)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-3'>
@@ -230,7 +230,7 @@ const Admin: FC = () => {
             </div>
           </div>
           <div className='relative mt-4 text-left'>
-            <div className='bg-[#7FFBAE] px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
+            <div className='bg-main px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
               <p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
               <p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]'>We are always here for you</p>
             </div>

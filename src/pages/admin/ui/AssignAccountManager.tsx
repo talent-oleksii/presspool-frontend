@@ -75,7 +75,7 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
                     options={accountManagers.map((item: any) => ({ value: item.id, label: item.name }))}
                   />
                 </div>
-                <button className='mt-4 text-base font-semibold py-3 text-black bg-[#7ffbae] w-full rounded-[6px] disabled:bg-[gray]' onClick={handleSubmit} disabled={!manager || manager.toString().length <= 0}>Assign</button>
+                <button className='mt-4 text-base font-semibold py-3 text-black bg-main w-full rounded-[6px] disabled:bg-[gray]' onClick={handleSubmit} disabled={!manager || manager.toString().length <= 0}>Assign</button>
               </Dialog.Panel>
             </Transition.Child>
           </div>

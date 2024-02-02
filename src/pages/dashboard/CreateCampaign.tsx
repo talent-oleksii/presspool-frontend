@@ -437,7 +437,7 @@ const CreateCampaign: FC = () => {
               </div>
               <div className='w-full text-center mt-[30px]'>
                 <button
-                  className='rounded-[5px] text-black font-semibold bg-[#7FFBAE] px-[50px] py-[10px] text-sm disabled:bg-gray-400'
+                  className='rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-sm disabled:bg-gray-400'
                   onClick={() => setCurrentTab('detail')}
                   disabled={!currentCard}
                 >
@@ -467,7 +467,7 @@ const CreateCampaign: FC = () => {
                   </Tooltip>
                 </p>
                 <input
-                  className='px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] mt-1 focus:border-[#7FFBAE] focus:ring-0'
+                  className='px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] mt-1 focus:border-main focus:ring-0'
                   // placeholder="Give your campaign a name"
                   value={campaignName}
                   onChange={e => setCampaignName(e.target.value)}
@@ -484,7 +484,7 @@ const CreateCampaign: FC = () => {
                   </Tooltip>
                 </p>
                 <input
-                  className='px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] mt-1 focus:border-[#7FFBAE] focus:ring-0'
+                  className='px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] mt-1 focus:border-main focus:ring-0'
                   // placeholder="https://example.com"
                   value={url}
                   onChange={e => setUrl(e.target.value)}
@@ -498,7 +498,7 @@ const CreateCampaign: FC = () => {
               />
               <div className='w-full text-center mt-[30px]'>
                 <button
-                  className='rounded-[5px] bg-[#7FFBAE] px-[50px] py-[10px] text-black font-semibold text-sm disabled:bg-gray-400'
+                  className='rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold text-sm disabled:bg-gray-400'
                   disabled={validator.isEmpty(campaignName) || !validator.isURL(url)}
                   onClick={handleNextOnCampaign}
                 >
@@ -572,7 +572,7 @@ const CreateCampaign: FC = () => {
               </div>
               <div className='w-full text-center mt-[45px]'>
                 <button
-                  className='rounded-[5px] text-black font-semibold bg-[#7FFBAE] px-[50px] py-[10px] text-sm disabled:bg-gray-400'
+                  className='rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-sm disabled:bg-gray-400'
                   onClick={() => setCurrentTab('budget')}
                   disabled={currentAudience.length <= 0 || currentRegions.length <= 0}
                 >
@@ -627,7 +627,7 @@ const CreateCampaign: FC = () => {
               }
               <div className='mt-[35px] text-center w-full'>
                 <button
-                  className='rounded-[5px] bg-[#7FFBAE] px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm'
+                  className='rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm'
                   onClick={handleBeforeReview}
                   disabled={Number(currentPrice) < 10000}
                 >
@@ -720,9 +720,9 @@ const CreateCampaign: FC = () => {
                 </>
                 }
               </div>
-              <div className='mt-[20px] flex justify-top'>
+              <div className='mt-5 flex justify-top'>
                 <input
-                  className='me-[9px] text-[#7ffbae] focus:ring-0'
+                  className='me-[9px] text-main focus:ring-0'
                   type="checkbox"
                   checked={checked}
                   onChange={e => setChecked(e.target.checked)}
@@ -745,7 +745,7 @@ const CreateCampaign: FC = () => {
                     okText="Confirm"
                     cancelText="Cancel"
                   >
-                    <button className='rounded-[5px] text-black bg-[#7FFBAE] px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
+                    <button className='rounded-[5px] text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md'
                       disabled={!isSubmitable()}
                       onClick={() => setOpenConfirm(true)}
                     >

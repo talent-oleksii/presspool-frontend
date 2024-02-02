@@ -78,7 +78,7 @@ const Login: FC = () => {
                         <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
                     </div>
                     <div className="mt-10 flex">
-                        <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-[#7FFBAE] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
+                        <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
                             <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
@@ -122,9 +122,9 @@ const Login: FC = () => {
                         <p className='font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-[10px]'>Enter your details to login</p>
                     </div>
 
-                    <form className="text-left py-8 mt-[20px] w-full flex justify-center flex-col" onSubmit={handleSubmit}>
+                    <form className="text-left py-8 mt-5 w-full flex justify-center flex-col" onSubmit={handleSubmit}>
                         <div>
-                            <label className="font-[Inter] text-base block font-medium my-1 -tracking-[.508px]">Email Address</label>
+                            <label className="font-[Inter] text-base block font-medium my-1 -tracking-[.508px]">Email Address <abbr className="text-red-600">*</abbr></label>
                             <input
                                 id="email"
                                 name="email"
@@ -135,7 +135,7 @@ const Login: FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="font-[Inter] block text-base font-medium mt-4 -tracking-[.508px]">Password</label>
+                            <label className="font-[Inter] block text-base font-medium mt-4 -tracking-[.508px]">Password <abbr className="text-red-600">*</abbr></label>
                             <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-2 rounded-[10px] px-4">
                                 <input
                                     id="password"
@@ -156,11 +156,11 @@ const Login: FC = () => {
                         <div className="w-full text-right">
                             <div className="font-[Inter] text-black text-base 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
                         </div>
-                        <button className="rounded-[6px] bg-[#7FFBAE] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-black mt-[32px] font-semibold">Log In</button>
+                        <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-black mt-[32px] font-semibold">Log In</button>
 
                         <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
                             Don't have an account?
-                            <Link className="block text-center text-black ms-1 underline" to="/">Sign Up</Link>
+                            <Link className="block text-center text-black ms-1 underline" to="/client-sign-up">Sign Up</Link>
                         </p>
                     </form>
                 </div>

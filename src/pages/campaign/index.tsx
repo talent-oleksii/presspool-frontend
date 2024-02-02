@@ -110,7 +110,7 @@ const Campaign: FC = () => {
                   <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>Budget Remaining:</p>
                   <p className='font-semibold font-[Inter] text-[12px] text-[#FF4D42]'>{`$${Number(item.price) - Number(item.spent)}`}</p>
                 </div>
-                <span className={`rounded-full text-[10px] px-[12px] mt-[25px] py-[4px] font-medium ${item.state === 'draft' ? 'bg-[#dbdbdb]' : item.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{item.state}</span>
+                <span className={`rounded-full text-[10px] px-[12px] mt-[25px] py-[4px] font-medium ${item.state === 'draft' ? 'bg-[#dbdbdb]' : item.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-main'}`}>{item.state}</span>
                 <span className="mx-1 absolute right-[12px] bottom-[9px] text-xs font-bold font-[Inter]">
                   ↓
                 </span>
