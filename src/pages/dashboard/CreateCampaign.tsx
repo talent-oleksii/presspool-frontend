@@ -159,6 +159,7 @@ const CreateCampaign: FC = () => {
       APIInstance.post('data/campaign', {
         email, campaignName, url, currentTarget,
         currentAudience: currentAudience.map(item => item.value), currentPrice, uiId: uiData.id, currentCard,
+        currentRegion: currentRegions.map(item => item.value),
         state: 'active',
       }).then((data) => {
         dispatch(addCampaign({ campaign: data.data }));
@@ -186,6 +187,7 @@ const CreateCampaign: FC = () => {
         url,
         currentTarget,
         currentAudience: currentAudience.map(item => item.value),
+        currentRegion: currentRegions.map(item => item.value),
         currentPrice,
         uiId: uiData.id,
         currentCard,

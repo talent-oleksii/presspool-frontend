@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 
 import { useDispatch } from 'react-redux';
+import ForgotPassword from '../ForgotPassword';
 import { setAdminAuthenticated, setAdminToken, setAdminUserData } from "../../store/authSlice";
 
 import AdminAPIInstance from "../../api/adminApi";
@@ -19,6 +20,7 @@ interface typeLoginForm {
 
 const AdminLogin: FC = () => {
   const dispatch = useDispatch();
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const [formData, setFormData] = useState<typeLoginForm>({
     email: '',
@@ -53,6 +55,11 @@ const AdminLogin: FC = () => {
   const handleShowPassword: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setPasswordType(passwordType === 'password' ? 'text' : 'password');
+  };
+
+  const handleForgotPassword: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.preventDefault();
+    setShowForgotPassword(true);
   };
 
   return (
@@ -140,6 +147,9 @@ const AdminLogin: FC = () => {
                 </span>
               </div>
             </div>
+            <div className="w-full text-right">
+              <div className="font-[Inter] text-black text-base 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
+            </div>
             <button className="rounded-[6px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-black text-semibold mt-[32px]">Log In</button>
 
             <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
@@ -191,6 +201,7 @@ const AdminLogin: FC = () => {
           </Dialog>
         </Transition.Root>
       </div>
+      <ForgotPassword show={showForgotPassword} setShow={(show: boolean) => setShowForgotPassword(show)} isAdmin />
     </div>
   );
 };
