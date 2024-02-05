@@ -10,11 +10,11 @@ interface ICard {
 const Card: FC<ICard> = memo<ICard>(
   ({ title, value, percentage, totalCountLast4Week }) => {
     return (
-      <div className="col-span-1 py-5 flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md">
+      <div className="card col-span-1 py-5 flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md">
         <h2 className="text-[25px] 2xl:text-[28px] font-[Inter] font-semibold">
           {value}
         </h2>
-        <p className="text-[14px] font-[Inter] font-normal mt-[5px] text-[#43474A] font-semibold">
+        <p className="text-[14px] font-[Inter] mt-[5px] text-[#43474A] font-semibold">
           {title}
         </p>
         <div className="bg-main rounded-full h-5 leading-5 mt-[8px] px-3 font-[Inter] text-[12px] font-semibold text-black">

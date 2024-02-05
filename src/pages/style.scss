@@ -1,28 +1,46 @@
+.ant-select-selector {
+  border-radius: 10px;
+  border: 1px solid black !important;
+  background: #fbfbfb !important;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.select-campaign {
   .ant-select-selector {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     border-radius: 10px;
-    border: 1px solid black !important;
-    background: #FBFBFB !important;
-    padding: .5rem .5rem .5rem .5rem;
+  }
+}
+
+.file-table {
+  th.ant-table-cell {
+    color: #7f8182 !important;
+    font-size: 14px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.45px;
   }
 
-  .select-campaign {
-    .ant-select-selector {
-      padding: .5rem .5rem .5rem .5rem;
-      border-radius: 10px;
-    }
+  td.ant-table-cell {
+    color: #7f8182 !important;
   }
+}
 
-  .file-table {
-    th.ant-table-cell {
-      color: #7f8182 !important;
-      font-size: 14px;
-      font-weight: 700;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: -0.45px;
-    }
-
-    td.ant-table-cell {
-      color: #7f8182 !important;
-    }
+.zoom-default {
+  zoom: 0.75;
+  @media only screen and (min-width: 1440px) {
+    zoom: 1;
   }
+}
+
+.card {
+  transition: box-shadow 0.3s, background-color 1s;
+}
+
+.ant-popover-inner {
+  border-radius: 12px !important;
+  padding: 12px 0px !important;
+  box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px 0 #00000014,
+    0 9px 28px 8px #0000000d !important;
+}
