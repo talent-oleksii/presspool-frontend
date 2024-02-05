@@ -155,7 +155,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   return (
     <div className="mt-5">
       {loading && <Loading />}
-      <div className="rounded-[10px] grid grid-cols-4 gap-5 min-h-[200px]">
+      <div className="rounded-[20px] grid grid-cols-4 gap-5 min-h-[200px]">
         <Card
           title={"Active Campaigns"}
           value={activeCampaigns}
@@ -248,11 +248,11 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         <table className="w-full">
           <thead>
             <tr>
-              <td className="text-[10px] font-[Inter]">Name</td>
-              <td className="text-[10px] font-[Inter]">Impressions</td>
-              <td className="text-[10px] font-[Inter]">Clicks</td>
-              <td className="text-[10px] font-[Inter]">Total Spend</td>
-              <td className="text-[10px] font-[Inter]">
+              <td className="text-[16px] font-[Inter]">Name</td>
+              <td className="text-[16px] font-[Inter]">Impressions</td>
+              <td className="text-[16px] font-[Inter]">Clicks</td>
+              <td className="text-[16px] font-[Inter]">Total Spend</td>
+              <td className="text-[16px] font-[Inter]">
                 <span className="flex items-center">
                   CTR
                   <Tooltip
@@ -269,7 +269,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                   </Tooltip>
                 </span>
               </td>
-              <td className="text-[10px] font-[Inter]">
+              <td className="text-[16px] font-[Inter]">
                 <span className="flex items-center">
                   % of Total Traffic
                   <Tooltip
@@ -286,7 +286,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                   </Tooltip>
                 </span>
               </td>
-              <td className="text-[10px] font-[Inter]">Feedback</td>
+              <td className="text-[16px] font-[Inter]">Feedback</td>
             </tr>
           </thead>
           <tbody>

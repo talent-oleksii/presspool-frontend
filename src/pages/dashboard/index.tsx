@@ -63,12 +63,7 @@ const Dashboard: FC = () => {
         ];
 
   return (
-    <motion.div
-      className="text-left relative"
-      initial="hidden"
-      animate="show"
-      variants={FADE_UP_ANIMATION_VARIANTS}
-    >
+    <div className="text-left relative">
       <h1 className="font-semibold font-[Inter] text-[20px] 2xl:text-[24px] -tracking-[.6px]">
         Welcome {name} 🤝
       </h1>
@@ -76,14 +71,19 @@ const Dashboard: FC = () => {
         Here’s a snapshot of your account, all in one place
       </p>
 
-      <div className="flex">
+      <motion.div
+        className="flex"
+        initial="hidden"
+        animate="show"
+        variants={FADE_UP_ANIMATION_VARIANTS}
+      >
         <div className="flex-1">
           <div className="flex justify-between items-center mt-5">
             <div>
               <Link
                 className={`inline-flex items-center justify-center text-[#505050] text-sm 2xl:text-md px-3 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${
                   id === "all"
-                    ? "bg-white ring-1 ring-main"
+                    ? "bg-white border border-solid border-main shadow-md"
                     : "bg-transparent ring-none"
                 }`}
                 to="/campaign/all"
@@ -99,7 +99,7 @@ const Dashboard: FC = () => {
                   <button
                     className={`font-[Inter] text-sm items-center justify-center text-[#505050] 2xl:text-base flex px-4 py-[10px] rounded-[15px] ${
                       id !== "all"
-                        ? "bg-white ring-1 ring-main"
+                        ? "bg-white ring-1 ring-main shadow-md"
                         : "bg-transparent ring-none"
                     }`}
                   >
@@ -112,7 +112,7 @@ const Dashboard: FC = () => {
               </div>
             </div>
             <DatePicker.RangePicker
-              className="font-[Inter] rounded-[15px] py-2 border-[#7F8182] w-[250px]"
+              className="font-[Inter] rounded-[15px] py-2 border-[#7F8182] w-[250px] shadow-md"
               onChange={(e) => setRange(e)}
             />
           </div>
@@ -174,8 +174,8 @@ const Dashboard: FC = () => {
 						</div>
 					</div>
 				</div> */}
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

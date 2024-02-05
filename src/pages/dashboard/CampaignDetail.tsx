@@ -62,7 +62,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     <div className="mt-5">
       {loading && <Loading />}
       <>
-        <div className="rounded-[10px] grid grid-cols-4 gap-5 min-h-[200px]">
+        <div className="rounded-[20px] grid grid-cols-4 gap-5 min-h-[200px]">
           <Card
             title={"Total Clicks"}
             value={data?.click_count ?? 0}

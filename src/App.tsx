@@ -1,16 +1,15 @@
-import { FC } from 'react';
-import { Route, Routes } from 'react-router';
-import { ConfigProvider } from 'antd';
-import './App.css';
+import { FC } from "react";
+import { Route, Routes } from "react-router";
+import { ConfigProvider } from "antd";
+import "./App.css";
 
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import ClientSignUp from './pages/ClientSignUp';
-import MainContent from './pages/MainContent';
-import URLRedirector from './pages/URLRedirector';
-import EmailVerifier from './pages/EmailVerifier';
-import AdminRoute from './pages/admin/Route';
-
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import ClientSignUp from "./pages/ClientSignUp";
+import MainContent from "./pages/MainContent";
+import URLRedirector from "./pages/URLRedirector";
+import EmailVerifier from "./pages/EmailVerifier";
+import AdminRoute from "./pages/admin/Route";
 
 const App: FC = () => {
   return (
@@ -19,11 +18,11 @@ const App: FC = () => {
         token: {
           fontFamily: "Inter",
           fontWeightStrong: 500,
-        }
+        },
       }}
     >
-      <div className="App flex justify-center bg-[#EDECF2]">
-        <div className='w-screen min-h-screen'>
+      <div className="w-full h-full App flex justify-center bg-[#EDECF2]">
+        <div className="w-full h-full">
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
@@ -37,6 +36,6 @@ const App: FC = () => {
       </div>
     </ConfigProvider>
   );
-}
+};
 
 export default App;

@@ -10,8 +10,8 @@ export const FADE_DOWN_ANIMATION_VARIANTS = {
 };
 
 export const FADE_UP_ANIMATION_VARIANTS = {
-  hidden: { opacity: 0, y: '-100%' },
-  show: { opacity: 1, y: 0, transition: { duration: .8, type: "tween" } },
+  hidden: { opacity: 0, y: '50%' },
+  show: { opacity: 1, y: 0, transition: { duration: 1.2, type: "tween" } },
 };
 
 export const FADE_RIGHT_ANIMATION_VARIANTS = {
