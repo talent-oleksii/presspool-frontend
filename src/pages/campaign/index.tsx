@@ -67,8 +67,8 @@ const Campaign: FC = () => {
         Here's your account at a glance.
       </p>
 
-      <div className="flex items-center justify-center w-full mt-[24px]">
-        <div className="flex w-full border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-2">
+      <div className="flex items-center w-full mt-[24px]">
+        <div className="flex w-[342px] border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
