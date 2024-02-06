@@ -153,11 +153,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <table className="w-full">
             <thead>
               <tr>
-                <td className="text-[10px] font-[Inter]">Name</td>
-                <td className="text-[10px] font-[Inter]">Impressions</td>
-                <td className="text-[10px] font-[Inter]">Clicks</td>
-                <td className="text-[10px] font-[Inter]">Total Spend</td>
-                <td className="text-[10px] font-[Inter]">
+                <td className="text-[14px] font-[Inter]">Name</td>
+                <td className="text-[14px] font-[Inter]">Impressions</td>
+                <td className="text-[14px] font-[Inter]">Clicks</td>
+                <td className="text-[14px] font-[Inter]">Total Spend</td>
+                <td className="text-[14px] font-[Inter]">
                   <span className="flex items-center">
                     CTR
                     <Tooltip
@@ -174,7 +174,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                     </Tooltip>
                   </span>
                 </td>
-                <td className="text-[10px] font-[Inter]">
+                <td className="text-[14px] font-[Inter]">
                   <span className="flex items-center">
                     % of Total Traffic
                     <Tooltip
@@ -191,7 +191,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                     </Tooltip>
                   </span>
                 </td>
-                <td className="text-[10px] font-[Inter]">Feedback</td>
+                <td className="text-[14px] font-[Inter]">Feedback</td>
               </tr>
             </thead>
             <tbody>

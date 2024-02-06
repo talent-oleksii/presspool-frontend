@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Dropdown, MenuProps } from "antd";
+import { MenuProps } from "antd";
 import {
   setUnauthenticated,
   selectAuth,
@@ -20,13 +20,9 @@ import Logo from "../assets/logo/logo.png";
 import APIInstance from "../api";
 import Loading from "../components/Loading";
 import AddTeammate from "./AddTeammate";
-import HelpImage from "../assets/icon/help.png";
-import CampaignImage from "../assets/icon/campaign.png";
-import AccountImage from "../assets/image/account.png";
-import FeedbackImage from "../assets/icon/topbar-help.png";
 import RaiseBudget from "./campaign/RaiseBudget";
 import ActionLinkCard from "../components/ActionLinkCard";
-import { AppstoreOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { LogoutOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 
 import "./style.scss";
@@ -180,7 +176,7 @@ const MainContent: FC = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full h-full zoom-default">
+    <div className="min-h-full w-full h-full">
       <div className="w-full z-[7] pt-5 pl-5 pr-5">
         <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-[18px] pr-[15px] h-[60px] w-full justify-between">
           <div className="flex items-center justify-center">
@@ -195,19 +191,8 @@ const MainContent: FC = () => {
             </button> */}
           </div>
 
-          <div className="flex items-center">
-            {/* <Dropdown placement="bottomRight" menu={{ items: feedbackItems }}>
-              <button className="flex font-[Inter] rounded-[20px] h-10 px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main">
-                <img
-                  alt="Support"
-                  src={FeedbackImage}
-                  className="w-[14px] me-1 -ms-1"
-                />
-                <span className="font-[Inter] text-xs ms-1">Beta feedback</span>
-              </button>
-            </Dropdown> */}
-            <Feedback />
-            {/* <div className="ms-[44px]">
+          <Feedback />
+          {/* <div className="ms-[44px]">
               <Dropdown
                 placement="bottomRight"
                 menu={{ items: profileItems }}
@@ -221,7 +206,6 @@ const MainContent: FC = () => {
                 </button>
               </Dropdown>
             </div> */}
-          </div>
         </div>
       </div>
       <div className="grid grid-cols-[295px_repeat(4,1fr)] gap-4 h-calc-vh">
@@ -311,21 +295,7 @@ const MainContent: FC = () => {
             onClick={() => handleLogout()}
           >
             <Space size="middle">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width={24}
-                height={24}
-              >
-                <path
-                  d="M4.68 16.668c-.383 0-.703-.129-.961-.387a1.305 1.305 0 0 1-.387-.96V4.68c0-.383.129-.703.387-.961s.578-.387.96-.387h5.337v.836H4.68a.475.475 0 0 0-.352.16.475.475 0 0 0-.16.352v10.64c0 .13.05.246.16.352.106.11.223.16.352.16h5.336v.836Zm9.039-3.719-.586-.601 1.933-1.93H7.66v-.836h7.406l-1.933-1.93.586-.601L16.668 10Zm0 0"
-                  style={{
-                    stroke: "none",
-                    fillRule: "nonzero",
-                    fill: "#000",
-                    fillOpacity: 1,
-                  }}
-                />
-              </svg>
+              <LogoutOutlined style={{ fontSize: "24px" }} />
               Log Out
             </Space>
           </button>

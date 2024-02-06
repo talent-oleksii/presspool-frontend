@@ -37,7 +37,7 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
           target="_blank"
         >
           <Space size="large">
-            <ExportOutlined style={{ fontSize: "20px" }} />
+            <ExportOutlined style={{ fontSize: "24px" }} />
             {link.name}
           </Space>
         </a>
