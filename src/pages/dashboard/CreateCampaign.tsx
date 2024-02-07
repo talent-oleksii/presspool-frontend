@@ -646,7 +646,23 @@ const CreateCampaign: FC = () => {
               animate="show"
               className='w-[720px]'
             >
-              <h2 className='font-medium text-md 2xl:text-lg font-[Inter]'>Review</h2>
+              <h2 className='font-semibold text-base 2xl:text-lg font-[Inter]'>What To Expect</h2>
+              <p className='mt-4 text-xs text-[#43474a]'>
+                <span className='font-bold'>1. Campaign Activation:</span> Upon submission, your campaign is now in the queue for launch. Our team may reach out for any additional details to ensure we fully align with your objectives. Once everything is set, we'll proceed with the activation.
+              </p>
+              <p className='mt-4 text-xs text-[#43474a]'>
+                <span className='font-bold'>2. Distribution and Tracking:</span> Your campaign will be disseminated across the most fitting newsletters to reach your intended audience. Rest assured, every click and interaction is meticulously tracked. Your dedicated dashboard will offer real-time analytics to monitor the campaign's impact.
+              </p>
+              <p className='mt-4 text-xs text-[#43474a]'>
+                <span className='font-bold'>3. Ongoing Optimization: </span> We believe in dynamic campaigns. Our platform continually reviews performance data to refine and improve distribution, ensuring your budget is utilized for maximal impact and ROI.
+              </p>
+              <p className='mt-4 text-xs text-[#43474a]'>
+                <span className='font-bold'>4. Weekly Reporting and Billing: </span> Expect transparent weekly reports with key metrics that reflect your campaign's traction. Billing will correspond to the weekly performance, providing a clear view of your investment's return.
+              </p>
+              <p className='mt-4 text-xs text-[#43474a]'>
+                <span className='font-bold'>5. Campaign Conclusion:</span> When your campaign reaches the budget threshold, it will conclude. You'll be provided with a comprehensive report that captures performance, yields insights, and guides potential next steps for ongoing engagement and growth.
+              </p>
+              <h2 className='font-semibold text-base 2xl:text-lg font-[Inter] mt-6'>Review</h2>
               {currentAudience.length >= 1 && currentPrice &&
                 <div className='mt-[7px] 2xl:mt-[15px]'>
                   <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Dates:</span>The campaign will start from today until the budget is reached.</p>
@@ -656,8 +672,8 @@ const CreateCampaign: FC = () => {
                   {/* <p className='py-2 text-sm '><span className='font-medium me-2'>⭐ Payment Method:</span>{`**** **** **** ${cardList.filter(item => item.card_id === currentCard)[0].last4}`}</p> */}
                 </div>
               }
-              <h2 className='font-medium text-md 2xl:text-lg font-[Inter] mt-[15px] 2xl:mt-[29px]'>Billing Setup</h2>
-              <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>Billing is simple: weekly or when your account's threshold is reached.</p>
+              <h2 className='font-semibold text-md 2xl:text-lg font-[Inter] mt-6 2xl:mt-[29px]'>Billing Setup</h2>
+              <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>All campaign activity is billed at the end of every week or when your account hits its billing threshold. You will only be charged for unique clicks to ensure all clicks are quality and verified.</p>
               <div className='w-full flex mt-[17px]'>
                 {cardList.length > 0 && <>
                   <div className='flex items-center justify-center'>
