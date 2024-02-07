@@ -676,7 +676,8 @@ const CreateCampaign: FC = () => {
               <p className='font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mt-[10px] mb-0'>All campaign activity is billed at the end of every week or when your account hits its billing threshold. You will only be charged for unique clicks to ensure all clicks are quality and verified.</p>
               <div className='w-full flex mt-[17px]'>
                 {cardList.length > 0 && <>
-                  <div className='flex items-center justify-center'>
+                  <div className='flex flex-col justify-center'>
+                    <p className='text-sm -tracking-[.42px] font-medium mb-2'>Select Card Details</p>
                     <select
                       className='w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
                       value={currentCard}
@@ -695,6 +696,7 @@ const CreateCampaign: FC = () => {
                   </div>
 
                   <div className='flex-1 ms-[18px]'>
+                    <p className='text-sm -tracking-[.42px] font-medium mb-2'>Add New Card</p>
                     <button
                       className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
                       onClick={handleAddCard}
@@ -702,7 +704,7 @@ const CreateCampaign: FC = () => {
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
                         <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="#7F8182" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      Add a Card
+                      Add New Card
                     </button>
                   </div>
                 </>
