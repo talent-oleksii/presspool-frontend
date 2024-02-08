@@ -18,12 +18,12 @@ import AdminProfile from './Profile';
 import FeedbackImage from '../../assets/icon/topbar-help.png';
 import HelpImage from '../../assets/icon/help.png';
 import ClientImage from '../../assets/icon/account.png';
+import TeamImage from '../../assets/icon/team.png';
 import AccountImage from '../../assets/image/account.png';
 import LinkImage from '../../assets/icon/link.png';
 import InviteNewClient from './ui/InviteNewClient';
 import AdminDashboardClient from './dashboard/Client';
 import AdminClient from './Client';
-import AdminDashboardCampaign from './dashboard/Campaign';
 import AdminClientCampaign from './ClientCampaign';
 import InviteAccountManager from './ui/InviteAccountManager';
 
@@ -128,10 +128,18 @@ const Admin: FC = () => {
   };
 
   const getOffsetBack = () => {
-    if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
-    if (location.pathname.indexOf('client') > -1) return 'top-[25%]';
-    if (location.pathname.indexOf('profile') > -1) return 'top-[50%]';
-    if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
+    if (adminRole === 'account_manager') {
+      if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
+      if (location.pathname.indexOf('client') > -1) return 'top-[25%]';
+      if (location.pathname.indexOf('profile') > -1) return 'top-[50%]';
+      if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
+    } else if (adminRole === 'super_admin') {
+      if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
+      if (location.pathname.indexOf('client') > -1) return 'top-[20%]';
+      if (location.pathname.indexOf('team') > -1) return 'top-[40%]';
+      if (location.pathname.indexOf('profile') > -1) return 'top-[60%]';
+      if (location.pathname.indexOf('support') > -1) return 'top-[80%]';
+    }
 
     return 'top-0';
   };
@@ -213,6 +221,14 @@ const Admin: FC = () => {
                 <img alt="Support" src={ClientImage} className="w-[16px] me-3 ms-1" />
                 Clients
               </Link>
+              {
+                adminRole === 'super_admin' &&
+                <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
+                  to="/admin/team">
+                  <img alt="TEam" src={TeamImage} className="w-[16px] me-3 ms-1" />
+                  My Team
+                </Link>
+              }
               <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
                 to="/admin/profile">
                 <img alt="Support" src={AccountImage} className="w-[16px] me-3 ms-1" />
@@ -228,9 +244,10 @@ const Admin: FC = () => {
                   location.pathname.indexOf('dashboard') > -1 || location.pathname.indexOf('client') > -1 ||
                   location.pathname.indexOf('client') > -1 ||
                   location.pathname.indexOf('profile') > -1 ||
-                  location.pathname.indexOf('support') > -1
+                  location.pathname.indexOf('support') > -1 ||
+                  location.pathname.indexOf('team') > -1
                 ) &&
-                <div className={`absolute h-[25%] bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
+                <div className={`absolute ${adminRole === 'super_admin' ? 'h-[20%]' : 'h-[25%]'} bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
               }
             </div>
           </div>
