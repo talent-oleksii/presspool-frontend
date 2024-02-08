@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Menu, Space } from "antd";
-import FeedbackImage from "../../assets/icon/topbar-help.png";
 import { EditOutlined, FlagOutlined } from "@ant-design/icons";
 import SupportIcon from "../../icons/Support";
 
@@ -35,7 +34,7 @@ const Feedback: React.FC = () => {
   }, []);
 
   return (
-    <div ref={ref} className="flex items-center relative">
+    <div ref={ref} className="flex items-center relative pr-5">
       <button
         onClick={handleOpenChange}
         className="flex font-[Inter] rounded-[20px] h-10 px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main hover:text-black"
@@ -48,25 +47,25 @@ const Feedback: React.FC = () => {
         </Space>
       </button>
       {open && (
-        <Menu className="w-[300px] absolute top-[calc(100%+12px)] right-[0] !shadow-md rounded-[15px] text-left z-[9] py-2">
+        <Menu className="w-[300px] absolute top-[calc(100%+12px)] right-[0] !shadow-md rounded-[15px] text-left z-[9]">
           <Menu.Item
             onClick={() =>
               handleItemClick("https://forms.gle/T9Kc6JvaVhzwozYR8")
             }
-            className="py-2 !h-auto !text-sm"
+            className="py-1 !h-auto !text-sm"
           >
             <Space size="large">
-              <EditOutlined /> Give feedback
+              <EditOutlined style={{ fontSize: "20px" }} /> Give feedback
             </Space>
           </Menu.Item>
           <Menu.Item
             onClick={() =>
               handleItemClick("https://forms.gle/j1HCrRcrGK9roPhGA")
             }
-            className="py-2 !h-auto !text-sm"
+            className="py-1 !h-auto !text-sm"
           >
             <Space size="large">
-              <FlagOutlined /> Request a feature
+              <FlagOutlined style={{ fontSize: "20px" }} /> Request a feature
             </Space>
           </Menu.Item>
         </Menu>

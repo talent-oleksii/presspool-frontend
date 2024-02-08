@@ -183,8 +183,8 @@ const MainContent: FC = () => {
     <div className="min-h-full w-full h-full">
       <div className="w-full z-[7] pt-5 pl-5 pr-5">
         <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-[18px] pr-[15px] h-[60px] w-full justify-between">
-          <div className="flex items-center justify-center">
-            <Link to="/" className="text-left w-full">
+          <div className="flex items-center justify-center px-5 border-r-2 border-grey-100 border-solid">
+            <Link to="/" className="text-left w-full ">
               <img src={Logo} className="h-[40px]" alt="logo" />
             </Link>
             {/* <button

@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
-import { Tooltip } from "antd";
+import { Space, Tooltip } from "antd";
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
@@ -11,6 +11,7 @@ import StripeUtil from "../../utils/stripe";
 
 import DownloadImage from "../../assets/icon/download.png";
 import Card from "../../components/Card";
+import { CloudDownloadOutlined } from "@ant-design/icons";
 
 const data01: Array<any> = [];
 
@@ -203,12 +204,10 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
               className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-sm font-medium border-black rounded-lg"
               onClick={handleDownloadCSV}
             >
-              <img
-                src={DownloadImage}
-                className="w-[12px] me-2 -ms-1"
-                alt="download"
-              />
-              Download PDF
+              <Space>
+                <CloudDownloadOutlined style={{ fontSize: "18px" }} />
+                Download PDF
+              </Space>
             </button>
             <div className="mt-[20px]">
               <p className="font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2">
