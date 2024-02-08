@@ -23,7 +23,7 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
       <p className="text-black text-base font-semibold font-[Inter]">
         {heading}
       </p>
-      <p className="text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]">
+      <p className="text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]">
         {subHeading}
       </p>
     </div>
@@ -32,12 +32,12 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
         <a
           key={index}
           href={link.url}
-          className="flex font-[Inter] font-medium text-[15px] items-center px-5 py-3"
+          className="flex font-[Inter] font-medium text-base items-center px-5 py-3"
           rel="noreferrer"
           target="_blank"
         >
           <Space size="large">
-            <ExportOutlined style={{ fontSize: "24px" }} />
+            <ExportOutlined style={{ fontSize: "22px" }} />
             {link.name}
           </Space>
         </a>

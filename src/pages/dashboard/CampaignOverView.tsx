@@ -184,17 +184,17 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${getAverageCPC()}`}</h2>
           <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>AVG CPC</p>
           <div className='bg-main rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
-          <p className='text-gray-500 text-[10px]'>from 0 (last 4 weeks)</p>
+          <p className='text-gray-500 text-xs'>from 0 (last 4 weeks)</p>
         </div> */}
       </div>
 
       <div className="my-5 p-5 min-h-[450px] rounded-[10px] bg-white shadow-md">
         <div className="flex justify-between items-baseline">
           <div>
-            <h2 className="font-[Inter] text-base 2xl:text-lg font-semibold">
+            <h2 className="font-[Inter] text-lg font-semibold">
               All Campaigns
             </h2>
-            <p className="font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm">
+            <p className="font-[Inter] text-[#43474A] mt-[5px] text-base">
               Let’s see how your campaigns are performing
             </p>
           </div>
@@ -242,17 +242,17 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
       </div>
 
       <div className="col-span-1 p-5 flex flex-col items-center bg-white rounded-[10px] shadow-md">
-        <p className="font-[Inter] text-black mb-4 text-left font-semibold w-full text-md 2xl:text-lg">
+        <p className="font-[Inter] text-black mb-4 text-left font-semibold w-full text-lg">
           Newsletters (by the numbers)
         </p>
         <table className="w-full">
           <thead>
             <tr>
-              <td className="text-[16px] font-[Inter]">Name</td>
-              <td className="text-[16px] font-[Inter]">Impressions</td>
-              <td className="text-[16px] font-[Inter]">Clicks</td>
-              <td className="text-[16px] font-[Inter]">Total Spend</td>
-              <td className="text-[16px] font-[Inter]">
+              <td className="text-sm font-[Inter]">Name</td>
+              <td className="text-sm font-[Inter]">Impressions</td>
+              <td className="text-sm font-[Inter]">Clicks</td>
+              <td className="text-sm font-[Inter]">Total Spend</td>
+              <td className="text-sm font-[Inter]">
                 <span className="flex items-center">
                   CTR
                   <Tooltip
@@ -273,7 +273,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                   <div id="ctr-tooltip"></div>
                 </span>
               </td>
-              <td className="text-[16px] font-[Inter]">
+              <td className="text-sm font-[Inter]">
                 <span className="flex items-center">
                   % of Total Traffic
                   <Tooltip
@@ -294,7 +294,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                   <div id="total-trafic"></div>
                 </span>
               </td>
-              <td className="text-[16px] font-[Inter]">Feedback</td>
+              <td className="text-sm font-[Inter]">Feedback</td>
             </tr>
           </thead>
           <tbody>

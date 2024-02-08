@@ -120,7 +120,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                     animate="show"
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
-                    <h3 className='text-black font-[Inter] text-2xl mt-8 font-semibold -tracking-[.72px]'>Forgot Password?</h3>
+                    <h3 className='text-black font-[Inter] text-3xl mt-8 font-semibold -tracking-[.72px]'>Forgot Password?</h3>
                     <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Enter the email address associated with your account. Make sure <br /> it's the same email address you used when signing up.</p>
                     <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-7'>
                       Email Address
@@ -144,7 +144,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                     animate="show"
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
-                    <h3 className='text-black font-[Inter] text-2xl mt-8 font-semibold -tracking-[.72px]'>Verification</h3>
+                    <h3 className='text-black font-[Inter] text-3xl mt-8 font-semibold -tracking-[.72px]'>Verification</h3>
                     <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Enter the code that we sent you to at your email</p>
                     <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[26px]'>
                       Code
@@ -180,7 +180,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
                     animate="show"
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
-                    <h3 className='text-black font-[Inter] text-2xl mt-8 font-semibold -tracking-[.72px]'>New Password</h3>
+                    <h3 className='text-black font-[Inter] text-3xl mt-8 font-semibold -tracking-[.72px]'>New Password</h3>
                     <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Set your new password for future logins</p>
                     <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[26px]'>
                       New Password

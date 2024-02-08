@@ -42,7 +42,7 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
     <div ref={ref} className="group inline-flex flex-col w-[170px] relative">
       <button
         onClick={handleOpenChange}
-        className={`font-[Inter] text-sm items-center justify-center text-[#505050] 2xl:text-base flex px-4 py-[10px] rounded-[15px] ${
+        className={`font-[Inter] text-base items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[15px] ${
           id !== "all"
             ? "bg-white ring-1 ring-main shadow-md"
             : "bg-transparent ring-none"
@@ -57,14 +57,14 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
               <Menu.Item
                 key={item.id}
                 onClick={() => handleItemClick(item.id)}
-                className="py-1 !h-auto !font-[Inter] !text-[14px]"
+                className="py-1 !h-auto !font-[Inter] !text-sm"
               >
                 {item.name}
               </Menu.Item>
             ))
           ) : (
             <Menu.Item disabled>
-              <span className="font-[Inter] text-md w-full text-gray-400">
+              <span className="font-[Inter] !text-sm w-full text-gray-400">
                 No Campaigns yet
               </span>
             </Menu.Item>

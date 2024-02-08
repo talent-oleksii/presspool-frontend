@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Menu, Space } from "antd";
 import FeedbackImage from "../../assets/icon/topbar-help.png";
 import { EditOutlined, FlagOutlined } from "@ant-design/icons";
+import SupportIcon from "../../icons/Support";
 
 const Feedback: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -39,12 +40,12 @@ const Feedback: React.FC = () => {
         onClick={handleOpenChange}
         className="flex font-[Inter] rounded-[20px] h-10 px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main hover:text-black"
       >
-        <img
-          alt="Support"
-          src={FeedbackImage}
-          className="w-[14px] me-1 -ms-1"
-        />
-        <span className="font-[Inter] text-xs ms-1">Beta feedback</span>
+        <Space>
+          <span role="img" aria-label="support">
+            <SupportIcon />
+          </span>
+          <span className="font-[Inter] text-sm">Beta feedback</span>
+        </Space>
       </button>
       {open && (
         <Menu className="w-[300px] absolute top-[calc(100%+12px)] right-[0] !shadow-md rounded-[15px] text-left z-[9] py-2">
@@ -52,7 +53,7 @@ const Feedback: React.FC = () => {
             onClick={() =>
               handleItemClick("https://forms.gle/T9Kc6JvaVhzwozYR8")
             }
-            className="py-2 !h-auto"
+            className="py-2 !h-auto !text-sm"
           >
             <Space size="large">
               <EditOutlined /> Give feedback
@@ -62,7 +63,7 @@ const Feedback: React.FC = () => {
             onClick={() =>
               handleItemClick("https://forms.gle/j1HCrRcrGK9roPhGA")
             }
-            className="py-2 !h-auto"
+            className="py-2 !h-auto !text-sm"
           >
             <Space size="large">
               <FlagOutlined /> Request a feature

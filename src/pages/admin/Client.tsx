@@ -330,7 +330,7 @@ const AdminClient: FC = () => {
                             <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-[#43474a] ${item.state === 'active' ? 'bg-main' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
                           </div>
                         </div>
-                        <Link to={`/admin/dashboard/campaign/${item.id}`} className='block flex items-center justify-center w-full bg-main py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
+                        <Link to={`/admin/dashboard/campaign/${item.id}`} className='block flex items-center justify-center w-full bg-main py-[10px] mt-4 rounded-[6px] font-semibold text-base font-[Inter]'>View Campaign</Link>
                       </div>
                     </div>
                   ))

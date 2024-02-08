@@ -76,13 +76,13 @@ const AddTeammate: FC<typeAddTeammate> = ({ show, setShow }: typeAddTeammate) =>
                             key: '1',
                             label: <button className='text-left' onClick={() => setAccountType('admin')}>
                               <p className='font-[Inter] text-xs text-black font-medium -tracking-[.3px]'>Admin</p>
-                              <p className='font-[Inter] text-[#7F8182] text-[10px] -tracking-[.24px]'>Has full access to ALL campaigns and all their data, billing, etc.</p>
+                              <p className='font-[Inter] text-[#7F8182] text-xs -tracking-[.24px]'>Has full access to ALL campaigns and all their data, billing, etc.</p>
                             </button>,
                           }, {
                             key: '2',
                             label: <button className='text-left' onClick={() => setAccountType('manager')}>
                               <p className='font-[Inter] text-xs text-black font-medium -tracking-[.3px]'>Campaign Manager</p>
-                              <p className='font-[Inter] text-[#7F8182] text-[10px] -tracking-[.24px]'>Has full access ONLY to assigned campaigns and their data, billing, etc.</p>
+                              <p className='font-[Inter] text-[#7F8182] text-xs -tracking-[.24px]'>Has full access ONLY to assigned campaigns and their data, billing, etc.</p>
                             </button>
                           }]
                         }}

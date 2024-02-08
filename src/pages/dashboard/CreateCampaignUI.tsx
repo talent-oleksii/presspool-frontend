@@ -289,7 +289,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
       <div className='col-span-1 bg-[#43434A] h-full sm:max-h-[80vh] overflow-hidden relative flex flex-col items-center bg-[#43474A] rounded-[5px] px-2 py-4'>
         {/* Content for Campaign */}
         <div className='bg-[#D1CEFF] w-full flex items-center justify-center rounded-[14px] mt-2'>
-          {/* <p className='text-black border-black border-[5px] p-3 text-2xl 2xl:text-lg font-bold'>ALOGO</p> */}
+          {/* <p className='text-black border-black border-[5px] p-3 text-3xl 2xl:text-lg font-bold'>ALOGO</p> */}
           <img alt="alogo" src={ALogoImage} className='h-[100px]' />
         </div>
 
