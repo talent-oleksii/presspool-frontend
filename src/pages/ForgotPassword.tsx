@@ -8,13 +8,15 @@ import { FADE_UP_ANIMATION_VARIANTS } from '../utils/TransitionConstants';
 
 import Logo from '../assets/logo/logo.png';
 import DialogUtils from '../utils/DialogUtils';
+import AdminAPIInstance from '../api/adminApi';
 
 interface typeForgotPassword {
   show: boolean,
   setShow: Function;
+  isAdmin?: boolean;
 }
 
-const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPassword) => {
+const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: typeForgotPassword) => {
   const [email, setEmail] = useState('');
   const [showWarning, setShowWarning] = useState(false);
   const [step, setStep] = useState('initial'); // initial, verify, final
@@ -40,25 +42,45 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
     }
 
     setShowWarning(false);
-    APIInstance.post('/auth/password', {
-      email,
-    }).then(() => {
-      setStep('verify');
-    }).catch(err => {
-      DialogUtils.show('error', '', err.response.data.message);
-    });
+    if (isAdmin) {
+      AdminAPIInstance.post('/auth/password', {
+        email,
+      }).then(() => setStep('verify')).catch(err => {
+        DialogUtils.show('error', '', err.response.data.message);
+      });
+    } else {
+      APIInstance.post('/auth/password', {
+        email,
+      }).then(() => {
+        setStep('verify');
+      }).catch(err => {
+        DialogUtils.show('error', '', err.response.data.message);
+      });
+    }
   };
 
   const handleGoToFinal = () => {
-    APIInstance.post('/auth/verify-password-email', {
-      email,
-      code: code.join(''),
-    }).then(() => {
-      setShowWarning(false);
-      setStep('final');
-    }).catch(err => {
-      setShowWarning(true);
-    });
+    if (isAdmin) {
+      AdminAPIInstance.post('/auth/verify-password-email', {
+        email,
+        code: code.join(''),
+      }).then(() => {
+        setShowWarning(false);
+        setStep('final');
+      }).catch(err => {
+        setShowWarning(true);
+      });
+    } else {
+      APIInstance.post('/auth/verify-password-email', {
+        email,
+        code: code.join(''),
+      }).then(() => {
+        setShowWarning(false);
+        setStep('final');
+      }).catch(err => {
+        setShowWarning(true);
+      });
+    }
   };
 
   const handleSubmit = () => {
@@ -66,14 +88,25 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow }: typeForgotPas
       return;
     }
 
-    APIInstance.put('/auth/password', {
-      email,
-      password: newPassword,
-    }).then(() => {
-      setShow(false);
-    }).catch(err => {
-      console.log('error:', err);
-    });
+    if (isAdmin) {
+      AdminAPIInstance.put('/auth/password', {
+        email,
+        password: newPassword,
+      }).then(() => {
+        setShow(false);
+      }).catch(err => {
+        console.log('error:', err);
+      });
+    } else {
+      APIInstance.put('/auth/password', {
+        email,
+        password: newPassword,
+      }).then(() => {
+        setShow(false);
+      }).catch(err => {
+        console.log('error:', err);
+      });
+    }
   };
 
   const handleInputChange = (index: number, value: string) => {

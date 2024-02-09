@@ -55,8 +55,6 @@ const AdminDashboardClient: FC = () => {
     }).finally(() => setLoading(false));
   };
 
-  console.log('er:', data);
-
   const getTotalCampaignCount = () => {
     let sum: number = 0;
     showData.forEach(item => {

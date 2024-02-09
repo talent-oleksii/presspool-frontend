@@ -18,11 +18,14 @@ import AdminProfile from './Profile';
 import FeedbackImage from '../../assets/icon/topbar-help.png';
 import HelpImage from '../../assets/icon/help.png';
 import ClientImage from '../../assets/icon/account.png';
+import TeamImage from '../../assets/icon/team.png';
 import AccountImage from '../../assets/image/account.png';
 import LinkImage from '../../assets/icon/link.png';
 import InviteNewClient from './ui/InviteNewClient';
 import AdminDashboardClient from './dashboard/Client';
 import AdminClient from './Client';
+import AdminClientCampaign from './ClientCampaign';
+import InviteAccountManager from './ui/InviteAccountManager';
 
 const Admin: FC = () => {
   const location = useLocation();
@@ -32,6 +35,7 @@ const Admin: FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [showInvite, setShowInvite] = useState(false);
+  const [showInviteAM, setShowInviteAM] = useState(false);
 
   useEffect(() => {
     if (!isAdminAuthenticated) navigator('/admin/login');
@@ -124,10 +128,18 @@ const Admin: FC = () => {
   };
 
   const getOffsetBack = () => {
-    if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
-    if (location.pathname.indexOf('client') > -1) return 'top-[25%]';
-    if (location.pathname.indexOf('profile') > -1) return 'top-[50%]';
-    if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
+    if (adminRole === 'account_manager') {
+      if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
+      if (location.pathname.indexOf('client') > -1) return 'top-[25%]';
+      if (location.pathname.indexOf('profile') > -1) return 'top-[50%]';
+      if (location.pathname.indexOf('support') > -1) return 'top-[75%]';
+    } else if (adminRole === 'super_admin') {
+      if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
+      if (location.pathname.indexOf('client') > -1) return 'top-[20%]';
+      if (location.pathname.indexOf('team') > -1) return 'top-[40%]';
+      if (location.pathname.indexOf('profile') > -1) return 'top-[60%]';
+      if (location.pathname.indexOf('support') > -1) return 'top-[80%]';
+    }
 
     return 'top-0';
   };
@@ -172,15 +184,15 @@ const Admin: FC = () => {
           <div className='flex flex-col items-center justify-center'>
             {
               adminRole === 'super_admin' &&
-              <Link
-                to="/admin/new"
-                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-main rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
+              <button
+                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-[#7FFBAE] rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
+                onClick={() => setShowInviteAM(true)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-2'>
                   <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="black" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 Add Account Manager
-              </Link>
+              </button>
             }
             {
               adminRole === 'account_manager' &&
@@ -195,6 +207,7 @@ const Admin: FC = () => {
               </button>
             }
             <InviteNewClient show={showInvite} onClose={() => setShowInvite(false)} link={adminLink} />
+            <InviteAccountManager show={showInviteAM} onClose={() => setShowInviteAM(false)} />
             <div className="relative w-full">
               <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
                 to="/admin/dashboard">
@@ -208,6 +221,14 @@ const Admin: FC = () => {
                 <img alt="Support" src={ClientImage} className="w-[16px] me-3 ms-1" />
                 Clients
               </Link>
+              {
+                adminRole === 'super_admin' &&
+                <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
+                  to="/admin/team">
+                  <img alt="TEam" src={TeamImage} className="w-[16px] me-3 ms-1" />
+                  My Team
+                </Link>
+              }
               <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
                 to="/admin/profile">
                 <img alt="Support" src={AccountImage} className="w-[16px] me-3 ms-1" />
@@ -223,9 +244,10 @@ const Admin: FC = () => {
                   location.pathname.indexOf('dashboard') > -1 || location.pathname.indexOf('client') > -1 ||
                   location.pathname.indexOf('client') > -1 ||
                   location.pathname.indexOf('profile') > -1 ||
-                  location.pathname.indexOf('support') > -1
+                  location.pathname.indexOf('support') > -1 ||
+                  location.pathname.indexOf('team') > -1
                 ) &&
-                <div className={`absolute h-[25%] bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
+                <div className={`absolute ${adminRole === 'super_admin' ? 'h-[20%]' : 'h-[25%]'} bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
               }
             </div>
           </div>
@@ -269,7 +291,7 @@ const Admin: FC = () => {
               <Route path="/dashboard/*" element={<AdminDashboard />} />
               <Route path="/client" element={<AdminDashboardClient />} />
               <Route path="/client/:id" element={<AdminClient />} />
-              <Route path="/client/:id/:campaignId" element={<AdminCampaign />} />
+              <Route path="/client/:id/:campaignId" element={<AdminClientCampaign />} />
               <Route path="/member" element={<AdminMember />} />
               <Route path="/campaign" element={<AdminCampaign />} />
               <Route path="/billing" element={<AdminBilling />} />

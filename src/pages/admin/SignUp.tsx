@@ -50,7 +50,8 @@ const AdminSignUp: FC = () => {
     if (validator.isEmpty(formData.fullName) ||
       !validator.isEmail(formData.email) ||
       validator.isEmail(formData.company) ||
-      !validator.isStrongPassword(formData.password)) return;
+      !validator.isStrongPassword(formData.password) ||
+      !isOurAffiliate(formData.email)) return;
 
     setLoading(true);
     AdminAPIInstance.post('auth/sign-up', {
@@ -71,6 +72,14 @@ const AdminSignUp: FC = () => {
   const handleShowPassword: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     setPasswordType(passwordType === 'password' ? 'text' : 'password');
+  };
+
+  const isOurAffiliate = (email: string) => {
+    const emailParts = email.split('@');
+    if (emailParts.length >= 2 && (emailParts[1] === 'gopresspool.ai' || emailParts[1] === 'presspool.ai')) {
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -156,7 +165,7 @@ const AdminSignUp: FC = () => {
             />
             <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
               Email Address
-              {formData.email.length > 0 && !validator.isEmail(formData.email) && <span className='ms-1 text-[red] text-xs'>*Input valid email address</span>}
+              {formData.email.length > 0 && !validator.isEmail(formData.email) && !isOurAffiliate(formData.email) && <span className='ms-1 text-[red] text-xs'>*Input valid email address</span>}
             </label>
             <input
               id='email'
