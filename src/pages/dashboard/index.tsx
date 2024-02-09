@@ -37,10 +37,10 @@ const Dashboard: FC = () => {
 
   return (
     <div className="text-left relative">
-      <h1 className="font-semibold font-[Inter] text-[20px] 2xl:text-[24px] -tracking-[.6px]">
+      <h1 className="font-semibold font-[Inter] text-3xl -tracking-[.6px]">
         Welcome {name} 🤝
       </h1>
-      <p className="text-sm 2xl:text-md text-[#43474A]">
+      <p className="text-lg text-[#43474A]">
         Here’s a snapshot of your account, all in one place
       </p>
 
@@ -54,7 +54,7 @@ const Dashboard: FC = () => {
           <div className="flex justify-between items-center mt-5">
             <div>
               <Link
-                className={`inline-flex items-center justify-center text-[#505050] text-sm 2xl:text-base px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${
+                className={`inline-flex items-center justify-center text-[#505050] text-base px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${
                   id === "all"
                     ? "bg-white border border-solid border-main shadow-md"
                     : "bg-transparent ring-none"
@@ -88,7 +88,7 @@ const Dashboard: FC = () => {
 					<div className='relative h-auto'>
 						<div className='bg-main px-[18px] py-[12px] rounded-t-[14px] w-full top-0 z-10'>
 							<p className='text-black text-base font-semibold font-[Inter]'>Quick Actions:</p>
-							<p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[4px]'>Let’s get you where you need to go</p>
+							<p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[4px]'>Let’s get you where you need to go</p>
 						</div>
 						<div className='bg-white py-2 w-full z-0 rounded-b-[14px] shadow-md'>
 							<Link to="/new" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
@@ -120,7 +120,7 @@ const Dashboard: FC = () => {
 					<div className='relative mt-4'>
 						<div className='bg-main px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
 							<p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
-							<p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]'>We are always here for you</p>
+							<p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]'>We are always here for you</p>
 						</div>
 						<div className='bg-white py-2 rounded-b-[14px] w-full z-0 top-[70px] shadow-md'>
 							<a href="https://blog.presspool.ai" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>

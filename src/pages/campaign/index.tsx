@@ -12,6 +12,7 @@ import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
 
 import { FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
+import { start } from "repl";
 
 const Campaign: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -58,6 +59,157 @@ const Campaign: FC = () => {
       })
       .finally(() => setLoading(false));
   };
+
+  const panelStyle: React.CSSProperties = {
+    marginBottom: 24,
+    background: "#ffffff",
+    borderRadius: 14,
+    overflow: "hidden",
+    boxShadow:
+      "0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+  };
+
+  const getItems = (item: any, panelStyle: any) => [
+    {
+      key: "1",
+      label: (
+        <div className="flex pl-[32px] pr-[72px] py-[20px] 2xl:p-[32px] justify-between items-center w-full relative">
+          <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px]">
+            {item.name}
+          </p>
+          <div className="flex flex-col items-center">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+              Start Date:
+            </p>
+            <p className="font-semibold font-[Inter] text-[12px]">
+              {new Date(Number(item.create_time)).toLocaleDateString()}
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+              Total Clicks:
+            </p>
+            <p className="font-semibold font-[Inter] text-[12px]">
+              {item.click_count}
+            </p>
+          </div>
+          <div className="flex flex-col items-center">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+              Unique Clicks:
+            </p>
+            <p className="font-semibold font-[Inter] text-[12px]">
+              {item.unique_clicks}
+            </p>
+          </div>
+          {/* <div className='flex flex-col items-center'>
+        <p className='font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]'>AVG CPC:</p>
+        <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
+      </div> */}
+          <div className="flex flex-col items-center">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+              Total Spend:
+            </p>
+            <p className="font-semibold font-[Inter] text-[12px]">{`$${item.spent}`}</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+              Budget Remaining:
+            </p>
+            <p className="font-semibold font-[Inter] text-[12px] text-[#FF4D42]">{`$${
+              Number(item.price) - Number(item.spent)
+            }`}</p>
+          </div>
+          <span
+            className={`rounded-full text-xs px-[12px] mt-[25px] py-[4px] font-medium ${
+              item.state === "draft"
+                ? "bg-[#dbdbdb]"
+                : item.state === "paused"
+                ? "bg-[#fdbdbd]"
+                : "bg-main"
+            }`}
+          >
+            {item.state}
+          </span>
+        </div>
+      ),
+      children: (
+        <div className="bg-white p-[25px]">
+          <div className="flex">
+            <img
+              className="w-[242px] h-[133px] object-cover"
+              alt="market"
+              src={item.image}
+            />
+            <div className="ms-[16px] py-[10px] w-full flex flex-col items-start justify-center">
+              <p className="text-black font-[Inter] text-xs font-normal">
+                Headline
+              </p>
+              <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-base -tracking-[.42px]">
+                {item.headline}
+              </h2>
+              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+                Description
+              </p>
+              <p className="text-black font-[Inter] font-medium text-sm mt-[8px]">
+                {item.body}
+              </p>
+              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+                Landing Page Link
+              </p>
+              <p className="text-[#6C63FF] font-[Inter] font-medium text-sm mt-[8px]">
+                {item.page_url}
+              </p>
+              <div className="flex items-center justify-between w-full">
+                <div className="w-auto">
+                  <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+                    Audience Tags
+                  </p>
+                  <p className="text-black font-[Inter] font-medium text-sm mt-[8px] -tracking-[.47px]">
+                    {item.audience.join(",")}
+                  </p>
+                </div>
+                <div className="mt-[16px] flex items-center justify-end">
+                  {item.state === "active" && (
+                    <Link
+                      to={`/raise-budget/${item.id}`}
+                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                    >
+                      Raise Budget
+                    </Link>
+                  )}
+                  {item.state !== "active" && (
+                    <Link
+                      to={`/edit/${item.id}`}
+                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                    >
+                      Edit Campaign
+                    </Link>
+                  )}
+                  {/* {
+            item.state !== 'paused' ?
+              <button
+                className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-xs 2xl:text-xs'
+                onClick={() => handleUpdate(item.id, 'paused')}
+              >
+                Pause
+              </button> :
+              <button
+                className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-xs 2xl:text-xs'
+                onClick={() => handleUpdate(item.id, 'active')}
+              >
+                Start
+              </button>
+          } */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ),
+      style: panelStyle,
+      showArrow: true,
+    },
+  ];
 
   return (
     <div className="text-left relative">
@@ -106,150 +258,7 @@ const Campaign: FC = () => {
           <Collapse
             key={item.id}
             collapsible="header"
-            items={[
-              {
-                key: "1",
-                label: (
-                  <div className="flex pl-[32px] pr-[72px] py-[20px] 2xl:p-[32px] bg-white rounded-[14px] justify-between items-center w-full relative shadow-md">
-                    <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px]">
-                      {item.name}
-                    </p>
-                    <div className="flex flex-col items-center">
-                      <p className="font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]">
-                        Start Date:
-                      </p>
-                      <p className="font-semibold font-[Inter] text-[12px]">
-                        {new Date(
-                          Number(item.create_time)
-                        ).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <p className="font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]">
-                        Total Clicks:
-                      </p>
-                      <p className="font-semibold font-[Inter] text-[12px]">
-                        {item.click_count}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <p className="font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]">
-                        Unique Clicks:
-                      </p>
-                      <p className="font-semibold font-[Inter] text-[12px]">
-                        {item.unique_clicks}
-                      </p>
-                    </div>
-                    {/* <div className='flex flex-col items-center'>
-                  <p className='font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]'>AVG CPC:</p>
-                  <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
-                </div> */}
-                    <div className="flex flex-col items-center">
-                      <p className="font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]">
-                        Total Spend:
-                      </p>
-                      <p className="font-semibold font-[Inter] text-[12px]">{`$${item.spent}`}</p>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <p className="font-semibold font-[Inter] text-[10px] mb-[17px] -tracking-[.3px]">
-                        Budget Remaining:
-                      </p>
-                      <p className="font-semibold font-[Inter] text-[12px] text-[#FF4D42]">{`$${
-                        Number(item.price) - Number(item.spent)
-                      }`}</p>
-                    </div>
-                    <span
-                      className={`rounded-full text-[10px] px-[12px] mt-[25px] py-[4px] font-medium ${
-                        item.state === "draft"
-                          ? "bg-[#dbdbdb]"
-                          : item.state === "paused"
-                          ? "bg-[#fdbdbd]"
-                          : "bg-main"
-                      }`}
-                    >
-                      {item.state}
-                    </span>
-                    <span className="mx-1 absolute right-[12px] bottom-[9px] text-xs font-bold font-[Inter]">
-                      ↓
-                    </span>
-                  </div>
-                ),
-                children: (
-                  <div className="bg-white p-[25px] rounded-b-[5px]">
-                    <div className="flex">
-                      <img
-                        className="w-[242px] h-[133px] object-cover"
-                        alt="market"
-                        src={item.image}
-                      />
-                      <div className="ms-[16px] py-[10px] flex flex-col items-start justify-center">
-                        <p className="text-black font-[Inter] text-xs font-normal">
-                          Headline
-                        </p>
-                        <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-base -tracking-[.42px]">
-                          {item.headline}
-                        </h2>
-                        <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
-                          Description
-                        </p>
-                        <p className="text-black font-[Inter] font-medium text-sm mt-[8px]">
-                          {item.body}
-                        </p>
-                        <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
-                          Landing Page Link
-                        </p>
-                        <p className="text-[#6C63FF] font-[Inter] font-medium text-sm mt-[8px]">
-                          {item.page_url}
-                        </p>
-                        <div className="flex items-center justify-between w-full">
-                          <div className="w-auto">
-                            <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
-                              Audience Tags
-                            </p>
-                            <p className="text-black font-[Inter] font-medium text-sm mt-[8px] -tracking-[.47px]">
-                              {item.audience.join(",")}
-                            </p>
-                          </div>
-                          <div className="mt-[16px] flex items-center justify-end">
-                            {item.state === "active" && (
-                              <Link
-                                to={`/raise-budget/${item.id}`}
-                                className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs"
-                              >
-                                Raise Budget
-                              </Link>
-                            )}
-                            {item.state !== "active" && (
-                              <Link
-                                to={`/edit/${item.id}`}
-                                className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-[10px] 2xl:text-xs"
-                              >
-                                Edit Campaign
-                              </Link>
-                            )}
-                            {/* {
-                      item.state !== 'paused' ?
-                        <button
-                          className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-[10px] 2xl:text-xs'
-                          onClick={() => handleUpdate(item.id, 'paused')}
-                        >
-                          Pause
-                        </button> :
-                        <button
-                          className='underline font-[Inter] text-[#505050] px-4 py-2 me-2 text-[10px] 2xl:text-xs'
-                          onClick={() => handleUpdate(item.id, 'active')}
-                        >
-                          Start
-                        </button>
-                    } */}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ),
-              },
-            ]}
+            items={getItems(item, panelStyle)}
           />
         ))}
       </motion.div>

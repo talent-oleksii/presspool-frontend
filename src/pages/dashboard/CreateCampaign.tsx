@@ -428,13 +428,13 @@ const CreateCampaign: FC = () => {
       variants={FADE_UP_ANIMATION_VARIANTS}
     >
       <div
-        className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col px-[70px] pt-[15px] pb-[26px]`}
+        className={`relative bg-white rounded-lg text-left shadow-xl flex flex-col px-[70px] pt-[15px] pb-[26px]`}
       >
         {loading && <Loading />}
         <h2 className="font-[Inter] text-[18px] font-bold my-[24px] text-center w-full">
           New Campaign
         </h2>
-        <div className="grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]">
+        <div className="grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-full">
           {/* <button
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${currentTab === 'billing' ? 'text-white' : 'text-black'}`}
             onClick={handleClick}
@@ -505,7 +505,7 @@ const CreateCampaign: FC = () => {
                   </button>
                 </div>
                 <div className='flex items-center justify-center w-[60%]'>
-                  <select
+                  <selxect
                     className='w-full pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
                     value={currentCard}
                     onChange={e => setCurrentCard(e.target.value)}
@@ -518,7 +518,7 @@ const CreateCampaign: FC = () => {
                         </option>
                       ))
                     }
-                  </select>
+                  </selxect>
                 </div>
               </div>
               <div className='w-full text-center mt-[30px]'>
@@ -539,57 +539,15 @@ const CreateCampaign: FC = () => {
               animate="show"
               className="relative"
             >
-              <div className="absolute w-1/2 pr-8">
-                <p className="text-sm font-[Inter] text-black font-semibold flex">
-                  Campaign Name
-                  <Tooltip
-                    title="Please enter the name of your campaign"
-                    color="#EDECF2"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 -960 960 960"
-                      className="h-[20px] w-[20px] ms-1"
-                    >
-                      <path d="M460-300h40v-220h-40v220Zm20-276.923q10.462 0 17.539-7.077 7.076-7.077 7.076-17.539 0-10.461-7.076-17.538-7.077-7.077-17.539-7.077-10.462 0-17.539 7.077-7.076 7.077-7.076 17.538 0 10.462 7.076 17.539 7.077 7.077 17.539 7.077ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120ZM480-160q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-                    </svg>
-                  </Tooltip>
-                </p>
-                <input
-                  className="px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] mt-1 focus:border-main focus:ring-0"
-                  // placeholder="Give your campaign a name"
-                  value={campaignName}
-                  onChange={(e) => setCampaignName(e.target.value)}
-                />
-                <p className="mt-2 text-sm font-[Inter] text-black font-semibold flex">
-                  Website URL
-                  <Tooltip
-                    title="Please enter your full site URL. Example: https://www.test.com/"
-                    color="#EDECF2"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 -960 960 960"
-                      className="h-[20px] w-[20px] ms-1"
-                    >
-                      <path d="M460-300h40v-220h-40v220Zm20-276.923q10.462 0 17.539-7.077 7.076-7.077 7.076-17.539 0-10.461-7.076-17.538-7.077-7.077-17.539-7.077-10.462 0-17.539 7.077-7.076 7.077-7.076 17.538 0 10.462 7.076 17.539 7.077 7.077 17.539 7.077ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120ZM480-160q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-                    </svg>
-                  </Tooltip>
-                </p>
-                <input
-                  className="px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] mt-1 focus:border-main focus:ring-0"
-                  // placeholder="https://example.com"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                />
-              </div>
               <CreateCampaignUI
                 ref={uiRef}
                 uiData={uiData}
                 setUIContent={(data: any) => setUiData(data)}
                 setLoading={(load: boolean) => setLoading(load)}
+                setCampaignName={setCampaignName}
+                setUrl={setUrl}
               />
-              <div className="w-full text-center mt-[30px]">
+              <div className="w-full mt-[35px]">
                 <button
                   className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold text-sm disabled:bg-gray-400"
                   disabled={
@@ -750,7 +708,7 @@ const CreateCampaign: FC = () => {
                   />
                 </div>
               </div>
-              <div className="w-full text-center mt-[45px]">
+              <div className="w-full mt-[35px]">
                 <button
                   className="rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-sm disabled:bg-gray-400"
                   onClick={() => setCurrentTab("budget")}
@@ -825,7 +783,7 @@ const CreateCampaign: FC = () => {
                   </span>
                 </div>
               )}
-              <div className="mt-[35px] text-center w-full">
+              <div className="mt-[35px] w-full">
                 <button
                   className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm"
                   onClick={handleBeforeReview}
@@ -999,7 +957,7 @@ const CreateCampaign: FC = () => {
                   accordance with the provided terms.
                 </p>
               </div>
-              <div className="w-full text-center mt-[50px]">
+              <div className="mt-[35px]">
                 {currentAudience.length >= 1 &&
                   Number(currentPrice) >= 10000 && (
                     <Popconfirm

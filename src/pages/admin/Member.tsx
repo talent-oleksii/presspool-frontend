@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 const AdminMember: FC = () => {
   return (
-    <div className="min-h-screen w-full flex">
+    <div className="min-h-full w-full flex">
       <div className="text-left flex-1">
         <h2 className="font-[Inter] font-semibold -tracking-[.6px] text-[20px]">Team Members</h2>
         <p className="mt-1 text-[#43474a] font-[Inter] text-sm">One-stop shop to manage all clients</p>

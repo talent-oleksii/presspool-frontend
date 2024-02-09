@@ -22,7 +22,11 @@ import Loading from "../components/Loading";
 import AddTeammate from "./AddTeammate";
 import RaiseBudget from "./campaign/RaiseBudget";
 import ActionLinkCard from "../components/ActionLinkCard";
-import { LogoutOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import {
+  LogoutOutlined,
+  PlusCircleOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Space } from "antd";
 
 import "./style.scss";
@@ -179,8 +183,8 @@ const MainContent: FC = () => {
     <div className="min-h-full w-full h-full">
       <div className="w-full z-[7] pt-5 pl-5 pr-5">
         <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-[18px] pr-[15px] h-[60px] w-full justify-between">
-          <div className="flex items-center justify-center">
-            <Link to="/" className="text-left w-full">
+          <div className="flex items-center justify-center px-5 border-r-2 border-grey-100 border-solid">
+            <Link to="/" className="text-left w-full ">
               <img src={Logo} className="h-[40px]" alt="logo" />
             </Link>
             {/* <button
@@ -214,7 +218,7 @@ const MainContent: FC = () => {
             <div className="flex flex-col gap-4 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-[15px] font-[Inter] flex items-center font-500 text-left p-5 pr-7 leading-5 w-full bg-main rounded-[20px] text-black ${
+                className={`text-base font-[Inter] flex items-center font-500 text-left p-5 pr-7 leading-5 w-full bg-main rounded-[20px] text-black ${
                   location.pathname.indexOf("new") > -1
                     ? "ring-black ring-[1px]"
                     : "ring-0"
@@ -228,7 +232,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/campaign/all"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-[15px] p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -241,37 +245,33 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-[15px] p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
                 <Space size="large">
-                  <span role="img" aria-label="campaign">
-                    <CampaignIcon />
-                  </span>
+                  <CampaignIcon />
                   Campaigns
                 </Space>
               </NavLink>
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-[15px] p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
                 <Space size="large">
-                  <span role="img" aria-label="accountinfo">
-                    <AccountInfoIcon />
-                  </span>
+                  <AccountInfoIcon />
                   Account
                 </Space>
               </NavLink>
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-[15px] p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -291,7 +291,7 @@ const MainContent: FC = () => {
             />
           </div>
           <button
-            className="flex font-[Inter] font-medium text-[15px] items-center px-5"
+            className="flex font-[Inter] font-medium text-base items-center px-5"
             onClick={() => handleLogout()}
           >
             <Space size="middle">

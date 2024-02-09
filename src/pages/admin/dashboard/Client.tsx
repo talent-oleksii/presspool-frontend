@@ -177,8 +177,8 @@ const AdminDashboardClient: FC = () => {
                       </Avatar>
                       <div className='ms-2'>
                         <p className='text-[#43474a] text-xs font-[Inter] -tracking-[.36px]'>{item.company}</p>
-                        <p className='text-[#a3a3a3] text-[10px] font-[Inter] -tracking-[.36px]'>{item.name}</p>
-                        <p className='font-[Inter] -tracking-[.3px] text-[10px] text-[#a3a3a3]'>{`ID: ${item.email}`}</p>
+                        <p className='text-[#a3a3a3] text-xs font-[Inter] -tracking-[.36px]'>{item.name}</p>
+                        <p className='font-[Inter] -tracking-[.3px] text-xs text-[#a3a3a3]'>{`ID: ${item.email}`}</p>
                       </div>
                     </div>
                   </div>
@@ -227,7 +227,7 @@ const AdminDashboardClient: FC = () => {
                         </svg>
                       </button>
                     </Dropdown> */}
-                    <Link className='w-full h-full text-[10px] rounded-lg bg-black font-medium text-white px-4 py-2' to={`/admin/client/${item.id}`}>Client Details</Link>
+                    <Link className='w-full h-full text-xs rounded-lg bg-black font-medium text-white px-4 py-2' to={`/admin/client/${item.id}`}>Client Details</Link>
                   </div>
                   {/* <span className={`absolute rounded-full px-3 py-1 right-1 bg-black bottom-1 text-xs font-[Inter] ${item.state === 'inactive' ? 'text-[red]' : 'text-main'}`}>{item.state}</span> */}
                 </div>

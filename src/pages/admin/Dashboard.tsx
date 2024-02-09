@@ -67,7 +67,7 @@ const AdminDashboard: FC = () => {
         <div className='relative h-[300px]'>
           <div className='bg-main p-[19px] rounded-t-[14px] w-full top-0 z-10'>
             <p className='text-black text-base font-semibold font-[Inter]'>Quick Actions:</p>
-            <p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[4px]'>Let’s get you where you need to go</p>
+            <p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[4px]'>Let’s get you where you need to go</p>
           </div>
           <div className='bg-white py-2 w-full z-0 rounded-b-[14px] shadow-md'>
             <Link to="/admin/dashboard/campaign" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
@@ -110,7 +110,7 @@ const AdminDashboard: FC = () => {
         <div className='relative'>
           <div className='bg-main p-[19px] rounded-t-[14px] w-full z-10'>
             <p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
-            <p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]'>We are always here for you</p>
+            <p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]'>We are always here for you</p>
           </div>
           <div className='bg-white py-2 rounded-b-[14px] w-full z-0 top-[70px] shadow-md'>
             <a href="https://blog.presspool.ai" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>

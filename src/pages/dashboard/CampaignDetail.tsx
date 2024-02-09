@@ -97,10 +97,10 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
         <div className="my-5 p-5 min-h-[450px] rounded-[10px] bg-white shadow-md">
           <div className="flex justify-between items-baseline">
             <div>
-              <h2 className="font-[Inter] text-base 2xl:text-lg font-semibold">
+              <h2 className="font-[Inter] text-lg font-semibold">
                 {data.name || ""}
               </h2>
-              <p className="font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm">
+              <p className="font-[Inter] text-[#43474A] mt-[5px] text-base">
                 Let's see how your campaign is performing
               </p>
             </div>
@@ -117,10 +117,10 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                 Download PDF
               </button>
               <div className="mt-[20px]">
-                <p className="font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2">
+                <p className="font-[Inter] text-black text-base font-semibold mb-2">
                   Total Impressions
                 </p>
-                <p className="font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2 font-semibold">
+                <p className="font-[Inter] text-[#7F8182] text-base mt-2 font-semibold">
                   Total Clicks
                 </p>
               </div>
@@ -153,11 +153,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <table className="w-full">
             <thead>
               <tr>
-                <td className="text-[14px] font-[Inter]">Name</td>
-                <td className="text-[14px] font-[Inter]">Impressions</td>
-                <td className="text-[14px] font-[Inter]">Clicks</td>
-                <td className="text-[14px] font-[Inter]">Total Spend</td>
-                <td className="text-[14px] font-[Inter]">
+                <td className="text-sm font-[Inter]">Name</td>
+                <td className="text-sm font-[Inter]">Impressions</td>
+                <td className="text-sm font-[Inter]">Clicks</td>
+                <td className="text-sm font-[Inter]">Total Spend</td>
+                <td className="text-sm font-[Inter]">
                   <span className="flex items-center">
                     CTR
                     <Tooltip
@@ -174,7 +174,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                     </Tooltip>
                   </span>
                 </td>
-                <td className="text-[14px] font-[Inter]">
+                <td className="text-sm font-[Inter]">
                   <span className="flex items-center">
                     % of Total Traffic
                     <Tooltip
@@ -191,7 +191,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                     </Tooltip>
                   </span>
                 </td>
-                <td className="text-[14px] font-[Inter]">Feedback</td>
+                <td className="text-sm font-[Inter]">Feedback</td>
               </tr>
             </thead>
             <tbody>
