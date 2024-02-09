@@ -19,7 +19,6 @@ const AdminClient: FC = () => {
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>({});
   const [campaignData, setCampaignData] = useState<Array<any>>([]);
-  const [showCampaignData, setShowCampaignData] = useState<Array<any>>([]);
   const [filteredData, setFilteredData] = useState<Array<any>>([]);
   const [accountManager, setAccountManager] = useState<any>();
   const [currentTab, setCurrentTab] = useState('user');
@@ -330,7 +329,7 @@ const AdminClient: FC = () => {
                             <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-[#43474a] ${item.state === 'active' ? 'bg-main' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
                           </div>
                         </div>
-                        <Link to={`/admin/dashboard/campaign/${item.id}`} className='block flex items-center justify-center w-full bg-main py-[10px] mt-4 rounded-[6px] font-semibold text-base font-[Inter]'>View Campaign</Link>
+                        <Link to={`/admin/client/${id}/${item.id}`} className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
                       </div>
                     </div>
                   ))

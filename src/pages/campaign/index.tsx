@@ -12,7 +12,7 @@ import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
 
 import { FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
-import { start } from "repl";
+import { DownOutlined } from "@ant-design/icons";
 
 const Campaign: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ const Campaign: FC = () => {
   };
 
   const panelStyle: React.CSSProperties = {
-    marginBottom: 24,
+    marginBottom: 20,
     background: "#ffffff",
     borderRadius: 14,
     overflow: "hidden",
@@ -73,95 +73,102 @@ const Campaign: FC = () => {
     {
       key: "1",
       label: (
-        <div className="flex pl-[32px] pr-[72px] py-[20px] 2xl:p-[32px] justify-between items-center w-full relative">
-          <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px]">
+        <div className="flex pl-[32px] pr-[72px] py-[20px] 2xl:p-[32px] justify-evenly items-center text-left w-full relative">
+          <p className="font-semibold font-[Inter] text-xl min-w-[150px] -tracking-[.42px] w-full">
             {item.name}
           </p>
-          <div className="flex flex-col items-center">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
-              Start Date:
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+              Start Date
             </p>
-            <p className="font-semibold font-[Inter] text-[12px]">
+            <p className="font-semibold font-[Inter] text-base">
               {new Date(Number(item.create_time)).toLocaleDateString()}
             </p>
           </div>
-          <div className="flex flex-col items-center">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
-              Total Clicks:
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+              Total Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-[12px]">
+            <p className="font-semibold font-[Inter] text-base">
               {item.click_count}
             </p>
           </div>
-          <div className="flex flex-col items-center">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
-              Unique Clicks:
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+              Unique Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-[12px]">
+            <p className="font-semibold font-[Inter] text-base">
               {item.unique_clicks}
             </p>
           </div>
           {/* <div className='flex flex-col items-center'>
         <p className='font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]'>AVG CPC:</p>
-        <p className='font-semibold font-[Inter] text-[12px]'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
+        <p className='font-semibold font-[Inter] text-base'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
       </div> */}
-          <div className="flex flex-col items-center">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
-              Total Spend:
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+              Total Spend
             </p>
-            <p className="font-semibold font-[Inter] text-[12px]">{`$${item.spent}`}</p>
+            <p className="font-semibold font-[Inter] text-base">{`$${item.spent}`}</p>
           </div>
-          <div className="flex flex-col items-center">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
-              Budget Remaining:
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+              Budget Remaining
             </p>
-            <p className="font-semibold font-[Inter] text-[12px] text-[#FF4D42]">{`$${
+            <p className="font-semibold font-[Inter] text-base text-[#FF4D42]">{`$${
               Number(item.price) - Number(item.spent)
             }`}</p>
           </div>
-          <span
-            className={`rounded-full text-xs px-[12px] mt-[25px] py-[4px] font-medium ${
-              item.state === "draft"
-                ? "bg-[#dbdbdb]"
-                : item.state === "paused"
-                ? "bg-[#fdbdbd]"
-                : "bg-main"
-            }`}
-          >
-            {item.state}
-          </span>
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+              Status
+            </p>
+            <p className="font-semibold font-[Inter]">
+              <span
+                className={`rounded-full text-sm px-[12px] mt-[25px] py-[4px] font-medium ${
+                  item.state === "draft"
+                    ? "bg-[#dbdbdb]"
+                    : item.state === "paused"
+                    ? "bg-[#fdbdbd]"
+                    : "bg-main"
+                }`}
+              >
+                {item.state}
+              </span>
+            </p>
+          </div>
         </div>
       ),
       children: (
-        <div className="bg-white p-[25px]">
-          <div className="flex">
+        <div className="bg-white py-6">
+          <div className="grid grid-cols-[2fr_4fr] gap-7">
             <img
-              className="w-[242px] h-[133px] object-cover"
+              className="w-full max-h-[200px] min-h-full object-cover"
               alt="market"
               src={item.image}
             />
-            <div className="ms-[16px] py-[10px] w-full flex flex-col items-start justify-center">
-              <p className="text-black font-[Inter] text-xs font-normal">
+            <div className="py-[10px] w-full flex flex-col items-start justify-center">
+              <p className="text-black font-[Inter] text-sm font-normal">
                 Headline
               </p>
               <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-base -tracking-[.42px]">
                 {item.headline}
               </h2>
-              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+              <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
                 Description
               </p>
               <p className="text-black font-[Inter] font-medium text-sm mt-[8px]">
                 {item.body}
               </p>
-              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+              <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
                 Landing Page Link
               </p>
               <p className="text-[#6C63FF] font-[Inter] font-medium text-sm mt-[8px]">
                 {item.page_url}
               </p>
-              <div className="flex items-center justify-between w-full">
+              <div className="flex items-end justify-between w-full">
                 <div className="w-auto">
-                  <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+                  <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
                     Audience Tags
                   </p>
                   <p className="text-black font-[Inter] font-medium text-sm mt-[8px] -tracking-[.47px]">
@@ -172,7 +179,7 @@ const Campaign: FC = () => {
                   {item.state === "active" && (
                     <Link
                       to={`/raise-budget/${item.id}`}
-                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-sm 2xl:text-sm"
                     >
                       Raise Budget
                     </Link>
@@ -180,7 +187,7 @@ const Campaign: FC = () => {
                   {item.state !== "active" && (
                     <Link
                       to={`/edit/${item.id}`}
-                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-sm 2xl:text-sm"
                     >
                       Edit Campaign
                     </Link>
@@ -214,10 +221,8 @@ const Campaign: FC = () => {
   return (
     <div className="text-left relative">
       {loading && <Loading />}
-      <h2 className="text-[20px] 2xl:text-[24px] font-[Inter] text-black font-semibold -tracking-[.6px]">{`${company}'s Campaigns 📈`}</h2>
-      <p className="mt-[6px] text-[#43474A] font-normal text-sm">
-        Here's your account at a glance.
-      </p>
+      <h1 className="font-semibold font-[Inter] text-3xl -tracking-[.6px]">{`${company}'s Campaigns 📈`}</h1>
+      <p className="text-lg text-[#43474A]">Here's your account at a glance.</p>
 
       <div className="flex items-center w-full mt-[24px]">
         <div className="flex w-[342px] border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-2">
@@ -258,6 +263,10 @@ const Campaign: FC = () => {
           <Collapse
             key={item.id}
             collapsible="header"
+            expandIconPosition="end"
+            expandIcon={({ isActive }) => (
+              <DownOutlined rotate={isActive ? -180 : 0} />
+            )}
             items={getItems(item, panelStyle)}
           />
         ))}

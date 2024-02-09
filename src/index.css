@@ -48,7 +48,11 @@
 }
 
 .ant-collapse-expand-icon {
-  display: none !important;
+  position: absolute;
+  right: 24px;
+  top: 35px;
+  padding: 0;
+  margin-top: 20px;
 }
 
 .ant-collapse-header-text {
