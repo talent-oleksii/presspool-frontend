@@ -1,0 +1,30 @@
+export interface ICampaignDetail {
+  id: number;
+  create_time: string;
+  email: string;
+  name: string;
+  url: string;
+  demographic: string;
+  newsletter: string;
+  state: string;
+  audience: Array<string>;
+  uid: string;
+  click_count: number;
+  card_id: string;
+  spent: number;
+  billed: number;
+  price: number;
+  impression_count: number;
+  unique_clicks: number;
+  stream_id: string;
+  region: Array<string>;
+  campaign_id: number;
+  headline: string;
+  body: string;
+  cta: string;
+  image: string;
+  page_url: string;
+  no_need_check: any;
+  additional_files: string;
+  ui_id: number;
+}

@@ -181,11 +181,11 @@ const MainContent: FC = () => {
 
   return (
     <div className="min-h-full w-full h-full">
-      <div className="w-full z-[7] pt-5 pl-5 pr-5">
-        <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-[18px] pr-[15px] h-[60px] w-full justify-between">
+      <div className="w-full z-[7] pt-4 pl-5 pr-5">
+        <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-[18px] pr-[15px] h-[40px] w-full justify-between">
           <div className="flex items-center justify-center px-5 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
-              <img src={Logo} className="h-[40px]" alt="logo" />
+              <img src={Logo} className="h-7" alt="logo" />
             </Link>
             {/* <button
               className="ms-2 font-[Inter] -tracking-[.6px] text-sm whitespace-nowrap rounded-full bg-black text-white px-2 py-[2px]"
@@ -213,14 +213,14 @@ const MainContent: FC = () => {
         </div>
       </div>
       <div className="grid grid-cols-[295px_repeat(4,1fr)] gap-4 h-calc-vh">
-        <div className="col-span-1 pt-5 pb-8 pl-6 flex flex-col justify-between">
+        <div className="col-span-1 pt-4 pb-8 pl-6 flex flex-col justify-between">
           <div>
             <div className="flex flex-col gap-4 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-base font-[Inter] flex items-center font-500 text-left p-5 pr-7 leading-5 w-full bg-main rounded-[20px] text-black ${
+                className={`text-sm font-[Inter] flex shadow-md items-center font-500 text-left pl-5 py-3.5 pr-7 leading-5 w-full bg-main rounded-[20px] text-black ${
                   location.pathname.indexOf("new") > -1
-                    ? "ring-black ring-[1px]"
+                    ? "ring-black ring-[2px]"
                     : "ring-0"
                 }`}
               >
@@ -232,7 +232,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/campaign/all"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm  pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -245,7 +245,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -258,7 +258,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -271,7 +271,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-base p-5 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -291,7 +291,7 @@ const MainContent: FC = () => {
             />
           </div>
           <button
-            className="flex font-[Inter] font-medium text-base items-center px-5"
+            className="flex font-[Inter] font-medium text-sm items-center px-5"
             onClick={() => handleLogout()}
           >
             <Space size="middle">
@@ -301,12 +301,12 @@ const MainContent: FC = () => {
           </button>
         </div>
         {loading && <Loading />}
-        <div className="col-span-4 pt-5 pb-8 pr-16 pl-8 overflow-y-auto bg-[#EDECF2]">
+        <div className="col-span-4 pt-4 pb-8 pr-16 pl-8 overflow-y-auto bg-[#EDECF2]">
           {!loading && (
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />
-              <Route path="/new/*" element={<CreateCampaign />} />
-              <Route path="/edit/*" element={<CreateCampaign />} />
+              <Route path="/new" element={<CreateCampaign />} />
+              <Route path="/edit/:id" element={<CreateCampaign />} />
               <Route path="/raise-budget/:id" element={<RaiseBudget />} />
               <Route path="/detail" element={<Detail />} />
               <Route path="/billing" element={<Billing />} />

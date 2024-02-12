@@ -253,7 +253,7 @@ const Admin: FC = () => {
           </div>
           <div className='relative mt-4 text-left'>
             <div className='bg-main px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
-              <p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
+              <p className='text-black text-sm font-semibold font-[Inter]'>Resources</p>
               <p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]'>We are always here for you</p>
             </div>
             <div className='bg-white py-2 rounded-b-[14px] w-full z-0 top-[70px] shadow-md'>

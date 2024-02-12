@@ -51,10 +51,10 @@ const Dashboard: FC = () => {
         variants={FADE_UP_ANIMATION_VARIANTS}
       >
         <div className="flex-1">
-          <div className="flex justify-between items-center mt-5">
+          <div className="flex justify-between items-center mt-4">
             <div>
               <Link
-                className={`inline-flex items-center justify-center text-[#505050] text-base px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${
+                className={`inline-flex items-center justify-center text-[#505050] text-sm px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${
                   id === "all"
                     ? "bg-white border border-solid border-main shadow-md"
                     : "bg-transparent ring-none"
@@ -87,7 +87,7 @@ const Dashboard: FC = () => {
         {/* <div className='min-w-[300px] pl-[30px] pr-[20px] sm:pr-[50px] mt-[22px]'>
 					<div className='relative h-auto'>
 						<div className='bg-main px-[18px] py-[12px] rounded-t-[14px] w-full top-0 z-10'>
-							<p className='text-black text-base font-semibold font-[Inter]'>Quick Actions:</p>
+							<p className='text-black text-sm font-semibold font-[Inter]'>Quick Actions:</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[4px]'>Let’s get you where you need to go</p>
 						</div>
 						<div className='bg-white py-2 w-full z-0 rounded-b-[14px] shadow-md'>
@@ -119,7 +119,7 @@ const Dashboard: FC = () => {
 					</div>
 					<div className='relative mt-4'>
 						<div className='bg-main px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
-							<p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
+							<p className='text-black text-sm font-semibold font-[Inter]'>Resources</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]'>We are always here for you</p>
 						</div>
 						<div className='bg-white py-2 rounded-b-[14px] w-full z-0 top-[70px] shadow-md'>

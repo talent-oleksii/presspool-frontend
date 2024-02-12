@@ -94,7 +94,7 @@ const AdminDashboardOverview: FC = () => {
       <div className='my-[14px] p-[25px] min-h-[250px] rounded-[10px] bg-white shadow-md'>
         <div className='flex justify-between items-center'>
           <div>
-            <h2 className='font-[Inter] text-base 2xl:text-lg font-semibold'>All Campaigns</h2>
+            <h2 className='font-[Inter] text-sm 2xl:text-lg font-semibold'>All Campaigns</h2>
             <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
           </div>
 

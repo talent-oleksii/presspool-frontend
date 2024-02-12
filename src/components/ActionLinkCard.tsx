@@ -17,9 +17,9 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
   subHeading,
   links,
 }) => (
-  <div className="rounded-[14px] mt-4 text-left shadow-md">
+  <div className="rounded-3.5 mt-5 text-left shadow-md">
     <div className="bg-black px-[19px] py-[12px] w-full rounded-t-[14px]">
-      <p className="text-white text-base font-semibold font-[Inter]">
+      <p className="text-white text-sm font-semibold font-[Inter]">
         {heading}
       </p>
       <p className="text-white font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]">
@@ -31,7 +31,7 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
         <a
           key={index}
           href={link.url}
-          className="flex font-[Inter] font-500 text-base items-center px-5 py-3"
+          className="flex font-[Inter] font-500 text-sm items-center px-5 py-3"
           rel="noreferrer"
           target="_blank"
         >

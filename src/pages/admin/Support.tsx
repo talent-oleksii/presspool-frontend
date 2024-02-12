@@ -14,7 +14,7 @@ const AdminSupport: FC = () => {
       <div className='pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-8 pt-4 bg-white'>
         <div className='flex flex-col items-center justify-center'>
           <img src={Ava} className='rounded-full w-[50px]' alt="ava" />
-          <h2 className='font-[Inter] text-black text-base font-semibold mt-[3px]'>Talk to Ava</h2>
+          <h2 className='font-[Inter] text-black text-sm font-semibold mt-[3px]'>Talk to Ava</h2>
           <p className='font-[Inter] text-[#43474a] font-medium text-[12px] text-center mt-[5px]'>Our support bot trained on our <br /> platfrom from A~Z!</p>
         </div>
         <iframe className='w-full h-[600px]' title="bot"

@@ -14,7 +14,7 @@ const Card: FC<ICard> = memo<ICard>(
         <h2 className="text-3xl font-[Inter] font-semibold">
           {value}
         </h2>
-        <p className="text-base font-[Inter] mt-[5px] text-[#43474A] font-semibold">
+        <p className="text-sm font-[Inter] mt-[5px] text-[#43474A] font-semibold">
           {title}
         </p>
         <div className="bg-main rounded-full h-5 leading-5 mt-[8px] px-3 font-[Inter] text-sm font-semibold text-black">
