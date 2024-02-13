@@ -59,9 +59,9 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
                 </button>
                 <h3 className='font-[Inter] -tracking-[.72px] text-center font-semibold text-lg'>Assign Account Manager</h3>
                 <div className='text-left w-full'>
-                  <p className='mt-8 text-sm font-[Inter] -tracking-[.48px] font-medium'>Company Name</p>
-                  <p className='mt-1 rounded-[9.675px] border-[1px] border-[#7f8182] w-full px-4 py-2 text-[#7f8182] text-sm font-medium -tracking-[.5px]'>{company}</p>
-                  <p className='mt-4 text-sm font-[Inter] -tracking-[.54px] font-medium'>Assigned Members</p>
+                  <p className='mt-8 text-xs font-[Inter] -tracking-[.48px] font-medium'>Company Name</p>
+                  <p className='mt-1 rounded-[9.675px] border-[1px] border-[#7f8182] w-full px-4 py-2 text-[#7f8182] text-xs font-medium -tracking-[.5px]'>{company}</p>
+                  <p className='mt-4 text-xs font-[Inter] -tracking-[.54px] font-medium'>Assigned Members</p>
                   <Select
                     className='select-account-manager w-full mt-1'
                     allowClear
@@ -70,7 +70,7 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
                     options={accountManagers.map((item: any) => ({ value: item.id, label: item.name }))}
                   />
                 </div>
-                <button className='mt-4 text-sm font-semibold py-3 text-black bg-main w-full rounded-[6px] disabled:bg-[gray]' onClick={handleSubmit} disabled={!manager || manager.toString().length <= 0}>Assign</button>
+                <button className='mt-4 text-xs font-semibold py-3 text-black bg-main w-full rounded-[6px] disabled:bg-[gray]' onClick={handleSubmit} disabled={!manager || manager.toString().length <= 0}>Assign</button>
               </Dialog.Panel>
             </Transition.Child>
           </div>

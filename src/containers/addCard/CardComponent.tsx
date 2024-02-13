@@ -92,37 +92,37 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
       {loading && <Loading />}
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
+          <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
             Card number
           </p>
           <CardNumberElement
-            className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+            className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
             onChange={(event) => handleCardElementChange(event)}
           />
         </div>
         <div className="grid grid-cols-2 gap-7">
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
               Expiry
             </p>
             <CardExpiryElement
-              className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+              className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
               onChange={(event) => handleCardElementChange(event)}
             />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
               CVC
             </p>
             <CardCvcElement
-              className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+              className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
               onChange={(event) => handleCardElementChange(event)}
             />
           </div>
         </div>
         <button
           onClick={handleSubmit}
-          className="rounded-[5px] w-full text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
+          className="rounded-[5px] w-full text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
         >
           Add Card
         </button>

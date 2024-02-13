@@ -52,7 +52,7 @@ const Landing: FC = () => {
           {!isAuthenticated ? (
             <>
               <Link
-                className="flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-sm items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]"
+                className="flex flex-col font-bold text-black py-[15px] text-xs 2xl:text-xs items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]"
                 to="client-sign-up"
               >
                 <img
@@ -63,7 +63,7 @@ const Landing: FC = () => {
                 <p className="mb-0 mt-[9px]">I'm a Company</p>
                 {/* <p className='mb-0 -mt-1'>Company</p> */}
               </Link>
-              <button className="flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-sm items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]">
+              <button className="flex flex-col font-bold text-black py-[15px] text-xs 2xl:text-xs items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]">
                 <img
                   alt="creator"
                   src={Creator}
@@ -82,7 +82,7 @@ const Landing: FC = () => {
           )}
         </div>
         {!isAuthenticated ? (
-          <p className="mt-5 font-[Inter] font-medium text-sm text-[#7F8182]">
+          <p className="mt-5 font-[Inter] font-medium text-xs text-[#7F8182]">
             Already have an account? Sign in{" "}
             <Link to="/login" className="text-black underline">
               here
@@ -90,7 +90,7 @@ const Landing: FC = () => {
           </p>
         ) : (
           <button
-            className="mt-3 text-sm 2xl:text-md font-[Inter] text-[red]"
+            className="mt-3 text-xs 2xl:text-md font-[Inter] text-[red]"
             onClick={handleLogout}
           >
             Log out

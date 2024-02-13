@@ -71,7 +71,7 @@ const CampaignContent: FC = () => {
           <div className="flex flex-col">
             <button
               type="button"
-              className="rounded-[5px] text-white text-left font-semibold bg-black px-4 gap-4 py-[10px] text-sm flex items-center justify-start w-[288px]"
+              className="rounded-[5px] text-white text-left font-semibold bg-black px-4 gap-4 py-[10px] text-xs flex items-center justify-start w-[275px]"
               onClick={handleExpertHelp}
             >
               <EditIcon />
@@ -79,7 +79,7 @@ const CampaignContent: FC = () => {
             </button>
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
               Headline
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -94,7 +94,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={60}
@@ -104,7 +104,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["headLine"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
               Body
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline." />
@@ -115,7 +115,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full text-sm rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`mb-0 w-full text-xs rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={500}
@@ -127,7 +127,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["body"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex">
               CTA Text
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title='The call to action for your button. This should be something like "Free trial" or "Learn more" or "Try for free"' />
@@ -138,7 +138,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={20}
@@ -148,7 +148,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["cta"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex items-center">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex items-center">
               CTA Link
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -166,7 +166,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg border-[1px] text-sm focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg border-[1px] text-xs focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[red]" : ""
                   }`}
                 />
@@ -175,7 +175,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["pageUrl"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex">
               Hero Image
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Recommended dimensions: 1200px X 600px" />
@@ -189,7 +189,7 @@ const CampaignContent: FC = () => {
                 onClick={() => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
-                className={`overflow-hidden truncate px-2 text-sm py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded ${
+                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded ${
                   !!errors["image"] ? "border-[red]" : ""
                 }`}
               >
@@ -206,7 +206,7 @@ const CampaignContent: FC = () => {
                       d="M460-336.923v-346l-93.231 93.231-28.308-28.769L480-760l141.539 141.539-28.308 28.769L500-682.923v346h-40ZM264.615-200Q237-200 218.5-218.5 200-237 200-264.615v-96.923h40v96.923q0 9.23 7.692 16.923Q255.385-240 264.615-240h430.77q9.23 0 16.923-7.692Q720-255.385 720-264.615v-96.923h40v96.923Q760-237 741.5-218.5 723-200 695.385-200h-430.77Z"
                     />
                   </svg>
-                  <span className="text-[#7F8182] font-[Inter] text-sm">
+                  <span className="text-[#7F8182] font-[Inter] text-xs">
                     Upload image
                   </span>
                 </>
@@ -257,7 +257,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["image"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex">
+            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex">
               Additional Assets
               <CustomTooltip title="Additional files for your campaign" />
             </p>
@@ -271,7 +271,7 @@ const CampaignContent: FC = () => {
                   if (addtionalFileInputRef.current)
                     addtionalFileInputRef.current.click();
                 }}
-                className="overflow-hidden truncate px-2 text-sm py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-[#7F8182]"
+                className="overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-[#7F8182]"
               >
                 <>
                   <svg
@@ -286,7 +286,7 @@ const CampaignContent: FC = () => {
                       d="M460-336.923v-346l-93.231 93.231-28.308-28.769L480-760l141.539 141.539-28.308 28.769L500-682.923v346h-40ZM264.615-200Q237-200 218.5-218.5 200-237 200-264.615v-96.923h40v96.923q0 9.23 7.692 16.923Q255.385-240 264.615-240h430.77q9.23 0 16.923-7.692Q720-255.385 720-264.615v-96.923h40v96.923Q760-237 741.5-218.5 723-200 695.385-200h-430.77Z"
                     />
                   </svg>
-                  <span className="text-[#7F8182] font-[Inter] text-sm">
+                  <span className="text-[#7F8182] font-[Inter] text-xs">
                     Upload files
                   </span>
                 </>
@@ -335,7 +335,7 @@ const CampaignContent: FC = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
+          <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
             Preview
             <CustomTooltip title="The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline." />
           </p>
@@ -371,7 +371,7 @@ const CampaignContent: FC = () => {
                   <h2 className="w-full text-left font-bold font-[Inter] text-base break-words">
                     {watch("headLine")}
                   </h2>
-                  <p className="mt-4 w-full text-left font-[Inter] text-black text-sm break-words">
+                  <p className="mt-4 w-full text-left font-[Inter] text-black text-xs break-words">
                     {watch("body")}
                   </p>
                 </div>
@@ -379,7 +379,7 @@ const CampaignContent: FC = () => {
                   <div className="mt-4 flex justify-between w-full items-center">
                     <button
                       type="button"
-                      className="font-[Inter] text-gray-500 px-4 py-2 rounded-[5px] border-[1px] text-sm font-medium border-[#D1CEFF]"
+                      className="font-[Inter] text-gray-500 px-4 py-2 rounded-[5px] border-[1px] text-xs font-medium border-[#D1CEFF]"
                     >
                       {cta}
                     </button>
@@ -393,7 +393,7 @@ const CampaignContent: FC = () => {
       <div className="w-full mt-[35px] text-center">
         <button
           type="submit"
-          className="rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-sm disabled:bg-gray-400"
+          className="rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-xs disabled:bg-gray-400"
           disabled={!isValid}
         >
           Next Step

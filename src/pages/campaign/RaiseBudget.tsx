@@ -64,15 +64,15 @@ const RaiseBudget: FC = () => {
       }
       <h3 className='text-center w-full font-[Inter] text-lg font-semibold -tracking-[.6px] text-black'>Raise Budget</h3>
       <div className='text-left'>
-        <p className='mt-8 font-[Inter] text-sm -tracking-[.48px] font-semibold'>Please type in your updated budget cap for this campaign.</p>
-        <p className='text-[#43474a] text-sm font-light mt-1'>
+        <p className='mt-8 font-[Inter] text-xs -tracking-[.48px] font-semibold'>Please type in your updated budget cap for this campaign.</p>
+        <p className='text-[#43474a] text-xs font-light mt-1'>
           *Keep in mind, these are all verified, targeted and engaged readers that will be clicking through directly to your landing page of choice. We only charge per <span className='font-bold'>unique click</span> as they come in.
         </p>
         <div className='pl-2 pr-4 py-1 mt-[23px] border-[1px] rounded-lg border-black w-full flex justify-between items-center relative'>
           <input
             value={newPrice}
             prefix='$'
-            className='border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 text-sm 2xl:text-md'
+            className='border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 text-xs 2xl:text-md'
             onChange={e => setNewPrice(e.target.value)}
             type="number"
             min="10000"
@@ -81,7 +81,7 @@ const RaiseBudget: FC = () => {
         </div>
         {newPrice &&
           <div className='mt-[9px]'>
-            <span className='font-[Inter] text-xs 2xl:text-sm my-3 text-black'>
+            <span className='font-[Inter] text-xs 2xl:text-xs my-3 text-black'>
               {`*Total estimated clicks for the campaign are ${Math.floor(Number(newPrice) / (currentTarget === 'consumer' ? 8 : 20))}`}
             </span>
           </div>
@@ -101,9 +101,9 @@ const RaiseBudget: FC = () => {
         <div className='w-full flex mt-4'>
           {cardList.length > 0 && <>
             <div className='flex items-left justify-center flex-col'>
-              <p className='text-sm -tracking-[.42px] font-[Inter] font-medium'>Select Card Details</p>
+              <p className='text-xs -tracking-[.42px] font-[Inter] font-medium'>Select Card Details</p>
               <select
-                className='w-[400px] pl-[16px] py-[11px] mt-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
+                className='w-[400px] pl-[16px] py-[11px] mt-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md'
                 value={currentCard}
                 onChange={e => setCurrentCard(e.target.value)}
               >
@@ -120,9 +120,9 @@ const RaiseBudget: FC = () => {
             </div>
 
             <div className='flex-1 ms-[18px]'>
-              <p className='text-sm -tracking-[.42px] font-[Inter] font-medium'>Add New Card</p>
+              <p className='text-xs -tracking-[.42px] font-[Inter] font-medium'>Add New Card</p>
               <button
-                className='flex py-[11px] mt-2 px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
+                className='flex py-[11px] mt-2 px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md'
                 onClick={handleAddCard}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
@@ -135,9 +135,9 @@ const RaiseBudget: FC = () => {
           }
           {cardList.length <= 0 && <>
             <div className='flex-1 me-[18px]'>
-              <p className='text-sm -tracking-[.42px] font-[Inter] font-medium'>Add New Card</p>
+              <p className='text-xs -tracking-[.42px] font-[Inter] font-medium'>Add New Card</p>
               <button
-                className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md'
+                className='flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md'
                 onClick={handleAddCard}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-[9px]'>
@@ -147,9 +147,9 @@ const RaiseBudget: FC = () => {
               </button>
             </div>
             <div className='flex items-left justify-center flex-col'>
-              <p className='text-sm -tracking-[.42px] font-[Inter] font-medium'>Select Card Details</p>
+              <p className='text-xs -tracking-[.42px] font-[Inter] font-medium'>Select Card Details</p>
               <select
-                className='w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md'
+                className='w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md'
                 value={currentCard}
                 onChange={e => setCurrentCard(e.target.value)}
               >
@@ -179,7 +179,7 @@ const RaiseBudget: FC = () => {
         </div>
         <div className='w-full mt-8 text-center'>
           <button
-            className='font-[Inter] text-sm font-semibold px-4 py-2 rounded-[5px] bg-main disabled:bg-[gray]'
+            className='font-[Inter] text-xs font-semibold px-4 py-2 rounded-[5px] bg-main disabled:bg-[gray]'
             disabled={Number(newPrice) < 10000}
             onClick={handleSubmit}
           >

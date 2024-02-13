@@ -116,14 +116,14 @@ const AdminDashboardCampaign: FC = () => {
           }))}
         />
         <select
-          className='rounded-[6px] border-[1px] border-[#7f8182] bg-white py-1.5 ms-4 w-[23.5%] 2xl:w-[190px] font-[Inter] text-sm'
+          className='rounded-[6px] border-[1px] border-[#7f8182] bg-white py-1.5 ms-4 w-[23.5%] 2xl:w-[190px] font-[Inter] text-xs'
         >
           {filterOptions.map(item => (
             <option key={item.value} value={item.value}>{item.label}</option>
           ))}
         </select>
       </div>
-      {id === 'list' && <p className='mt-2 text-sm font-[Inter]'>Select Campaign to see the details here</p>}
+      {id === 'list' && <p className='mt-2 text-xs font-[Inter]'>Select Campaign to see the details here</p>}
       <div className='mt-2'>
         <div className='grid grid-cols-4 gap-4'>
           <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
@@ -180,12 +180,12 @@ const AdminDashboardCampaign: FC = () => {
         <div className='flex justify-between items-center'>
           <div>
             {data.state && <span className={`rounded-full text-xs px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-main'}`}>{data.state}</span>}
-            <h2 className='font-[Inter] mt-4 text-sm 2xl:text-lg font-semibold'>{data.name || ''}</h2>
+            <h2 className='font-[Inter] mt-4 text-xs 2xl:text-lg font-semibold'>{data.name || ''}</h2>
             <p className='text-xs'>{`https://track.presspool.ai/${data.uid || 1}`}</p>
-            <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
+            <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
           </div>
 
-          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-sm 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
+          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
             Download as CSV
           </button> */}
         </div>
@@ -198,8 +198,8 @@ const AdminDashboardCampaign: FC = () => {
             <YAxis />
           </LineChart>
           <div className='absolute right-[20px] top-0'>
-            <p className='font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2'>Total Impressions</p>
-            <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2 font-semibold'>Total Clicks</p>
+            <p className='font-[Inter] text-black text-xs 2xl:text-xs font-semibold mb-2'>Total Impressions</p>
+            <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-xs mt-2 font-semibold'>Total Clicks</p>
           </div>
         </div>
       </div>

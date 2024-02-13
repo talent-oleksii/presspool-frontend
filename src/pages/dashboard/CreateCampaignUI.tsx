@@ -146,24 +146,24 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
     <div className="h-full w-[720px] flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-7">
         <div className="flex flex-col gap-2">
-          <p className="text-sm 2xl:font-lg font-[Inter] text-black font-semibold flex">
+          <p className="text-xs 2xl:font-lg font-[Inter] text-black font-semibold flex">
             Campaign Name
             <CustomTooltip title="Please enter the name of your campaign" />
           </p>
           <input
-            className="px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182]  focus:border-main focus:ring-0"
+            className="px-3 py-2 rounded-[8px] w-full border text-xs font-[Inter] border-[#7F8182]  focus:border-main focus:ring-0"
             // placeholder="Give your campaign a name"
             value={campaignName}
             onChange={(e) => setCampaignName(e.target.value)}
           />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm 2xl:font-lg font-[Inter] text-black font-semibold flex">
+          <p className="text-xs 2xl:font-lg font-[Inter] text-black font-semibold flex">
             Website URL
             <CustomTooltip title="Please enter your full site URL. Example: https://www.test.com/" />
           </p>
           <input
-            className="px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182]  focus:border-main focus:ring-0"
+            className="px-3 py-2 rounded-[8px] w-full border font-[Inter] text-xs border-[#7F8182]  focus:border-main focus:ring-0"
             // placeholder="https://example.com"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
@@ -171,7 +171,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm 2xl:font-lg font-[Inter] font-semibold">
+        <p className="text-xs 2xl:font-lg font-[Inter] font-semibold">
           Who are you targeting
         </p>
         <div className="grid grid-cols-2 w-full gap-7">
@@ -180,7 +180,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
                     : "bg-[#f5f5f5] text-black"
             } */}
           <button
-            className={`relative w-1/2 font-[Inter] font-semibold text-sm flex w-full rounded-lg z-[1] px-4 py-[18px] flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
+            className={`relative w-1/2 font-[Inter] font-semibold text-xs flex w-full rounded-lg z-[1] px-4 py-[18px] flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
             // onClick={() => setCurrentTarget("consumer")}
           >
             <svg
@@ -222,7 +222,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
                     : "bg-[#f5f5f5] text-black"
               } */}
           <button
-            className={`relative w-1/2 font-[Inter] font-semibold text-sm flex rounded-lg px-4 z-[1] py-[18px] w-full flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
+            className={`relative w-1/2 font-[Inter] font-semibold text-xs flex rounded-lg px-4 z-[1] py-[18px] w-full flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
             // onClick={() => setCurrentTarget("professional")}
           >
             <svg
@@ -262,7 +262,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm 2xl:font-lg font-[Inter] font-semibold">
+        <p className="text-xs 2xl:font-lg font-[Inter] font-semibold">
           Please add specific audience industry tags you would like to target:
         </p>
         <CreatableSelect
@@ -285,7 +285,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-sm 2xl:font-lg font-[Inter] font-semibold">
+        <p className="text-xs 2xl:font-lg font-[Inter] font-semibold">
           Please add specific geography/region tags you would like to target:
         </p>
         <CreatableSelect

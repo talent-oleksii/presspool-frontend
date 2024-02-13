@@ -180,7 +180,7 @@ const CreateCampaign: FC = () => {
         </h2>
         <div className="grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]">
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-xs 2xl:text-md transition-colors duration-500 ${
               currentTab === "detail" ? "text-white" : "text-black"
             }`}
             onClick={() => handleClick("detail")}
@@ -188,7 +188,7 @@ const CreateCampaign: FC = () => {
             Campaign Details
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-xs 2xl:text-md transition-colors duration-500 ${
               currentTab === "budget" ? "text-white" : "text-black"
             }`}
             onClick={() => handleClick("budget")}
@@ -196,7 +196,7 @@ const CreateCampaign: FC = () => {
             Budget
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-xs 2xl:text-md transition-colors duration-500 ${
               currentTab === "content" ? "text-white" : "text-black"
             }`}
             onClick={() => handleClick("content")}
@@ -204,7 +204,7 @@ const CreateCampaign: FC = () => {
             Content
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-sm 2xl:text-md transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-xs 2xl:text-md transition-colors duration-500 ${
               currentTab === "review" ? "text-white" : "text-black"
             }`}
             onClick={() => handleClick("review")}
