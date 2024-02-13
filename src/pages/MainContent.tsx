@@ -182,7 +182,7 @@ const MainContent: FC = () => {
   return (
     <div className="min-h-full w-full h-full">
       <div className="w-full z-[7] pt-2.5 pl-2.5 pr-8">
-        <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between">
+        <div className="flex bg-[#fffdfd] rounded-[15px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between">
           <div className="flex items-center justify-center px-2 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
               <img src={Logo} className="h-7" alt="logo" />
@@ -218,7 +218,7 @@ const MainContent: FC = () => {
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-xs font-[Inter] flex shadow-md items-center font-500 text-left pl-4 py-3.5 pr-4 w-full bg-main rounded-[20px] text-black ${
+                className={`text-xs font-[Inter] flex shadow-md items-center font-500 text-left pl-4 py-3.5 pr-4 w-full bg-main rounded-[15px] text-black ${
                   location.pathname.indexOf("new") > -1
                     ? "ring-black ring-[2px]"
                     : "ring-0"
@@ -233,7 +233,7 @@ const MainContent: FC = () => {
               </Link>
               <NavLink
                 to="/campaign/all"
-                className={` w-full text-left font-[Inter] rounded-[20px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                   location.pathname.startsWith("/campaign/")
                     ? "bg-white shadow-md"
                     : ""
@@ -247,7 +247,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -260,7 +260,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -273,7 +273,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -291,7 +291,7 @@ const MainContent: FC = () => {
             />
           </div>
           <button
-            className="flex font-[Inter] font-medium text-xs items-center"
+            className="flex font-[Inter] font-medium text-[15px] items-center"
             onClick={() => handleLogout()}
           >
             <Space size="middle">
