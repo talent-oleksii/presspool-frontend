@@ -78,24 +78,24 @@ const Login: FC = () => {
                         <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
                     </div>
                     <div className="mt-10 flex">
-                        <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
+                        <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
                         <div className="text-left">
-                            <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
-                            <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
+                            <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
+                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
                         </div>
                     </div>
                     <div className="mt-6 flex">
-                        <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
+                        <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
                         <div className="text-left">
-                            <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
-                            <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
+                            <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
+                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
                         </div>
                     </div>
                     <div className="mt-6 flex">
-                        <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
+                        <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
                         <div className="text-left">
-                            <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
-                            <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
+                            <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Grow your client base</h3>
+                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@ const Login: FC = () => {
                     <div className="mt-5 flex items-center">
                         <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
                         <div className="text-left">
-                            <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
+                            <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-base">Morgan A.</p>
                             <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
                         </div>
                     </div>
@@ -124,7 +124,7 @@ const Login: FC = () => {
 
                     <form className="text-left py-8 mt-5 w-full flex justify-center flex-col" onSubmit={handleSubmit}>
                         <div>
-                            <label className="font-[Inter] text-xs block font-medium my-1 -tracking-[.508px]">Email Address <abbr className="text-red-600">*</abbr></label>
+                            <label className="font-[Inter] text-[17px] block font-medium my-1 -tracking-[.508px]">Email Address <abbr className="text-red-600">*</abbr></label>
                             <input
                                 id="email"
                                 name="email"
@@ -135,7 +135,7 @@ const Login: FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="font-[Inter] block text-xs font-medium mt-4 -tracking-[.508px]">Password <abbr className="text-red-600">*</abbr></label>
+                            <label className="font-[Inter] block text-[17px] font-medium mt-4 -tracking-[.508px]">Password <abbr className="text-red-600">*</abbr></label>
                             <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-2 rounded-[10px] px-4">
                                 <input
                                     id="password"
@@ -154,11 +154,11 @@ const Login: FC = () => {
                             </div>
                         </div>
                         <div className="w-full text-right">
-                            <div className="font-[Inter] text-black text-xs 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
+                            <div className="font-[Inter] text-black text-lg mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
                         </div>
-                        <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-xs text-black mt-[32px] font-semibold">Log In</button>
+                        <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-[17px] text-black mt-[32px] font-semibold">Log In</button>
 
-                        <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
+                        <p className="mt-[35px] font-[Inter] text-[#525252] text-xl flex items-center justify-center -tracking-[.574px]">
                             Don't have an account?
                             <Link className="block text-center text-black ms-1 underline" to="/client-sign-up">Sign Up</Link>
                         </p>

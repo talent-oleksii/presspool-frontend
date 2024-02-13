@@ -49,7 +49,8 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             date: item,
           }))
         );
-      }).finally(() => setLoading(false));
+      })
+      .finally(() => setLoading(false));
   }, [id, clicked]);
 
   const handleDownloadCSV = () => {};
@@ -90,7 +91,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           />
         </div>
 
-        <div className="my-5 p-5 min-h-[450px] rounded-[10px] bg-white shadow-md">
+        <div
+          className={`my-5 p-5 ${
+            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
+        >
           <div className="flex justify-between items-baseline">
             <div>
               <h2 className="font-[Inter] text-lg font-semibold">
@@ -123,7 +128,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             </div>
           </div>
           <div className="flex justify-between">
-            <div className="flex w-full min-h-[350px] items-center justify-center mt-5">
+            <div
+              className={`flex w-full ${
+                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
+            >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
                   <LineChart
@@ -206,7 +215,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             </tbody>
           </table>
           <p className="font-[Inter] mt-4 text-xs">
-            No data is available. Please create and launch your first campaign
+            No data is available yet. Please create and launch your first campaign
           </p>
         </div>
       </>

@@ -114,8 +114,8 @@ const Landing: FC = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="31"
-                height="30"
+                width="24"
+                height="23"
                 viewBox="0 0 31 30"
                 fill="none"
                 className="mb-2"
@@ -140,8 +140,8 @@ const Landing: FC = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="31"
-                height="31"
+                width="24"
+                height="24"
                 viewBox="0 0 31 31"
                 fill="none"
                 className="mb-2"
@@ -166,8 +166,8 @@ const Landing: FC = () => {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="31"
-                height="31"
+                width="24"
+                height="24"
                 viewBox="0 0 31 31"
                 fill="none"
                 className="mb-2"
