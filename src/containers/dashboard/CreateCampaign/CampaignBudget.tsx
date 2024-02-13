@@ -23,10 +23,10 @@ const CampaignBudget: FC = () => {
       animate="show"
       className="w-[720px]"
     >
-      <h2 className="font-[Inter] text-xs 2xl:text-base font-semibold text-black">
+      <h2 className="font-[Inter] text-base 2xl:text-base font-semibold text-black">
         Please type in your budget cap for this campaign
       </h2>
-      <p className="font-[Inter] text-[#43474a] text-xs 2xl:text-xs mt-[14px]">
+      <p className="font-[Inter] text-[#43474a] font-light text-sm 2xl:text-sm mt-[14px]">
         *Keep in mind, these are all verified, targeted and engaged readers that
         will be clicking through directly to your landing page of choice. We
         only charge per <span className="font-bold">unique click</span> as they
@@ -52,7 +52,7 @@ const CampaignBudget: FC = () => {
       </div>
       {currentPrice && (
         <div className="mt-[9px]">
-          <span className="font-[Inter] text-xs 2xl:text-xs my-3 text-black">
+          <span className="font-[Inter] font-normal text-xs 2xl:text-xs my-3 text-black">
             {`*Estimated clicks for the campaign are ${Math.floor(
               Number(currentPrice) / getCPC(Number(currentPrice))
             )}`}
@@ -76,7 +76,7 @@ const CampaignBudget: FC = () => {
             </svg>
           </div>
 
-          <span className="text-[#525252] text-xs font-medium">
+          <span className="text-[#525252] text-xs font-medium font-[Inter]">
             We recommend setting your budget to $20,000 or more to accelerate
             data collection, enabling quicker campaign optimization and enhanced
             results.

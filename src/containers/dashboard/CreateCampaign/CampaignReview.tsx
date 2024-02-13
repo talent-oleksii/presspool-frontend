@@ -68,7 +68,7 @@ const CampaignReview: FC<ICampaignReview> = ({
       >
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
-            <p className="text-xs 2xl:text-xl font-[Inter] font-semibold">
+            <p className="text-base 2xl:text-base font-[Inter] font-semibold">
               What to Expect
             </p>
             <ul className="flex flex-col gap-3 list-decimal text-xs 2xl:text-xs font-[Inter] pl-4">
@@ -109,7 +109,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             </ul>
           </div>
           <div className="flex flex-col gap-4">
-            <h2 className="font-semibold text-xs 2xl:text-xl font-[Inter]">
+            <h2 className="font-semibold text-base 2xl:text-base font-[Inter]">
               Review
             </h2>
             {!!(currentAudience || []).length && currentPrice && (
@@ -138,7 +138,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             )}
           </div>
           <div className="flex flex-col gap-1">
-            <h2 className="font-semibold text-xs 2xl:text-xl font-[Inter]">
+            <h2 className="font-semibold text-base 2xl:text-base font-[Inter]">
               Billing Setup
             </h2>
             <p className="font-[Inter] text-xs 2xl:text-xs font-normal text-[#43474A] mb-0">
@@ -147,8 +147,11 @@ const CampaignReview: FC<ICampaignReview> = ({
               for unique clicks to ensure all clicks are quality and verified.
             </p>
           </div>
-          <div className="w-full flex">
-            <div className="flex items-center justify-center">
+          <div className="w-full grid grid-cols-[410px_repeat(1,1fr)]">
+            <div className="flex flex-col text-left">
+              <p className="font-[Inter] text-[14px] 2xl:text-base font-medium mb-0 flex items-center">
+                Select Card Details
+              </p>
               <Controller
                 name="currentCard"
                 control={control}
@@ -172,7 +175,10 @@ const CampaignReview: FC<ICampaignReview> = ({
               </button> */}
             </div>
 
-            <div className="flex-1 ms-[18px]">
+            <div className="flex flex-col ms-[18px]">
+              <p className="font-[Inter] text-[14px] 2xl:text-base font-medium mb-0 flex items-center">
+                Add New Card
+              </p>
               <button
                 type="button"
                 className="flex h-full px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md"

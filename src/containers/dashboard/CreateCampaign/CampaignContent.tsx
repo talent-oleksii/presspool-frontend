@@ -78,8 +78,8 @@ const CampaignContent: FC = () => {
               Need expert help? Book a call here.
             </button>
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
+          <div className="flex flex-col gap-1">
+            <div className="font-[Inter] text-base 2xl:text-base font-semibold flex items-center">
               Headline
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -87,7 +87,7 @@ const CampaignContent: FC = () => {
                 or less and have a specific outcome.
                 (Ex. Presspool will 10x user growth without PR)"
               />
-            </p>
+            </div>
             <Controller
               name="headLine"
               control={control}
@@ -103,12 +103,12 @@ const CampaignContent: FC = () => {
             />
             <ErrorMessage message={errors["headLine"]?.message} />
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
+          <div className="flex flex-col gap-1">
+            <div className="font-[Inter] text-base 2xl:text-base font-semibold flex items-center">
               Body
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline." />
-            </p>
+            </div>
             <Controller
               name="body"
               control={control}
@@ -126,12 +126,12 @@ const CampaignContent: FC = () => {
             />
             <ErrorMessage message={errors["body"]?.message} />
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex">
+          <div className="flex flex-col gap-1">
+            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
               CTA Text
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title='The call to action for your button. This should be something like "Free trial" or "Learn more" or "Try for free"' />
-            </p>
+            </div>
             <Controller
               name="cta"
               control={control}
@@ -147,8 +147,8 @@ const CampaignContent: FC = () => {
             />
             <ErrorMessage message={errors["cta"]?.message} />
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex items-center">
+          <div className="flex flex-col gap-1">
+            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
               CTA Link
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -159,7 +159,7 @@ const CampaignContent: FC = () => {
                   </p>
                 }
               />
-            </p>
+            </div>
             <Controller
               name="pageUrl"
               control={control}
@@ -174,12 +174,12 @@ const CampaignContent: FC = () => {
             />
             <ErrorMessage message={errors["pageUrl"]?.message} />
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex">
+          <div className="flex flex-col gap-1">
+            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
               Hero Image
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Recommended dimensions: 1200px X 600px" />
-            </p>
+            </div>
             <p className="text-[#7f8182] font-[Inter] text-[13px] font-medium">
               Click below to add your image
             </p>
@@ -256,11 +256,11 @@ const CampaignContent: FC = () => {
             />
             <ErrorMessage message={errors["image"]?.message} />
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="font-[Inter] text-xs 2xl:text-base font-semibold mb-0 flex">
+          <div className="flex flex-col gap-1">
+            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
               Additional Assets
               <CustomTooltip title="Additional files for your campaign" />
-            </p>
+            </div>
             <p className="text-[#7f8182] font-[Inter] text-[13px] font-medium mb-0">
               Click below to add your files
             </p>
@@ -334,11 +334,11 @@ const CampaignContent: FC = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
+        <div className="flex flex-col gap-1">
+          <div className="font-[Inter] text-xs 2xl:text-base font-semibold flex items-center">
             Preview
             <CustomTooltip title="The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline." />
-          </p>
+          </div>
           <div className="h-full overflow-hidden relative flex flex-col items-center bg-[#43474A] rounded-[5px] px-2.5 py-6">
             {/* Content for Campaign */}
             <div className="bg-[#D1CEFF] w-full flex items-center justify-center rounded-[14px]">

@@ -25,7 +25,6 @@ import ActionLinkCard from "../components/ActionLinkCard";
 import {
   LogoutOutlined,
   PlusCircleOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import { Space } from "antd";
 
@@ -234,11 +233,11 @@ const MainContent: FC = () => {
               </Link>
               <NavLink
                 to="/campaign/all"
-                className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
-                    isActive ? "bg-white shadow-md" : ""
-                  }`
-                }
+                className={` w-full text-left font-[Inter] rounded-[20px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  location.pathname.startsWith("/campaign/")
+                    ? "bg-white shadow-md"
+                    : ""
+                }`}
               >
                 <Space size="middle">
                   <GridIcon />
