@@ -87,14 +87,14 @@ const Campaign: FC = () => {
       key: "1",
       label: (
         <div className="flex pl-[32px] pr-[72px] py-[20px] 2xl:p-[32px] justify-evenly items-center text-left w-full relative">
-          <p className="font-semibold font-[Inter] text-xl min-w-[150px] -tracking-[.42px] w-full">
+          <p className="font-semibold font-[Inter] text-lg min-w-[150px] -tracking-[.42px] w-full">
             {item.name}
           </p>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Start Date
             </p>
-            <p className="font-semibold font-[Inter] text-xs">
+            <p className="font-semibold font-[Inter] text-sm">
               {new Date(Number(item.create_time)).toLocaleDateString()}
             </p>
           </div>
@@ -102,7 +102,7 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Total Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-xs">
+            <p className="font-semibold font-[Inter] text-sm">
               {item.click_count}
             </p>
           </div>
@@ -110,7 +110,7 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Unique Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-xs">
+            <p className="font-semibold font-[Inter] text-sm">
               {item.unique_clicks}
             </p>
           </div>
@@ -122,13 +122,13 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Total Spend
             </p>
-            <p className="font-semibold font-[Inter] text-xs">{`$${item.spent}`}</p>
+            <p className="font-semibold font-[Inter] text-sm">{`$${item.spent}`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Budget Remaining
             </p>
-            <p className="font-semibold font-[Inter] text-xs text-[#FF4D42]">{`$${
+            <p className="font-semibold font-[Inter] text-sm text-[#FF4D42]">{`$${
               Number(item.price) - Number(item.spent)
             }`}</p>
           </div>
@@ -161,30 +161,30 @@ const Campaign: FC = () => {
               src={item.image}
             />
             <div className="py-[10px] w-full flex flex-col items-start justify-center">
-              <p className="text-black font-[Inter] text-xs font-normal">
+              <p className="text-black font-[Inter] text-sm font-normal">
                 Headline
               </p>
-              <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-xs -tracking-[.42px]">
+              <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-xl -tracking-[.42px]">
                 {item.headline}
               </h2>
-              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+              <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
                 Description
               </p>
-              <p className="text-black font-[Inter] font-medium text-xs mt-[8px]">
+              <p className="text-black font-[Inter] font-medium text-base mt-[8px]">
                 {item.body}
               </p>
-              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+              <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
                 Landing Page Link
               </p>
-              <p className="text-[#6C63FF] font-[Inter] font-medium text-xs mt-[8px]">
+              <p className="text-[#6C63FF] font-[Inter] font-medium text-base mt-[8px]">
                 {item.page_url}
               </p>
               <div className="flex items-end justify-between w-full">
                 <div className="w-auto">
-                  <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
+                  <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
                     Audience Tags
                   </p>
-                  <p className="text-black font-[Inter] font-medium text-xs mt-[8px] -tracking-[.47px]">
+                  <p className="text-black font-[Inter] font-medium text-base mt-[8px] -tracking-[.47px]">
                     {item.audience.join(",")}
                   </p>
                 </div>
@@ -234,8 +234,8 @@ const Campaign: FC = () => {
   return (
     <div className="text-left relative">
       {loading && <Loading />}
-      <h1 className="font-semibold font-[Inter] text-3xl -tracking-[.6px]">{`${company}'s Campaigns 📈`}</h1>
-      <p className="text-lg text-[#43474A]">Here's your account at a glance.</p>
+      <h1 className="font-semibold font-[Inter] text-xl -tracking-[.6px]">{`${company}'s Campaigns 📈`}</h1>
+      <p className="text-[14px] text-[#43474A]">Here's your account at a glance.</p>
 
       <div className="flex items-center w-full mt-[24px]">
         <div className="flex w-[342px] border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-2">
