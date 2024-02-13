@@ -41,8 +41,6 @@ const RaiseBudget: FC = () => {
       setNewPrice(data.data.price);
       setCurrentTarget(data.data.demographic);
       setCurrentCard(data.data.card_id);
-    }).catch(err => {
-      console.log('error:', err);
     }).finally(() => setLoading(false));
   }, [id]);
 
@@ -56,8 +54,6 @@ const RaiseBudget: FC = () => {
     }).then(() => {
       DialogUtils.show('success', '', 'Your Budget has been successfully changed.');
       navigator('/detail');
-    }).catch(err => {
-      console.log('budget change error:', err);
     }).finally(() => setLoading(false));
   };
 

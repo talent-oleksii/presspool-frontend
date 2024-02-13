@@ -68,7 +68,6 @@ const Campaign: FC = () => {
         );
       })
       .catch((err) => {
-        console.log("err:", err);
         DialogUtils.show("error", "", err.response.data.message);
       })
       .finally(() => setLoading(false));

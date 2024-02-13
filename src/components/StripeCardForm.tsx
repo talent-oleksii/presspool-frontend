@@ -22,7 +22,6 @@ const CardForm: FC = () => {
   const dispatch = useDispatch();
 
   const handleCardChange = (e: StripeCardElementChangeEvent) => {
-    console.log(e.error);
     setAddDisabled(e.complete ? false : true);
   };
 
@@ -42,7 +41,6 @@ const CardForm: FC = () => {
         email: email,
       }
     });
-    console.log('source:', source);
     const { token } = await stripe.createToken(cardElement, { name: email });
 
     // Send the token and email to your server
@@ -52,8 +50,6 @@ const CardForm: FC = () => {
       source,
     }).then(data => {
       dispatch(addCard({ card: data.data }));
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   };
 

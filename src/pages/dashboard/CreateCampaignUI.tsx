@@ -122,7 +122,6 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             resolve(true);
           })
           .catch((err) => {
-            console.log("errr:", err);
             reject();
           })
           .finally(() => {
@@ -136,7 +135,6 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
             resolve(true);
           })
           .catch((error: any) => {
-            console.log("update campaign ui error:", error);
             reject();
           })
           .finally(() => props.setLoading(false));

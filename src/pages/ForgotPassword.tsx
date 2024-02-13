@@ -94,8 +94,6 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
         password: newPassword,
       }).then(() => {
         setShow(false);
-      }).catch(err => {
-        console.log('error:', err);
       });
     } else {
       APIInstance.put('/auth/password', {
@@ -103,8 +101,6 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
         password: newPassword,
       }).then(() => {
         setShow(false);
-      }).catch(err => {
-        console.log('error:', err);
       });
     }
   };

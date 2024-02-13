@@ -11,8 +11,6 @@ const AdminCampaign: FC = () => {
     setSearchLoading(true);
     APIInstance.get('admin/data/campaign', { params: { searchKey } }).then(data => {
       setCampaigns(data.data);
-    }).catch(err => {
-      console.log('error:', err);
     }).finally(() => setSearchLoading(false));
   }, [searchKey]);
 

@@ -32,8 +32,6 @@ const AdminDashboardOverview: FC = () => {
           date: item,
         })));
       }
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   }, []);
 

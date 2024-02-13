@@ -49,11 +49,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             date: item,
           }))
         );
-      })
-      .catch((error) => {
-        console.log("error:", error);
-      })
-      .finally(() => setLoading(false));
+      }).finally(() => setLoading(false));
   }, [id, clicked]);
 
   const handleDownloadCSV = () => {};
