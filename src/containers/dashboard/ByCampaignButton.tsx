@@ -42,7 +42,7 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
     <div ref={ref} className="group inline-flex flex-col w-[170px] relative">
       <button
         onClick={handleOpenChange}
-        className={`font-[Inter] text-base items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[15px] ${
+        className={`font-[Inter] text-sm items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[15px] ${
           id !== "all"
             ? "bg-white ring-1 ring-main shadow-md"
             : "bg-transparent ring-none"

@@ -154,9 +154,9 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-4">
       {loading && <Loading />}
-      <div className="rounded-[20px] grid grid-cols-4 gap-5 min-h-[200px]">
+      <div className="rounded-[20px] grid grid-cols-4 gap-4 min-h-[200px]">
         <Card
           title={"Active Campaigns"}
           value={activeCampaigns}
@@ -188,14 +188,13 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           <p className='text-gray-500 text-xs'>from 0 (last 4 weeks)</p>
         </div> */}
       </div>
-
-      <div className="my-5 p-5 min-h-[450px] rounded-[10px] bg-white shadow-md">
+      <div className="my-4 p-5 min-h-[450px] rounded-[10px] bg-white shadow-md">
         <div className="flex justify-between items-baseline">
           <div>
             <h2 className="font-[Inter] text-lg font-semibold">
               All Campaigns
             </h2>
-            <p className="font-[Inter] text-[#43474A] mt-[5px] text-base">
+            <p className="font-[Inter] text-[#43474A] mt-[5px] text-sm">
               Let’s see how your campaigns are performing
             </p>
           </div>
@@ -239,7 +238,6 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           </div>
         </div>
       </div>
-
       <div className="col-span-1 p-5 flex flex-col items-center bg-white rounded-[10px] shadow-md">
         <p className="font-[Inter] text-black mb-4 text-left font-semibold w-full text-lg">
           Newsletters (by the numbers)

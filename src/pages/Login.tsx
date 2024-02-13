@@ -106,7 +106,7 @@ const Login: FC = () => {
                     <div className="mt-5 flex items-center">
                         <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
                         <div className="text-left">
-                            <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-base">Morgan A.</p>
+                            <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-sm">Morgan A.</p>
                             <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
                         </div>
                     </div>
@@ -119,12 +119,12 @@ const Login: FC = () => {
                             <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         <h2 className='font-[Inter] font-semibold text-[40px] -tracking-[1.2px] mt-[26px]'>Welcome Back</h2>
-                        <p className='font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-[10px]'>Enter your details to login</p>
+                        <p className='font-[Inter] text-sm -tracking-[.48px] text-[#444545] mt-[10px]'>Enter your details to login</p>
                     </div>
 
                     <form className="text-left py-8 mt-5 w-full flex justify-center flex-col" onSubmit={handleSubmit}>
                         <div>
-                            <label className="font-[Inter] text-base block font-medium my-1 -tracking-[.508px]">Email Address <abbr className="text-red-600">*</abbr></label>
+                            <label className="font-[Inter] text-sm block font-medium my-1 -tracking-[.508px]">Email Address <abbr className="text-red-600">*</abbr></label>
                             <input
                                 id="email"
                                 name="email"
@@ -135,7 +135,7 @@ const Login: FC = () => {
                             />
                         </div>
                         <div>
-                            <label className="font-[Inter] block text-base font-medium mt-4 -tracking-[.508px]">Password <abbr className="text-red-600">*</abbr></label>
+                            <label className="font-[Inter] block text-sm font-medium mt-4 -tracking-[.508px]">Password <abbr className="text-red-600">*</abbr></label>
                             <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-2 rounded-[10px] px-4">
                                 <input
                                     id="password"
@@ -154,9 +154,9 @@ const Login: FC = () => {
                             </div>
                         </div>
                         <div className="w-full text-right">
-                            <div className="font-[Inter] text-black text-base 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
+                            <div className="font-[Inter] text-black text-sm 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
                         </div>
-                        <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-black mt-[32px] font-semibold">Log In</button>
+                        <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-sm text-black mt-[32px] font-semibold">Log In</button>
 
                         <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
                             Don't have an account?
@@ -184,7 +184,7 @@ const Login: FC = () => {
                                             <div className="mt-3 text-center sm:mt-5">
                                                 <Dialog.Title
                                                     as="h3"
-                                                    className="text-base font-semibold leading-6 text-gray-900"
+                                                    className="text-sm font-semibold leading-6 text-gray-900"
                                                 >
                                                     Log In Failed!
                                                 </Dialog.Title>

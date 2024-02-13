@@ -49,7 +49,7 @@ const InviteAccountManager: FC<typeInviteAccountManager> = ({ show, onClose }: t
                   </svg>
                 </button>
                 <h2 className='text-xl font-semibold -tracking-[.72px]'>Add Account Manager</h2>
-                <p className='mt-4 text-base w-full -tracking-[.48px] text-black font-medium'>Email Address</p>
+                <p className='mt-4 text-sm w-full -tracking-[.48px] text-black font-medium'>Email Address</p>
                 <input
                   className='mt-2 w-full px-4 py-2.5 flex border-[1px] rounded-[9.675px] border-[#7f8182] items-center justify-between'
                   placeholder="Enter here"
@@ -57,7 +57,7 @@ const InviteAccountManager: FC<typeInviteAccountManager> = ({ show, onClose }: t
                   onChange={e => setEmails(e.target.value)}
                 />
                 <button
-                  className='bg-[#7ffbae] rounded-[6.047px] text-base font-semibold w-full mt-6 flex items-center justify-center py-3'
+                  className='bg-[#7ffbae] rounded-[6.047px] text-sm font-semibold w-full mt-6 flex items-center justify-center py-3'
                   onClick={handleSendInvite}
                 >
                   Add Member

@@ -100,7 +100,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               <h2 className="font-[Inter] text-lg font-semibold">
                 {data.name || ""}
               </h2>
-              <p className="font-[Inter] text-[#43474A] mt-[5px] text-base">
+              <p className="font-[Inter] text-[#43474A] mt-[5px] text-sm">
                 Let's see how your campaign is performing
               </p>
             </div>
@@ -117,10 +117,10 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                 Download PDF
               </button>
               <div className="mt-[20px]">
-                <p className="font-[Inter] text-black text-base font-semibold mb-2">
+                <p className="font-[Inter] text-black text-sm font-semibold mb-2">
                   Total Impressions
                 </p>
-                <p className="font-[Inter] text-[#7F8182] text-base mt-2 font-semibold">
+                <p className="font-[Inter] text-[#7F8182] text-sm mt-2 font-semibold">
                   Total Clicks
                 </p>
               </div>
