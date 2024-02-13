@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useState, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 import Loading from '../../../components/Loading';
@@ -11,9 +11,13 @@ interface typeAddNewGuide {
 }
 
 const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab }: typeAddNewGuide) => {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const thumbnailRef = useRef<HTMLInputElement>(null);
+
   const [loading, setLoading] = useState(false);
   const [option, setOption] = useState('file');
-  const [video, setVideo] = useState<any>();
+  const [file, setFile] = useState<any>();
+  const [thumbnail, setThumbnail] = useState<any>();
 
   const handleAdd = () => {
     AdminAPIInstance.post('');
@@ -23,7 +27,15 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab }: typeAdd
     if (e.target.files) {
       const file = e.target.files[0];
       if (!file) return;
-      setVideo(file);
+      setFile(file);
+    }
+  };
+
+  const handleThumbnailChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      if (!file) return;
+      setThumbnail(file);
     }
   };
 
@@ -88,15 +100,27 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab }: typeAdd
                     {
                       option === 'file' ? <>
                         <p className='text-base -tracking-[.48px] font-medium'>{`Upload ${currentTab === 'video' ? 'Video' : 'Document'}`}</p>
-                        <button className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'>
+                        <button
+                          className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'
+                          onClick={() => {
+                            if (fileRef) fileRef.current?.click();
+                          }}
+                        >
                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none" className='me-2'>
                             <path d="M1 14V16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H15C15.5304 18 16.0391 17.7893 16.4142 17.4142C16.7893 17.0391 17 16.5304 17 16V14" fill="#505050" />
                             <path d="M4 6L9 1L14 6" fill="#505050" />
                             <path d="M9 1V13V1Z" fill="#505050" />
                             <path d="M1 14V16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H15C15.5304 18 16.0391 17.7893 16.4142 17.4142C16.7893 17.0391 17 16.5304 17 16V14M4 6L9 1M9 1L14 6M9 1V13" stroke="#505050" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
-                          Upload File
+                          <span className='truncate flex-1'>{file ? file.name : 'Upload File'}</span>
                         </button>
+                        <input
+                          ref={fileRef}
+                          type="file"
+                          hidden
+                          accept="video/*"
+                          onChange={handleFileChange}
+                        />
                       </> : <>
                         <p className='text-base -tracking-[.48px] font-medium'>Embedded Link</p>
                         <div className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'>
@@ -114,15 +138,27 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab }: typeAdd
                   <div className='col-span-2'>
 
                     <p className='text-base -tracking-[.48px] font-medium'>Upload Thumbnail</p>
-                    <button className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'>
+                    <button
+                      className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'
+                      onClick={() => {
+                        if (thumbnailRef) thumbnailRef.current?.click();
+                      }}
+                    >
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none" className='me-2'>
                         <path d="M1 14V16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H15C15.5304 18 16.0391 17.7893 16.4142 17.4142C16.7893 17.0391 17 16.5304 17 16V14" fill="#505050" />
                         <path d="M4 6L9 1L14 6" fill="#505050" />
                         <path d="M9 1V13V1Z" fill="#505050" />
                         <path d="M1 14V16C1 16.5304 1.21071 17.0391 1.58579 17.4142C1.96086 17.7893 2.46957 18 3 18H15C15.5304 18 16.0391 17.7893 16.4142 17.4142C16.7893 17.0391 17 16.5304 17 16V14M4 6L9 1M9 1L14 6M9 1V13" stroke="#505050" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      Upload File
+                      <span className='truncate flex-1'>{thumbnail ? thumbnail.name : 'Upload File'}</span>
                     </button>
+                    <input
+                      ref={thumbnailRef}
+                      type="file"
+                      hidden
+                      accept="image/*"
+                      onChange={handleThumbnailChange}
+                    />
                   </div>
                 </div>
                 <button className='bg-[#7ffbae] text-lg font-semibold rounded-[6px] py-2 items-center w-full mt-4' onClick={handleAdd}>Add Guide</button>
