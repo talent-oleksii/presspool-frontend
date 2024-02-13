@@ -17,26 +17,24 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
   subHeading,
   links,
 }) => (
-  <div className="rounded-3.5 mt-5 text-left shadow-md">
+  <div className="rounded-3.5 mt-8 text-left shadow-md">
     <div className="bg-black px-[19px] py-[12px] w-full rounded-t-[14px]">
-      <p className="text-white text-sm font-semibold font-[Inter]">
-        {heading}
-      </p>
+      <p className="text-white text-sm font-semibold font-[Inter]">{heading}</p>
       <p className="text-white font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]">
         {subHeading}
       </p>
     </div>
-    <div className="bg-white py-2 w-full rounded-b-[14px]">
+    <div className="bg-white py-0 w-full rounded-b-[14px]">
       {(links || []).map((link, index) => (
         <a
           key={index}
           href={link.url}
-          className="flex font-[Inter] font-500 text-sm items-center px-5 py-3"
+          className="flex font-[Inter] font-500 text-sm items-center px-4 py-3"
           rel="noreferrer"
           target="_blank"
         >
           <Space size="middle">
-            <ExportOutlined style={{ fontSize: "22px" }} />
+            <ExportOutlined style={{ fontSize: "20px", paddingTop: "4px" }} />
             {link.name}
           </Space>
         </a>

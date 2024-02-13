@@ -9,6 +9,7 @@ const CampaignIcon: FC = () => {
       height="24px"
       viewBox="0 0 24 24"
       version="1.1"
+      className="pt-1"
     >
       <g id="surface1">
         <path
