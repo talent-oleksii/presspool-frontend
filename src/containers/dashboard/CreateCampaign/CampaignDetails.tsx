@@ -78,12 +78,12 @@ const CampaignDetails: FC = () => {
     >
       <div className="h-full w-[720px] flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-7">
-          <div className="flex flex-col gap-2">
-            <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
+          <div className="flex flex-col gap-1">
+            <div className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
               Campaign Name
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter the name of your campaign" />
-            </p>
+            </div>
             <Controller
               name="campaignName"
               control={control}
@@ -101,12 +101,12 @@ const CampaignDetails: FC = () => {
             />
             <ErrorMessage message={errors["campaignName"]?.message} />
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
+          <div className="flex flex-col gap-1">
+            <div className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
               Website URL
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter your full site URL. Example: https://www.test.com" />
-            </p>
+            </div>
             <Controller
               name="url"
               control={control}
@@ -123,8 +123,8 @@ const CampaignDetails: FC = () => {
             <ErrorMessage message={errors["url"]?.message} />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-xs 2xl:text-base font-[Inter] font-semibold">
+        <div className="flex flex-col gap-1">
+          <p className="text-base 2xl:text-base font-[Inter] font-semibold items-center">
             Who are you targeting
           </p>
           <div className="grid grid-cols-2 w-full gap-7">
@@ -230,8 +230,8 @@ const CampaignDetails: FC = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
+        <div className="flex flex-col gap-1">
+          <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
             Please add specific audience industry tags you would like to target
             <span className="ms-1 text-[red] text-xs">*</span>
           </p>
@@ -254,8 +254,8 @@ const CampaignDetails: FC = () => {
           />
           <ErrorMessage message={errors["currentAudience"]?.message} />
         </div>
-        <div className="flex flex-col gap-2">
-          <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
+        <div className="flex flex-col gap-1">
+          <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
             Please add specific geography/region tags you would like to target:
             <abbr className="ms-1 text-[red] text-xs">*</abbr>
           </p>
