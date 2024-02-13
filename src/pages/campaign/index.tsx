@@ -87,7 +87,7 @@ const Campaign: FC = () => {
       key: "1",
       label: (
         <div className="flex pl-[32px] pr-[72px] py-[20px] 2xl:p-[32px] justify-evenly items-center text-left w-full relative">
-          <p className="font-semibold font-[Inter] text-lg min-w-[150px] -tracking-[.42px] w-full">
+          <p className="font-semibold font-[Inter] text-[17px] min-w-[150px] -tracking-[.42px] w-full">
             {item.name}
           </p>
           <div className="flex flex-col items-center w-full">
@@ -238,7 +238,7 @@ const Campaign: FC = () => {
       <p className="text-[14px] text-[#43474A]">Here's your account at a glance.</p>
 
       <div className="flex items-center w-full mt-[24px]">
-        <div className="flex w-[342px] border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-2">
+        <div className="flex w-[342px] border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-1.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"

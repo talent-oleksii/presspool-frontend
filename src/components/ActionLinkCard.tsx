@@ -24,7 +24,7 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
         {subHeading}
       </p>
     </div>
-    <div className="bg-white py-0 w-full rounded-b-[14px]">
+    <div className="bg-white py-4 w-full rounded-b-[14px]">
       {(links || []).map((link, index) => (
         <a
           key={index}
