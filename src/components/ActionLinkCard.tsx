@@ -35,7 +35,7 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
           rel="noreferrer"
           target="_blank"
         >
-          <Space size="large">
+          <Space size="middle">
             <ExportOutlined style={{ fontSize: "22px" }} />
             {link.name}
           </Space>

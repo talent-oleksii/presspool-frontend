@@ -12,7 +12,6 @@ const AdminClientCampaign: FC = () => {
   const [userData, setUserData] = useState<any>({});
   const [data, setData] = useState<any>({});
   const { campaignId } = useParams();
-  console.log('campa:', campaignId);
 
   const navigator = useNavigate();
 
@@ -20,10 +19,7 @@ const AdminClientCampaign: FC = () => {
     setLoading(true);
     if (campaignId && Number(campaignId) > 0) {
       AdminAPIInstance.get('/client-campaign', { params: { campaignId } }).then(data => {
-        console.log('data:', data.data);
         setData(data.data);
-      }).catch(err => {
-        console.log('err:', err);
       }).finally(() => setLoading(false));
     }
   }, []);

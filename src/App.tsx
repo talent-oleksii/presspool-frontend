@@ -16,7 +16,7 @@ const App: FC = () => {
 
   const calculateZoom = (width: number) => {
     const maxZoom = 2,
-      minZoom = 0.75,
+      minZoom = 1,
       maxWidth = 3840;
     const zoomPerPixel = 2 / maxWidth;
     const calculatedZoom = zoomPerPixel * width;

@@ -35,8 +35,6 @@ const Profile: FC = () => {
       setImage(data.data.profile.avatar);
       setDate(moment(Number(data.data.profile.create_time)).format('DD MMM, yyyy'));
       setTeamData(data.data.teamData);
-    }).catch(err => {
-      console.log('error:', err);
     }).finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -49,8 +47,6 @@ const Profile: FC = () => {
         files.forEach(async (fileName: string, fileIndex: number) => {
           const parts = fileName.split('/');
           // const fetchData = await fetch(fileName);
-          // console.log('dd:', fetchData.headers);
-
           temp.push({
             key: index * campaign.length + fileIndex,
             name: parts[parts.length - 1],
@@ -88,8 +84,6 @@ const Profile: FC = () => {
     APIInstance.put('data/profile', formData).then((data) => { // here comes the data, you can use it.
       dispatch(setAvatar({ avatar: data.data.avatar }));
       DialogUtils.show('success', '', 'Your profile has successfully updated!');
-    }).catch(err => {
-      console.log('error:', err);
     }).finally(() => setLoading(false));
   };
 
@@ -123,8 +117,6 @@ const Profile: FC = () => {
     setLoading(true);
     APIInstance.put('data/team-member', { teamData, owner: email }).then(data => {
       DialogUtils.show('success', '', 'Successfully Updated!');
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   };
 

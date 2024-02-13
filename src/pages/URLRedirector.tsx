@@ -24,9 +24,7 @@ const URLRedirector: FC = () => {
             APIInstance.post('data/clicked', { id, ipAddress }).then(data => {
               window.open(data.data.url, '_self');
             }).catch(err => {
-
               setShowText('Campaign Not Activated!');
-              console.log('err:', err);
             }).finally(() => setLoading(false));
           });
         })

@@ -10,7 +10,6 @@ const EmailVerifier: FC = () => {
     APIInstance.post('auth/verify', { token }).then(() => {
       navigator('/campaign/all');
     }).catch(err => {
-      console.log('error:', err);
       navigator('/');
     });
 

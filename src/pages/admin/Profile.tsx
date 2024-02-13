@@ -24,8 +24,6 @@ const Profile: FC = () => {
     ]).then((results: Array<any>) => {
       setAccountManagers(results[0].data);
       setUsers(results[1].data);
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   }, []);
 
@@ -57,14 +55,9 @@ const Profile: FC = () => {
 
   const handleSaveTeam: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    // console.log('team:data:', teamData);
-
     // setLoading(true);
     AdminAPIInstance.put('/users', { data: accountManagers }).then(data => {
-      console.log('data:', data);
       DialogUtils.show('success', '', 'Successfully Updated!');
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   };
 

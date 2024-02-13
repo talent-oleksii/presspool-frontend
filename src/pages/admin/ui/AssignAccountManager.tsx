@@ -24,8 +24,6 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
     setLoading(true);
     AdminAPIInstance.get('/user/account-manager').then(data => {
       setAccountManagers(data.data);
-    }).catch(e => {
-      console.log('e:', e);
     }).finally(() => setLoading(false));
   }, []);
 
@@ -34,10 +32,7 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
 
     setLoading(true);
     AdminAPIInstance.post('/user/account-manager', { userId, manager }).then(data => {
-      console.log('data:', data);
       if (afterAdd) afterAdd(data.data);
-    }).catch(e => {
-      console.log('e:', e);
     }).finally(() => setLoading(false));
   };
 

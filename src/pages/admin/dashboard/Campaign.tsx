@@ -58,8 +58,6 @@ const AdminDashboardCampaign: FC = () => {
         click: grouped[item].length,
         date: item,
       })));
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   }, [id]);
 
@@ -67,8 +65,6 @@ const AdminDashboardCampaign: FC = () => {
     setFetching(true);
     AdminAPIInstance.get('/dashboard/campaign/list', { params: { searchStr } }).then(data => {
       setNameList(data.data);
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setFetching(false));
   };
 
@@ -90,7 +86,6 @@ const AdminDashboardCampaign: FC = () => {
       })
       DialogUtils.show('success', newState === 'paused' ? 'Campaign Paused' : 'Successfully Started the Campaign', '');
     }).catch(err => {
-      console.log('err:', err);
       DialogUtils.show('error', '', err.response.data.message);
     }).finally(() => setLoading(false));
   };

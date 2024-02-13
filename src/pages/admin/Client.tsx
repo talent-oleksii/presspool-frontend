@@ -37,8 +37,6 @@ const AdminClient: FC = () => {
       setNote(data.data.userData.note || '');
       setCampaignData(data.data.campaignData);
       setAccountManager(data.data.assignedAdmins);
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   }, [id]);
 
@@ -51,8 +49,6 @@ const AdminClient: FC = () => {
         files.forEach(async (fileName: string, fileIndex: number) => {
           const parts = fileName.split('/');
           // const fetchData = await fetch(fileName);
-          // console.log('dd:', fetchData.headers);
-
           temp.push({
             key: index * campaignData.length + fileIndex,
             name: parts[parts.length - 1],
@@ -95,8 +91,6 @@ const AdminClient: FC = () => {
       manager: accountManager.id,
     }).then(data => {
       setAccountManager(undefined);
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   };
 
@@ -107,8 +101,6 @@ const AdminClient: FC = () => {
       note,
     }).then(() => {
       DialogUtils.show('success', '', 'Successfully Updated!');
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   };
 
