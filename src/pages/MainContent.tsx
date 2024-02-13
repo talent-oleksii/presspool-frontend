@@ -182,7 +182,7 @@ const MainContent: FC = () => {
 
   return (
     <div className="min-h-full w-full h-full">
-      <div className="w-full z-[7] pt-4 pl-4 pr-4">
+      <div className="w-full z-[7] pt-4 pl-4 pr-8">
         <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-[18px] pr-[15px] h-[40px] w-full justify-between">
           <div className="flex items-center justify-center px-5 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
@@ -226,7 +226,9 @@ const MainContent: FC = () => {
                 }`}
               >
                 <Space size="middle">
-                  <PlusCircleOutlined style={{ fontSize: "24px" }} />
+                  <PlusCircleOutlined
+                    style={{ fontSize: "22px", paddingTop: "4px" }}
+                  />
                   Create New Campaign
                 </Space>
               </Link>
@@ -290,17 +292,17 @@ const MainContent: FC = () => {
             />
           </div>
           <button
-            className="flex font-[Inter] font-medium text-sm items-center px-5"
+            className="flex font-[Inter] font-medium text-sm items-center"
             onClick={() => handleLogout()}
           >
             <Space size="middle">
-              <LogoutOutlined style={{ fontSize: "24px" }} />
+              <LogoutOutlined style={{ fontSize: "22px", paddingTop: "4px" }} />
               Log Out
             </Space>
           </button>
         </div>
         {loading && <Loading />}
-        <div className="col-span-4 pt-4 pb-4 pr-4 pl-0 overflow-y-auto bg-[#EDECF2]">
+        <div className="col-span-4 pt-4 pb-4 pr-8 pl-2 overflow-y-auto bg-[#EDECF2]">
           {!loading && (
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />
