@@ -26,6 +26,7 @@ import AdminDashboardClient from './dashboard/Client';
 import AdminClient from './Client';
 import AdminClientCampaign from './ClientCampaign';
 import InviteAccountManager from './ui/InviteAccountManager';
+import TrainingHub from './TrainingHub';
 
 const Admin: FC = () => {
   const location = useLocation();
@@ -269,10 +270,10 @@ const Admin: FC = () => {
                 <img src={LinkImage} alt="link" className='w-[17px] me-2' />
                 Tracking Dashboard
               </a>
-              <a href="" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>
+              <Link to="/admin/training-hub" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
                 <img src={LinkImage} alt="link" className='w-[17px] me-2' />
-                Presspool CRM
-              </a>
+                Training Hub
+              </Link>
             </div>
           </div>
         </div>
@@ -297,6 +298,7 @@ const Admin: FC = () => {
               <Route path="/billing" element={<AdminBilling />} />
               <Route path="/support" element={<AdminSupport />} />
               <Route path="/profile" element={<AdminProfile />} />
+              <Route path="/training-hub" element={<TrainingHub />} />
             </Routes>
           </div>
         </div>
