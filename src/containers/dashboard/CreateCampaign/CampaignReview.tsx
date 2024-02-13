@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { selectAuth } from "../../../store/authSlice";
 import { AddCard } from "../../addCard";
 import { Controller, useFormContext } from "react-hook-form";
+import { ExclamationCircleFilled } from "@ant-design/icons";
+import ErrorMessage from "../../../components/ErrorMessage";
 
 interface ICampaignReview {
   currentAudience: (string | undefined)[];
@@ -24,7 +26,7 @@ const CampaignReview: FC<ICampaignReview> = ({
   const {
     control,
     setValue,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useFormContext();
   const [open, setOpen] = useState(false);
   const [cardList, setCardList] = useState<Array<any>>([]);
@@ -164,7 +166,7 @@ const CampaignReview: FC<ICampaignReview> = ({
                   </select>
                 )}
               />
-
+              <ErrorMessage message={errors["currentCard"]?.message} />
               {/* <button type="button" className="text-black font-[Inter] mx-3">
                 Refresh
               </button> */}
@@ -203,13 +205,13 @@ const CampaignReview: FC<ICampaignReview> = ({
               render={({ field }) => (
                 <input
                   {...field}
-                  className="me-[9px] text-main focus:ring-0"
+                  className="me-[9px] text-main focus:ring-0 mt-1"
                   type="checkbox"
                 />
               )}
             />
 
-            <p className="text-[12px] text-black font-[Inter] font-normal">
+            <p className="text-xs text-black font-[Inter] font-normal">
               I agree and authorize weekly automatic billing for accrued click
               costs per the{" "}
               <a
@@ -240,11 +242,16 @@ const CampaignReview: FC<ICampaignReview> = ({
           <Popconfirm
             title="Confirm"
             description={
-              <p>
+              <p className="pr-2.5">
                 Once your campaign is live, you can’t make edits.
                 <br /> Are you sure everything is set? It’s a good idea to
                 double-check.
               </p>
+            }
+            icon={
+              <div className="ml-2.5">
+                <ExclamationCircleFilled />
+              </div>
             }
             // open={openConfirm}
             // onConfirm={handleSubmit}
@@ -257,6 +264,7 @@ const CampaignReview: FC<ICampaignReview> = ({
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
+                marginRight: "10px",
               },
               htmlType: "submit",
             }}

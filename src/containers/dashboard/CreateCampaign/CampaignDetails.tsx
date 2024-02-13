@@ -4,22 +4,24 @@ import CreatableSelect from "react-select/creatable";
 import CustomTooltip from "../../../components/CustomTooltip";
 import { FADE_RIGHT_ANIMATION_VARIANTS } from "../../../utils/TransitionConstants";
 import { Controller, useFormContext } from "react-hook-form";
-import { StylesConfig } from "react-select";
 import APIInstance from "../../../api";
 import { CampaignTargetType } from "../../../constants/constant";
+import ErrorMessage from "../../../components/ErrorMessage";
 
-const customStyles: StylesConfig = {
+const customStyles = (isError: boolean) => ({
   control: (provided: Record<string, unknown>, state: any) => ({
     ...provided,
     fontSize: "14px",
-    border: state.isFocused ? "1px solid #7F8182" : "1px solid #7F8182",
+    border: !isError
+      ? "1px solid #7F8182 !important"
+      : "ipx solid red !important",
     borderRadius: "8px",
     // "&:hover": {
     //   border: "1px solid #ff8b67",
     //   boxShadow: "0px 0px 6px #ff8b67"
     // }
   }),
-};
+});
 
 const CampaignDetails: FC = () => {
   const [audiences, setAudiences] = useState();
@@ -28,7 +30,8 @@ const CampaignDetails: FC = () => {
     control,
     setValue,
     watch,
-    formState: { isValid },
+    formState: { isValid, errors },
+    trigger,
   } = useFormContext();
 
   const handleCurrentTargetChange = (target: string) => {
@@ -62,6 +65,10 @@ const CampaignDetails: FC = () => {
     loadRegions();
   }, []);
 
+  // useEffect(() => {
+  //   trigger();
+  // }, [trigger]);
+
   return (
     <motion.div
       variants={FADE_RIGHT_ANIMATION_VARIANTS}
@@ -74,6 +81,7 @@ const CampaignDetails: FC = () => {
           <div className="flex flex-col gap-2">
             <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
               Campaign Name
+              <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter the name of your campaign" />
             </p>
             <Controller
@@ -85,14 +93,18 @@ const CampaignDetails: FC = () => {
                   onBlur={field.onBlur}
                   value={field.value}
                   type="text"
-                  className="px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0"
+                  className={`px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                 />
               )}
             />
+            <ErrorMessage message={errors["campaignName"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
             <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
               Website URL
+              <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter your full site URL. Example: https://www.test.com" />
             </p>
             <Controller
@@ -102,10 +114,13 @@ const CampaignDetails: FC = () => {
                 <input
                   {...field}
                   type="text"
-                  className="px-3 py-2 rounded-[8px] w-full border font-[Inter] text-sm border-[#7F8182] focus:border-main focus:ring-0"
+                  className={`px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                 />
               )}
             />
+            <ErrorMessage message={errors["url"]?.message} />
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -216,15 +231,16 @@ const CampaignDetails: FC = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm 2xl:text-base font-[Inter] font-semibold">
-            Please add specific audience industry tags you would like to target:
+          <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
+            Please add specific audience industry tags you would like to target
+            <span className="ms-1 text-[red] text-xs">*</span>
           </p>
           <Controller
             name="currentAudience"
             control={control}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value, name } }) => (
               <CreatableSelect
-                styles={customStyles}
+                styles={customStyles(!!errors[name])}
                 value={(value || []).map((x: string) => ({
                   value: x,
                   label: x,
@@ -236,17 +252,19 @@ const CampaignDetails: FC = () => {
               />
             )}
           />
+          <ErrorMessage message={errors["currentAudience"]?.message} />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm 2xl:text-base font-[Inter] font-semibold">
+          <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
             Please add specific geography/region tags you would like to target:
+            <abbr className="ms-1 text-[red] text-xs">*</abbr>
           </p>
           <Controller
             name="currentRegion"
             control={control}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value, name } }) => (
               <CreatableSelect
-                styles={customStyles}
+                styles={customStyles(!!errors[name])}
                 value={(value || []).map((x: string) => ({
                   value: x,
                   label: x,
@@ -258,6 +276,7 @@ const CampaignDetails: FC = () => {
               />
             )}
           />
+          <ErrorMessage message={errors["currentRegion"]?.message} />
         </div>
       </div>
       <div className="w-full mt-[35px] text-center">

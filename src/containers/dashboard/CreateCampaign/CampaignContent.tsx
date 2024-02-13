@@ -5,14 +5,15 @@ import CustomTooltip from "../../../components/CustomTooltip";
 import ALogoImage from "../../../assets/icon/alogo.png";
 import SampleLogo from "../../../assets/logo/logo.png";
 import { Controller, useFormContext } from "react-hook-form";
-import validator from "validator";
+import ErrorMessage from "../../../components/ErrorMessage";
 
 const CampaignContent: FC = () => {
   const {
     control,
     setValue,
     watch,
-    formState: { isValid },
+    formState: { isValid, errors },
+    trigger,
   } = useFormContext();
 
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
@@ -23,6 +24,7 @@ const CampaignContent: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const additionalFiles = watch("additionalFiles");
   const image = watch("image");
+  const cta = watch("cta");
 
   const loadFilePreview = useCallback((file?: File) => {
     if (file) {
@@ -38,9 +40,14 @@ const CampaignContent: FC = () => {
     if (image && typeof image === "string") {
       setPreviewUrl(image);
     }
+    if (image && typeof image !== "string") {
+      loadFilePreview(image);
+    }
   }, [image, loadFilePreview]);
 
-  const cta = watch("cta");
+  // useEffect(() => {
+  //   trigger();
+  // }, [trigger]);
 
   return (
     <motion.div
@@ -53,6 +60,7 @@ const CampaignContent: FC = () => {
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
               Headline
+              <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
                 title="The headline of your campaign. This should be roughly 7 words
                 or less and have a specific outcome.
@@ -65,15 +73,19 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+                  className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                   maxLength={60}
                 />
               )}
             />
+            <ErrorMessage message={errors["headLine"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
               Body
+              <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline." />
             </p>
             <Controller
@@ -82,17 +94,21 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full text-sm rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+                  className={`mb-0 w-full text-sm rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                   maxLength={500}
                   rows={5}
                   data-tooltip-id="body"
                 />
               )}
             />
+            <ErrorMessage message={errors["body"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex">
               CTA Text
+              <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title='The call to action for your button. This should be something like "Free trial" or "Learn more" or "Try for free"' />
             </p>
             <Controller
@@ -101,15 +117,19 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+                  className={`w-full rounded-lg text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                   maxLength={20}
                 />
               )}
             />
+            <ErrorMessage message={errors["cta"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex items-center">
               CTA Link
+              <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
                 title={
                   <p>
@@ -125,10 +145,13 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg border-[1px] text-sm focus:ring-0 focus:border-main py-2 px-3 `}
+                  className={`w-full rounded-lg border-[1px] text-sm focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[red]" : ""
+                  }`}
                 />
               )}
             />
+            <ErrorMessage message={errors["pageUrl"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex">
@@ -145,7 +168,9 @@ const CampaignContent: FC = () => {
                 onClick={() => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
-                className={`overflow-hidden truncate px-2 text-sm py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded `}
+                className={`overflow-hidden truncate px-2 text-sm py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded ${
+                  !image ? "border-[red]" : ""
+                }`}
               >
                 <>
                   <svg
@@ -181,7 +206,7 @@ const CampaignContent: FC = () => {
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 -960 960 960"
-                    className="w-[18px] h-[18px] absolute -top-1 right-0"
+                    className="w-[18px] h-[18px] absolute -top-2.5 -right-2.5"
                   >
                     <path
                       fill="red"
@@ -203,10 +228,12 @@ const CampaignContent: FC = () => {
                   onChange={(e) => {
                     field.onChange(e.target?.files?.[0]);
                     loadFilePreview(e.target?.files?.[0]);
+                    e.target.value = null as any;
                   }}
                 />
               )}
             />
+            <ErrorMessage message={!image ? "Select hero image" : ""} />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex">

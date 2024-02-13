@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import { motion } from "framer-motion";
 
 import Loading from "../../components/Loading";
@@ -9,17 +9,18 @@ import CampaignContent from "../../containers/dashboard/CreateCampaign/CampaignC
 import CampaignReview from "../../containers/dashboard/CreateCampaign/CampaignReview";
 import FormProviderWrapper from "../../components/FormProviderWrapper";
 import { useUpsertCampaign } from "../../hooks/forms/useUpsertCampaign";
-import { FieldValues } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { selectAuth } from "../../store/authSlice";
 import { useSelector } from "react-redux";
 import APIInstance from "../../api";
+import { CampaignState, CreateCampaignTabs } from "../../constants/constant";
+import DialogUtils from "../../utils/DialogUtils";
 
 const CreateCampaign: FC = () => {
   const { id } = useParams();
-  console.log(id);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [currentTab, setCurrentTab] = useState("detail");
+  const [currentTab, setCurrentTab] = useState(CreateCampaignTabs.DETAIL);
   const { email } = useSelector(selectAuth);
 
   const {
@@ -34,71 +35,130 @@ const CreateCampaign: FC = () => {
   };
 
   const getOffsetBack = () => {
-    if (currentTab === "detail") return "left-1";
-    if (currentTab === "budget") return "left-[25%]";
-    if (currentTab === "content") return "left-[50%]";
-    if (currentTab === "review") return "left-[74%]";
+    if (currentTab === CreateCampaignTabs.DETAIL) return "left-1";
+    if (currentTab === CreateCampaignTabs.BUDGET) return "left-[25%]";
+    if (currentTab === CreateCampaignTabs.CONTENT) return "left-[50%]";
+    if (currentTab === CreateCampaignTabs.REVIEW) return "left-[74%]";
   };
 
   const handleCampaignDetailsSubmit = () => {
-    setCurrentTab("budget");
+    setCurrentTab(CreateCampaignTabs.BUDGET);
   };
 
   const handleCampaignBudgetSubmit = () => {
-    setCurrentTab("content");
+    setCurrentTab(CreateCampaignTabs.CONTENT);
   };
 
-  const handleCampaignContentSubmit = () => {
-    setCurrentTab("review");
+  const handleCampaignContentSubmit = (values: any) => {
+    setCurrentTab(CreateCampaignTabs.REVIEW);
   };
 
   const createUpdateCampaign = async (state: string) => {
-    const campaignDetails = campaignDetailMethods.getValues();
-    const campaignBudget = campaignBudgetMethods.getValues();
-    const campaignContent = campaignContentMethods.getValues();
-    const campaignReview = campaignReviewMethods.getValues();
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("headLine", campaignContent.headLine);
-    formData.append("cta", campaignContent.cta);
-    formData.append("body", campaignContent.body);
-    formData.append("pageUrl", campaignContent.pageUrl);
-    if (typeof campaignContent !== "string")
-      formData.append("image", campaignContent.image);
-    // for (const aFile of campaignContent.additionalFiles) {
-    //   formData.append("additional_file", aFile);
-    // }
+    try {
+      setLoading(true);
+      const campaignDetails = campaignDetailMethods.getValues();
+      const campaignBudget = campaignBudgetMethods.getValues();
+      const campaignContent = campaignContentMethods.getValues();
+      const campaignReview = campaignReviewMethods.getValues();
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("headLine", campaignContent.headLine);
+      formData.append("cta", campaignContent.cta);
+      formData.append("body", campaignContent.body);
+      formData.append("pageUrl", campaignContent.pageUrl);
+      formData.append(
+        "image",
+        typeof campaignContent.image !== "string" ? campaignContent.image : ""
+      );
+      if (!!campaignContent?.additionalFiles?.length) {
+        for (const aFile of campaignContent.additionalFiles) {
+          formData.append("additional_file", aFile);
+        }
+      }
+      const campaignData = {
+        email,
+        campaignName: campaignDetails.campaignName,
+        url: campaignDetails.url,
+        currentTarget: campaignDetails.currentTarget,
+        currentAudience: campaignDetails.currentAudience,
+        currentRegion: campaignDetails.currentRegion,
+        currentPrice: campaignBudget.currentPrice,
+        state: state,
+        type: "all",
+      };
 
-    const campaignData = {
-      email,
-      campaignName: campaignDetails.campaignName,
-      url: campaignDetails.url,
-      currentTarget: campaignDetails.currentTarget,
-      currentAudience: campaignDetails.currentAudience,
-      currentRegion: campaignDetails.currentRegion,
-      currentPrice: campaignBudget.currentPrice,
-      currentCard: campaignReview.currentCard,
-      state: state,
-    };
-
-    if (id) {
-      formData.append("id", id);
-      await APIInstance.put("data/campaign_ui", formData);
-    } else {
-      const { data } = await APIInstance.post("data/campaign_ui", formData);
-      await APIInstance.post("data/campaign", {
-        ...campaignData,
-        uiId: data.id,
-      });
+      if (id) {
+        formData.append("id", (campaignContent?.uiId ?? "")?.toString());
+        await APIInstance.put("data/campaign_ui", formData);
+        await APIInstance.put("data/campaign_detail", {
+          ...campaignData,
+          uiId: campaignContent.uiId,
+          id: id,
+          currentCard: campaignReview.currentCard,
+        });
+      } else {
+        const { data } = await APIInstance.post("data/campaign_ui", formData);
+        const { data: data1 } = await APIInstance.post("data/campaign", {
+          ...campaignData,
+          uiId: data.id,
+        });
+        await APIInstance.put("data/campaign_detail", {
+          ...campaignData,
+          uiId: data.id,
+          id: data1.id,
+          currentCard: campaignReview.currentCard,
+        });
+      }
+      setLoading(false);
+      if (state === CampaignState.ACTIVE) {
+        DialogUtils.show(
+          "success",
+          "",
+          "Your campaign has been submitted! Our team will review the details and notify you as soon as its live."
+        );
+      }
+      navigate("/detail");
+    } catch (error) {
+      setLoading(false);
     }
   };
 
+  const validate = () => {
+    let success = true;
+    if (!campaignDetailMethods.formState.isValid) {
+      setCurrentTab(CreateCampaignTabs.DETAIL);
+      DialogUtils.show(
+        "error",
+        "",
+        "Campaign details are incomplete. Please enter all required info"
+      );
+      success = false;
+    } else if (!campaignBudgetMethods.formState.isValid) {
+      setCurrentTab(CreateCampaignTabs.BUDGET);
+      DialogUtils.show("error", "", "Minimum budget must be $10000.");
+      success = false;
+    } else if (!campaignContentMethods.formState.isValid) {
+      setCurrentTab(CreateCampaignTabs.CONTENT);
+      DialogUtils.show(
+        "error",
+        "",
+        "Campaign content are incomplete. Please enter all info"
+      );
+      success = false;
+    }
+    return success;
+  };
+
   const handleCampaignReviewSubmit = async () => {
-    await createUpdateCampaign("active");
+    if (validate()) {
+      await createUpdateCampaign(CampaignState.ACTIVE);
+    }
   };
 
   const handleSaveDraft = async () => {
-    await createUpdateCampaign("draft");
+    if (validate()) {
+      await createUpdateCampaign(CampaignState.DRAFT);
+    }
   };
 
   const { currentAudience, currentTarget } = campaignDetailMethods.getValues();

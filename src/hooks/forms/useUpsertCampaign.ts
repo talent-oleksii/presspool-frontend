@@ -31,15 +31,6 @@ const options: ICommonOptions = Object.freeze({
   resetOptions: {
     keepDirtyValues: true,
     keepErrors: true,
-    keepDirty: false,
-    keepValues: true,
-    keepDefaultValues: true,
-    keepIsSubmitted: true,
-    keepIsSubmitSuccessful: true,
-    keepTouched: true,
-    keepIsValid: true,
-    keepSubmitCount: true,
-    validateOnBlur: false,
   },
 });
 
@@ -54,7 +45,15 @@ export const useUpsertCampaign = (id?: string | undefined) => {
     defaultValues: defaultCampaignBudgetFormData,
     resolver: yupResolver(campaignBudgetSchema),
   });
-  const campaignContentMethods = useForm<any>({
+  const campaignContentMethods = useForm<{
+    uiId?: number | undefined;
+    headLine: string;
+    body: string;
+    cta: string;
+    pageUrl: string;
+    image: any;
+    additionalFiles?: any;
+  }>({
     ...options,
     defaultValues: defaultCampaignContentFormData,
     resolver: yupResolver(campaignContentSchema),
@@ -83,6 +82,8 @@ export const useUpsertCampaign = (id?: string | undefined) => {
         cta: data.cta,
         pageUrl: data.page_url,
         image: data.image,
+        additionalFiles: data.additional_files?.split(","),
+        uiId: data.ui_id ?? 0,
       });
       campaignReviewMethods.reset({
         currentCard: data.card_id,

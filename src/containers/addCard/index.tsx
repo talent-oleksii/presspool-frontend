@@ -17,6 +17,7 @@ export const AddCard: FC<IAddCard> = ({ open, onClose, onSuccess }) => {
   return (
     <Modal
       title={<div className="text-center">Add a card</div>}
+      style={{ top: "25%" }}
       open={open}
       onCancel={onClose}
       footer={null}

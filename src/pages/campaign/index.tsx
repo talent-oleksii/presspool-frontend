@@ -1,11 +1,11 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { Collapse } from "antd";
 import { Link } from "react-router-dom";
 
 import { selectAuth } from "../../store/authSlice";
-import { selectData, updateCampaign } from "../../store/dataSlice";
+import { selectData, setCampaign, updateCampaign } from "../../store/dataSlice";
 
 import APIInstance from "../../api";
 import Loading from "../../components/Loading";
@@ -17,18 +17,32 @@ import { DownOutlined } from "@ant-design/icons";
 const Campaign: FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
-  const { company } = useSelector(selectAuth);
+  const { company, email } = useSelector(selectAuth);
   const { campaign: fullCampaign } = useSelector(selectData);
-  const [campaign, setCampaign] = useState<Array<any>>([]);
+  const [campaign, setCampaigns] = useState<Array<any>>([]);
 
   const dispatch = useDispatch();
+
+  const loadCampaigns = useCallback(async () => {
+    if (email) {
+      const {
+        data: { data },
+      } = await APIInstance.get("data/campaign", {
+        params: { email: email },
+      });
+      dispatch(setCampaign({ campaign: data }));
+    }
+  }, [dispatch, email]);
+
+  useEffect(() => {
+    loadCampaigns();
+  }, [loadCampaigns]);
 
   useEffect(() => {
     const campaignData = fullCampaign.filter((item) => {
       return item.name.indexOf(searchStr) > -1;
     });
-    setCampaign(campaignData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setCampaigns(campaignData);
   }, [searchStr, fullCampaign]);
 
   const handleUpdate = (id: string, state: string) => {
