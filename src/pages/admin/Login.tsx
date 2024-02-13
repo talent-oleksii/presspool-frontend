@@ -72,7 +72,7 @@ const AdminLogin: FC = () => {
             <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
           </div>
           <div className="mt-10 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-[#7FFBAE] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
+            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
             <div className="text-left">
               <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
@@ -116,7 +116,7 @@ const AdminLogin: FC = () => {
             <p className='font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-[10px]'>Enter your details to login</p>
           </div>
 
-          <form className="text-left py-8 mt-[20px] w-full flex justify-center flex-col" onSubmit={handleSubmit}>
+          <form className="text-left py-8 mt-5 w-full flex justify-center flex-col" onSubmit={handleSubmit}>
             <div>
               <label className="font-[Inter] text-base block font-medium my-1 -tracking-[.508px]">Email Address</label>
               <input

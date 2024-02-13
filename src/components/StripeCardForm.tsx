@@ -62,15 +62,15 @@ const CardForm: FC = () => {
       {loading && <Loading />}
       <CardElement onChange={handleCardChange} />
       <button
-        className='font-[Inter] text-sm text-black font-semibold py-[10px] bg-[#7FFBAE] w-full rounded-[5px] mt-[24px] disabled:bg-gray-400'
+        className='font-[Inter] text-sm text-black font-semibold py-[10px] bg-main w-full rounded-[5px] mt-[24px] disabled:bg-gray-400'
         type="submit"
         disabled={addDisabled}
       >
         Add Card
       </button>
-      <div className='mt-[20px] flex justify-top '>
+      <div className='mt-5 flex justify-top '>
         <input
-          className='me-[9px] text-[#7ffbae]'
+          className='me-[9px] text-main'
           type="checkbox"
           checked={checked}
           onChange={e => setChecked(e.target.checked)}

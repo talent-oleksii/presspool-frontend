@@ -157,7 +157,7 @@ const Admin: FC = () => {
 
           <div className="flex items-center">
             <Dropdown placement="bottomRight" menu={{ items: feedbackItems }}>
-              <button className="flex font-[Inter] bg-[#7FFBAE] rounded-[10px] px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center">
+              <button className="flex font-[Inter] bg-main rounded-[10px] px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center">
                 <img alt="Support" src={FeedbackImage} className="w-[14px] me-1 -ms-1" />
                 <span className="font-[Inter] text-xs ms-1">Beta feedback</span>
               </button>
@@ -168,7 +168,7 @@ const Admin: FC = () => {
                 menu={{ items: profileItems }}
               >
                 <button className="flex justify-center items-center border-none p-0 font-[Inter] text-[11px]">
-                  <Avatar className="bg-[#7FFBAE] text-black items-center justify-center flex" alt={getPlaceHolder()} size="small">
+                  <Avatar className="bg-main text-black items-center justify-center flex" alt={getPlaceHolder()} size="small">
                     <span className="text-xs font-[Inter] font-medium">{getPlaceHolder()}</span>
                   </Avatar>
 
@@ -198,7 +198,7 @@ const Admin: FC = () => {
             {
               adminRole === 'account_manager' &&
               <button
-                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-[#7FFBAE] rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
+                className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-main rounded-[15px] my-4 text-black ${location.pathname.indexOf('new') > -1 ? 'ring-black ring-[1px]' : 'ring-0'}`}
                 onClick={() => setShowInvite(true)}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='me-3'>
@@ -253,9 +253,9 @@ const Admin: FC = () => {
             </div>
           </div>
           <div className='relative mt-4 text-left'>
-            <div className='bg-[#7FFBAE] px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
+            <div className='bg-main px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
               <p className='text-black text-base font-semibold font-[Inter]'>Resources</p>
-              <p className='text-[#505050] font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]'>We are always here for you</p>
+              <p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]'>We are always here for you</p>
             </div>
             <div className='bg-white py-2 rounded-b-[14px] w-full z-0 top-[70px] shadow-md'>
               <a href="https://content.presspool.ai" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>

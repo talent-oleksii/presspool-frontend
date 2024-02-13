@@ -34,9 +34,9 @@ const InfoDialog: FC<typeInfoDialog> = ({ type, title, content, onClose }) => {
           }
 
           <div className="mt-[10px]">
-            <p className='text-[15px] font-[Inter] text-normal text-center text-[#43474a]'>{content}</p>
+            <p className='text-base font-[Inter] text-normal text-center text-[#43474a]'>{content}</p>
           </div>
-          <button onClick={onClose} className='mt-[25px] bg-[#7FFBAE] rounded-[5px] px-[52px] py-[11px] font-[Inter] text-white text-sm font-semibold'>OK</button>
+          <button onClick={onClose} className='mt-[25px] bg-main rounded-[5px] px-[52px] py-[11px] font-[Inter] text-white text-sm font-semibold'>OK</button>
         </div>
       </div>
     </div>

@@ -156,7 +156,7 @@ const AdminClient: FC = () => {
                   </svg>
                   Total Campaigns
                 </div>
-                <p className='text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0'>{campaignData.length}</p>
+                <p className='text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0'>{campaignData.length}</p>
               </div>
               <div className='bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[240px]'>
                 <div className='flex items-center font-[Inter] text-base font-medium -tracking-[.48px]'>
@@ -165,7 +165,7 @@ const AdminClient: FC = () => {
                   </svg>
                   Total Spend
                 </div>
-                <p className='text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0'>{`$${campaignData.map(item => Number(item.spent)).reduce((acc, current) => acc + current, 0)}`}</p>
+                <p className='text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0'>{`$${campaignData.map(item => Number(item.spent)).reduce((acc, current) => acc + current, 0)}`}</p>
               </div>
               <div className='bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[240px]'>
                 <div className='flex items-center font-[Inter] text-base font-medium -tracking-[.48px]'>
@@ -174,20 +174,20 @@ const AdminClient: FC = () => {
                   </svg>
                   Total Billed
                 </div>
-                <p className='text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0'>{`$${campaignData.map(item => Number(item.billed)).reduce((acc, current) => acc + current, 0)}`}</p>
+                <p className='text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0'>{`$${campaignData.map(item => Number(item.billed)).reduce((acc, current) => acc + current, 0)}`}</p>
               </div>
             </div>
           </div>
           <div className='my-4 flex items-center justify-between'>
             <div>
               <button
-                className={`font-[Inter] text-sm rounded-lg px-[30px] py-[10px] font-semibold ${currentTab === 'user' ? 'bg-[#7ffbae]' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
+                className={`font-[Inter] text-sm rounded-lg px-[30px] py-[10px] font-semibold ${currentTab === 'user' ? 'bg-main' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
                 onClick={() => setCurrentTab('user')}
               >
                 Client Details
               </button>
               <button
-                className={`font-[Inter] text-sm rounded-lg px-[30px] py-[10px] ms-6 font-semibold ${currentTab === 'campaign' ? 'bg-[#7ffbae]' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
+                className={`font-[Inter] text-sm rounded-lg px-[30px] py-[10px] ms-6 font-semibold ${currentTab === 'campaign' ? 'bg-main' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
                 onClick={() => setCurrentTab('campaign')}
               >
                 Campaigns
@@ -272,7 +272,7 @@ const AdminClient: FC = () => {
                   onChange={e => setNote(e.target.value)}
                 />
                 <div className='w-full text-right mt-2'>
-                  <button className='bg-[#7ffbae] px-5 py-2 font-semibold text-sm font-[Inter] rounded-[6px]' onClick={handleSaveNote}>
+                  <button className='bg-main px-5 py-2 font-semibold text-sm font-[Inter] rounded-[6px]' onClick={handleSaveNote}>
                     Save
                   </button>
                 </div>
@@ -326,7 +326,7 @@ const AdminClient: FC = () => {
                           </div>
                           <div className=''>
                             <p className='text-base font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Status</p>
-                            <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-[#43474a] ${item.state === 'active' ? 'bg-[#7ffbae]' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
+                            <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-[#43474a] ${item.state === 'active' ? 'bg-main' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
                           </div>
                         </div>
                         <Link to={`/admin/client/${id}/${item.id}`} className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
