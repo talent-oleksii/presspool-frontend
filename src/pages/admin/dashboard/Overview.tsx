@@ -92,11 +92,11 @@ const AdminDashboardOverview: FC = () => {
       <div className='my-[14px] p-[25px] min-h-[250px] rounded-[10px] bg-white shadow-md'>
         <div className='flex justify-between items-center'>
           <div>
-            <h2 className='font-[Inter] text-sm 2xl:text-lg font-semibold'>All Campaigns</h2>
-            <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
+            <h2 className='font-[Inter] text-xs 2xl:text-lg font-semibold'>All Campaigns</h2>
+            <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
           </div>
 
-          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-sm 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
+          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
             Download as CSV
           </button> */}
         </div>
@@ -109,8 +109,8 @@ const AdminDashboardOverview: FC = () => {
             <YAxis />
           </LineChart>
           <div className='absolute right-[20px] top-0'>
-            <p className='font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2'>Total Impressions</p>
-            <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2 font-semibold'>Total Clicks</p>
+            <p className='font-[Inter] text-black text-xs 2xl:text-xs font-semibold mb-2'>Total Impressions</p>
+            <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-xs mt-2 font-semibold'>Total Clicks</p>
           </div>
         </div>
       </div>

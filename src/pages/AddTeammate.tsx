@@ -59,16 +59,16 @@ const AddTeammate: FC<typeAddTeammate> = ({ show, setShow }: typeAddTeammate) =>
                   </svg>
                 </button>
                 <div className='text-left w-full'>
-                  <p className='text-sm font-[Inter] font-medium -tracking-[.48px]'>Email Address</p>
+                  <p className='text-xs font-[Inter] font-medium -tracking-[.48px]'>Email Address</p>
                   <input
                     type='email'
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    className='mt-2 w-full text-sm font-[Inter] italic px-4 py-3 focus:ring-0 focus:border-black -tracking-[.48px] text-black border-black underline border-[1px] rounded-[10px] bg-[#FBFBFB]'
+                    className='mt-2 w-full text-xs font-[Inter] italic px-4 py-3 focus:ring-0 focus:border-black -tracking-[.48px] text-black border-black underline border-[1px] rounded-[10px] bg-[#FBFBFB]'
                   />
                   <div className='grid grid-cols-2 gap-4 mt-4'>
                     <div className='col-span-1 select-account'>
-                      <p className='text-sm font-[Inter] font-medium -tracking-[.48px]'>Account Type</p>
+                      <p className='text-xs font-[Inter] font-medium -tracking-[.48px]'>Account Type</p>
                       <Dropdown
                         menu={{
                           items: [{
@@ -86,7 +86,7 @@ const AddTeammate: FC<typeAddTeammate> = ({ show, setShow }: typeAddTeammate) =>
                           }]
                         }}
                       >
-                        <button className='text-sm text-left font-[Inter] italic px-4 py-3 mt-2 w-full rounded-[10px] border-[1px] border-black'>
+                        <button className='text-xs text-left font-[Inter] italic px-4 py-3 mt-2 w-full rounded-[10px] border-[1px] border-black'>
                           {
                             accountType === 'admin' ? 'Admin' : accountType === 'manager' ? 'Campaign Manager' : 'Select Account Type'
                           }
@@ -94,7 +94,7 @@ const AddTeammate: FC<typeAddTeammate> = ({ show, setShow }: typeAddTeammate) =>
                       </Dropdown>
                     </div>
                     <div className='col-span-1 select-campaign'>
-                      <p className='text-sm font-[Inter] font-medium -tracking-[.48px]'>Assigned Campaigns</p>
+                      <p className='text-xs font-[Inter] font-medium -tracking-[.48px]'>Assigned Campaigns</p>
                       <Select
                         mode="multiple"
                         disabled={accountType === 'admin'}
@@ -110,7 +110,7 @@ const AddTeammate: FC<typeAddTeammate> = ({ show, setShow }: typeAddTeammate) =>
                     </div>
                   </div>
                   <button
-                    className='bg-black rounded-[5px] text-sm text-white font-semibold font-[Inter] py-3 w-full mt-8 disabled:bg-[#7f8183]'
+                    className='bg-black rounded-[5px] text-xs text-white font-semibold font-[Inter] py-3 w-full mt-8 disabled:bg-[#7f8183]'
                     onClick={handleSubmit}
                     disabled={!validator.isEmail(email) || accountType === '' || (accountType === 'manager' && selected.length <= 0)}
                   >

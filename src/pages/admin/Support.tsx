@@ -8,13 +8,13 @@ const AdminSupport: FC = () => {
     >
       <div className='h-fit'>
         <h2 className='text-[20px] 2xl:text-[24px] font-[Inter] text-black font-semibold -tracking-[.6px]'>Support</h2>
-        <p className='mt-[6px] text-[#43474A] text-sm 2xl:text-md'>Talk to Ava to get any answers to send to Clients, or, just so you are up to date on our policies/workflows!</p>
+        <p className='mt-[6px] text-[#43474A] text-xs 2xl:text-md'>Talk to Ava to get any answers to send to Clients, or, just so you are up to date on our policies/workflows!</p>
       </div>
 
       <div className='pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-8 pt-4 bg-white'>
         <div className='flex flex-col items-center justify-center'>
           <img src={Ava} className='rounded-full w-[50px]' alt="ava" />
-          <h2 className='font-[Inter] text-black text-sm font-semibold mt-[3px]'>Talk to Ava</h2>
+          <h2 className='font-[Inter] text-black text-xs font-semibold mt-[3px]'>Talk to Ava</h2>
           <p className='font-[Inter] text-[#43474a] font-medium text-[12px] text-center mt-[5px]'>Our support bot trained on our <br /> platfrom from A~Z!</p>
         </div>
         <iframe className='w-full h-[600px]' title="bot"

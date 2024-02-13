@@ -79,7 +79,7 @@ const CampaignDetails: FC = () => {
       <div className="h-full w-[720px] flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-7">
           <div className="flex flex-col gap-2">
-            <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
+            <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
               Campaign Name
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter the name of your campaign" />
@@ -93,7 +93,7 @@ const CampaignDetails: FC = () => {
                   onBlur={field.onBlur}
                   value={field.value}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border text-xs font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -102,7 +102,7 @@ const CampaignDetails: FC = () => {
             <ErrorMessage message={errors["campaignName"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
-            <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
+            <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
               Website URL
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter your full site URL. Example: https://www.test.com" />
@@ -114,7 +114,7 @@ const CampaignDetails: FC = () => {
                 <input
                   {...field}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border text-xs font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -124,7 +124,7 @@ const CampaignDetails: FC = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm 2xl:text-base font-[Inter] font-semibold">
+          <p className="text-xs 2xl:text-base font-[Inter] font-semibold">
             Who are you targeting
           </p>
           <div className="grid grid-cols-2 w-full gap-7">
@@ -134,7 +134,7 @@ const CampaignDetails: FC = () => {
                 currentTarget === CampaignTargetType.CUSTOMER
                   ? "bg-black text-white"
                   : "bg-[#f5f5f5] text-black"
-              } relative w-1/2 font-[Inter] font-semibold text-sm flex w-full rounded-lg z-[1] px-4 py-[18px] flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
+              } relative w-1/2 font-[Inter] font-semibold text-xs flex w-full rounded-lg z-[1] px-4 py-[18px] flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
               onClick={() =>
                 handleCurrentTargetChange(CampaignTargetType.CUSTOMER)
               }
@@ -184,7 +184,7 @@ const CampaignDetails: FC = () => {
                 currentTarget === CampaignTargetType.PROFESSIONAL
                   ? "bg-black text-white"
                   : "bg-[#f5f5f5] text-black"
-              } relative w-1/2 font-[Inter] font-semibold text-sm flex rounded-lg px-4 z-[1] py-[18px] w-full flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
+              } relative w-1/2 font-[Inter] font-semibold text-xs flex rounded-lg px-4 z-[1] py-[18px] w-full flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
               onClick={() =>
                 handleCurrentTargetChange(CampaignTargetType.PROFESSIONAL)
               }
@@ -231,7 +231,7 @@ const CampaignDetails: FC = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
+          <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
             Please add specific audience industry tags you would like to target
             <span className="ms-1 text-[red] text-xs">*</span>
           </p>
@@ -255,7 +255,7 @@ const CampaignDetails: FC = () => {
           <ErrorMessage message={errors["currentAudience"]?.message} />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm 2xl:text-base font-[Inter] text-black font-semibold flex">
+          <p className="text-xs 2xl:text-base font-[Inter] text-black font-semibold flex">
             Please add specific geography/region tags you would like to target:
             <abbr className="ms-1 text-[red] text-xs">*</abbr>
           </p>
@@ -282,7 +282,7 @@ const CampaignDetails: FC = () => {
       <div className="w-full mt-[35px] text-center">
         <button
           type="submit"
-          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold text-sm disabled:bg-gray-400"
+          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold text-xs disabled:bg-gray-400"
           disabled={!isValid}
         >
           Next Step

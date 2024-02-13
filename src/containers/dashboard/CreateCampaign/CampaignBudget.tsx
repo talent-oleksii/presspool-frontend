@@ -23,10 +23,10 @@ const CampaignBudget: FC = () => {
       animate="show"
       className="w-[720px]"
     >
-      <h2 className="font-[Inter] text-sm 2xl:text-base font-semibold text-black">
+      <h2 className="font-[Inter] text-xs 2xl:text-base font-semibold text-black">
         Please type in your budget cap for this campaign
       </h2>
-      <p className="font-[Inter] text-[#43474a] text-xs 2xl:text-sm mt-[14px]">
+      <p className="font-[Inter] text-[#43474a] text-xs 2xl:text-xs mt-[14px]">
         *Keep in mind, these are all verified, targeted and engaged readers that
         will be clicking through directly to your landing page of choice. We
         only charge per <span className="font-bold">unique click</span> as they
@@ -40,7 +40,7 @@ const CampaignBudget: FC = () => {
             <input
               {...field}
               prefix="$"
-              className="border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 text-sm 2xl:text-md"
+              className="border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 text-xs 2xl:text-md"
               type="number"
               min="10000"
             />
@@ -52,7 +52,7 @@ const CampaignBudget: FC = () => {
       </div>
       {currentPrice && (
         <div className="mt-[9px]">
-          <span className="font-[Inter] text-xs 2xl:text-sm my-3 text-black">
+          <span className="font-[Inter] text-xs 2xl:text-xs my-3 text-black">
             {`*Estimated clicks for the campaign are ${Math.floor(
               Number(currentPrice) / getCPC(Number(currentPrice))
             )}`}
@@ -85,7 +85,7 @@ const CampaignBudget: FC = () => {
       )}
       <div className="mt-[35px] w-full text-center">
         <button
-          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm"
+          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-xs"
           disabled={!isValid}
         >
           Next Step
