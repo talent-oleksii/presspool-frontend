@@ -1,13 +1,13 @@
 import { FC } from "react";
 
-const SupportIcon: FC<{fontSize?: number}> = ({fontSize = 24}) => (
+const SupportIcon: FC<{fontSize?: number}> = ({fontSize = 18}) => (
   <svg
     width={fontSize}
     height={fontSize}
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    className="pt-1"
+    className="pt-1 pl-0.5"
   >
     <g id="beta-feedback">
       <path

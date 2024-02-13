@@ -150,19 +150,19 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
                     <h3 className='text-black font-[Inter] text-3xl mt-8 font-semibold -tracking-[.72px]'>Forgot Password?</h3>
-                    <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Enter the email address associated with your account. Make sure <br /> it's the same email address you used when signing up.</p>
-                    <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-7'>
+                    <p className='text-[#7f8182] font-[Inter] text-xs mt-[10px] text-center'>Enter the email address associated with your account. Make sure <br /> it's the same email address you used when signing up.</p>
+                    <p className='w-full text-left font-[Inter] text-xs font-medium -tracking-[.42px] mt-7'>
                       Email Address
                       {showWarning && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Enter Valid Email Address</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white rounded-lg px-[16px] py-[12px] font-[Inter] text-sm font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white rounded-lg px-[16px] py-[12px] font-[Inter] text-xs font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter your email address'
                       value={email}
                       type='email'
                       onChange={e => setEmail(e.target.value)}
                     />
-                    <button className='mt-5 flex items-center justify-center text-sm bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToVerify}>Continue</button>
+                    <button className='mt-5 flex items-center justify-center text-xs bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToVerify}>Continue</button>
                   </motion.div>
                 }
                 {
@@ -174,8 +174,8 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
                     <h3 className='text-black font-[Inter] text-3xl mt-8 font-semibold -tracking-[.72px]'>Verification</h3>
-                    <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Enter the code that we sent you to at your email</p>
-                    <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[26px]'>
+                    <p className='text-[#7f8182] font-[Inter] text-xs mt-[10px] text-center'>Enter the code that we sent you to at your email</p>
+                    <p className='w-full text-left font-[Inter] text-xs font-medium -tracking-[.42px] mt-[26px]'>
                       Code
                       {showWarning && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Enter Valid Code</span>}
                     </p>
@@ -198,7 +198,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
                         />
                       ))}
                     </div>
-                    <button className='mt-5 flex items-center justify-center text-sm bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToFinal}>Continue</button>
+                    <button className='mt-5 flex items-center justify-center text-xs bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleGoToFinal}>Continue</button>
                   </motion.div>
                 }
                 {
@@ -210,30 +210,30 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
                     <h3 className='text-black font-[Inter] text-3xl mt-8 font-semibold -tracking-[.72px]'>New Password</h3>
-                    <p className='text-[#7f8182] font-[Inter] text-sm mt-[10px] text-center'>Set your new password for future logins</p>
-                    <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[26px]'>
+                    <p className='text-[#7f8182] font-[Inter] text-xs mt-[10px] text-center'>Set your new password for future logins</p>
+                    <p className='w-full text-left font-[Inter] text-xs font-medium -tracking-[.42px] mt-[26px]'>
                       New Password
                       {newPassword.length > 0 && !validator.isStrongPassword(newPassword) && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Your password is not secure</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-sm font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-xs font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={newPassword}
                       onChange={e => setNewPassword(e.target.value)}
                     />
-                    <p className='w-full text-left font-[Inter] text-sm font-medium -tracking-[.42px] mt-[16px]'>
+                    <p className='w-full text-left font-[Inter] text-xs font-medium -tracking-[.42px] mt-[16px]'>
                       Confirm Password
                       {confirmPassword.length > 0 && confirmPassword !== newPassword && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Password does not match</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-sm font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-xs font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={confirmPassword}
                       onChange={e => setConfirmPassword(e.target.value)}
                     />
-                    <button className='mt-5 flex items-center justify-center text-sm bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleSubmit}>Submit</button>
+                    <button className='mt-5 flex items-center justify-center text-xs bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]' onClick={handleSubmit}>Submit</button>
                   </motion.div>
                 }
               </Dialog.Panel>

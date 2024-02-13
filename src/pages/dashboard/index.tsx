@@ -37,10 +37,10 @@ const Dashboard: FC = () => {
 
   return (
     <div className="text-left relative">
-      <h1 className="font-semibold font-[Inter] text-3xl -tracking-[.6px]">
+      <h1 className="font-semibold font-[Inter] text-xl -tracking-[.6px]">
         Welcome {name} 🤝
       </h1>
-      <p className="text-lg text-[#43474A]">
+      <p className="text-[14px] text-[#43474A]">
         Here’s a snapshot of your account, all in one place
       </p>
 
@@ -54,7 +54,7 @@ const Dashboard: FC = () => {
           <div className="flex justify-between items-center mt-4">
             <div>
               <Link
-                className={`inline-flex items-center justify-center text-[#505050] text-sm px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${
+                className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 ${
                   id === "all"
                     ? "bg-white border border-solid border-main shadow-md"
                     : "bg-transparent ring-none"
@@ -87,31 +87,31 @@ const Dashboard: FC = () => {
         {/* <div className='min-w-[300px] pl-[30px] pr-[20px] sm:pr-[50px] mt-[22px]'>
 					<div className='relative h-auto'>
 						<div className='bg-main px-[18px] py-[12px] rounded-t-[14px] w-full top-0 z-10'>
-							<p className='text-black text-sm font-semibold font-[Inter]'>Quick Actions:</p>
+							<p className='text-black text-xs font-semibold font-[Inter]'>Quick Actions:</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[4px]'>Let’s get you where you need to go</p>
 						</div>
 						<div className='bg-white py-2 w-full z-0 rounded-b-[14px] shadow-md'>
-							<Link to="/new" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+							<Link to="/new" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Create New Campaign
 							</Link>
-							<Link to="/detail" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+							<Link to="/detail" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Manage Campaigns
 							</Link>
-							<Link to="/billing" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+							<Link to="/billing" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								View Billing
 							</Link>
-							<a href="https://forms.gle/j1HCrRcrGK9roPhGA" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' target='_blank' rel="noreferrer">
+							<a href="https://forms.gle/j1HCrRcrGK9roPhGA" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2' target='_blank' rel="noreferrer">
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Request a Feature
 							</a>
-							<a href="https://forms.gle/T9Kc6JvaVhzwozYR8" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' target='_blank' rel="noreferrer">
+							<a href="https://forms.gle/T9Kc6JvaVhzwozYR8" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2' target='_blank' rel="noreferrer">
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Give Feedback
 							</a>
-							<Link to="/profile" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+							<Link to="/profile" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								My Profile
 							</Link>
@@ -119,15 +119,15 @@ const Dashboard: FC = () => {
 					</div>
 					<div className='relative mt-4'>
 						<div className='bg-main px-[19px] py-[12px] rounded-t-[14px] w-full z-10'>
-							<p className='text-black text-sm font-semibold font-[Inter]'>Resources</p>
+							<p className='text-black text-xs font-semibold font-[Inter]'>Resources</p>
 							<p className='text-[#505050] font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]'>We are always here for you</p>
 						</div>
 						<div className='bg-white py-2 rounded-b-[14px] w-full z-0 top-[70px] shadow-md'>
-							<a href="https://blog.presspool.ai" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2' rel='noreferrer' target='_blank'>
+							<a href="https://blog.presspool.ai" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2' rel='noreferrer' target='_blank'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Blog
 							</a>
-							<a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2'>
+							<a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2'>
 								<img src={LinkImage} alt="link" className='w-[17px] me-2' />
 								Support
 							</a>

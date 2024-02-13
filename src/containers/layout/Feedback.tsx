@@ -34,7 +34,7 @@ const Feedback: React.FC = () => {
   }, []);
 
   return (
-    <div ref={ref} className="flex items-center relative pr-5">
+    <div ref={ref} className="flex items-center relative">
       <button
         onClick={handleOpenChange}
         className="flex font-[Inter] rounded-[20px] h-7 px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main hover:text-black"
@@ -42,7 +42,7 @@ const Feedback: React.FC = () => {
         <span role="img" aria-label="support">
           <SupportIcon fontSize={18} />
         </span>
-        <span className="font-[Inter] text-sm pl-1">Beta feedback</span>
+        <span className="font-[Inter] text-xs pl-1">Beta feedback</span>
       </button>
       {open && (
         <Menu className="w-[300px] absolute top-[calc(100%+8px)] right-[0] !shadow-md rounded-[15px] text-left z-[9]">
@@ -50,7 +50,7 @@ const Feedback: React.FC = () => {
             onClick={() =>
               handleItemClick("https://forms.gle/T9Kc6JvaVhzwozYR8")
             }
-            className="py-1 !h-auto !text-sm"
+            className="py-1 !h-auto !text-xs"
           >
             <Space size="large">
               <EditOutlined style={{ fontSize: "20px" }} /> Give feedback
@@ -60,7 +60,7 @@ const Feedback: React.FC = () => {
             onClick={() =>
               handleItemClick("https://forms.gle/j1HCrRcrGK9roPhGA")
             }
-            className="py-1 !h-auto !text-sm"
+            className="py-1 !h-auto !text-xs"
           >
             <Space size="large">
               <FlagOutlined style={{ fontSize: "20px" }} /> Request a feature

@@ -5,11 +5,11 @@ const CampaignIcon: FC = () => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      width="24px"
-      height="24px"
+      width="18"
+      height="18"
       viewBox="0 0 24 24"
       version="1.1"
-      className="pt-1"
+      className="pt-0.5 pl-0.5"
     >
       <g id="surface1">
         <path

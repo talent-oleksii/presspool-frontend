@@ -53,10 +53,10 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                 <div className='mt-6 w-full pl-2 flex border-[1px] rounded-[9.675px] border-[#7f8182] items-center justify-between'>
                   <div className='flex items-center'>
                     <img className='w-[20px] h-[20px] mx-2' src={PIN} alt="pin" />
-                    <p className='text-[#0af] text-sm max-w-[300px] truncate font-medium -tracking-[.54px] underline'>{link}</p>
+                    <p className='text-[#0af] text-xs max-w-[300px] truncate font-medium -tracking-[.54px] underline'>{link}</p>
                   </div>
                   <button
-                    className='bg-main ms-2 rounded-lg text-sm font-semibold px-6 py-3 w-[100px]'
+                    className='bg-main ms-2 rounded-lg text-xs font-semibold px-6 py-3 w-[100px]'
                     onClick={() => {
                       navigator.clipboard.writeText(link).then(() => {
                         setCopyText('Copied');
@@ -67,7 +67,7 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                     {copyText}
                   </button>
                 </div>
-                <p className='mt-4 text-sm w-full -tracking-[.48px] text-black font-medium'>Email Invite</p>
+                <p className='mt-4 text-xs w-full -tracking-[.48px] text-black font-medium'>Email Invite</p>
                 <input
                   className='mt-2 w-full px-4 py-2.5 flex border-[1px] rounded-[9.675px] border-[#7f8182] items-center justify-between'
                   placeholder="Use comma's to separate multiple emails"
@@ -75,7 +75,7 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                   onChange={e => setEmails(e.target.value)}
                 />
                 <button
-                  className='bg-main rounded-[6.047px] text-sm font-semibold w-full mt-6 flex items-center justify-center py-3'
+                  className='bg-main rounded-[6.047px] text-xs font-semibold w-full mt-6 flex items-center justify-center py-3'
                   onClick={handleSendInvite}
                 >
                   Send Email Invite(s)

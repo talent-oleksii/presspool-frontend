@@ -96,13 +96,13 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               <h2 className="font-[Inter] text-lg font-semibold">
                 {data.name || ""}
               </h2>
-              <p className="font-[Inter] text-[#43474A] mt-[5px] text-sm">
+              <p className="font-[Inter] text-[#43474A] mt-[5px] text-xs">
                 Let's see how your campaign is performing
               </p>
             </div>
             <div>
               <button
-                className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-sm font-medium border-black rounded-lg"
+                className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-xs font-medium border-black rounded-lg"
                 onClick={handleDownloadCSV}
               >
                 <img
@@ -113,10 +113,10 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                 Download PDF
               </button>
               <div className="mt-[20px]">
-                <p className="font-[Inter] text-black text-sm font-semibold mb-2">
+                <p className="font-[Inter] text-black text-xs font-semibold mb-2">
                   Total Impressions
                 </p>
-                <p className="font-[Inter] text-[#7F8182] text-sm mt-2 font-semibold">
+                <p className="font-[Inter] text-[#7F8182] text-xs mt-2 font-semibold">
                   Total Clicks
                 </p>
               </div>
@@ -137,7 +137,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
-                <p className="font-[Inter] mt-4 text-sm">No active data yet.</p>
+                <p className="font-[Inter] mt-4 text-xs">No active data yet.</p>
               )}
             </div>
           </div>
@@ -149,11 +149,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <table className="w-full">
             <thead>
               <tr>
-                <td className="text-sm font-[Inter]">Name</td>
-                <td className="text-sm font-[Inter]">Impressions</td>
-                <td className="text-sm font-[Inter]">Clicks</td>
-                <td className="text-sm font-[Inter]">Total Spend</td>
-                <td className="text-sm font-[Inter]">
+                <td className="text-xs font-[Inter]">Name</td>
+                <td className="text-xs font-[Inter]">Impressions</td>
+                <td className="text-xs font-[Inter]">Clicks</td>
+                <td className="text-xs font-[Inter]">Total Spend</td>
+                <td className="text-xs font-[Inter]">
                   <span className="flex items-center">
                     CTR
                     <Tooltip
@@ -170,7 +170,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                     </Tooltip>
                   </span>
                 </td>
-                <td className="text-sm font-[Inter]">
+                <td className="text-xs font-[Inter]">
                   <span className="flex items-center">
                     % of Total Traffic
                     <Tooltip
@@ -187,7 +187,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                     </Tooltip>
                   </span>
                 </td>
-                <td className="text-sm font-[Inter]">Feedback</td>
+                <td className="text-xs font-[Inter]">Feedback</td>
               </tr>
             </thead>
             <tbody>
@@ -205,7 +205,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               ))}
             </tbody>
           </table>
-          <p className="font-[Inter] mt-4 text-sm">
+          <p className="font-[Inter] mt-4 text-xs">
             No data is available. Please create and launch your first campaign
           </p>
         </div>

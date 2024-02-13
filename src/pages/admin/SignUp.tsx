@@ -92,35 +92,35 @@ const AdminSignUp: FC = () => {
             <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
           </div>
           <div className="mt-10 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
+            <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
             <div className="text-left">
               <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
-              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
+              <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
+            <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
             <div className="text-left">
               <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
-              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Access your assigned Clients and<br />their campaigns all in one place</p>
+              <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Access your assigned Clients and<br />their campaigns all in one place</p>
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
+            <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
             <div className="text-left">
               <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
-              <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">The more campaigns you manage <br />successfully, the more money you<br />can make by increasing your <br />Client's spent</p>
+              <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">The more campaigns you manage <br />successfully, the more money you<br />can make by increasing your <br />Client's spent</p>
             </div>
           </div>
         </div>
         <div className="mb-4">
-          <p className="font-[Inter] text-sm -tracking-[.24px] text-left">
+          <p className="font-[Inter] text-xs -tracking-[.24px] text-left">
             "Was a game-changer, helping me generate sign-<br />ups and connect with a highly targeted audience. It's<br />the secret weapon that boosted our awareness as a<br />new player in the market."
           </p>
           <div className="mt-5 flex items-center">
             <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
             <div className="text-left">
-              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-sm">Morgan A.</p>
+              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
               <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
             </div>
           </div>
@@ -133,11 +133,11 @@ const AdminSignUp: FC = () => {
               <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <h2 className='font-[Inter] font-semibold text-[40px] mt-4 -tracking-[1.2px]'>Welcome</h2>
-            <p className='font-[Inter] text-sm text-center -tracking-[.54px] font-medium text-[#797979] mt-1'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
+            <p className='font-[Inter] text-xs text-center -tracking-[.54px] font-medium text-[#797979] mt-1'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
           </div>
 
           <form className="text-left mt-[30px]" onSubmit={handleSubmit}>
-            <label className={`font-[Inter] text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
               Full Name
               {formData.fullName.length > 0 && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red] text-xs'>*Input your full name</span>}
             </label>
@@ -150,7 +150,7 @@ const AdminSignUp: FC = () => {
               type="text"
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
             />
-            <label className={`font-[Inter] text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
               Affiliate Link (TrackDesk)
               {formData.company.length > 0 && validator.isEmpty(formData.company) && <span className='ms-1 text-[red] text-xs'>*Input company name</span>}
             </label>
@@ -204,12 +204,12 @@ const AdminSignUp: FC = () => {
                 type="checkbox"
                 className='w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0'
               />
-              <span className='ms-2 font-[Inter] -tracking-[.544px] text-sm text-[#525252]'>
+              <span className='ms-2 font-[Inter] -tracking-[.544px] text-xs text-[#525252]'>
                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-black underline'>Terms</a> and <a className='text-black underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
               </span>
             </div>
             <button
-              className="rounded-[6px] text-sm bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
+              className="rounded-[6px] text-xs bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >
@@ -253,18 +253,18 @@ const AdminSignUp: FC = () => {
                     <div className="mt-3 text-center sm:mt-5">
                       <Dialog.Title
                         as="h3"
-                        className="text-sm font-semibold leading-6 text-gray-900"
+                        className="text-xs font-semibold leading-6 text-gray-900"
                       >
                         Sign Up Success!
                       </Dialog.Title>
-                      <p className='font-[Inter] text-sm mt-[15px]'>Please check your inbox to verify your email address</p>
+                      <p className='font-[Inter] text-xs mt-[15px]'>Please check your inbox to verify your email address</p>
                     </div>
                   </div>
 
                   <div className="mt-5">
                     <button
                       type="button"
-                      className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                      className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                       onClick={() => {
                         setShowDialog(false); navigator('/campaign/all');;
                       }}

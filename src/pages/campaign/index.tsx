@@ -91,54 +91,54 @@ const Campaign: FC = () => {
             {item.name}
           </p>
           <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Start Date
             </p>
-            <p className="font-semibold font-[Inter] text-sm">
+            <p className="font-semibold font-[Inter] text-xs">
               {new Date(Number(item.create_time)).toLocaleDateString()}
             </p>
           </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Total Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-sm">
+            <p className="font-semibold font-[Inter] text-xs">
               {item.click_count}
             </p>
           </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Unique Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-sm">
+            <p className="font-semibold font-[Inter] text-xs">
               {item.unique_clicks}
             </p>
           </div>
           {/* <div className='flex flex-col items-center'>
         <p className='font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]'>AVG CPC:</p>
-        <p className='font-semibold font-[Inter] text-sm'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
+        <p className='font-semibold font-[Inter] text-xs'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
       </div> */}
           <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Total Spend
             </p>
-            <p className="font-semibold font-[Inter] text-sm">{`$${item.spent}`}</p>
+            <p className="font-semibold font-[Inter] text-xs">{`$${item.spent}`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Budget Remaining
             </p>
-            <p className="font-semibold font-[Inter] text-sm text-[#FF4D42]">{`$${
+            <p className="font-semibold font-[Inter] text-xs text-[#FF4D42]">{`$${
               Number(item.price) - Number(item.spent)
             }`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Status
             </p>
             <p className="font-semibold font-[Inter]">
               <span
-                className={`rounded-full text-sm px-[12px] mt-[25px] py-[4px] font-medium ${
+                className={`rounded-full text-xs px-[12px] mt-[25px] py-[4px] font-medium ${
                   item.state === "draft"
                     ? "bg-[#dbdbdb]"
                     : item.state === "paused"
@@ -161,30 +161,30 @@ const Campaign: FC = () => {
               src={item.image}
             />
             <div className="py-[10px] w-full flex flex-col items-start justify-center">
-              <p className="text-black font-[Inter] text-sm font-normal">
+              <p className="text-black font-[Inter] text-xs font-normal">
                 Headline
               </p>
-              <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-sm -tracking-[.42px]">
+              <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-xs -tracking-[.42px]">
                 {item.headline}
               </h2>
-              <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
+              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
                 Description
               </p>
-              <p className="text-black font-[Inter] font-medium text-sm mt-[8px]">
+              <p className="text-black font-[Inter] font-medium text-xs mt-[8px]">
                 {item.body}
               </p>
-              <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
+              <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
                 Landing Page Link
               </p>
-              <p className="text-[#6C63FF] font-[Inter] font-medium text-sm mt-[8px]">
+              <p className="text-[#6C63FF] font-[Inter] font-medium text-xs mt-[8px]">
                 {item.page_url}
               </p>
               <div className="flex items-end justify-between w-full">
                 <div className="w-auto">
-                  <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
+                  <p className="text-black font-[Inter] mt-[14px] text-xs font-normal mt-[14px]">
                     Audience Tags
                   </p>
-                  <p className="text-black font-[Inter] font-medium text-sm mt-[8px] -tracking-[.47px]">
+                  <p className="text-black font-[Inter] font-medium text-xs mt-[8px] -tracking-[.47px]">
                     {item.audience.join(",")}
                   </p>
                 </div>
@@ -192,7 +192,7 @@ const Campaign: FC = () => {
                   {item.state === "active" && (
                     <Link
                       to={`/raise-budget/${item.id}`}
-                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-sm 2xl:text-sm"
+                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
                     >
                       Raise Budget
                     </Link>
@@ -200,7 +200,7 @@ const Campaign: FC = () => {
                   {item.state !== "active" && (
                     <Link
                       to={`/edit/${item.id}`}
-                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-sm 2xl:text-sm"
+                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
                     >
                       Edit Campaign
                     </Link>
@@ -254,13 +254,13 @@ const Campaign: FC = () => {
             <circle cx="8.00586" cy="8.00488" r="6" fill="#F5F5F5" />
           </svg>
           <input
-            className="me-2 font-[Inter] flex-1 border-0 text-sm focus:ring-0 p-0 focus:border-[#7F8182] bg-transparent"
+            className="me-2 font-[Inter] flex-1 border-0 text-xs focus:ring-0 p-0 focus:border-[#7F8182] bg-transparent"
             placeholder="Type here to search by campaign name"
             value={searchStr}
             onChange={(e) => setSearchStr(e.target.value)}
           />
         </div>
-        <select className="font-[Inter] rounded-[5px] border-[1px] text-sm focus:ring-0 focus:border-[#7F8182] bg-transparent min-w-[200px] ms-4">
+        <select className="font-[Inter] rounded-[5px] border-[1px] text-xs focus:ring-0 focus:border-[#7F8182] bg-transparent min-w-[200px] ms-4">
           <option value="nto">Newest to Oldest</option>
           <option value="otn">Oldest to Newest</option>
         </select>

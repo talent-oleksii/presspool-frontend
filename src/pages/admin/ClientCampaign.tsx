@@ -72,7 +72,7 @@ const AdminClientCampaign: FC = () => {
           </div>
           <div className='flex gap-4'>
             <div className='bg-white rounded-[10px] px-[20px] pt-[12px] min-w-[160px]'>
-              <div className='flex items-center font-[Inter] text-sm font-medium -tracking-[.48px]'>
+              <div className='flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
                   <path d="M718.461-450.001v-59.998h144.615v59.998H718.461Zm45.693 269.23-115.692-86.768 36.461-47.845 115.691 86.768-36.46 47.845Zm-80.77-465.383-36.46-47.845 115.691-86.769 36.461 47.845-115.692 86.769ZM210.001-220.771v-156.153h-40.77q-29.922 0-51.115-21.192-21.192-21.193-21.192-51.115v-61.538q0-29.922 21.192-51.115 21.193-21.192 51.115-21.192h154.615l179.23-106.922v419.996l-179.23-106.922h-53.847v156.153h-59.998Zm348.46-134.46v-249.538q23.539 21.308 37.923 53.692 14.385 32.385 14.385 71.077t-14.385 71.077Q582-376.539 558.461-355.231Z" />
                 </svg>
@@ -81,7 +81,7 @@ const AdminClientCampaign: FC = () => {
               <p className='text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0'>0</p>
             </div>
             <div className='bg-white rounded-[10px] px-[20px] pt-[12px] min-w-[160px]'>
-              <div className='flex items-center font-[Inter] text-sm font-medium -tracking-[.48px]'>
+              <div className='flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none" className="me-2">
                   <path d="M1 10H4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M10 1V4" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -95,7 +95,7 @@ const AdminClientCampaign: FC = () => {
               <p className='text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0'>{data.click_count}</p>
             </div>
             <div className='bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]'>
-              <div className='flex items-center font-[Inter] text-sm font-medium -tracking-[.48px]'>
+              <div className='flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="20" viewBox="0 0 17 20" fill="none" className="me-2">
                   <path d="M12.5556 4.55469C13.2588 4.55469 13.9462 4.76322 14.5309 5.15391C15.1156 5.5446 15.5713 6.0999 15.8405 6.74959C16.1096 7.39928 16.18 8.11419 16.0428 8.8039C15.9056 9.49361 15.567 10.1271 15.0697 10.6244C14.5725 11.1217 13.9389 11.4603 13.2492 11.5975C12.5595 11.7347 11.8446 11.6643 11.1949 11.3951C10.5452 11.126 9.98991 10.6703 9.59922 10.0856C9.20853 9.50089 9 8.81346 9 8.11024L9.00356 7.95593C9.04332 7.04055 9.43492 6.17586 10.0967 5.54218C10.7585 4.90849 11.6393 4.55474 12.5556 4.55469Z" fill="black" />
                   <path d="M13.5084 13.4453C14.4345 13.4453 15.3227 13.7965 15.9776 14.4216C16.6325 15.0467 17.0004 15.8946 17.0004 16.7786V17.4453C17.0004 17.7989 16.8533 18.1381 16.5913 18.3881C16.3294 18.6382 15.9741 18.7786 15.6036 18.7786H8.61948C8.24902 18.7786 7.89373 18.6382 7.63178 18.3881C7.36982 18.1381 7.22266 17.7989 7.22266 17.4453V16.7786C7.22266 15.8946 7.59057 15.0467 8.24546 14.4216C8.90035 13.7965 9.78857 13.4453 10.7147 13.4453H13.5084Z" fill="black" />
@@ -107,7 +107,7 @@ const AdminClientCampaign: FC = () => {
               <p className='text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0'>{data.unique_clicks}</p>
             </div>
             <div className='bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]'>
-              <div className='flex items-center font-[Inter] text-sm font-medium -tracking-[.48px]'>
+              <div className='flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" className="me-2">
                   <path d="M264.615-120Q237-120 218.5-138.5 200-157 200-184.615v-590.77Q200-803 218.5-821.5 237-840 264.615-840H580l180 180v475.385Q760-157 741.5-138.5 723-120 695.385-120h-430.77Zm209.231-110h40v-40h60q8.5 0 14.25-5.75t5.75-14.25v-120q0-8.5-5.75-14.25t-14.25-5.75h-140v-80h160v-40h-80v-40h-40v40h-60q-8.5 0-14.25 5.75t-5.75 14.25v120q0 8.5 5.75 14.25t14.25 5.75h140v80h-160v40h80v40Zm89.308-430h140l-140-140v140Z" />
                 </svg>
@@ -121,12 +121,12 @@ const AdminClientCampaign: FC = () => {
           <div className='flex justify-between items-center'>
             <div>
               {data.state && <span className={`rounded-full text-[10px] px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{data.state}</span>}
-              <h2 className='font-[Inter] mt-4 text-sm 2xl:text-lg font-semibold'>{data.name || ''}</h2>
+              <h2 className='font-[Inter] mt-4 text-xs 2xl:text-lg font-semibold'>{data.name || ''}</h2>
               {/* <p className='text-xs'>{`https://track.presspool.ai/${data.uid || 1}`}</p> */}
-              <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-sm'>Let’s see how your campaigns are performing</p>
+              <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
             </div>
 
-            {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-sm 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
+            {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
             Download as CSV
           </button> */}
           </div>
@@ -139,8 +139,8 @@ const AdminClientCampaign: FC = () => {
               <YAxis />
             </LineChart>
             <div className='absolute right-[20px] top-0'>
-              <p className='font-[Inter] text-black text-xs 2xl:text-sm font-semibold mb-2'>Total Impressions</p>
-              <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-sm mt-2 font-semibold'>Total Clicks</p>
+              <p className='font-[Inter] text-black text-xs 2xl:text-xs font-semibold mb-2'>Total Impressions</p>
+              <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-xs mt-2 font-semibold'>Total Clicks</p>
             </div>
           </div>
         </div>

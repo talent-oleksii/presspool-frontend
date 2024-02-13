@@ -68,10 +68,10 @@ const CampaignReview: FC<ICampaignReview> = ({
       >
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
-            <p className="text-sm 2xl:text-xl font-[Inter] font-semibold">
+            <p className="text-xs 2xl:text-xl font-[Inter] font-semibold">
               What to Expect
             </p>
-            <ul className="flex flex-col gap-3 list-decimal text-xs 2xl:text-sm font-[Inter] pl-4">
+            <ul className="flex flex-col gap-3 list-decimal text-xs 2xl:text-xs font-[Inter] pl-4">
               <li>
                 <b className="font-semibold">Campaign Activation:</b> Upon
                 submission, your campaign is now in the queue for launch. Our
@@ -109,26 +109,26 @@ const CampaignReview: FC<ICampaignReview> = ({
             </ul>
           </div>
           <div className="flex flex-col gap-4">
-            <h2 className="font-semibold text-sm 2xl:text-xl font-[Inter]">
+            <h2 className="font-semibold text-xs 2xl:text-xl font-[Inter]">
               Review
             </h2>
             {!!(currentAudience || []).length && currentPrice && (
               <div className="">
-                <p className="py-2 text-sm ">
+                <p className="py-2 text-xs ">
                   <span className="font-medium me-2">⭐ Dates:</span>The
                   campaign will start from today until the budget is reached.
                 </p>
-                <p className="py-2 text-sm ">
+                <p className="py-2 text-xs ">
                   <span className="font-medium me-2">⭐ Max Budget:</span>
                   {`$${currentPrice}`}
                 </p>
-                <p className="py-2 text-sm ">
+                <p className="py-2 text-xs ">
                   <span className="font-medium me-2">
                     ⭐ Target Audience Demographic:
                   </span>
                   {currentTarget === "consumer" ? "Consumers" : "Professional"}
                 </p>
-                <p className="py-2 text-sm ">
+                <p className="py-2 text-xs ">
                   <span className="font-medium me-2">
                     ⭐ Target Audience Tags:
                   </span>
@@ -138,10 +138,10 @@ const CampaignReview: FC<ICampaignReview> = ({
             )}
           </div>
           <div className="flex flex-col gap-1">
-            <h2 className="font-semibold text-sm 2xl:text-xl font-[Inter]">
+            <h2 className="font-semibold text-xs 2xl:text-xl font-[Inter]">
               Billing Setup
             </h2>
-            <p className="font-[Inter] text-xs 2xl:text-sm font-normal text-[#43474A] mb-0">
+            <p className="font-[Inter] text-xs 2xl:text-xs font-normal text-[#43474A] mb-0">
               All campaign activity is billed at the end of every week or when
               your account hits its billing threshold. You will only be charged
               for unique clicks to ensure all clicks are quality and verified.
@@ -155,7 +155,7 @@ const CampaignReview: FC<ICampaignReview> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-sm 2xl:text-md"
+                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md"
                   >
                     {cardList.map((item: any, index) => (
                       <option value={item.card_id} key={index}>
@@ -175,7 +175,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             <div className="flex-1 ms-[18px]">
               <button
                 type="button"
-                className="flex h-full px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-sm 2xl:text-md"
+                className="flex h-full px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md"
                 onClick={handleAddCard}
               >
                 <svg
@@ -285,7 +285,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           >
             <button
               type="button"
-              className="rounded-[5px] text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
+              className="rounded-[5px] text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
               disabled={!isValid}
             >
               Submit
@@ -293,7 +293,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           </Popconfirm>
           <button
             type="button"
-            className="rounded-[5px] text-black bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
+            className="rounded-[5px] text-black bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
             onClick={handleSaveDraft}
           >
             Save Draft

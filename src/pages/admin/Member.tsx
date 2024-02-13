@@ -5,7 +5,7 @@ const AdminMember: FC = () => {
     <div className="min-h-full w-full flex">
       <div className="text-left flex-1">
         <h2 className="font-[Inter] font-semibold -tracking-[.6px] text-[20px]">Team Members</h2>
-        <p className="mt-1 text-[#43474a] font-[Inter] text-sm">One-stop shop to manage all clients</p>
+        <p className="mt-1 text-[#43474a] font-[Inter] text-xs">One-stop shop to manage all clients</p>
 
         <button className='mt-8 rounded-[15px] bg-black text-white px-4 py-3 text-xs font-[Inter] font-semibold flex items-center'>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill='white' className='w-[18px] h-[18px] -ms-1 me-1'>
