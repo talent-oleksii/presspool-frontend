@@ -13,16 +13,16 @@ const AccountInfoIcon: FC = () => (
       cy="6"
       r="4"
       stroke="#000"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M18 18C16.5391 15.0366 13.5055 13 10 13C6.49453 13 3.46093 15.0366 2 18"
       stroke="#000"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );
