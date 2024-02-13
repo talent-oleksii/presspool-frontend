@@ -34,7 +34,6 @@ const AddTeammate: FC<typeAddTeammate> = ({ show, setShow }: typeAddTeammate) =>
       DialogUtils.show('success', '', data.data.mesage);
     }).catch(err => {
       DialogUtils.show('error', '', err.response.data.message);
-      console.log('add team member error:', err);
     }).finally(() => setLoading(false));
   };
 

@@ -85,9 +85,6 @@ const MainContent: FC = () => {
 
               if (location.pathname === "/") navigator("/campaign/all");
             })
-            .catch((err) => {
-              console.log("err:", err);
-            })
             .finally(() => setLoading(false));
         }
       })
@@ -175,13 +172,17 @@ const MainContent: FC = () => {
   }
 
   const links = [
+    {
+      name: "Slack Support",
+      url: "https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q",
+    },
     { name: "Blog", url: "https://blog.presspool.ai" },
     { name: "Support", url: "mailto:support@presspool.ai" },
   ];
 
   return (
     <div className="min-h-full w-full h-full">
-      <div className="w-full z-[7] pt-4 pl-5 pr-5">
+      <div className="w-full z-[7] pt-4 pl-4 pr-4">
         <div className="flex bg-[#fffdfd] rounded-[30px] items-center pl-[18px] pr-[15px] h-[40px] w-full justify-between">
           <div className="flex items-center justify-center px-5 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
@@ -212,19 +213,19 @@ const MainContent: FC = () => {
             </div> */}
         </div>
       </div>
-      <div className="grid grid-cols-[295px_repeat(4,1fr)] gap-4 h-calc-vh">
-        <div className="col-span-1 pt-4 pb-8 pl-6 flex flex-col justify-between">
+      <div className="grid grid-cols-[225px_repeat(4,1fr)] gap-4 h-calc-vh">
+        <div className="col-span-1 pt-4 pb-4 pl-4 flex flex-col justify-between">
           <div>
             <div className="flex flex-col gap-4 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-sm font-[Inter] flex shadow-md items-center font-500 text-left pl-5 py-3.5 pr-7 leading-5 w-full bg-main rounded-[20px] text-black ${
+                className={`text-sm font-[Inter] flex shadow-md items-center font-500 text-left pl-4 py-3.5 pr-4 w-full bg-main rounded-[20px] text-black ${
                   location.pathname.indexOf("new") > -1
                     ? "ring-black ring-[2px]"
                     : "ring-0"
                 }`}
               >
-                <Space size="large">
+                <Space size="middle">
                   <PlusCircleOutlined style={{ fontSize: "24px" }} />
                   Create New Campaign
                 </Space>
@@ -232,12 +233,12 @@ const MainContent: FC = () => {
               <NavLink
                 to="/campaign/all"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-sm  pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
-                <Space size="large">
+                <Space size="middle">
                   <GridIcon />
                   Dashboard
                 </Space>
@@ -245,12 +246,12 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
-                <Space size="large">
+                <Space size="middle">
                   <CampaignIcon />
                   Campaigns
                 </Space>
@@ -258,12 +259,12 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
-                <Space size="large">
+                <Space size="middle">
                   <AccountInfoIcon />
                   Account
                 </Space>
@@ -271,15 +272,13 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-5 py-3 pr-7 font-400 leading-5 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[20px] text-sm pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
-                <Space size="large">
-                  <span role="img" aria-label="support">
-                    <SupportIcon />
-                  </span>
+                <Space size="middle">
+                  <SupportIcon />
                   Support
                 </Space>
               </NavLink>
@@ -301,7 +300,7 @@ const MainContent: FC = () => {
           </button>
         </div>
         {loading && <Loading />}
-        <div className="col-span-4 pt-4 pb-8 pr-16 pl-8 overflow-y-auto bg-[#EDECF2]">
+        <div className="col-span-4 pt-4 pb-4 pr-4 pl-0 overflow-y-auto bg-[#EDECF2]">
           {!loading && (
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />

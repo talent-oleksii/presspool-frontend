@@ -25,8 +25,6 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
     }).then(() => {
       DialogUtils.show('success', '', 'Invitation Emails are sent!');
       if (onClose) onClose();
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   };
 

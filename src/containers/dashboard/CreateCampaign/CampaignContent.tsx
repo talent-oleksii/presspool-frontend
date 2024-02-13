@@ -6,6 +6,7 @@ import ALogoImage from "../../../assets/icon/alogo.png";
 import SampleLogo from "../../../assets/logo/logo.png";
 import { Controller, useFormContext } from "react-hook-form";
 import ErrorMessage from "../../../components/ErrorMessage";
+import EditIcon from "../../../icons/Edit";
 
 const CampaignContent: FC = () => {
   const {
@@ -49,6 +50,16 @@ const CampaignContent: FC = () => {
   //   trigger();
   // }, [trigger]);
 
+  const handleExpertHelp = () => {
+    const newWindow = window.open(
+      "https://calendly.com/ray-content-support/content-consultation",
+      "_blank"
+    );
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  };
+
   return (
     <motion.div
       variants={FADE_RIGHT_ANIMATION_VARIANTS}
@@ -57,6 +68,16 @@ const CampaignContent: FC = () => {
     >
       <div className="grid grid-cols-[410px_repeat(1,1fr)] gap-8 h-full w-full">
         <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            <button
+              type="button"
+              className="rounded-[5px] text-white text-left font-semibold bg-black px-4 gap-4 py-[10px] text-sm flex items-center justify-start w-[288px]"
+              onClick={handleExpertHelp}
+            >
+              <EditIcon />
+              Need expert help? Book a call here.
+            </button>
+          </div>
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold flex">
               Headline
@@ -169,7 +190,7 @@ const CampaignContent: FC = () => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
                 className={`overflow-hidden truncate px-2 text-sm py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded ${
-                  !image ? "border-[red]" : ""
+                  !!errors["image"] ? "border-[red]" : ""
                 }`}
               >
                 <>
@@ -233,7 +254,7 @@ const CampaignContent: FC = () => {
                 />
               )}
             />
-            <ErrorMessage message={!image ? "Select hero image" : ""} />
+            <ErrorMessage message={errors["image"]?.message} />
           </div>
           <div className="flex flex-col gap-2">
             <p className="font-[Inter] text-sm 2xl:text-base font-semibold mb-0 flex">

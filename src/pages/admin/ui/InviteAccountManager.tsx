@@ -22,8 +22,6 @@ const InviteAccountManager: FC<typeInviteAccountManager> = ({ show, onClose }: t
     }).then(() => {
       DialogUtils.show('success', 'Account Manager Added', 'You have successfully added a new Account Manager. They will receive an \n email shortly to complete their account creation');
       if (onClose) onClose();
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   };
 

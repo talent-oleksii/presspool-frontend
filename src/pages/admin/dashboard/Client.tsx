@@ -19,8 +19,6 @@ const AdminDashboardClient: FC = () => {
     setLoading(true);
     AdminAPIInstance.get('/dashboard/client', { params: { searchStr: '' } }).then(data => {
       setData(data.data);
-    }).catch(err => {
-      console.log('err:', err);
     }).finally(() => setLoading(false));
   }, []);
 
@@ -50,8 +48,6 @@ const AdminDashboardClient: FC = () => {
         }
         return item;
       }));
-    }).catch(err => {
-      console.log('error:', err);
     }).finally(() => setLoading(false));
   };
 

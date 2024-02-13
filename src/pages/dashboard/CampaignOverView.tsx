@@ -116,8 +116,6 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     setLoading(true);
     APIInstance.get("data/unbilled", { params: { email } })
       .then(async (data) => {
-        console.log("data:", data.data);
-
         if (Number(data.data.unbilled) <= 0) return;
         const customerId = await StripeUtil.getCustomerId(email);
 
@@ -146,11 +144,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         (await StripeUtil.stripePromise)?.redirectToCheckout({
           sessionId: session.id,
         });
-      })
-      .catch((err) => {
-        console.log("error:", err);
-      })
-      .finally(() => setLoading(false));
+      }).finally(() => setLoading(false));
   };
 
   return (

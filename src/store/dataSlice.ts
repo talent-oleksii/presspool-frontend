@@ -21,12 +21,10 @@ const dataSlice = createSlice({
       localStorage.setItem('campaign', JSON.stringify(action.payload.campaign));
     },
     addCampaign: (state, action) => {
-      console.log('this add called', action.payload);
       state.campaign = [
         ...state.campaign,
         action.payload.campaign
       ];
-      console.log('after add:', state.campaign);
       localStorage.setItem('campaign', JSON.stringify(state.campaign));
     },
     updateCampaign: (state, action) => {

@@ -13,7 +13,7 @@ module.exports = {
         cardBg: "rgba(255, 255, 255, 0.35)",
       },
       height: {
-        "calc-vh": "calc(100% - 80px)",
+        "calc-vh": "calc(100% - 57px)",
       },
       boxShadow: {
         card: "0px 5px 40px 0px rgba(113, 144, 175, 0.1)",
