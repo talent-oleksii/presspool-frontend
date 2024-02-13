@@ -68,7 +68,7 @@ const RaiseBudget: FC = () => {
       }
       <h3 className='text-center w-full font-[Inter] text-lg font-semibold -tracking-[.6px] text-black'>Raise Budget</h3>
       <div className='text-left'>
-        <p className='mt-8 font-[Inter] text-base -tracking-[.48px] font-semibold'>Please type in your updated budget cap for this campaign.</p>
+        <p className='mt-8 font-[Inter] text-sm -tracking-[.48px] font-semibold'>Please type in your updated budget cap for this campaign.</p>
         <p className='text-[#43474a] text-sm font-light mt-1'>
           *Keep in mind, these are all verified, targeted and engaged readers that will be clicking through directly to your landing page of choice. We only charge per <span className='font-bold'>unique click</span> as they come in.
         </p>

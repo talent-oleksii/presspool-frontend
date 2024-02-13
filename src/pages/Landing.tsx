@@ -52,7 +52,7 @@ const Landing: FC = () => {
           {!isAuthenticated ? (
             <>
               <Link
-                className="flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-base items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]"
+                className="flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-sm items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]"
                 to="client-sign-up"
               >
                 <img
@@ -63,7 +63,7 @@ const Landing: FC = () => {
                 <p className="mb-0 mt-[9px]">I'm a Company</p>
                 {/* <p className='mb-0 -mt-1'>Company</p> */}
               </Link>
-              <button className="flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-base items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]">
+              <button className="flex flex-col font-bold text-black py-[15px] text-sm 2xl:text-sm items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]">
                 <img
                   alt="creator"
                   src={Creator}

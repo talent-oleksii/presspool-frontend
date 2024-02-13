@@ -160,7 +160,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
                       {showWarning && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Enter Valid Email Address</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white rounded-lg px-[16px] py-[12px] font-[Inter] text-sm font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter your email address'
                       value={email}
                       type='email'
@@ -220,7 +220,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
                       {newPassword.length > 0 && !validator.isStrongPassword(newPassword) && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Your password is not secure</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-sm font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={newPassword}
@@ -231,7 +231,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({ show, setShow, isAdmin }: type
                       {confirmPassword.length > 0 && confirmPassword !== newPassword && <span className='text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]'>Password does not match</span>}
                     </p>
                     <input
-                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-base font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
+                      className={`w-full text-left mt-[10px] border-[1px] bg-white w-[600px] rounded-lg px-[16px] py-[12px] font-[Inter] text-sm font-medium -tracking-[.48px] focus:ring-0 focus:border-main ${showWarning ? 'border-[red]' : 'border-[#7f8182]'}`}
                       placeholder='Enter here'
                       type='password'
                       value={confirmPassword}

@@ -120,7 +120,7 @@ const AdminSignUp: FC = () => {
           <div className="mt-5 flex items-center">
             <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
             <div className="text-left">
-              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-base">Morgan A.</p>
+              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-sm">Morgan A.</p>
               <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
             </div>
           </div>
@@ -133,11 +133,11 @@ const AdminSignUp: FC = () => {
               <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <h2 className='font-[Inter] font-semibold text-[40px] mt-4 -tracking-[1.2px]'>Welcome</h2>
-            <p className='font-[Inter] text-base text-center -tracking-[.54px] font-medium text-[#797979] mt-1'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
+            <p className='font-[Inter] text-sm text-center -tracking-[.54px] font-medium text-[#797979] mt-1'>Access the power of the Presspool Platform to deliver your solution <br /> directly in front of targeted, engaged readers.</p>
           </div>
 
           <form className="text-left mt-[30px]" onSubmit={handleSubmit}>
-            <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
               Full Name
               {formData.fullName.length > 0 && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red] text-xs'>*Input your full name</span>}
             </label>
@@ -150,7 +150,7 @@ const AdminSignUp: FC = () => {
               type="text"
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
             />
-            <label className={`font-[Inter] text-base 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
               Affiliate Link (TrackDesk)
               {formData.company.length > 0 && validator.isEmpty(formData.company) && <span className='ms-1 text-[red] text-xs'>*Input company name</span>}
             </label>
@@ -204,12 +204,12 @@ const AdminSignUp: FC = () => {
                 type="checkbox"
                 className='w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0'
               />
-              <span className='ms-2 font-[Inter] -tracking-[.544px] text-base text-[#525252]'>
+              <span className='ms-2 font-[Inter] -tracking-[.544px] text-sm text-[#525252]'>
                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-black underline'>Terms</a> and <a className='text-black underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
               </span>
             </div>
             <button
-              className="rounded-[6px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
+              className="rounded-[6px] text-sm bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >
@@ -253,7 +253,7 @@ const AdminSignUp: FC = () => {
                     <div className="mt-3 text-center sm:mt-5">
                       <Dialog.Title
                         as="h3"
-                        className="text-base font-semibold leading-6 text-gray-900"
+                        className="text-sm font-semibold leading-6 text-gray-900"
                       >
                         Sign Up Success!
                       </Dialog.Title>

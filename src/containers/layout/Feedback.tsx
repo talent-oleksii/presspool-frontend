@@ -37,17 +37,15 @@ const Feedback: React.FC = () => {
     <div ref={ref} className="flex items-center relative pr-5">
       <button
         onClick={handleOpenChange}
-        className="flex font-[Inter] rounded-[20px] h-10 px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main hover:text-black"
+        className="flex font-[Inter] rounded-[20px] h-7 px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main hover:text-black"
       >
-        <Space>
-          <span role="img" aria-label="support">
-            <SupportIcon />
-          </span>
-          <span className="font-[Inter] text-sm">Beta feedback</span>
-        </Space>
+        <span role="img" aria-label="support">
+          <SupportIcon fontSize={18} />
+        </span>
+        <span className="font-[Inter] text-sm pl-1">Beta feedback</span>
       </button>
       {open && (
-        <Menu className="w-[300px] absolute top-[calc(100%+12px)] right-[0] !shadow-md rounded-[15px] text-left z-[9]">
+        <Menu className="w-[300px] absolute top-[calc(100%+8px)] right-[0] !shadow-md rounded-[15px] text-left z-[9]">
           <Menu.Item
             onClick={() =>
               handleItemClick("https://forms.gle/T9Kc6JvaVhzwozYR8")

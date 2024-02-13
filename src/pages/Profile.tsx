@@ -203,8 +203,8 @@ const Profile: FC = () => {
           </div>
         </div>
         {/* <div className='flex items-center justify-between w-full py-2 px-3'>
-          <p className='font-[Inter] text-[#43474A] text-base font-medium -tracking-[.54px]'>{fullName}</p>
-          <p className='font-[Inter] text-[#A3A3A3] text-sm font-medium text-base -tracking-[.48px]'>{`Date Joined: ${date}`}</p>
+          <p className='font-[Inter] text-[#43474A] text-sm font-medium -tracking-[.54px]'>{fullName}</p>
+          <p className='font-[Inter] text-[#A3A3A3] text-sm font-medium text-sm -tracking-[.48px]'>{`Date Joined: ${date}`}</p>
         </div> */}
         <button className='rounded-[5px] text-black bg-main font-[Inter] text-sm font-semibold px-8 py-1.5 mt-12' onClick={handlePublish}>Save</button>
       </div>
@@ -250,7 +250,7 @@ const Profile: FC = () => {
           </div>
         </div>
         <div className='mt-2 border-b-[1px] border-[#bcbcbc] py-4'>
-          <h4 className='font-[Inter] text-black text-base font-semibold -tracking-[.6px]'>Files</h4>
+          <h4 className='font-[Inter] text-black text-sm font-semibold -tracking-[.6px]'>Files</h4>
           <Table
             className='mt-2 file-table'
             dataSource={fileData}
@@ -267,7 +267,7 @@ const Profile: FC = () => {
           </Table>
         </div>
         <div className='flex items-center justify-between mt-6'>
-          <h4 className='font-[Inter] text-black text-base font-semibold -tracking-[.6px]'>Company Users</h4>
+          <h4 className='font-[Inter] text-black text-sm font-semibold -tracking-[.6px]'>Company Users</h4>
           <button className="font-[Inter] font-medium -tracking-[.45px] text-sm flex items-center text-white bg-black rounded-lg px-4 py-2" onClick={() => setShowAddTeamModal(true)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className='ms-1 me-2'>
               <path d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

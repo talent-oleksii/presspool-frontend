@@ -1,8 +1,10 @@
-import Stripe from 'stripe';
-import { loadStripe } from '@stripe/stripe-js';
+import Stripe from "stripe";
+import { loadStripe } from "@stripe/stripe-js";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE || '');
-const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET || '');
+const stripePromise = loadStripe(
+  process.env.REACT_APP_STRIPE_PUBLISHABLE || ""
+);
+const stripe = new Stripe(process.env.REACT_APP_STRIPE_SECRET || "");
 
 const getCustomerId = async (email: string) => {
   let customer: Stripe.Customer;
@@ -17,10 +19,21 @@ const getCustomerId = async (email: string) => {
   return customer.id;
 };
 
+const attachCardToCustomer = async (customerId: string, paymentId: string) => {
+  await stripe.paymentMethods.attach(paymentId, {
+    customer: customerId,
+  });
+  return await stripe.paymentMethods.list({
+    customer: customerId,
+    type: "card",
+  });
+};
+
 const StripeUtil = {
   stripe,
   stripePromise,
   getCustomerId,
+  attachCardToCustomer,
 };
 
 export default StripeUtil;

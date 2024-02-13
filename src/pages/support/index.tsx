@@ -22,7 +22,7 @@ const Support: FC = () => {
       <div className='pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-8 pt-4 bg-white'>
         <div className='flex flex-col items-center justify-center'>
           <img src={Ava} className='rounded-full w-[50px]' alt="ava" />
-          <h2 className='font-[Inter] text-black text-base font-semibold mt-[3px]'>Talk to Ava</h2>
+          <h2 className='font-[Inter] text-black text-sm font-semibold mt-[3px]'>Talk to Ava</h2>
           <p className='font-[Inter] text-[#43474a] font-medium text-[12px] text-center mt-[5px]'>Our support bot trained on our <br /> platfrom from A~Z!</p>
         </div>
         <iframe className='w-full h-[600px]' title="bot"
@@ -31,12 +31,12 @@ const Support: FC = () => {
 
       <div className='mt-[24px] h-fit'>
         {/* <div className='py-[30px] px-[35px] bg-white rounded-[10px] shadow-md'>
-          <h2 className='font-[Inter] text-black text-base font-semibold -tracking-[.48px]'>Human Support</h2>
+          <h2 className='font-[Inter] text-black text-sm font-semibold -tracking-[.48px]'>Human Support</h2>
           <p className='text-xs font-[Inter] text-[#43474a] font-medium mt-[18px] -tracking-[.36px]'>Email support@presspool.ai anytime, or send us a message on Slack and we will get back to you ASAP!</p>
           <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='mt-[73px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-sm font-[Inter] bg-black text-white'>Email Support</a>
         </div> */}
         <div className='bg-white rounded-[10px] shadow-md p-8'>
-          <h2 className='font-[Inter] text-black text-base font-semibold -tracking-[.48px]'>Additional Resources</h2>
+          <h2 className='font-[Inter] text-black text-sm font-semibold -tracking-[.48px]'>Additional Resources</h2>
           <div className='mt-[30px] min-w-[200px] flex'>
             <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='flex text-[#7f8182] text-sm 2xl:text-md -tracking-[.42px]'>
               Terms of services

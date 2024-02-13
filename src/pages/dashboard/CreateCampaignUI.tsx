@@ -148,7 +148,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
     <div className="h-full w-[720px] flex flex-col gap-4">
       <div className="grid grid-cols-2 gap-7">
         <div className="flex flex-col gap-2">
-          <p className="text-base 2xl:font-lg font-[Inter] text-black font-semibold flex">
+          <p className="text-sm 2xl:font-lg font-[Inter] text-black font-semibold flex">
             Campaign Name
             <CustomTooltip title="Please enter the name of your campaign" />
           </p>
@@ -160,7 +160,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-base 2xl:font-lg font-[Inter] text-black font-semibold flex">
+          <p className="text-sm 2xl:font-lg font-[Inter] text-black font-semibold flex">
             Website URL
             <CustomTooltip title="Please enter your full site URL. Example: https://www.test.com/" />
           </p>
@@ -173,7 +173,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-base 2xl:font-lg font-[Inter] font-semibold">
+        <p className="text-sm 2xl:font-lg font-[Inter] font-semibold">
           Who are you targeting
         </p>
         <div className="grid grid-cols-2 w-full gap-7">
@@ -264,7 +264,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
         </div>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-base 2xl:font-lg font-[Inter] font-semibold">
+        <p className="text-sm 2xl:font-lg font-[Inter] font-semibold">
           Please add specific audience industry tags you would like to target:
         </p>
         <CreatableSelect
@@ -287,7 +287,7 @@ const CreateCampaignUI = forwardRef((props: typeCreateCampaignUI, ref) => {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <p className="text-base 2xl:font-lg font-[Inter] font-semibold">
+        <p className="text-sm 2xl:font-lg font-[Inter] font-semibold">
           Please add specific geography/region tags you would like to target:
         </p>
         <CreatableSelect

@@ -1,11 +1,11 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { Collapse } from "antd";
 import { Link } from "react-router-dom";
 
 import { selectAuth } from "../../store/authSlice";
-import { selectData, updateCampaign } from "../../store/dataSlice";
+import { selectData, setCampaign, updateCampaign } from "../../store/dataSlice";
 
 import APIInstance from "../../api";
 import Loading from "../../components/Loading";
@@ -17,18 +17,32 @@ import { DownOutlined } from "@ant-design/icons";
 const Campaign: FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
-  const { company } = useSelector(selectAuth);
+  const { company, email } = useSelector(selectAuth);
   const { campaign: fullCampaign } = useSelector(selectData);
-  const [campaign, setCampaign] = useState<Array<any>>([]);
+  const [campaign, setCampaigns] = useState<Array<any>>([]);
 
   const dispatch = useDispatch();
+
+  const loadCampaigns = useCallback(async () => {
+    if (email) {
+      const {
+        data: { data },
+      } = await APIInstance.get("data/campaign", {
+        params: { email: email },
+      });
+      dispatch(setCampaign({ campaign: data }));
+    }
+  }, [dispatch, email]);
+
+  useEffect(() => {
+    loadCampaigns();
+  }, [loadCampaigns]);
 
   useEffect(() => {
     const campaignData = fullCampaign.filter((item) => {
       return item.name.indexOf(searchStr) > -1;
     });
-    setCampaign(campaignData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setCampaigns(campaignData);
   }, [searchStr, fullCampaign]);
 
   const handleUpdate = (id: string, state: string) => {
@@ -81,7 +95,7 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
               Start Date
             </p>
-            <p className="font-semibold font-[Inter] text-base">
+            <p className="font-semibold font-[Inter] text-sm">
               {new Date(Number(item.create_time)).toLocaleDateString()}
             </p>
           </div>
@@ -89,7 +103,7 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
               Total Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-base">
+            <p className="font-semibold font-[Inter] text-sm">
               {item.click_count}
             </p>
           </div>
@@ -97,25 +111,25 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
               Unique Clicks
             </p>
-            <p className="font-semibold font-[Inter] text-base">
+            <p className="font-semibold font-[Inter] text-sm">
               {item.unique_clicks}
             </p>
           </div>
           {/* <div className='flex flex-col items-center'>
         <p className='font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]'>AVG CPC:</p>
-        <p className='font-semibold font-[Inter] text-base'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
+        <p className='font-semibold font-[Inter] text-sm'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
       </div> */}
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
               Total Spend
             </p>
-            <p className="font-semibold font-[Inter] text-base">{`$${item.spent}`}</p>
+            <p className="font-semibold font-[Inter] text-sm">{`$${item.spent}`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-sm mb-[17px] -tracking-[.3px]">
               Budget Remaining
             </p>
-            <p className="font-semibold font-[Inter] text-base text-[#FF4D42]">{`$${
+            <p className="font-semibold font-[Inter] text-sm text-[#FF4D42]">{`$${
               Number(item.price) - Number(item.spent)
             }`}</p>
           </div>
@@ -151,7 +165,7 @@ const Campaign: FC = () => {
               <p className="text-black font-[Inter] text-sm font-normal">
                 Headline
               </p>
-              <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-base -tracking-[.42px]">
+              <h2 className="font-[Inter] text-black mt-[8px] font-semibold text-sm -tracking-[.42px]">
                 {item.headline}
               </h2>
               <p className="text-black font-[Inter] mt-[14px] text-sm font-normal mt-[14px]">
