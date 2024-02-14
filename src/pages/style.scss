@@ -13,17 +13,26 @@
 }
 
 .file-table {
+  th:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+  th:last-child {
+    border-radius: 0 10px 10px 0;
+  }
   th.ant-table-cell {
     color: #7f8182 !important;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: bold !important;
     font-style: normal;
     line-height: normal;
     letter-spacing: -0.45px;
+    background: #edecf2 !important;
   }
 
   td.ant-table-cell {
     color: #7f8182 !important;
+    font-size: 15px;
+    font-weight: 500;
   }
 }
 
@@ -45,8 +54,7 @@
     0 9px 28px 8px #0000000d !important;
 }
 
-
-.ant-collapse-content{
+.ant-collapse-content {
   width: calc(100% - 48px);
   margin: auto;
   border-top: 2px solid #d9d9d9 !important;
