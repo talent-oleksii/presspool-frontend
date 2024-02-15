@@ -323,8 +323,8 @@ const Profile: FC = () => {
                   Payment Methods
                 </h4>
                 <div className="mt-2">
-                  {cardList.map((item) => (
-                    <div key={item.id}>
+                  {cardList.map((item, index) => (
+                    <div key={index}>
                       {/* <div className='flex justify-between w-full'>
                       <p className='font-[Inter] text-[#7f8182] text-xs -tracking-[.42px]'>{`Added Date: ${moment.unix(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>
                     </div> */}
