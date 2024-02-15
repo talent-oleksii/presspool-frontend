@@ -185,7 +185,7 @@ const MainContent: FC = () => {
         <div className="flex bg-[#fffdfd] rounded-[15px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between">
           <div className="flex items-center justify-center px-2 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
-              <img src={Logo} className="h-7" alt="logo" />
+              <img src={Logo} className="h-5" alt="logo" />
             </Link>
             {/* <button
               className="ms-2 font-[Inter] -tracking-[.6px] text-xs whitespace-nowrap rounded-full bg-black text-white px-2 py-[2px]"
@@ -212,13 +212,13 @@ const MainContent: FC = () => {
             </div> */}
         </div>
       </div>
-      <div className="grid grid-cols-[205px_repeat(4,1fr)] gap-4 h-calc-vh">
+      <div className="grid grid-cols-[206px_repeat(4,1fr)] gap-4 h-calc-vh">
         <div className="col-span-1 pt-3 pb-3 pl-2.5 flex flex-col justify-between">
           <div>
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-xs font-[Inter] flex shadow-md items-center font-500 text-left pl-4 py-3.5 pr-4 w-full bg-main rounded-[15px] text-black ${
+                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-black ${
                   location.pathname.indexOf("new") > -1
                     ? "ring-black ring-[2px]"
                     : "ring-0"

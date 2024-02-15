@@ -234,7 +234,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <p className="font-[Inter] mt-4 text-xs">No data is available yet. Please create and launch your first campaign</p>
+              <p className="font-[Inter] mt-4 text-[10px]">No data is available yet. Please create and launch your first campaign</p>
             )}
           </div>
         </div>

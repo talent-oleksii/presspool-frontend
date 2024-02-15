@@ -14,7 +14,6 @@ const CampaignContent: FC = () => {
     setValue,
     watch,
     formState: { isValid, errors },
-    trigger,
   } = useFormContext();
 
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
@@ -291,7 +290,7 @@ const CampaignContent: FC = () => {
                   </span>
                 </>
               </button>
-              {!!(additionalFiles?.length ?? 0) ? (
+              {!!additionalFiles?.length ? (
                 <div
                   role="button"
                   className="relative ms-2 cursor-pointer flex items-center"

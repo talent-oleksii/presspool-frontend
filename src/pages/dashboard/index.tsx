@@ -9,7 +9,7 @@ import { selectData } from "../../store/dataSlice";
 import CampaignOverView from "./CampaignOverView";
 import CampaignDetail from "./CampaignDetail";
 import NewsLetterDetail from "./NewsLetterDetail";
-import { FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
+import { FADE_UP_ANIMATION_VARIANTS, MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
 import ByCampaignButton from "../../containers/dashboard/ByCampaignButton";
 
 const Dashboard: FC = () => {
@@ -48,7 +48,7 @@ const Dashboard: FC = () => {
         className="flex"
         initial="hidden"
         animate="show"
-        variants={FADE_UP_ANIMATION_VARIANTS}
+        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
       >
         <div className="flex-1">
           <div className="flex justify-between items-center mt-4">
