@@ -11,7 +11,7 @@ const CampaignBudget: FC = () => {
   } = useFormContext();
   const getCPC = (budget: number) => {
     const beehiivBudget =
-      Math.round((budget / ((4 * (1 + 0.1)) / (1 - 0.5))) * 4) - 2;
+      Math.round((budget / ((4 * (1 + 0.1)) / (1 - 0.6))) * 4) - 2;
     return budget / (beehiivBudget / 4);
   };
 
