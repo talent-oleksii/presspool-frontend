@@ -53,7 +53,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
       .finally(() => setLoading(false));
   }, [id, clicked]);
 
-  const handleDownloadCSV = () => {};
+  const handleDownloadCSV = () => { };
 
   return (
     <div className="mt-5">
@@ -74,27 +74,24 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           />
           <Card
             title={"Total Spend"}
-            value={`$${
-              Number(data?.unique_clicks || 0) *
+            value={`$${Number(data?.unique_clicks || 0) *
               (data?.demographic === "consumer" ? 8 : 20)
-            }`}
+              }`}
             percentage={0}
             totalCountLast4Week={0}
           />
           <Card
             title={"AVG CPC"}
-            value={`$${
-              (data.demographic || "consumer") === "consumer" ? 8 : 20
-            }`}
+            value={`$${(data.demographic || "consumer") === "consumer" ? 8 : 20
+              }`}
             percentage={0}
             totalCountLast4Week={0}
           />
         </div>
 
         <div
-          className={`my-5 p-5 ${
-            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+          className={`my-5 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+            } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -129,9 +126,8 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${
-                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+                } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
@@ -146,7 +142,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
-                <p className="font-[Inter] mt-4 text-xs">No active data yet.</p>
+                <p className="font-[Inter] mt-4 text-xs">No data is available yet. Please create and launch your first campaign</p>
               )}
             </div>
           </div>

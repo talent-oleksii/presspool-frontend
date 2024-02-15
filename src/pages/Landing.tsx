@@ -52,7 +52,7 @@ const Landing: FC = () => {
           {!isAuthenticated ? (
             <>
               <Link
-                className="flex flex-col font-bold text-black py-[15px] text-xs 2xl:text-xs items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]"
+                className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]"
                 to="client-sign-up"
               >
                 <img
@@ -63,7 +63,7 @@ const Landing: FC = () => {
                 <p className="mb-0 mt-[9px]">I'm a Company</p>
                 {/* <p className='mb-0 -mt-1'>Company</p> */}
               </Link>
-              <button className="flex flex-col font-bold text-black py-[15px] text-xs 2xl:text-xs items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]">
+              <button className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]">
                 <img
                   alt="creator"
                   src={Creator}
@@ -82,7 +82,7 @@ const Landing: FC = () => {
           )}
         </div>
         {!isAuthenticated ? (
-          <p className="mt-5 font-[Inter] font-medium text-xs text-[#7F8182]">
+          <p className="mt-5 font-[Inter] font-medium text-sm text-[#7F8182]">
             Already have an account? Sign in{" "}
             <Link to="/login" className="text-black underline">
               here
@@ -105,11 +105,10 @@ const Landing: FC = () => {
         <div className="">
           <div className="flex justify-center items-center mt-[15px]">
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 0
-                  ? "text-black border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 0
+                ? "text-black border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(0)}
             >
               <svg
@@ -131,11 +130,10 @@ const Landing: FC = () => {
               Easy Campaign Creation
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 1
-                  ? "text-black border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 1
+                ? "text-black border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(1)}
             >
               <svg
@@ -157,11 +155,10 @@ const Landing: FC = () => {
               Transparent Analytics
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 2
-                  ? "text-black border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 2
+                ? "text-black border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(2)}
             >
               <svg

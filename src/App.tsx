@@ -24,8 +24,8 @@ const App: FC = () => {
       calculatedZoom < minZoom
         ? minZoom
         : calculatedZoom > maxZoom
-        ? maxZoom
-        : calculatedZoom
+          ? maxZoom
+          : calculatedZoom
     );
   };
   const handleResize = () => {
