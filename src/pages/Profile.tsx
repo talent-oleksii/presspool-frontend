@@ -193,7 +193,7 @@ const Profile: FC = () => {
         {loading && <Loading />}
 
         <div className="border-b-[1px] border-b-[#bcbcbc] bg-white p-6 rounded-[10px] mt-4">
-          <p className="text-black text-xl font-medium -tracking-[.6px]">
+          <p className="text-black text-lg font-medium -tracking-[.6px]">
             Personal
           </p>
           <div className="items-center flex mt-4 gap-12">
@@ -267,7 +267,7 @@ const Profile: FC = () => {
           </button>
         </div>
         <div className="mt-4 p-6 bg-white rounded-[10px] shadow-md">
-          <p className="text-black text-xl font-medium -tracking-[.6px]">
+          <p className="text-black text-lg font-medium -tracking-[.6px]">
             Company
           </p>
           <div className="items-center flex mt-4 gap-12  border-b-[1px] border-[#bcbcbc]">
