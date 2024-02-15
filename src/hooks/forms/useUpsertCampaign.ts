@@ -84,7 +84,7 @@ export const useUpsertCampaign = (id?: string | undefined) => {
         image: data.image,
         additionalFiles: data.additional_files
           ? data.additional_files?.split(",")
-          : null,
+          : undefined,
         uiId: data.ui_id ?? 0,
       });
       campaignReviewMethods.reset({
