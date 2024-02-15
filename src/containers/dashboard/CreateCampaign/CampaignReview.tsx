@@ -148,7 +148,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             </p>
           </div>
           <div className="w-full grid grid-cols-[410px_repeat(1,1fr)]">
-            <div className="flex flex-col text-left">
+            <div className="flex flex-col text-left gap-2.5">
               <p className="font-[Inter] text-[14px] 2xl:text-base font-medium mb-0 flex items-center">
                 Select Card Details
               </p>
@@ -175,7 +175,7 @@ const CampaignReview: FC<ICampaignReview> = ({
               </button> */}
             </div>
 
-            <div className="flex flex-col ms-[18px]">
+            <div className="flex flex-col ms-[18px] gap-2.5">
               <p className="font-[Inter] text-[14px] 2xl:text-base font-medium mb-0 flex items-center">
                 Add New Card
               </p>
@@ -291,7 +291,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           >
             <button
               type="button"
-              className="rounded-[5px] text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
+              className="rounded-[5px] text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
               disabled={!isValid}
             >
               Submit
@@ -299,7 +299,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           </Popconfirm>
           <button
             type="button"
-            className="rounded-[5px] text-black bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
+            className="rounded-[5px] text-black bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
             onClick={handleSaveDraft}
           >
             Save Draft

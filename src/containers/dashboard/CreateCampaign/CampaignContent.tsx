@@ -392,7 +392,7 @@ const CampaignContent: FC = () => {
       <div className="w-full mt-[35px] text-center">
         <button
           type="submit"
-          className="rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-xs disabled:bg-gray-400"
+          className="rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-sm disabled:bg-gray-400"
           disabled={!isValid}
         >
           Next Step

@@ -85,7 +85,7 @@ const CampaignBudget: FC = () => {
       )}
       <div className="mt-[35px] w-full text-center">
         <button
-          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-xs"
+          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm"
           disabled={!isValid}
         >
           Next Step
