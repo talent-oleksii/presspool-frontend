@@ -11,7 +11,7 @@ import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
 
-import { FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
+import { FADE_UP_ANIMATION_VARIANTS, MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
 import { DownOutlined } from "@ant-design/icons";
 
 const Campaign: FC = () => {
@@ -270,7 +270,7 @@ const Campaign: FC = () => {
         className="mt-4 rounded-[15px]"
         initial="hidden"
         animate="show"
-        variants={FADE_UP_ANIMATION_VARIANTS}
+        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
       >
         {campaign.map((item) => (
           <Collapse
