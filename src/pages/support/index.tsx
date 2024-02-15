@@ -11,7 +11,7 @@ const Support: FC = () => {
         <h2 className="text-[20px] 2xl:text-[24px] font-[Inter] text-black font-semibold -tracking-[.6px]">
           Presspool Support 📖
         </h2>
-        <p className="mt-[6px] text-[#43474A] text-xs 2xl:text-md">
+        <p className="mt-[6px] text-[#43474A] text-sm font-normal 2xl:text-md">
           Automatic and personal support options can be found below.
         </p>
       </div>
