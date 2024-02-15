@@ -6,9 +6,9 @@ import Ava from "../../assets/image/avaV2 1.png";
 
 const Support: FC = () => {
   return (
-    <div className="text-left relative h-[calc(100vh - 80px)] flex flex-col">
+    <div className="text-left relative h-[calc(100vh - 80px)] flex flex-col pt-1.5">
       <div className="h-fit">
-        <h2 className="text-[20px] 2xl:text-[24px] font-[Inter] text-black font-semibold -tracking-[.6px]">
+        <h2 className="text-xl font-[Inter] text-black font-semibold -tracking-[.6px]">
           Presspool Support 📖
         </h2>
         <p className="mt-[6px] text-[#43474A] text-sm font-normal 2xl:text-md">
@@ -18,9 +18,10 @@ const Support: FC = () => {
       <motion.div
         initial="hidden"
         animate="show"
-        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS(2)}
+        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
+        className=" pt-4"
       >
-        <div className="pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] mt-8 pt-4 bg-white">
+        <div className="pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] bg-white">
           <div className="flex flex-col items-center justify-center">
             <img src={Ava} className="rounded-full w-[50px]" alt="ava" />
             <h2 className="font-[Inter] text-black text-xs font-semibold mt-[3px]">

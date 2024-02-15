@@ -36,7 +36,7 @@ const Dashboard: FC = () => {
   }, [fullCampaign, range]);
 
   return (
-    <div className="text-left relative">
+    <div className="text-left relative pt-1.5">
       <h1 className="font-semibold font-[Inter] text-xl -tracking-[.6px]">
         Welcome {name} 🤝
       </h1>

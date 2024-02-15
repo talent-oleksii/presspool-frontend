@@ -20,7 +20,7 @@ export const FADE_RIGHT_ANIMATION_VARIANTS = {
 };
 
 export const MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS = (
-  duration: number = 2
+  duration: number = 1
 ) => ({
   hidden: { opacity: 0, y: "100%" },
   show: { opacity: 1, y: 0, transition: { duration, type: "tween" } },

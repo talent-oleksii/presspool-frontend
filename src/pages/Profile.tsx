@@ -179,7 +179,7 @@ const Profile: FC = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between pr-4">
+      <div className="flex items-center justify-between pr-4 pt-1.5">
         <h1 className="font-semibold font-[Inter] text-xl 2xl:text-xl -tracking-[1.02px]">
           Account Details
         </h1>
@@ -188,7 +188,7 @@ const Profile: FC = () => {
         className="text-left flex flex-col"
         initial="hidden"
         animate="show"
-        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS(2)}
+        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
       >
         {loading && <Loading />}
 
