@@ -66,10 +66,8 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     () =>
       data.reduce(
         (prev, item) =>
-          prev +
-          (item.demographic === "consumer" ? 8 : 20) *
-          Number(item.unique_clicks),
-        0
+          Number(prev.spent) +
+          Number(item.spent)
       ),
     [data]
   );
