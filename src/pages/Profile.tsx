@@ -179,18 +179,19 @@ const Profile: FC = () => {
 
   return (
     <>
+      <div className="flex items-center justify-between pr-4">
+        <h1 className="font-semibold font-[Inter] text-xl 2xl:text-xl -tracking-[1.02px]">
+          Account Details
+        </h1>
+      </div>
       <motion.div
-        className="text-left relative"
+        className="text-left flex flex-col"
         initial="hidden"
         animate="show"
-        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS(3)}
+        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS(2)}
       >
         {loading && <Loading />}
-        <div className="flex items-center justify-between pr-4">
-          <h1 className="font-semibold font-[Inter] text-xl 2xl:text-xl -tracking-[1.02px]">
-            Account Details
-          </h1>
-        </div>
+
         <div className="border-b-[1px] border-b-[#bcbcbc] bg-white p-6 rounded-[10px] mt-4">
           <p className="text-black text-xl font-medium -tracking-[.6px]">
             Personal
