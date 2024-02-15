@@ -236,7 +236,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <p className="font-[Inter] mt-4 text-xs">No active data yet.</p>
+              <p className="font-[Inter] mt-4 text-[10px]">No active data yet.</p>
             )}
           </div>
         </div>
