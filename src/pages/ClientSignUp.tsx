@@ -75,31 +75,31 @@ const ClientSignUp: FC = () => {
     return (
         <div className='flex h-full relative items-center justify-center w-full'>
             {loading && <Loading />}
-            <div className="min-w-[400px] h-full bg-[#edecf2] px-[40px] py-[60px] flex flex-col justify-between border-r-[1px] border-black">
+            <div className="min-w-[400px] h-full bg-[#edecf2] pl-[35px] py-[60px] flex flex-col justify-between border-r-[1px] border-black">
                 <div>
                     <div className="flex items-center">
                         <img src={Mark} alt="mark" className="w-[50px] me-2" />
-                        <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
+                        <h3 className="font-[Inter] text-black text-[30px] font-medium -tracking-[1.02px]">presspool.ai</h3>
                     </div>
                     <div className="mt-10 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
+                            <p className="text-[#525252] font-[Inter] text-[13px] -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
                         </div>
                     </div>
                     <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
+                            <p className="text-[#525252] font-[Inter] text-[13px] -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
                         </div>
                     </div>
                     <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Grow your client base</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
+                            <p className="text-[#525252] font-[Inter] text-[13px] -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@ const ClientSignUp: FC = () => {
                     </div>
 
                     <form className="text-left mt-[30px]" onSubmit={handleSubmit}>
-                        <label className={`font-[Inter] text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
+                        <label className={`font-[Inter] text-base font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
                             Full Name
                             {formData.fullName.length > 0 && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red] text-xs'>*Input your full name</span>}
                         </label>
@@ -138,9 +138,9 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Enter here...'
                             type="text"
-                            className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-[#797979] text-[15px] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
                         />
-                        <label className={`font-[Inter] text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
+                        <label className={`font-[Inter] text-base font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
                             Company Name
                             {formData.company.length > 0 && validator.isEmpty(formData.company) && <span className='ms-1 text-[red] text-xs'>*Input company name</span>}
                         </label>
@@ -151,9 +151,9 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Enter here...'
                             type="text"
-                            className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent border-[#797979] text-[15px] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
                         />
-                        <label className={`font-[Inter] text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
+                        <label className={`font-[Inter] text-base font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
                             Email Address
                             {formData.email.length > 0 && !validator.isEmail(formData.email) && <span className='ms-1 text-[red] text-xs'>*Input valid email address</span>}
                         </label>
@@ -164,9 +164,9 @@ const ClientSignUp: FC = () => {
                             onChange={handleChange}
                             placeholder='Enter here...'
                             type="email"
-                            className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
+                            className="w-full border-[1px] bg-transparent text-[15px] border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
                         />
-                        <label className={`font-[Inter] text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
+                        <label className={`font-[Inter] text-base font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
                             Password
                             {formData.password.length > 0 && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red] text-xs'>* Your password is not secure</span>}
                         </label>
@@ -178,7 +178,7 @@ const ClientSignUp: FC = () => {
                                 onChange={handleChange}
                                 placeholder='Enter here...'
                                 type={passwordType}
-                                className="flex-1 rounded-[10px] border-none bg-transparent px-0 py-2 focus:ring-0 focus:border-none"
+                                className="flex-1 rounded-[10px] text-[15px] border-none bg-transparent px-0 py-2 focus:ring-0 focus:border-none"
                             />
                             <button onClick={handleShowPassword}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="21" viewBox="0 0 30 21" fill="none">
@@ -194,12 +194,12 @@ const ClientSignUp: FC = () => {
                                 type="checkbox"
                                 className='w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0'
                             />
-                            <span className='ms-2 font-[Inter] -tracking-[.544px] text-lg text-[#525252]'>
+                            <span className='ms-2 font-[Inter] -tracking-[.544px] text-base text-[#525252]'>
                                 I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-black underline'>Terms</a> and <a className='text-black underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
                             </span>
                         </div>
                         <button
-                            className="rounded-[6px] text-[17px] bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
+                            className="rounded-[6px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
                             type="submit"
                             disabled={!formData.agreeTerm}
                         >
@@ -207,7 +207,7 @@ const ClientSignUp: FC = () => {
                         </button>
                     </form>
                     <div className='flex items-center justify-center mt-8'>
-                        <p className="text-[19px] text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]" >Already have an account? <Link to="/login" className='text-black underline'>Login</Link></p>
+                        <p className="text-lg text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]" >Already have an account? <Link to="/login" className='text-black underline'>Login</Link></p>
                     </div>
                 </div>
             </div>

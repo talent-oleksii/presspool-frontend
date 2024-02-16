@@ -71,31 +71,31 @@ const Login: FC = () => {
     return (
         <div className='h-full w-full relative flex items-center justify-center'>
             {loading && <Loading />}
-            <div className="min-w-[400px] h-full bg-[#edecf2] px-[40px] py-[60px] flex flex-col justify-between border-r-[1px] border-black">
+            <div className="min-w-[400px] h-full bg-[#edecf2] pl-[35px] py-[60px] flex flex-col justify-between border-r-[1px] border-black">
                 <div>
                     <div className="flex items-center">
                         <img src={Mark} alt="mark" className="w-[50px] me-2" />
-                        <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
+                        <h3 className="font-[Inter] text-black text-[30px] font-medium -tracking-[1.02px]">presspool.ai</h3>
                     </div>
                     <div className="mt-10 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
+                            <p className="text-[#525252] font-[Inter] text-[13px] -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
                         </div>
                     </div>
                     <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Create / manage your campaigns</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
+                            <p className="text-[#525252] font-[Inter] text-[13px] -tracking-[.24px] font-normal mt-2">Create stellar campaigns and manage their<br /> performance all in one centralized place</p>
                         </div>
                     </div>
                     <div className="mt-6 flex">
                         <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
                         <div className="text-left">
                             <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">Grow your client base</h3>
-                            <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
+                            <p className="text-[#525252] font-[Inter] text-[13px] -tracking-[.24px] font-normal mt-2">Watch your impressions, clicks, and <br />conversions skyrocket as your solution <br />reaches targeted readers ready to buy.</p>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ const Login: FC = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="47" height="44" viewBox="0 0 47 44" fill="none">
                             <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <h2 className='font-[Inter] font-semibold text-[40px] -tracking-[1.2px] mt-[26px]'>Welcome Back</h2>
+                        <h2 className='font-[Inter] font-semibold text-[35px] -tracking-[1.05px] mt-[26px]'>Welcome Back</h2>
                         <p className='font-[Inter] text-xs -tracking-[.48px] text-[#444545] mt-[10px]'>Enter your details to login</p>
                     </div>
 
@@ -131,7 +131,7 @@ const Login: FC = () => {
                                 type="email"
                                 placeholder="Enter here..."
                                 onChange={handleChange}
-                                className="w-full border-[#7F8182] bg-transparent border-[1px] mt-2 rounded-[10px] px-4 py-2"
+                                className="w-full border-[#7F8182] bg-transparent border-[1px] text-[15px] mt-2 rounded-[10px] px-4 py-2"
                             />
                         </div>
                         <div>
@@ -143,7 +143,7 @@ const Login: FC = () => {
                                     type={passwordType}
                                     placeholder="Enter here..."
                                     onChange={handleChange}
-                                    className="flex-1 py-2 px-0 bg-transparent border-none focus:ring-0 focus:border-none"
+                                    className="flex-1 py-2 px-0 bg-transparent border-none focus:ring-0 text-[15px] focus:border-none"
                                 />
                                 <span onClick={handleShowPassword} className="cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="21" viewBox="0 0 30 21" fill="none">
@@ -154,11 +154,11 @@ const Login: FC = () => {
                             </div>
                         </div>
                         <div className="w-full text-right">
-                            <div className="font-[Inter] text-black text-lg mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
+                            <div className="font-[Inter] text-black text-base mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
                         </div>
-                        <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-[17px] text-black mt-[32px] font-semibold">Log In</button>
+                        <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-base text-black mt-[32px] font-semibold">Log In</button>
 
-                        <p className="mt-[35px] font-[Inter] text-[#525252] text-xl flex items-center justify-center -tracking-[.574px]">
+                        <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
                             Don't have an account?
                             <Link className="block text-center text-black ms-1 underline" to="/client-sign-up">Sign Up</Link>
                         </p>
