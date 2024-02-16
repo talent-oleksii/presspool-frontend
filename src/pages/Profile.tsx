@@ -179,20 +179,21 @@ const Profile: FC = () => {
 
   return (
     <>
+      <div className="flex items-center justify-between pr-4 pt-1.5">
+        <h1 className="font-semibold font-[Inter] text-xl 2xl:text-xl -tracking-[1.02px]">
+          Account Details
+        </h1>
+      </div>
       <motion.div
-        className="text-left relative"
+        className="text-left flex flex-col"
         initial="hidden"
         animate="show"
-        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS(3)}
+        variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
       >
         {loading && <Loading />}
-        <div className="flex items-center justify-between pr-4">
-          <h1 className="font-semibold font-[Inter] text-xl 2xl:text-xl -tracking-[1.02px]">
-            Account Details
-          </h1>
-        </div>
+
         <div className="border-b-[1px] border-b-[#bcbcbc] bg-white p-6 rounded-[10px] mt-4">
-          <p className="text-black text-xl font-medium -tracking-[.6px]">
+          <p className="text-black text-lg font-medium -tracking-[.6px]">
             Personal
           </p>
           <div className="items-center flex mt-4 gap-12">
@@ -266,7 +267,7 @@ const Profile: FC = () => {
           </button>
         </div>
         <div className="mt-4 p-6 bg-white rounded-[10px] shadow-md">
-          <p className="text-black text-xl font-medium -tracking-[.6px]">
+          <p className="text-black text-lg font-medium -tracking-[.6px]">
             Company
           </p>
           <div className="items-center flex mt-4 gap-12  border-b-[1px] border-[#bcbcbc]">
@@ -322,8 +323,8 @@ const Profile: FC = () => {
                   Payment Methods
                 </h4>
                 <div className="mt-2">
-                  {cardList.map((item) => (
-                    <div key={item.id}>
+                  {cardList.map((item, index) => (
+                    <div key={index}>
                       {/* <div className='flex justify-between w-full'>
                       <p className='font-[Inter] text-[#7f8182] text-xs -tracking-[.42px]'>{`Added Date: ${moment.unix(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>
                     </div> */}

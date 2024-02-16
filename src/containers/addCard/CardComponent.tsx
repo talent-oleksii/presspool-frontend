@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import { selectAuth } from "../../store/authSlice";
 import StripeUtil from "../../utils/stripe";
 import Loading from "../../components/Loading";
+import ErrorMessage from "../../components/ErrorMessage";
+import DialogUtils from "../../utils/DialogUtils";
 
 interface ICardComponent {
   onSuccess: (cards: Array<any>) => void;
@@ -42,6 +44,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
     });
 
     if (error) {
+      handleCardErrors(error);
       setLoading(false);
     } else {
       setCardErrors({});
@@ -59,6 +62,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
           customer_id: item.customer,
         }))
       );
+      DialogUtils.show("success", "", "Card successfully added");
       setLoading(false);
     }
   };
@@ -67,6 +71,32 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
     if (type === "cardNumber") return "card number";
     else if (type === "cardExpiry") return "expiry date";
     else if (type === "cardCvc") return "CVC";
+  };
+
+  const handleCardErrors = (error: StripeError) => {
+    const newErrors = { ...cardErrors };
+    switch (error.code) {
+      case "incomplete_number":
+      case "invalid_number":
+      case "incorrect_number":
+        newErrors["cardNumber"] = error.message;
+        break;
+      case "incomplete_expiry":
+      case "invalid_expiry_month":
+      case "invalid_expiry_year":
+      case "expired_card":
+        newErrors["cardExpiry"] = error.message;
+        break;
+      case "incomplete_cvc":
+      case "invalid_cvc":
+      case "incorrect_cvc":
+        newErrors["cardCvc"] = error.message;
+        break;
+      default:
+        newErrors["general"] = error.message;
+        break;
+    }
+    setCardErrors(newErrors);
   };
 
   const handleCardElementChange = (
@@ -91,7 +121,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
     <div>
       {loading && <Loading />}
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
             Card number
           </p>
@@ -99,9 +129,10 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
             className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
             onChange={(event) => handleCardElementChange(event)}
           />
+          <ErrorMessage message={cardErrors.cardNumber} />
         </div>
         <div className="grid grid-cols-2 gap-7">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
               Expiry
             </p>
@@ -109,8 +140,9 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
               className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
               onChange={(event) => handleCardElementChange(event)}
             />
+            <ErrorMessage message={cardErrors.cardExpiry} />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-1">
             <p className="font-[Inter] text-xs 2xl:text-base font-semibold flex">
               CVC
             </p>
@@ -118,6 +150,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
               className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
               onChange={(event) => handleCardElementChange(event)}
             />
+            <ErrorMessage message={cardErrors.CVC} />
           </div>
         </div>
         <button

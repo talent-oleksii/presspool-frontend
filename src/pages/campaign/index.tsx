@@ -230,10 +230,10 @@ const Campaign: FC = () => {
   ];
 
   return (
-    <div className="text-left relative">
+    <div className="text-left relative pt-1.5">
       {loading && <Loading />}
       <h1 className="font-semibold font-[Inter] text-xl -tracking-[.6px]">{`${company}'s Campaigns 📈`}</h1>
-      <p className="text-[14px] text-[#43474A]">Here's your account at a glance.</p>
+      <p className="text-sm text-[#43474A]">Here's your account at a glance.</p>
 
       <div className="flex items-center w-full mt-[24px]">
         <div className="flex w-[342px] border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-1.5">

@@ -3,7 +3,7 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FADE_RIGHT_ANIMATION_VARIANTS } from "../../../utils/TransitionConstants";
 import CustomTooltip from "../../../components/CustomTooltip";
 import ALogoImage from "../../../assets/icon/alogo.png";
-import SampleLogo from "../../../assets/logo/logo.png";
+import SampleLogo from "../../../assets/logo/logo_with_name.png";
 import { Controller, useFormContext } from "react-hook-form";
 import ErrorMessage from "../../../components/ErrorMessage";
 import EditIcon from "../../../icons/Edit";
@@ -78,7 +78,7 @@ const CampaignContent: FC = () => {
             </button>
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] text-base 2xl:text-base font-semibold flex items-center">
+            <div className="font-[Inter] leading-3.5 text-sm font-semibold flex items-center">
               Headline
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -102,7 +102,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["headLine"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] text-base 2xl:text-base font-semibold flex items-center">
+            <div className="font-[Inter] leading-3.5 text-sm font-semibold flex items-center">
               Body
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="The body of your campaign. This should be 500 characters or less and describe how you can help your ideal customer or audience achieve the promise from the headline." />
@@ -124,7 +124,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["body"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
+            <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
               CTA Text
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title='The call to action for your button. This should be something like "Free trial" or "Learn more" or "Try for free"' />
@@ -144,7 +144,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["cta"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
+            <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
               CTA Link
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -170,7 +170,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["pageUrl"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
+            <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
               Hero Image
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Recommended dimensions: 1200px X 600px" />
@@ -251,7 +251,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["image"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] text-base 2xl:text-base font-semibold mb-0 flex items-center">
+            <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
               Additional Assets
               <CustomTooltip title="Additional files for your campaign" />
             </div>
@@ -290,7 +290,7 @@ const CampaignContent: FC = () => {
                   role="button"
                   className="relative ms-2 cursor-pointer flex items-center"
                   onClick={() => {
-                    setValue("additionalFiles", null);
+                    setValue("additionalFiles", undefined);
                   }}
                 >
                   <p className="text-xs">
@@ -352,11 +352,11 @@ const CampaignContent: FC = () => {
               better, faster and easier.
             </p>
             <div className="bg-white z-10 w-full rounded-[14px] flex flex-col h-full">
-              <div className="py-4 px-2 flex items-center justify-center">
+              <div className="py-4 px-2 flex items-center justify-start">
                 <img
                   src={(previewUrl as string) || SampleLogo}
                   alt="sample logo"
-                  className="h-[140px] object-cover"
+                  className={`h-[140px] w-full object-cover`}
                 />
               </div>
               <div className="pb-2 px-2 flex flex-col items-center justify-between flex-1">

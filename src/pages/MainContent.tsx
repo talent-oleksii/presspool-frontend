@@ -176,7 +176,7 @@ const MainContent: FC = () => {
       url: "https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q",
     },
     { name: "Blog", url: "https://blog.presspool.ai" },
-    { name: "Support", url: "mailto:support@presspool.ai" },
+    { name: "Email Support", url: "mailto:support@presspool.ai" },
   ];
 
   return (
