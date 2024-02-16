@@ -93,9 +93,8 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                    }`}
                   maxLength={60}
                 />
               )}
@@ -114,9 +113,8 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full text-xs rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                  className={`mb-0 w-full text-xs rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                    }`}
                   maxLength={500}
                   rows={5}
                   data-tooltip-id="body"
@@ -137,9 +135,8 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                    }`}
                   maxLength={20}
                 />
               )}
@@ -165,9 +162,8 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg border-[1px] text-xs focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[red]" : ""
-                  }`}
+                  className={`w-full rounded-lg border-[1px] text-xs focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[red]" : ""
+                    }`}
                 />
               )}
             />
@@ -188,9 +184,8 @@ const CampaignContent: FC = () => {
                 onClick={() => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
-                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded ${
-                  !!errors["image"] ? "border-[red]" : ""
-                }`}
+                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded ${!!errors["image"] ? "border-[red]" : ""
+                  }`}
               >
                 <>
                   <svg
@@ -299,9 +294,8 @@ const CampaignContent: FC = () => {
                   }}
                 >
                   <p className="text-xs">
-                    {`${additionalFiles?.length ?? 0} file${
-                      (additionalFiles?.length ?? 0) > 1 ? "s" : ""
-                    } are selected`}
+                    {`${additionalFiles?.length ?? 0} file${(additionalFiles?.length ?? 0) > 1 ? "s" : ""
+                      } are selected`}
                   </p>
 
                   <svg
