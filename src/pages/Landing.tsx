@@ -46,7 +46,7 @@ const Landing: FC = () => {
           <span className="bg-[#43474a] text-main mx-2 rounded-full px-2 py-0">
             future
           </span>
-          of AI marketing
+          of marketing
         </h2>
         <div className="flex items-center justify-center mt-4">
           {!isAuthenticated ? (
