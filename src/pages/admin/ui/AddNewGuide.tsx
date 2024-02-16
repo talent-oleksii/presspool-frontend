@@ -36,6 +36,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
     AdminAPIInstance.post('guide', formData).then(data => {
       if (onAdd)
         onAdd(data.data);
+      onClose(false)
     }).catch(err => {
       console.log('er:', err);
     }).finally(() => setLoading(false));

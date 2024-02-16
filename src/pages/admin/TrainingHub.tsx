@@ -3,6 +3,7 @@ import AddNewGuide from './ui/AddNewGuide';
 import AdminAPIInstance from '../../api/adminApi';
 import Loading from '../../components/Loading';
 import moment from 'moment';
+import DialogUtils from '../../utils/DialogUtils';
 
 const TrainingHub: FC = () => {
   const [currentTab, setCurrentTab] = useState('video');
@@ -25,13 +26,18 @@ const TrainingHub: FC = () => {
     setShowData(data.filter(item => item.file_type === currentTab && item.title.includes(searchKey)));
   }, [data, searchKey, currentTab]);
 
-  const handleDeleteGuide = (id: string) => {
+  const deleteGuide = (id: string) => {
     setLoading(true);
     AdminAPIInstance.delete(`/guide?id=${id}`).then(() => {
       setData(data.filter(item => item.id !== id));
     }).catch(err => {
       console.log('er:', err);
     }).finally(() => setLoading(false));
+  };
+
+  const handleDeleteGuide = (id: string) => {
+    DialogUtils.ask('Are you sure you want to remove this guide?', 'Please ensure you actually want to remove it', 'Yes, Delete', 'No', () => deleteGuide(id));
+
   };
 
   return (
@@ -108,7 +114,6 @@ const TrainingHub: FC = () => {
           }
         </div>
         <AddNewGuide show={openNewModal} onClose={() => setOpenNewModal(false)} currentTab={currentTab} onAdd={(newData: any) => {
-          console.log('called:', newData)
           setData([...data, newData]);
         }} />
       </div>
