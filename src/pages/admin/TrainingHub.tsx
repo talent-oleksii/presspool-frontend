@@ -37,7 +37,7 @@ const TrainingHub: FC = () => {
   return (
     <div className='text-left relative'>
       {loading && <Loading />}
-      <h4 className='font-semibold -tracking-[.6px]'>Training Hub</h4>
+      <h4 className='font-semibold -tracking-[.6px] text-[20px]'>Training Hub</h4>
       <div className='mt-4 flex'>
         <div className='border-[1px] border-[#7f8182] rounded-lg px-3 py-2 flex items-center'>
           <svg xmlns="http://www.w3.org/2000/svg" width="21" height="20" viewBox="0 0 21 20" fill="none">
