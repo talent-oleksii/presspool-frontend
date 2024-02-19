@@ -22,10 +22,7 @@ import Loading from "../components/Loading";
 import AddTeammate from "./AddTeammate";
 import RaiseBudget from "./campaign/RaiseBudget";
 import ActionLinkCard from "../components/ActionLinkCard";
-import {
-  LogoutOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+import { LogoutOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Space } from "antd";
 
 import "./style.scss";
@@ -34,6 +31,7 @@ import AccountInfoIcon from "../icons/AccountInfo";
 import SupportIcon from "../icons/Support";
 import GridIcon from "../icons/Grid";
 import Feedback from "../containers/layout/Feedback";
+import Mark from "../assets/logo/logo.png";
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -181,7 +179,7 @@ const MainContent: FC = () => {
 
   return (
     <div className="min-h-full w-full h-full">
-      <div className="w-full z-[7] pt-2.5 pl-2.5 pr-8">
+      <div className="w-full z-[7] pt-2.5 pl-2.5 pr-8 xsm:hidden">
         <div className="flex bg-[#fffdfd] rounded-[15px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between">
           <div className="flex items-center justify-center px-2 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
@@ -212,8 +210,8 @@ const MainContent: FC = () => {
             </div> */}
         </div>
       </div>
-      <div className="grid grid-cols-[206px_repeat(4,1fr)] gap-4 h-calc-vh">
-        <div className="col-span-1 pt-3 pb-3 pl-2.5 flex flex-col justify-between">
+      <div className="flex xsm:flex-col md:grid md:grid-cols-[206px_repeat(4,1fr)] gap-4 h-full md:h-calc-vh xsm:px-9 xsm:py-8">
+        <div className="col-span-1 pt-3 pb-3 pl-2.5 flex flex-col justify-between xsm:hidden">
           <div>
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
@@ -300,8 +298,31 @@ const MainContent: FC = () => {
             </Space>
           </button>
         </div>
+        <div className="flex justify-between gap-4 md:hidden">
+          <div className="flex items-center gap-1.5 md:hidden">
+            <img src={Mark} alt="mark" className="w-[24px]" />
+            <h3 className="font-[Inter] text-black text-[16px] md:text-[22px] font-medium -tracking-[1.02px]">
+              presspool.ai
+            </h3>
+          </div>
+          <svg
+            width="24"
+            height="18"
+            viewBox="0 0 24 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1H22.3333M1 9H22.3333M1 17H22.3333"
+              stroke="black"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
         {loading && <Loading />}
-        <div className="col-span-4 pt-2.5 pb-4 pr-8 pl-2 overflow-y-auto bg-[#EDECF2]">
+        <div className="col-span-4 pt-1 md:pt-2.5 pb-4 md:pr-8 md:pl-2 overflow-y-auto bg-[#EDECF2]">
           {!loading && (
             <Routes>
               <Route path="/campaign/:id" element={<Dashboard />} />

@@ -40,19 +40,19 @@ const Landing: FC = () => {
     <div className="w-full h-full flex items-center flex-col pt-12 px-8">
       <div className="flex flex-col text-center items-center justify-center">
         <img alt="logo" src={Logo} className="w-[30px]" />
-        <h2 className="mt-2 font-[Inter] font-semibold text-[34px] mt-[12px] text-black mb-2 -tracking-[1.2px]">
+        <h2 className="font-[Inter] font-semibold text-[24px] leading-7 md:text-[34px] mt-7 md:mt-[12px] text-black md:mb-2 -tracking-[1.2px]">
           Welcome to the
           {/* <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5"> */}
           <span className="bg-[#43474a] text-main mx-2 rounded-full px-2 py-0">
             future
           </span>
-          of AI marketing
+          of marketing
         </h2>
-        <div className="flex items-center justify-center mt-4">
+        <div className="flex items-center justify-center mt-12 md:mt-4 xsm:flex-wrap gap-5 md:gap-6">
           {!isAuthenticated ? (
             <>
               <Link
-                className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center me-[12px] bg-white rounded-[10px] shadow-md w-[250px]"
+                className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center bg-white rounded-[10px] shadow-md w-[250px]"
                 to="client-sign-up"
               >
                 <img
@@ -63,7 +63,7 @@ const Landing: FC = () => {
                 <p className="mb-0 mt-[9px]">I'm a Company</p>
                 {/* <p className='mb-0 -mt-1'>Company</p> */}
               </Link>
-              <button className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center ms-[12px] bg-white rounded-[10px] shadow-md w-[250px]">
+              <button className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center  bg-white rounded-[10px] shadow-md w-[250px]">
                 <img
                   alt="creator"
                   src={Creator}
@@ -82,7 +82,7 @@ const Landing: FC = () => {
           )}
         </div>
         {!isAuthenticated ? (
-          <p className="mt-5 font-[Inter] font-medium text-sm text-[#7F8182]">
+          <p className="mt-12 md:mt-5 font-[Inter] font-medium text-sm text-[#7F8182]">
             Already have an account? Sign in{" "}
             <Link to="/login" className="text-black underline">
               here
@@ -97,18 +97,18 @@ const Landing: FC = () => {
           </button>
         )}
       </div>
-      <div className="flex items-center flex-col mt-5 rounded-[10px] px-[15px] pt-[19px] pb-[14px] w-full px-8 shadow-md bg-[#fffdfd]">
+      <div className="hidden md:flex items-center flex-col mt-5 rounded-[10px] px-[15px] pt-[19px] pb-[14px] w-full px-8 shadow-md bg-[#fffdfd]">
         <p className="text-black text-xl font-semibold -tracking-[.54px]">
           Discover Features
         </p>
-
         <div className="">
           <div className="flex justify-center items-center mt-[15px]">
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 0
-                ? "text-black border-main"
-                : "text-[#525252] border-[#EDECF2]"
-                }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+                current === 0
+                  ? "text-black border-main"
+                  : "text-[#525252] border-[#EDECF2]"
+              }`}
               onClick={() => setCurrent(0)}
             >
               <svg
@@ -130,10 +130,11 @@ const Landing: FC = () => {
               Easy Campaign Creation
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 1
-                ? "text-black border-main"
-                : "text-[#525252] border-[#EDECF2]"
-                }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+                current === 1
+                  ? "text-black border-main"
+                  : "text-[#525252] border-[#EDECF2]"
+              }`}
               onClick={() => setCurrent(1)}
             >
               <svg
@@ -155,10 +156,11 @@ const Landing: FC = () => {
               Transparent Analytics
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 2
-                ? "text-black border-main"
-                : "text-[#525252] border-[#EDECF2]"
-                }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+                current === 2
+                  ? "text-black border-main"
+                  : "text-[#525252] border-[#EDECF2]"
+              }`}
               onClick={() => setCurrent(2)}
             >
               <svg

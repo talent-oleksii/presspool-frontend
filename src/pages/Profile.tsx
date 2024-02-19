@@ -205,7 +205,7 @@ const Profile: FC = () => {
                     className="z-[0] transition-all duration-150  hover:blur-[1.5px] w-[100px] h-[100px]"
                   />
                 ) : (
-                  <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[75px] h-[75px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
+                  <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
                     {getPlaceHolder(fullName)}
                   </div>
                 )}
@@ -270,7 +270,7 @@ const Profile: FC = () => {
           <p className="text-black text-lg font-medium -tracking-[.6px]">
             Company
           </p>
-          <div className="items-center flex mt-4 gap-12  border-b-[1px] border-[#bcbcbc]">
+          <div className="items-start flex mt-4 gap-12  border-b-[1px] border-[#bcbcbc]">
             <div className="flex flex-col">
               <button className="relative">
                 {companyImage ? (
@@ -279,7 +279,7 @@ const Profile: FC = () => {
                     className="z-[0] transition-all duration-150  hover:blur-[1.5px] w-[100px] h-[100px]"
                   />
                 ) : (
-                  <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[75px] h-[75px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
+                  <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
                     {getPlaceHolder(company)}
                   </div>
                 )}
@@ -542,14 +542,15 @@ const Profile: FC = () => {
                       mode="multiple"
                       disabled={item.role === "admin"}
                       className="w-full h-[25px] rounded-[5px]"
-                      value={
-                        item.campaign_list.length > 1
-                          ? item.campaign_list
-                              .split(",")
-                              .map((value: string) => Number(value))
-                          : []
-                      }
+                      value={campaign
+                        .filter((y) =>
+                          item.campaign_list
+                            .split(",")
+                            .includes(y.id.toString())
+                        )
+                        .map((x) => x.id)}
                       onChange={(e) => {
+                        console.log(e);
                         setTeamData(
                           teamData.map((team) => {
                             if (team.id === item.id)
