@@ -160,7 +160,7 @@ const Login: FC = () => {
             presspool.ai
           </h3>
         </div>
-        <div className="w-full xl:max-w-[72%] px-[42px] xsm:bg-white h-full rounded-t-[17.2px] md:rounded-[15px] xsm:py-7 xsm:px-5">
+        <div className="w-full xl:max-w-[72%] px-[42px] xsm:bg-white xsm:h-full rounded-t-[17.2px] md:rounded-[15px] xsm:py-7 xsm:px-5">
           <div className="flex flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"

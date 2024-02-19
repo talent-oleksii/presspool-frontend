@@ -81,7 +81,7 @@ const ClientSignUp: FC = () => {
   };
 
   return (
-    <div className="flex h-auto h-full relative items-center justify-center w-full xsm:pt-8 xsm:bg-[#EDECF2]">
+    <div className="flex h-auto h-full relative items-center justify-center w-full md:bg-white xsm:pt-8 xsm:bg-[#EDECF2]">
       {loading && <Loading />}
       <div className="min-w-[400px] h-full bg-[#edecf2] px-[40px] py-[60px] hidden md:flex flex-col justify-between border-r-[1px] border-black">
         <div>
@@ -167,7 +167,7 @@ const ClientSignUp: FC = () => {
             presspool.ai
           </h3>
         </div>
-        <div className="w-full h-full rounded-t-[17.2px] xsm:mt-16 xsm:py-7 md:rounded-[15px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
+        <div className="w-full xsm:h-full rounded-t-[17.2px] xsm:mt-16 xsm:py-7 md:rounded-[15px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
           <div className="flex flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
