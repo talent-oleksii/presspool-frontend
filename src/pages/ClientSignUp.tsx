@@ -160,14 +160,14 @@ const ClientSignUp: FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex xsm:flex-col flex-1 justify-center items-center h-full  md:bg-white w-full">
+      <div className="flex xsm:flex-col flex-1 justify-center items-center h-full xsm:pt-7  md:bg-white w-full">
         <div className="flex items-center gap-1.5 md:hidden">
           <img src={Mark} alt="mark" className="w-[30px]" />
           <h3 className="font-[Inter] text-black text-[22px] font-medium -tracking-[1.02px]">
             presspool.ai
           </h3>
         </div>
-        <div className="w-full xsm:h-full rounded-t-[17.2px] xsm:mt-16 xsm:py-7 md:rounded-[15px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
+        <div className="w-full xsm:h-full rounded-t-[17.2px] xsm:mt-16 xsm:pt-7 xsm:pb-10 md:rounded-[15px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
           <div className="flex flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -175,6 +175,7 @@ const ClientSignUp: FC = () => {
               height="44"
               viewBox="0 0 47 44"
               fill="none"
+              className="xsm:w-10"
             >
               <path
                 d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5"
@@ -184,17 +185,17 @@ const ClientSignUp: FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-            <h2 className="font-[Inter] font-semibold text-[20px] md:text-[40px] mt-4 -tracking-[1.2px]">
+            <h2 className="font-[Inter] font-semibold text-[20px] md:text-[40px] -tracking-[1.2px] mt-3 md:mt-[26px]">
               Welcome!
             </h2>
-            <p className="font-[Inter] text-xs text-center -tracking-[.54px] font-medium text-[#797979] mt-1">
+            <p className="font-[Inter] text-[16px] md:text-xs -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
               Access the power of the Presspool Platform to deliver your
               solution <br className="xsm:hidden" /> directly in front of
               targeted, engaged readers.
             </p>
           </div>
           <form
-            className="text-left mt-12 md:mt-[30px]"
+            className="text-left mt-9 md:mt-[30px]"
             onSubmit={handleSubmit}
           >
             <label
