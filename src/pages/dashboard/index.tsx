@@ -9,7 +9,10 @@ import { selectData } from "../../store/dataSlice";
 import CampaignOverView from "./CampaignOverView";
 import CampaignDetail from "./CampaignDetail";
 import NewsLetterDetail from "./NewsLetterDetail";
-import { FADE_UP_ANIMATION_VARIANTS, MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
+import {
+  FADE_UP_ANIMATION_VARIANTS,
+  MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS,
+} from "../../utils/TransitionConstants";
 import ByCampaignButton from "../../containers/dashboard/ByCampaignButton";
 
 const Dashboard: FC = () => {
@@ -37,15 +40,15 @@ const Dashboard: FC = () => {
 
   return (
     <div className="text-left relative pt-1.5">
-      <h1 className="font-semibold font-[Inter] text-xl -tracking-[.6px]">
+      <h1 className="font-semibold font-[Inter] text-[18px] md:text-xl -tracking-[.6px]">
         Welcome {name} 🤝
       </h1>
-      <p className="text-sm font-normal text-[#43474A]">
+      <p className="text-[12px] md:text-sm xsm:mt-1.5 font-normal text-[#43474A]">
         Here’s a snapshot of your account, all in one place
       </p>
 
       <motion.div
-        className="flex"
+        className="flex xsm:hidden"
         initial="hidden"
         animate="show"
         variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
