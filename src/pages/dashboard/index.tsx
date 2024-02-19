@@ -47,6 +47,11 @@ const Dashboard: FC = () => {
         Here’s a snapshot of your account, all in one place
       </p>
 
+      <div className="flex md:hidden w-full border-[1px] focus:ring-0 border-main mt-4 rounded-[10px] p-2 text-sm font-normal bg-white leading-3.5">
+        Open Presspool.ai on a large screen to launch and track referral
+        campaigns
+      </div>
+
       <motion.div
         className="flex xsm:hidden"
         initial="hidden"
