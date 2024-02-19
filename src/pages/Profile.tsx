@@ -511,7 +511,7 @@ const Profile: FC = () => {
                     </button>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4 mt-5">
+                <div className="grid grid-cols gap-4 mt-5">
                   <div className="flex flex-col gap-3">
                     <p className="font-[Inter] text-xs font-medium -tracking-[.36px] text-[#a3a3a3]">
                       Access Level
@@ -534,7 +534,7 @@ const Profile: FC = () => {
                       <option value="manager">Campaign Manager</option>
                     </select>
                   </div>
-                  <div className="flex flex-col gap-3">
+                  {/* <div className="flex flex-col gap-3">
                     <p className="font-[Inter] text-xs font-medium -tracking-[.36px] text-[#a3a3a3]">
                       Campaigns Assigned
                     </p>
@@ -569,7 +569,7 @@ const Profile: FC = () => {
                         ),
                       }))}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}
