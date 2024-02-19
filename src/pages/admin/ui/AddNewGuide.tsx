@@ -8,19 +8,38 @@ interface typeAddNewGuide {
   show: boolean;
   onClose: Function;
   currentTab: string;
+  onAdd: Function;
 }
 
-const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab }: typeAddNewGuide) => {
+const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: typeAddNewGuide) => {
   const fileRef = useRef<HTMLInputElement>(null);
   const thumbnailRef = useRef<HTMLInputElement>(null);
 
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [option, setOption] = useState('file');
   const [file, setFile] = useState<any>();
   const [thumbnail, setThumbnail] = useState<any>();
+  const [link, setLink] = useState('');
 
   const handleAdd = () => {
-    AdminAPIInstance.post('');
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('type', option);
+    if (option === 'file') formData.append('attach', file);
+    else formData.append('link', link);
+    formData.append('fileType', currentTab);
+    formData.append('thumbnail', thumbnail);
+    AdminAPIInstance.post('guide', formData).then(data => {
+      if (onAdd)
+        onAdd(data.data);
+      onClose(false)
+    }).catch(err => {
+      console.log('er:', err);
+    }).finally(() => setLoading(false));
   };
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -65,12 +84,16 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab }: typeAdd
                 <input
                   className='w-full px-4 border-[1px] border-[#7f8182] rounded-[9.675px] mt-1'
                   placeholder='Enter here...'
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
                 />
                 <p className='mt-2 text-base -tracking-[.48px] font-medium'>Description</p>
                 <textarea
                   className='w-full px-4 border-[1px] border-[#7f8182] rounded-[9.675px] mt-1'
                   placeholder='Enter here...'
                   rows={3}
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
                 />
                 <p className='mt-2 text-base -tracking-[.48px] font-medium'>Choose an option</p>
                 <div className='flex mt-2'>
@@ -130,6 +153,8 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab }: typeAdd
                           <input
                             className='border-0 p-0 focus:ring-0 w-full'
                             placeholder='Enter here...'
+                            value={link}
+                            onChange={e => setLink(e.target.value)}
                           />
                         </div>
                       </>

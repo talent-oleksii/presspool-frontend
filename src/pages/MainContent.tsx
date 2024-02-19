@@ -32,6 +32,7 @@ import SupportIcon from "../icons/Support";
 import GridIcon from "../icons/Grid";
 import Feedback from "../containers/layout/Feedback";
 import Mark from "../assets/logo/logo.png";
+import QuickGuide from "./QuickGuide";
 
 const MainContent: FC = () => {
   const location = useLocation();
@@ -174,7 +175,7 @@ const MainContent: FC = () => {
       url: "https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q",
     },
     { name: "Blog", url: "https://blog.presspool.ai" },
-    { name: "Email Support", url: "mailto:support@presspool.ai" },
+    { name: "Quick Guide", url: "https://go.presspool.ai/guide" },
   ];
 
   return (
@@ -216,11 +217,10 @@ const MainContent: FC = () => {
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-black ${
-                  location.pathname.indexOf("new") > -1
-                    ? "ring-black ring-[2px]"
-                    : "ring-0"
-                }`}
+                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-black ${location.pathname.indexOf("new") > -1
+                  ? "ring-black ring-[2px]"
+                  : "ring-0"
+                  }`}
               >
                 <Space size="middle">
                   <PlusCircleOutlined
@@ -231,11 +231,10 @@ const MainContent: FC = () => {
               </Link>
               <NavLink
                 to="/campaign/all"
-                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
-                  location.pathname.startsWith("/campaign/")
-                    ? "bg-white shadow-md"
-                    : ""
-                }`}
+                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${location.pathname.startsWith("/campaign/")
+                  ? "bg-white shadow-md"
+                  : ""
+                  }`}
               >
                 <Space size="middle">
                   <GridIcon />
@@ -245,8 +244,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
-                    isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -258,8 +256,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
-                    isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -271,8 +268,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
-                    isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -333,6 +329,7 @@ const MainContent: FC = () => {
               <Route path="/billing" element={<Billing />} />
               <Route path="/support" element={<Support />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/guide" element={<QuickGuide />} />
             </Routes>
           )}
         </div>

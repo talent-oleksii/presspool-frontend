@@ -64,13 +64,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
 
   const totalSpend = useMemo(
     () =>
-      data.reduce(
-        (prev, item) =>
-          prev +
-          (item.demographic === "consumer" ? 8 : 20) *
-          Number(item.unique_clicks),
-        0
-      ),
+      data.reduce((prev, item) => prev + Number(item?.spent ?? 0), 0),
     [data]
   );
 

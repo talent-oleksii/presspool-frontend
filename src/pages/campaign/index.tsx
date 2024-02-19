@@ -128,9 +128,8 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
               Budget Remaining
             </p>
-            <p className="font-semibold font-[Inter] text-sm text-[#FF4D42]">{`$${
-              Number(item.price) - Number(item.spent)
-            }`}</p>
+            <p className="font-semibold font-[Inter] text-sm text-[#FF4D42]">{`$${Number(item.price) - Number(item.spent)
+              }`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
@@ -138,13 +137,12 @@ const Campaign: FC = () => {
             </p>
             <p className="font-semibold font-[Inter]">
               <span
-                className={`rounded-full text-xs px-[12px] mt-[25px] py-[4px] font-medium ${
-                  item.state === "draft"
-                    ? "bg-[#dbdbdb]"
-                    : item.state === "paused"
+                className={`rounded-full text-xs px-[12px] mt-[25px] py-[4px] font-medium ${item.state === "draft"
+                  ? "bg-[#dbdbdb]"
+                  : item.state === "paused"
                     ? "bg-[#fdbdbd]"
                     : "bg-main"
-                }`}
+                  }`}
               >
                 {item.state}
               </span>
@@ -272,6 +270,7 @@ const Campaign: FC = () => {
         animate="show"
         variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
       >
+        {campaign.length <= 0 && <p className="text-sm">Please create your first campaign to be able to see, manage and track your campaigns here.</p>}
         {campaign.map((item) => (
           <Collapse
             key={item.id}
