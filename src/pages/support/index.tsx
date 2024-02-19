@@ -79,7 +79,7 @@ const Support: FC = () => {
               </a>
               <a
                 target="_blank"
-                href="https://www.presspool.ai/terms"
+                href="https://www.presspool.ai/billing-policy"
                 rel="noreferrer"
                 className="flex text-[#7f8182] ms-4 text-xs 2xl:text-md -tracking-[.42px]"
               >
@@ -108,7 +108,7 @@ const Support: FC = () => {
               </a>
               <a
                 target="_blank"
-                href="https://www.presspool.ai/terms"
+                href="https://www.presspool.ai/cancellation-policy"
                 rel="noreferrer"
                 className="flex text-[#7f8182] ms-4 text-xs 2xl:text-md -tracking-[.42px]"
               >
@@ -137,7 +137,7 @@ const Support: FC = () => {
               </a>
               <a
                 target="_blank"
-                href="https://www.presspool.ai/terms"
+                href="https://www.presspool.ai/refund-policy"
                 rel="noreferrer"
                 className="flex text-[#7f8182] ms-4 text-xs 2xl:text-md -tracking-[.42px]"
               >
