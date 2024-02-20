@@ -311,9 +311,9 @@ const MainContent: FC = () => {
             <path
               d="M1 1H22.3333M1 9H22.3333M1 17H22.3333"
               stroke="black"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </div>
