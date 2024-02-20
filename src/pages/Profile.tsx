@@ -96,8 +96,21 @@ const Profile: FC = () => {
       reader.onloadend = () => {
         setCompanyImage(reader.result);
       };
-
       reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("team_avatar", file);
+      APIInstance.put("data/profile", formData)
+        .then((data) => {
+          // here comes the data, you can use it.
+          dispatch(setAvatar({ avatar: data.data.avatar }));
+          DialogUtils.show(
+            "success",
+            "",
+            "Your company logo successfully updated!"
+          );
+        })
+        .finally(() => setLoading(false));
     }
   };
 
