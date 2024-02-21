@@ -24,7 +24,7 @@ const CampaignBudget: FC = () => {
       className="w-[720px]"
     >
       <h2 className="font-[Inter] text-base 2xl:text-base font-semibold text-black">
-        Please type in your budget cap for this campaign
+        Please type in your budget cap for this campaign (This is not a one-time charge)
       </h2>
       <p className="font-[Inter] text-[#43474a] font-light text-sm 2xl:text-sm mt-[14px]">
         *Keep in mind, these are all verified, targeted and engaged readers that

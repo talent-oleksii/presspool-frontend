@@ -225,8 +225,8 @@ const Admin: FC = () => {
               {
                 adminRole === 'super_admin' &&
                 <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
-                  to="/admin/team">
-                  <img alt="TEam" src={TeamImage} className="w-[16px] me-3 ms-1" />
+                  to="/admin/member">
+                  <img alt="Team" src={TeamImage} className="w-[16px] me-3 ms-1" />
                   My Team
                 </Link>
               }
