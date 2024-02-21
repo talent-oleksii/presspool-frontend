@@ -133,7 +133,7 @@ const CreateCampaign: FC = () => {
         "Campaign details are incomplete. Please enter all required info"
       );
       success = false;
-    } else if (!campaignBudgetMethods.formState.isValid) {
+    } else if (!campaignBudgetMethods.formState.isValid && campaignBudgetMethods.getValues().currentPrice < 10000) {
       setCurrentTab(CreateCampaignTabs.BUDGET);
       DialogUtils.show("error", "", "Minimum budget must be $10000.");
       success = false;
