@@ -37,9 +37,9 @@ const Landing: FC = () => {
   };
 
   return (
-    <div className="w-full h-full flex items-center flex-col pt-12 px-8">
+    <div className="w-full h-screen flex items-center flex-col pt-12 px-8">
       <div className="flex flex-col text-center items-center justify-center">
-        <img alt="logo" src={Logo} className="w-[30px] mb-4" />
+        <img alt="logo" src={Logo} className="w-[30px] mb-5" />
         <h2 className="font-[Inter] font-semibold text-[24px] leading-7 md:text-[34px] mt-7 md:mt-[12px] text-black md:mb-2 -tracking-[1.2px]">
           Welcome to the
           {/* <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5"> */}
