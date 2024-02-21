@@ -190,13 +190,13 @@ const Landing: FC = () => {
               showIndicators={false}
             >
               <div>
-                <img src={Precise} alt="..." className="!w-[70%] rounded-md" />
+                <img src={Precise} alt="..." className="!w-[70%] max-w-[870px] rounded-md" />
               </div>
               <div>
-                <img src={Launch} alt="..." className="!w-[70%] rounded-md" />
+                <img src={Launch} alt="..." className="!w-[70%] max-w-[870px] rounded-md" />
               </div>
               <div>
-                <img src={Seamless} alt="..." className="!w-[70%] rounded-md" />
+                <img src={Seamless} alt="..." className="!w-[70%] max-w-[870px] rounded-md" />
               </div>
             </Carousel>
           </div>
