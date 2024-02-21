@@ -37,7 +37,7 @@ const Landing: FC = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center flex-col pt-12 px-8">
+    <div className="w-full h-screen pt-8 flex flex-col px-8">
       <div className="flex flex-col text-center items-center justify-center">
         <img alt="logo" src={Logo} className="w-[30px] mb-5" />
         <h2 className="font-[Inter] font-semibold text-[24px] leading-7 md:text-[34px] mt-7 md:mt-[12px] text-black md:mb-2 -tracking-[1.2px]">
@@ -97,7 +97,7 @@ const Landing: FC = () => {
           </button>
         )}
       </div>
-      <div className="hidden md:flex items-center flex-col mt-5 rounded-[10px] px-[15px] pt-[19px] pb-[14px] w-full px-8 shadow-md bg-[#fffdfd]">
+      <div className="hidden overflow-hidden md:flex flex-1 items-center flex-col mt-5 rounded-[10px] px-[15px] pt-[19px] pb-[14px] w-full px-8 shadow-md bg-[#fffdfd]">
         <p className="text-black text-xl font-semibold -tracking-[.54px]">
           Discover Features
         </p>
