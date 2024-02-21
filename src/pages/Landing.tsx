@@ -39,7 +39,7 @@ const Landing: FC = () => {
   return (
     <div className="w-full h-full flex items-center flex-col pt-12 px-8">
       <div className="flex flex-col text-center items-center justify-center">
-        <img alt="logo" src={Logo} className="w-[30px]" />
+        <img alt="logo" src={Logo} className="w-[30px] mb-4" />
         <h2 className="font-[Inter] font-semibold text-[24px] leading-7 md:text-[34px] mt-7 md:mt-[12px] text-black md:mb-2 -tracking-[1.2px]">
           Welcome to the
           {/* <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5"> */}
@@ -58,7 +58,7 @@ const Landing: FC = () => {
                 <img
                   alt="creator"
                   src={Company}
-                  className="h-[40px] 2xl:h-[50px]"
+                  className="w-[45px] h-[35.966px]"
                 />
                 <p className="mb-0 mt-[9px]">I'm a Company</p>
                 {/* <p className='mb-0 -mt-1'>Company</p> */}
@@ -67,7 +67,7 @@ const Landing: FC = () => {
                 <img
                   alt="creator"
                   src={Creator}
-                  className="h-[40px] 2xl:h-[50px]"
+                  className="w-[40px] h-[36.269px]"
                 />
                 <p className="mb-0 mt-[9px]">I'm a Creator</p>
                 {/* <p className='mb-0 -mt-1'>Creator</p> */}
@@ -104,11 +104,10 @@ const Landing: FC = () => {
         <div className="">
           <div className="flex justify-center items-center mt-[15px]">
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 0
-                  ? "text-black border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 0
+                ? "text-black border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(0)}
             >
               <svg
@@ -130,11 +129,10 @@ const Landing: FC = () => {
               Easy Campaign Creation
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 1
-                  ? "text-black border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 1
+                ? "text-black border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(1)}
             >
               <svg
@@ -156,11 +154,10 @@ const Landing: FC = () => {
               Transparent Analytics
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 2
-                  ? "text-black border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 2
+                ? "text-black border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(2)}
             >
               <svg
