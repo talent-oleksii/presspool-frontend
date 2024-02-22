@@ -60,11 +60,7 @@ const CampaignContent: FC = () => {
   };
 
   return (
-    <motion.div
-      variants={FADE_RIGHT_ANIMATION_VARIANTS}
-      initial="hidden"
-      animate="show"
-    >
+    <div>
       <div className="grid grid-cols-[410px_repeat(1,1fr)] gap-8 h-full w-full">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
@@ -188,7 +184,7 @@ const CampaignContent: FC = () => {
                 onClick={() => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
-                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded ${
+                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-[#7F8182] ${
                   !!errors["image"] ? "border-[red]" : ""
                 }`}
               >
@@ -397,7 +393,7 @@ const CampaignContent: FC = () => {
           Next Step
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
