@@ -16,7 +16,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { selectAuth } from "../../store/authSlice";
 import { useSelector } from "react-redux";
 import APIInstance from "../../api";
-import { CampaignState, CreateCampaignTabs } from "../../constants/constant";
+import {
+  CampaignState,
+  CampaignTargetType,
+  CreateCampaignTabs,
+} from "../../constants/constant";
 import DialogUtils from "../../utils/DialogUtils";
 
 const CreateCampaign: FC = () => {
@@ -85,10 +89,12 @@ const CreateCampaign: FC = () => {
         currentTarget: campaignDetails.currentTarget,
         currentAudience: campaignDetails.currentAudience,
         currentRegion: campaignDetails.currentRegion,
-        currentPosition: campaignDetails.currentPosition,
         currentPrice: campaignBudget.currentPrice,
         state: state,
         type: "all",
+        ...(campaignDetails.currentTarget === CampaignTargetType.PROFESSIONAL
+          ? { currentPosition: campaignDetails.currentPosition }
+          : {}),
       };
 
       if (id) {

@@ -254,30 +254,32 @@ const CampaignDetails: FC = () => {
           />
           <ErrorMessage message={errors["currentAudience"]?.message} />
         </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
-            Please add tags for the position you are targeting:
-            <span className="ms-1 text-[red] text-xs">*</span>
-          </p>
-          <Controller
-            name="currentPosition"
-            control={control}
-            render={({ field: { onChange, value, name } }) => (
-              <CreatableSelect
-                styles={customStyles(!!errors[name])}
-                value={(value || []).map((x: string) => ({
-                  value: x,
-                  label: x,
-                }))}
-                placeholder="Type your tag(s) and press enter"
-                onChange={(e) => onChange(e.map((item) => item.value))}
-                isMulti
-                options={positions}
-              />
-            )}
-          />
-          <ErrorMessage message={errors["currentPosition"]?.message} />
-        </div>
+        {currentTarget === CampaignTargetType.PROFESSIONAL ? (
+          <div className="flex flex-col gap-1">
+            <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
+              Please add tags for the position you are targeting:
+              <span className="ms-1 text-[red] text-xs">*</span>
+            </p>
+            <Controller
+              name="currentPosition"
+              control={control}
+              render={({ field: { onChange, value, name } }) => (
+                <CreatableSelect
+                  styles={customStyles(!!errors[name])}
+                  value={(value || []).map((x: string) => ({
+                    value: x,
+                    label: x,
+                  }))}
+                  placeholder="Type your tag(s) and press enter"
+                  onChange={(e) => onChange(e.map((item) => item.value))}
+                  isMulti
+                  options={positions}
+                />
+              )}
+            />
+            <ErrorMessage message={errors["currentPosition"]?.message} />
+          </div>
+        ) : null}
         <div className="flex flex-col gap-1">
           <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
             Please add specific geography/region tags you would like to target:
