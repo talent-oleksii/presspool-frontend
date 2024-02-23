@@ -24,6 +24,7 @@ const customStyles = (isError: boolean) => ({
 const CampaignDetails: FC = () => {
   const [audiences, setAudiences] = useState();
   const [regions, setRegions] = useState();
+  const [positions, setPositions] = useState();
   const {
     control,
     setValue,
@@ -57,9 +58,20 @@ const CampaignDetails: FC = () => {
     );
   };
 
+  const loadPositions = async () => {
+    const response = await APIInstance.get("data/position");
+    setPositions(
+      (response.data || []).map((x: { name: string }) => ({
+        value: x.name,
+        label: x.name,
+      }))
+    );
+  };
+
   useEffect(() => {
     loadAudiences();
     loadRegions();
+    loadPositions();
   }, []);
 
   return (
@@ -241,6 +253,30 @@ const CampaignDetails: FC = () => {
             )}
           />
           <ErrorMessage message={errors["currentAudience"]?.message} />
+        </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
+            Please add tags for the position you are targeting:
+            <span className="ms-1 text-[red] text-xs">*</span>
+          </p>
+          <Controller
+            name="currentPosition"
+            control={control}
+            render={({ field: { onChange, value, name } }) => (
+              <CreatableSelect
+                styles={customStyles(!!errors[name])}
+                value={(value || []).map((x: string) => ({
+                  value: x,
+                  label: x,
+                }))}
+                placeholder="Type your tag(s) and press enter"
+                onChange={(e) => onChange(e.map((item) => item.value))}
+                isMulti
+                options={positions}
+              />
+            )}
+          />
+          <ErrorMessage message={errors["currentPosition"]?.message} />
         </div>
         <div className="flex flex-col gap-1">
           <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
