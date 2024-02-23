@@ -71,6 +71,7 @@ export const useUpsertCampaign = (id?: string | undefined) => {
         url: data.url,
         currentTarget: data.demographic,
         currentAudience: data.audience,
+        currentPosition: data.position,
         currentRegion: data.region,
       });
       campaignBudgetMethods.reset({

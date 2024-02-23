@@ -5,6 +5,7 @@ export interface ICampaignDetail {
   name: string;
   url: string;
   demographic: string;
+  position: Array<string>;
   newsletter: string;
   state: string;
   audience: Array<string>;
