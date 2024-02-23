@@ -137,7 +137,7 @@ const Admin: FC = () => {
     } else if (adminRole === 'super_admin') {
       if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
       if (location.pathname.indexOf('client') > -1) return 'top-[20%]';
-      if (location.pathname.indexOf('team') > -1) return 'top-[40%]';
+      if (location.pathname.indexOf('member') > -1) return 'top-[40%]';
       if (location.pathname.indexOf('profile') > -1) return 'top-[60%]';
       if (location.pathname.indexOf('support') > -1) return 'top-[80%]';
     }
@@ -246,7 +246,7 @@ const Admin: FC = () => {
                   location.pathname.indexOf('client') > -1 ||
                   location.pathname.indexOf('profile') > -1 ||
                   location.pathname.indexOf('support') > -1 ||
-                  location.pathname.indexOf('team') > -1
+                  location.pathname.indexOf('member') > -1
                 ) &&
                 <div className={`absolute ${adminRole === 'super_admin' ? 'h-[20%]' : 'h-[25%]'} bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
               }
