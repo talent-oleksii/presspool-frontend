@@ -12,6 +12,11 @@ export const campaignDetailSchema = yup.object().shape({
     .of(yup.string())
     .min(1, "Select minimum one audience industry")
     .required("Select audience industry"),
+  currentPosition: yup
+    .array()
+    .of(yup.string())
+    .min(1, "Select minimum one position")
+    .required("Select position"),
   currentRegion: yup
     .array()
     .of(yup.string())

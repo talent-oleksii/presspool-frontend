@@ -85,6 +85,7 @@ const CreateCampaign: FC = () => {
         currentTarget: campaignDetails.currentTarget,
         currentAudience: campaignDetails.currentAudience,
         currentRegion: campaignDetails.currentRegion,
+        currentPosition: campaignDetails.currentPosition,
         currentPrice: campaignBudget.currentPrice,
         state: state,
         type: "all",

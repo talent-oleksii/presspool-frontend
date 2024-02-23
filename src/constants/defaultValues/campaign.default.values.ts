@@ -6,6 +6,7 @@ export const defaultCampaignDetailsFormData = Object.freeze({
   currentTarget: CampaignTargetType.CUSTOMER,
   currentAudience: [],
   currentRegion: [],
+  currentPosition: [],
 });
 
 export const defaultCampaignBudgetFormData = {
