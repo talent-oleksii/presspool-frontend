@@ -2,7 +2,10 @@ import { FC, Fragment, useState } from "react";
 import { motion } from "framer-motion";
 
 import Loading from "../../components/Loading";
-import { FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
+import {
+  FADE_RIGHT_ANIMATION_VARIANTS,
+  FADE_UP_ANIMATION_VARIANTS,
+} from "../../utils/TransitionConstants";
 import CampaignDetails from "../../containers/dashboard/CreateCampaign/CampaignDetails";
 import CampaignBudget from "../../containers/dashboard/CreateCampaign/CampaignBudget";
 import CampaignContent from "../../containers/dashboard/CreateCampaign/CampaignContent";
@@ -133,7 +136,7 @@ const CreateCampaign: FC = () => {
         "Campaign details are incomplete. Please enter all required info"
       );
       success = false;
-    } else if (!campaignBudgetMethods.formState.isValid && campaignBudgetMethods.getValues().currentPrice < 10000) {
+    } else if (!campaignBudgetMethods.formState.isValid) {
       setCurrentTab(CreateCampaignTabs.BUDGET);
       DialogUtils.show("error", "", "Minimum budget must be $10000.");
       success = false;
@@ -180,29 +183,41 @@ const CreateCampaign: FC = () => {
         </h2>
         <div className="grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]">
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] leading-5 text-base transition-colors duration-500 ${currentTab === "detail" ? "text-white font-semibold" : "text-black"
-              }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] leading-5 text-base transition-colors duration-500 ${
+              currentTab === "detail"
+                ? "text-white font-semibold"
+                : "text-black"
+            }`}
             onClick={() => handleClick("detail")}
           >
             Campaign Details
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${currentTab === "budget" ? "text-white font-semibold" : "text-black"
-              }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
+              currentTab === "budget"
+                ? "text-white font-semibold"
+                : "text-black"
+            }`}
             onClick={() => handleClick("budget")}
           >
             Budget
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${currentTab === "content" ? "text-white font-semibold" : "text-black"
-              }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
+              currentTab === "content"
+                ? "text-white font-semibold"
+                : "text-black"
+            }`}
             onClick={() => handleClick("content")}
           >
             Content
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${currentTab === "review" ? "text-white font-semibold" : "text-black"
-              }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
+              currentTab === "review"
+                ? "text-white font-semibold"
+                : "text-black"
+            }`}
             onClick={() => handleClick("review")}
           >
             Review
@@ -212,31 +227,51 @@ const CreateCampaign: FC = () => {
           />
         </div>
         <div className="pt-4">
-          {currentTab === "detail" && (
+          <motion.div
+            variants={FADE_RIGHT_ANIMATION_VARIANTS}
+            initial="hidden"
+            animate={`${currentTab !== "detail" ? "" : "show"}`}
+            className={`${currentTab !== "detail" ? "hidden" : ""}`}
+          >
             <FormProviderWrapper
               methods={campaignDetailMethods}
               onSubmit={handleCampaignDetailsSubmit}
             >
               <CampaignDetails />
             </FormProviderWrapper>
-          )}
-          {currentTab === "budget" && (
+          </motion.div>
+          <motion.div
+            variants={FADE_RIGHT_ANIMATION_VARIANTS}
+            initial="hidden"
+            animate={`${currentTab !== "budget" ? "" : "show"}`}
+            className={`${currentTab !== "budget" ? "hidden" : ""}`}
+          >
             <FormProviderWrapper
               methods={campaignBudgetMethods}
               onSubmit={handleCampaignBudgetSubmit}
             >
               <CampaignBudget />
             </FormProviderWrapper>
-          )}
-          {currentTab === "content" && (
+          </motion.div>
+          <motion.div
+            variants={FADE_RIGHT_ANIMATION_VARIANTS}
+            initial="hidden"
+            animate={`${currentTab !== "content" ? "" : "show"}`}
+            className={`${currentTab !== "content" ? "hidden" : ""}`}
+          >
             <FormProviderWrapper
               methods={campaignContentMethods}
               onSubmit={handleCampaignContentSubmit}
             >
               <CampaignContent />
             </FormProviderWrapper>
-          )}
-          {currentTab === "review" && (
+          </motion.div>
+          <motion.div
+            variants={FADE_RIGHT_ANIMATION_VARIANTS}
+            initial="hidden"
+            animate={`${currentTab !== "review" ? "" : "show"}`}
+            className={`${currentTab !== "review" ? "hidden" : ""}`}
+          >
             <FormProviderWrapper
               methods={campaignReviewMethods}
               onSubmit={handleCampaignReviewSubmit}
@@ -248,7 +283,7 @@ const CreateCampaign: FC = () => {
                 handleSaveDraft={handleSaveDraft}
               />
             </FormProviderWrapper>
-          )}
+          </motion.div>
         </div>
       </div>
     </motion.div>

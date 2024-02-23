@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import { FC } from "react";
-import { FADE_RIGHT_ANIMATION_VARIANTS } from "../../../utils/TransitionConstants";
 import { Controller, useFormContext } from "react-hook-form";
 
 const CampaignBudget: FC = () => {
@@ -17,14 +15,10 @@ const CampaignBudget: FC = () => {
 
   const currentPrice = watch("currentPrice");
   return (
-    <motion.div
-      variants={FADE_RIGHT_ANIMATION_VARIANTS}
-      initial="hidden"
-      animate="show"
-      className="w-[720px]"
-    >
+    <div className="w-[720px]">
       <h2 className="font-[Inter] text-base 2xl:text-base font-semibold text-black">
-        Please type in your budget cap for this campaign (This is not a one-time charge)
+        Please type in your budget cap for this campaign (This is not a one-time
+        charge)
       </h2>
       <p className="font-[Inter] text-[#43474a] font-light text-sm 2xl:text-sm mt-[14px]">
         *Keep in mind, these are all verified, targeted and engaged readers that
@@ -91,7 +85,7 @@ const CampaignBudget: FC = () => {
           Next Step
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

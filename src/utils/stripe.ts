@@ -29,11 +29,20 @@ const attachCardToCustomer = async (customerId: string, paymentId: string) => {
   });
 };
 
+const deleteCard = async (customerId: string, paymentId: string) => {
+  await stripe.paymentMethods.detach(paymentId);
+  return await stripe.paymentMethods.list({
+    customer: customerId,
+    type: "card",
+  });
+};
+
 const StripeUtil = {
   stripe,
   stripePromise,
   getCustomerId,
   attachCardToCustomer,
+  deleteCard,
 };
 
 export default StripeUtil;

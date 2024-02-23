@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import { FC, useCallback, useEffect, useState } from "react";
-import { FADE_RIGHT_ANIMATION_VARIANTS } from "../../../utils/TransitionConstants";
 import { Popconfirm } from "antd";
 import APIInstance from "../../../api";
 import { useSelector } from "react-redux";
@@ -60,12 +58,7 @@ const CampaignReview: FC<ICampaignReview> = ({
 
   return (
     <>
-      <motion.div
-        variants={FADE_RIGHT_ANIMATION_VARIANTS}
-        initial="hidden"
-        animate="show"
-        className="w-[720px]"
-      >
+      <div className="w-[720px]">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
             <p className="text-base 2xl:text-base font-[Inter] font-semibold">
@@ -306,7 +299,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           </button>
         </div>
         <div id="confirm-submit-popup"></div>
-      </motion.div>
+      </div>
       {open ? (
         <AddCard
           open={open}
