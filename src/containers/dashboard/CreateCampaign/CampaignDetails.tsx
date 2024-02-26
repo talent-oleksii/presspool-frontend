@@ -234,6 +234,7 @@ const CampaignDetails: FC = () => {
           <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
             Please add specific audience industry tags you would like to target
             <span className="ms-1 text-[red] text-xs">*</span>
+            <CustomTooltip title="Enter industry-specific tags to target sectors like ‘AI’, ‘HealthTech’, or ‘Finance’. This helps tailor your campaign to the right audience." />
           </p>
           <Controller
             name="currentAudience"
@@ -259,6 +260,7 @@ const CampaignDetails: FC = () => {
             <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
               Please add tags for the position you are targeting:
               <span className="ms-1 text-[red] text-xs">*</span>
+              <CustomTooltip title="Add job titles you’re targeting, such as ‘CTO’, ‘IT Manager’, or ‘CFO’, to ensure your campaign reaches the professionals most likely to engage." />
             </p>
             <Controller
               name="currentPosition"
@@ -284,6 +286,7 @@ const CampaignDetails: FC = () => {
           <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
             Please add specific geography/region tags you would like to target:
             <abbr className="ms-1 text-[red] text-xs">*</abbr>
+            <CustomTooltip title="Select countries you’d like to reach with your campaign. Focusing on specific countries sharpens your campaign’s geographic focus." />
           </p>
           <Controller
             name="currentRegion"
