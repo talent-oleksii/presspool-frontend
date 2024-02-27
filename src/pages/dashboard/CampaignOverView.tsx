@@ -25,6 +25,14 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   const { clicked } = useSelector(selectData);
   const { email } = useSelector(selectAuth);
 
+  const getSum = (a: Array<any>) => {
+    let sum = 0;
+    for (const i of a) {
+      sum += Number(i.count);
+    }
+    return sum;
+  };
+
   useEffect(() => {
     let grouped: any = {};
     clicked.forEach((item) => {
@@ -36,12 +44,17 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
       grouped[key].push(item);
     });
 
+    console.log('group:', grouped);
+
     setChartData(
-      Object.keys(grouped).map((item) => ({
-        impression: 0,
-        click: grouped[item].length,
-        date: item,
-      }))
+      Object.keys(grouped).map((item: any) => {
+        let sum = getSum(grouped[item]);
+        return {
+          impression: 0,
+          click: sum,
+          date: item
+        };
+      })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
