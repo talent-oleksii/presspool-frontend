@@ -35,21 +35,20 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           .filter((item) => Number(item.campaign_id) === Number(id))
           .forEach((item) => {
             const date = moment(Number(item.create_time));
-            const key = date.format("DD/MM/YYYY");
+            const key = date.format("MM/DD/YYYY");
             if (!grouped[key]) {
               grouped[key] = [];
             }
             grouped[key].push(item);
           });
 
+        const sorted = Object.keys(grouped).map((item) => ({
+          impression: 0,
+          click: grouped[item].length,
+          date: item,
+        })).sort((a: any, b: any) => moment(a.date, 'MM/DD/YYYY').valueOf() - moment(b.date, 'MM/DD/YYYY').valueOf());
 
-        setChartData(
-          Object.keys(grouped).map((item) => ({
-            impression: 0,
-            click: grouped[item].length,
-            date: item,
-          })).sort((a: any, b: any) => moment(a.date, 'DD/MM/YYYY').valueOf() - moment(b.date, 'DD/MM/YYYY').valueOf())
-        );
+        setChartData(sorted);
       })
       .finally(() => setLoading(false));
   }, [id, clicked]);

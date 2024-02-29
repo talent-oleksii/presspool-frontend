@@ -37,14 +37,12 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     let grouped: any = {};
     clicked.forEach((item) => {
       const date = moment(Number(item.create_time));
-      const key = date.format("DD/MM/YYYY");
+      const key = date.format("MM/DD/YYYY");
       if (!grouped[key]) {
         grouped[key] = [];
       }
       grouped[key].push(item);
     });
-
-    console.log('group:', grouped);
 
     setChartData(
       Object.keys(grouped).map((item: any) => {
@@ -54,7 +52,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           click: sum,
           date: item
         };
-      })
+      }).sort((a: any, b: any) => moment(a.date, 'MM/DD/YYYY').valueOf() - moment(b.date, 'MM/DD/YYYY').valueOf())
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
