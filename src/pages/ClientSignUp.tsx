@@ -1,9 +1,9 @@
-import React, { FC, useState, Fragment } from "react";
+import React, { FC, useState, Fragment, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 
 import { Dialog, Transition } from "@headlessui/react";
 import validator from "validator";
-
+import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { setAuthenticated, setToken } from "../store/authSlice";
 
@@ -12,18 +12,23 @@ import SignUpAvatar from "../assets/image/signup-avatar.jpeg";
 import Mark from "../assets/logo/logo.png";
 import Loading from "../components/Loading";
 import DialogUtils from "../utils/DialogUtils";
+import useQuery from "../hooks/useQuery";
+import { IToken } from "../interfaces/common.interface";
 
 interface FormData {
   fullName: string;
-  company: string;
-  email: string;
+  company: string | null;
+  email: string | null;
   password: string;
   agreeTerm: boolean;
 }
 
+
+
 const ClientSignUp: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const { token } = useQuery();
   const [check, setCheck] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -50,8 +55,8 @@ const ClientSignUp: FC = () => {
     setCheck(true);
     if (
       validator.isEmpty(formData.fullName) ||
-      !validator.isEmail(formData.email) ||
-      validator.isEmail(formData.company) ||
+      !validator.isEmail(formData.email || "") ||
+      validator.isEmail(formData.company || "") ||
       !validator.isStrongPassword(formData.password)
     )
       return;
@@ -79,6 +84,17 @@ const ClientSignUp: FC = () => {
     e.preventDefault();
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<IToken>(token);
+      setFormData((prev) => ({
+        ...prev,
+        company: decodedToken.companyName,
+        email: decodedToken.email,
+      }));
+    }
+  }, [token]);
 
   return (
     <div className="flex h-auto h-full relative items-center justify-center w-full md:bg-white xsm:pt-8 xsm:bg-[#EDECF2]">
@@ -194,10 +210,7 @@ const ClientSignUp: FC = () => {
               targeted, engaged readers.
             </p>
           </div>
-          <form
-            className="text-left mt-9 md:mt-[30px]"
-            onSubmit={handleSubmit}
-          >
+          <form autoComplete="off" className="text-left mt-9 md:mt-[30px]" onSubmit={handleSubmit}>
             <label
               className={`font-[Inter] text-[14px] md:text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
                 check && validator.isEmpty(formData.fullName)
@@ -224,13 +237,14 @@ const ClientSignUp: FC = () => {
             />
             <label
               className={`font-[Inter] text-[14px] md:text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.company)
+                check && validator.isEmpty(formData.company || "")
                   ? "text-[red]"
                   : "text-black"
               }`}
             >
               Company Name
-              {formData.company.length > 0 &&
+              {formData.company &&
+                formData.company.length > 0 &&
                 validator.isEmpty(formData.company) && (
                   <span className="ms-1 text-[red] text-xs">
                     *Input company name
@@ -240,21 +254,23 @@ const ClientSignUp: FC = () => {
             <input
               id="company"
               name="company"
-              value={formData.company}
+              value={formData.company || ""}
               onChange={handleChange}
               placeholder="Enter here..."
               type="text"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2"
+              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
+              disabled={!!(token && formData.company)}
             />
             <label
               className={`font-[Inter] text-[14px] md:text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
-                check && !validator.isEmail(formData.email)
+                check && !validator.isEmail(formData.email || "")
                   ? "text-[red]"
                   : "text-black"
               }`}
             >
               Email Address
-              {formData.email.length > 0 &&
+              {formData.email &&
+                formData.email.length > 0 &&
                 !validator.isEmail(formData.email) && (
                   <span className="ms-1 text-[red] text-xs">
                     *Input valid email address
@@ -264,11 +280,12 @@ const ClientSignUp: FC = () => {
             <input
               id="email"
               name="email"
-              value={formData.email}
+              value={formData.email || ""}
               onChange={handleChange}
               placeholder="Enter here..."
               type="email"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2"
+              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
+              disabled={!!(token && formData.email)}
             />
             <label
               className={`font-[Inter] text-[14px] md:ext-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
