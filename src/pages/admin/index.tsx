@@ -137,7 +137,7 @@ const Admin: FC = () => {
     } else if (adminRole === 'super_admin') {
       if (location.pathname.indexOf('dashboard') > -1) return 'top-[1%]';
       if (location.pathname.indexOf('client') > -1) return 'top-[20%]';
-      if (location.pathname.indexOf('team') > -1) return 'top-[40%]';
+      if (location.pathname.indexOf('member') > -1) return 'top-[40%]';
       if (location.pathname.indexOf('profile') > -1) return 'top-[60%]';
       if (location.pathname.indexOf('support') > -1) return 'top-[80%]';
     }
@@ -225,8 +225,8 @@ const Admin: FC = () => {
               {
                 adminRole === 'super_admin' &&
                 <Link className={`w-full text-left my-1.5 font-[Inter] text-xs rounded-[15px] px-3 py-2.5 flex items-center font-medium text-black hover:bg-white`}
-                  to="/admin/team">
-                  <img alt="TEam" src={TeamImage} className="w-[16px] me-3 ms-1" />
+                  to="/admin/member">
+                  <img alt="Team" src={TeamImage} className="w-[16px] me-3 ms-1" />
                   My Team
                 </Link>
               }
@@ -246,7 +246,7 @@ const Admin: FC = () => {
                   location.pathname.indexOf('client') > -1 ||
                   location.pathname.indexOf('profile') > -1 ||
                   location.pathname.indexOf('support') > -1 ||
-                  location.pathname.indexOf('team') > -1
+                  location.pathname.indexOf('member') > -1
                 ) &&
                 <div className={`absolute ${adminRole === 'super_admin' ? 'h-[20%]' : 'h-[25%]'} bg-white w-full rounded-[15px] shadow-sm -z-[1] transition-all duration-500 transform ${getOffsetBack()} `} />
               }

@@ -1,8 +1,8 @@
-import React, { FC, useState, Fragment } from "react";
+import React, { FC, useState, Fragment, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
-
+import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { setAuthenticated, setToken } from "../store/authSlice";
 
@@ -12,6 +12,8 @@ import SignUpAvatar from "../assets/image/signup-avatar.jpeg";
 import Mark from "../assets/logo/logo.png";
 import Loading from "../components/Loading";
 import ForgotPassword from "./ForgotPassword";
+import useQuery from "../hooks/useQuery";
+import { IToken } from "../interfaces/common.interface";
 
 interface typeLoginForm {
   email: string;
@@ -20,7 +22,7 @@ interface typeLoginForm {
 
 const Login: FC = () => {
   const dispatch = useDispatch();
-
+  const { token } = useQuery();
   const [formData, setFormData] = useState<typeLoginForm>({
     email: "",
     password: "",
@@ -72,6 +74,16 @@ const Login: FC = () => {
     e.preventDefault();
     setPasswordType(passwordType === "password" ? "text" : "password");
   };
+
+  useEffect(() => {
+    if (token) {
+      const decodedToken = jwtDecode<IToken>(token);
+      setFormData((prev) => ({
+        ...prev,
+        email: decodedToken.email,
+      }));
+    }
+  }, [token]);
 
   return (
     <div className="h-full w-full relative flex items-center justify-center">
@@ -187,6 +199,7 @@ const Login: FC = () => {
           </div>
 
           <form
+            autoComplete="off"
             className="text-left mt-9 md:py-8 md:mt-5 w-full flex justify-center flex-col"
             onSubmit={handleSubmit}
           >
@@ -199,6 +212,7 @@ const Login: FC = () => {
                 name="email"
                 type="email"
                 placeholder="Enter here..."
+                value={formData.email || ""}
                 onChange={handleChange}
                 className="w-full border-[#7F8182] bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2"
               />
@@ -213,6 +227,7 @@ const Login: FC = () => {
                   name="password"
                   type={passwordType}
                   placeholder="Enter here..."
+                  value={formData.password || ""}
                   onChange={handleChange}
                   className="flex-1 md:py-3 xsm:py2 px-0 bg-transparent border-none focus:ring-0 focus:border-none"
                 />

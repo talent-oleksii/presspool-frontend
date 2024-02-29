@@ -1,4 +1,6 @@
+//@ts-nocheck
 import * as yup from "yup";
+import { CampaignTargetType } from "../constants/constant";
 
 export const campaignDetailSchema = yup.object().shape({
   campaignName: yup.string().required("Enter campaign name"),
@@ -12,6 +14,15 @@ export const campaignDetailSchema = yup.object().shape({
     .of(yup.string())
     .min(1, "Select minimum one audience industry")
     .required("Select audience industry"),
+  currentPosition: yup
+    .array()
+    .of(yup.string())
+    .min(1, "Select minimum one position")
+    .when("currentTarget", {
+      is: CampaignTargetType.PROFESSIONAL,
+      then: () => yup.array().min(1, "Select minimum one position").required("Select position"),
+      otherwise: () => yup.array().notRequired(),
+    }),
   currentRegion: yup
     .array()
     .of(yup.string())

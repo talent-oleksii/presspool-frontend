@@ -74,14 +74,13 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           />
           <Card
             title={"Total Spend"}
-            value={`$${data?.click_count ?? 0}`}
+            value={`$${data?.spent ?? 0}`}
             percentage={0}
             totalCountLast4Week={0}
           />
           <Card
             title={"AVG CPC"}
-            value={`$${(data.demographic || "consumer") === "consumer" ? 8 : 20
-              }`}
+            value={`$${data?.spent ? Number(data?.spent) / Number(data?.unique_clicks) : 11}`}
             percentage={0}
             totalCountLast4Week={0}
           />
