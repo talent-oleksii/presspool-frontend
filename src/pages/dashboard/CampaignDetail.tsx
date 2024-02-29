@@ -38,6 +38,14 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     }).finally(() => setLoading(false));
   }, []);
 
+  const getSum = (a: Array<any>) => {
+    let sum = 0;
+    for (const i of a) {
+      sum += Number(i.count);
+    }
+    return sum;
+  };
+
   useEffect(() => {
     setLoading(true);
     APIInstance.get("data/campaign_detail", { params: { id } })
@@ -55,11 +63,14 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             grouped[key].push(item);
           });
 
-        const sorted = Object.keys(grouped).map((item) => ({
-          impression: 0,
-          click: grouped[item].length,
-          date: item,
-        })).sort((a: any, b: any) => moment(a.date, 'MM/DD/YYYY').valueOf() - moment(b.date, 'MM/DD/YYYY').valueOf());
+        const sorted = Object.keys(grouped).map((item) => {
+          let sum = getSum(grouped[item]);
+          return {
+            impression: 0,
+            click: sum,
+            date: item,
+          }
+        }).sort((a: any, b: any) => moment(a.date, 'MM/DD/YYYY').valueOf() - moment(b.date, 'MM/DD/YYYY').valueOf());
 
         setChartData(sorted);
       })
@@ -132,11 +143,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                 Download PDF
               </button>
               <div className="mt-[20px]">
-                <p className="font-[Inter] text-black text-xs font-semibold mb-2">
-                  Total Impressions
-                </p>
-                <p className="font-[Inter] text-[#7F8182] text-xs mt-2 font-semibold">
+                <p className="font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
                   Total Clicks
+                </p>
+                <p className="font-[Inter] text-[#7F8182] text-[10px] 2xl:text-xs mt-2 font-semibold">
+                  Unique Clicks
                 </p>
               </div>
             </div>
