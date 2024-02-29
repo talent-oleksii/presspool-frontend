@@ -284,8 +284,8 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
               <tr key={index} className="border-b-[1px] py-2" style={{ height: '30px' }}>
                 <td className="text-[10px] -tracking-[.24px] font-semibold">{item.name}</td>
                 <td className="text-[10px] -tracking-[.24px] font-semibold">{item.total_click}</td>
-                <td className="text-[10px] -tracking-[.24px] font-semibold">{item.spent}</td>
-                <td className="text-[10px] -tracking-[.24px] font-semibold">{`$${item.unique_click}`}</td>
+                <td className="text-[10px] -tracking-[.24px] font-semibold">{`${item.unique_click}`}</td>
+                <td className="text-[10px] -tracking-[.24px] font-semibold">{`$${item.spent}`}</td>
                 <td className="text-[10px] -tracking-[.24px] font-semibold">{`${getTraffic(item.total_click)}%`}</td>
                 <td className="">
                   <button className="text-[10px]">👍</button>
@@ -295,9 +295,12 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
             ))}
           </tbody>
         </table>
-        <p className="font-[Inter] mt-4 text-[10px]">
-          No data is available yet. Please create and launch your first campaign
-        </p>
+        {
+          newsletter.length <= 0 &&
+          <p className="font-[Inter] mt-4 text-[10px]">
+            No data is available yet. Please create and launch your first campaign
+          </p>
+        }
       </div>
     </div>
   );

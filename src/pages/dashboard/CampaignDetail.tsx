@@ -217,8 +217,8 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                 <tr key={index} className="border-b-[1px] py-2" style={{ height: '30px' }}>
                   <td className="text-[10px] -tracking-[.24px] font-semibold">{item.name}</td>
                   <td className="text-[10px] -tracking-[.24px] font-semibold">{item.total_click}</td>
-                  <td className="text-[10px] -tracking-[.24px] font-semibold">{item.spent}</td>
-                  <td className="text-[10px] -tracking-[.24px] font-semibold">{`$${item.unique_click}`}</td>
+                  <td className="text-[10px] -tracking-[.24px] font-semibold">{`${item.unique_click}`}</td>
+                  <td className="text-[10px] -tracking-[.24px] font-semibold">{`$${item.spent}`}</td>
                   <td className="text-[10px] -tracking-[.24px] font-semibold">{`${getTraffic(item.total_click)}%`}</td>
                   <td className="">
                     <button className="text-[10px]">👍</button>
