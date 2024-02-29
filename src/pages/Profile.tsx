@@ -513,10 +513,10 @@ const Profile: FC = () => {
                       <p className="font-[Inter] text-[#43474a] text-sm font-medium -tracking-[.36px] leading-[14px]">
                         {item.name}
                       </p>
-                      <p className="font-[Inter] text-[#A3A3A3] text-[10px] font-normal -tracking-[.3px]">
+                      <p className="font-[Inter] text-[#A3A3A3] text-xs font-normal -tracking-[.3px]">
                         {item.manager}
                       </p>
-                      <p className="font-[Inter] text-[#A3A3A3] text-[8px] font-normal -tracking-[.3px]">
+                      <p className="font-[Inter] text-[#A3A3A3] text-[10px] font-normal -tracking-[.3px]">
                         {`Joined : ${moment(
                           new Date((item.create_time / 1000) * 1000)
                         ).format("MM/DD/YYYY")}`}
