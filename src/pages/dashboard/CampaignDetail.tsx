@@ -42,12 +42,13 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             grouped[key].push(item);
           });
 
+
         setChartData(
           Object.keys(grouped).map((item) => ({
             impression: 0,
             click: grouped[item].length,
             date: item,
-          }))
+          })).sort((a: any, b: any) => moment(a.date, 'DD/MM/YYYY').valueOf() - moment(b.date, 'DD/MM/YYYY').valueOf())
         );
       })
       .finally(() => setLoading(false));
