@@ -9,11 +9,8 @@ import Loading from "../../components/Loading";
 import { selectAuth } from "../../store/authSlice";
 import StripeUtil from "../../utils/stripe";
 
-import DownloadImage from "../../assets/icon/download.png";
 import Card from "../../components/Card";
 import { CloudDownloadOutlined } from "@ant-design/icons";
-
-const data01: Array<any> = [];
 
 interface typeOverView {
   data: Array<any>;
@@ -24,6 +21,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   const [loading, setLoading] = useState(false);
   const { clicked } = useSelector(selectData);
   const { email } = useSelector(selectAuth);
+  const [newsletter, setNewsletter] = useState<Array<any>>([]);
 
   const getSum = (a: Array<any>) => {
     let sum = 0;
@@ -32,6 +30,16 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     }
     return sum;
   };
+
+  useEffect(() => {
+    setLoading(true);
+    APIInstance.get('/data/newsletter', { params: { email } }).then(data => {
+      console.log('data:', data.data);
+      setNewsletter(data.data);
+    }).catch(error => {
+      console.log('err:', error);
+    }).finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     let grouped: any = {};
@@ -88,6 +96,13 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     return unbilled;
   };
 
+  const getTraffic = (click: Number) => {
+    let sumClick = 0;
+    for (const item of newsletter) sumClick += Number(item.total_click);
+
+    return Math.round(Number(click) * 100 / sumClick);
+  };
+
   const handleDownloadCSV = () => {
     var csv =
       "Date, URL, DEMOGRAPHIC, HEADLINE, BODY, CTA, CLICK_COUNT, PAGE_URL\n";
@@ -115,42 +130,6 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
     //provide the name for the CSV file to be downloaded
     hiddenElement.download = "Reports.csv";
     hiddenElement.click();
-  };
-
-  const handlePayNow = () => {
-    setLoading(true);
-    APIInstance.get("data/unbilled", { params: { email } })
-      .then(async (data) => {
-        if (Number(data.data.unbilled) <= 0) return;
-        const customerId = await StripeUtil.getCustomerId(email);
-
-        const newPrice = await StripeUtil.stripe.prices.create({
-          currency: "usd",
-          unit_amount: Number(data.data.unbilled) * 100,
-          product_data: {
-            name: "Presspool AI Unbilled Services",
-          },
-          metadata: { state: "unbilled" },
-        });
-
-        const session = await StripeUtil.stripe.checkout.sessions.create({
-          customer: customerId,
-          mode: "payment",
-          line_items: [{ price: newPrice.id, quantity: 1 }],
-          success_url: "https://go.presspool.ai/campaign/all",
-          cancel_url: "https://go.presspool.ai/campaign/all",
-          payment_intent_data: {
-            metadata: {
-              state: "unbilled",
-            },
-          },
-        });
-
-        (await StripeUtil.stripePromise)?.redirectToCheckout({
-          sessionId: session.id,
-        });
-      })
-      .finally(() => setLoading(false));
   };
 
   return (
@@ -252,10 +231,10 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           <thead>
             <tr>
               <td className="text-[10px] font-[Inter]">Name</td>
-              <td className="text-[10px] font-[Inter]">Impressions</td>
-              <td className="text-[10px] font-[Inter]">Clicks</td>
+              <td className="text-[10px] font-[Inter]">Total Clicks</td>
+              <td className="text-[10px] font-[Inter]">Unique Clicks</td>
               <td className="text-[10px] font-[Inter]">Total Spend</td>
-              <td className="text-[10px] font-[Inter]">
+              {/* <td className="text-[10px] font-[Inter]">
                 <span className="flex items-center">
                   CTR
                   <Tooltip
@@ -275,7 +254,7 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                   </Tooltip>
                   <div id="ctr-tooltip"></div>
                 </span>
-              </td>
+              </td> */}
               <td className="text-[10px] font-[Inter]">
                 <span className="flex items-center">
                   % of Total Traffic
@@ -301,13 +280,14 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
             </tr>
           </thead>
           <tbody>
-            {data01.map((item, index) => (
-              <tr key={index}>
-                <td>{item.name}</td>
-                <td>15,000</td>
-                <td>250</td>
-                <td>1.67%</td>
-                <td className="flex">
+            {newsletter.map((item, index) => (
+              <tr key={index} className="border-b-[1px] py-2" style={{ height: '30px' }}>
+                <td className="text-[10px] -tracking-[.24px] font-semibold">{item.name}</td>
+                <td className="text-[10px] -tracking-[.24px] font-semibold">{item.total_click}</td>
+                <td className="text-[10px] -tracking-[.24px] font-semibold">{item.spent}</td>
+                <td className="text-[10px] -tracking-[.24px] font-semibold">{`$${item.unique_click}`}</td>
+                <td className="text-[10px] -tracking-[.24px] font-semibold">{`${getTraffic(item.total_click)}%`}</td>
+                <td className="">
                   <button className="text-[10px]">👍</button>
                   <button className="text-[10px]">👎</button>
                 </td>

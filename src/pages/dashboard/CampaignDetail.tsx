@@ -7,6 +7,7 @@ import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
+import { selectAuth } from "../../store/authSlice";
 
 import DownloadImage from "../../assets/icon/download.png";
 import Card from "../../components/Card";
@@ -24,6 +25,18 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState<Array<any>>([]);
   const { clicked } = useSelector(selectData);
+  const { email } = useSelector(selectAuth);
+  const [newsletter, setNewsletter] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    setLoading(true);
+    APIInstance.get('/data/newsletter', { params: { email } }).then(data => {
+      console.log('data:', data.data);
+      setNewsletter(data.data.filter((item: any) => Number(item.campaign_id) == Number(id)));
+    }).catch(error => {
+      console.log('err:', error);
+    }).finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -54,6 +67,13 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
   }, [id, clicked]);
 
   const handleDownloadCSV = () => { };
+
+  const getTraffic = (click: Number) => {
+    let sumClick = 0;
+    for (const item of newsletter) sumClick += Number(item.total_click);
+
+    return Math.round(Number(click) * 100 / sumClick);
+  };
 
   return (
     <div className="mt-5">
@@ -151,11 +171,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <table className="w-full">
             <thead>
               <tr>
-                <td className="text-xs font-[Inter]">Name</td>
-                <td className="text-xs font-[Inter]">Impressions</td>
-                <td className="text-xs font-[Inter]">Clicks</td>
-                <td className="text-xs font-[Inter]">Total Spend</td>
-                <td className="text-xs font-[Inter]">
+                <td className="text-[10px] font-[Inter]">Name</td>
+                <td className="text-[10px] font-[Inter]">Total Clicks</td>
+                <td className="text-[10px] font-[Inter]">Unique Clicks</td>
+                <td className="text-[10px] font-[Inter]">Total Spend</td>
+                {/* <td className="text-xs font-[Inter]">
                   <span className="flex items-center">
                     CTR
                     <Tooltip
@@ -171,7 +191,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                       </svg>
                     </Tooltip>
                   </span>
-                </td>
+                </td> */}
                 <td className="text-xs font-[Inter]">
                   <span className="flex items-center">
                     % of Total Traffic
@@ -193,23 +213,27 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               </tr>
             </thead>
             <tbody>
-              {data01.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.name}</td>
-                  <td>15,000</td>
-                  <td>250</td>
-                  <td>1.67%</td>
-                  <td className="flex">
-                    <button className="text-xs">👍</button>
-                    <button className="text-xs">👎</button>
+              {newsletter.map((item, index) => (
+                <tr key={index} className="border-b-[1px] py-2" style={{ height: '30px' }}>
+                  <td className="text-[10px] -tracking-[.24px] font-semibold">{item.name}</td>
+                  <td className="text-[10px] -tracking-[.24px] font-semibold">{item.total_click}</td>
+                  <td className="text-[10px] -tracking-[.24px] font-semibold">{item.spent}</td>
+                  <td className="text-[10px] -tracking-[.24px] font-semibold">{`$${item.unique_click}`}</td>
+                  <td className="text-[10px] -tracking-[.24px] font-semibold">{`${getTraffic(item.total_click)}%`}</td>
+                  <td className="">
+                    <button className="text-[10px]">👍</button>
+                    <button className="text-[10px]">👎</button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p className="font-[Inter] mt-4 text-xs">
-            No data is available yet. Please create and launch your first campaign
-          </p>
+          {
+            newsletter.length <= 0 &&
+            <p className="font-[Inter] mt-4 text-xs">
+              No data is available yet. Please create and launch your first campaign
+            </p>
+          }
         </div>
       </>
     </div>
