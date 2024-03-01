@@ -257,7 +257,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             // onCancel={() => setOpenConfirm(false)}
             okButtonProps={{
               style: {
-                background: "#bff7ae",
+                background: "#7FFBAE",
                 padding: "1rem 1rem 1rem 1rem",
                 color: "black",
                 display: "inline-flex",
