@@ -193,7 +193,7 @@ const Login: FC = () => {
             <h2 className="font-[Inter] font-semibold text-[20px] md:text-[40px] -tracking-[1.2px] mt-3 md:mt-[26px]">
               Welcome Back
             </h2>
-            <p className="font-[Inter] text-[16px] md:text-xs -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
+            <p className="font-[Inter] text-[17px] -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
               Enter your details to login
             </p>
           </div>
