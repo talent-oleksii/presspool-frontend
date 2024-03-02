@@ -101,7 +101,7 @@ const CampaignDetails: FC = () => {
                   onBlur={field.onBlur}
                   value={field.value}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border text-xs font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -122,7 +122,7 @@ const CampaignDetails: FC = () => {
                 <input
                   {...field}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border text-xs font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
