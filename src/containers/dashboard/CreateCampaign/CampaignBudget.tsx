@@ -27,14 +27,14 @@ const CampaignBudget: FC = () => {
         come in.
       </p>
       <div className="pl-2 pr-4 mt-[23px] border-[1px] rounded-lg border-black w-full flex justify-between items-center relative">
+        <span className="text-sm font-medium">$</span>
         <Controller
           name="currentPrice"
           control={control}
           render={({ field }) => (
             <input
               {...field}
-              prefix="$"
-              className="border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 text-xs 2xl:text-md"
+              className="border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 font-medium text-sm 2xl:text-md px-0"
               type="number"
               min="10000"
             />
