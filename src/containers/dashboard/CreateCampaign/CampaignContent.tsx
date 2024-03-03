@@ -88,7 +88,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={60}
@@ -109,7 +109,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full text-xs rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`mb-0 w-full font-medium text-sm rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={500}
@@ -132,7 +132,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={20}
@@ -142,7 +142,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["cta"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
+            <div className="font-[Inter] leading-3.5 font-medium text-sm font-semibold mb-0 flex items-center">
               CTA Link
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -160,7 +160,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg border-[1px] text-xs focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[red]" : ""
                   }`}
                 />
