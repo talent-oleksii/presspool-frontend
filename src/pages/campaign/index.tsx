@@ -342,7 +342,7 @@ const Campaign: FC = () => {
       </div>
 
       <motion.div
-        className="mt-4 rounded-[15px]"
+        className="mt-4 rounded-[15px] h-full"
         initial="hidden"
         animate="show"
         variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
