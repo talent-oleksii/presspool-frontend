@@ -44,9 +44,9 @@ const Landing: FC = () => {
           Welcome to the
           {/* <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5"> */}
           <span className="bg-[#43474a] text-main mx-2 rounded-full px-2 py-0">
-            future
+            Future
           </span>
-          of marketing
+          of Marketing
         </h2>
         <div className="flex items-center justify-center mt-12 md:mt-4 xsm:flex-wrap gap-5 md:gap-6">
           {!isAuthenticated ? (
@@ -104,10 +104,11 @@ const Landing: FC = () => {
         <div className="">
           <div className="flex justify-center items-center mt-[15px]">
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 0
-                ? "text-black border-main"
-                : "text-[#525252] border-[#EDECF2]"
-                }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+                current === 0
+                  ? "text-black border-main"
+                  : "text-[#525252] border-[#EDECF2]"
+              }`}
               onClick={() => setCurrent(0)}
             >
               <svg
@@ -129,10 +130,11 @@ const Landing: FC = () => {
               Easy Campaign Creation
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 1
-                ? "text-black border-main"
-                : "text-[#525252] border-[#EDECF2]"
-                }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+                current === 1
+                  ? "text-black border-main"
+                  : "text-[#525252] border-[#EDECF2]"
+              }`}
               onClick={() => setCurrent(1)}
             >
               <svg
@@ -154,10 +156,11 @@ const Landing: FC = () => {
               Transparent Analytics
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 2
-                ? "text-black border-main"
-                : "text-[#525252] border-[#EDECF2]"
-                }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+                current === 2
+                  ? "text-black border-main"
+                  : "text-[#525252] border-[#EDECF2]"
+              }`}
               onClick={() => setCurrent(2)}
             >
               <svg
@@ -190,13 +193,25 @@ const Landing: FC = () => {
               showIndicators={false}
             >
               <div>
-                <img src={Precise} alt="..." className="!w-[70%] max-w-[870px] rounded-md" />
+                <img
+                  src={Precise}
+                  alt="..."
+                  className="!w-[70%] max-w-[870px] rounded-md"
+                />
               </div>
               <div>
-                <img src={Launch} alt="..." className="!w-[70%] max-w-[870px] rounded-md" />
+                <img
+                  src={Launch}
+                  alt="..."
+                  className="!w-[70%] max-w-[870px] rounded-md"
+                />
               </div>
               <div>
-                <img src={Seamless} alt="..." className="!w-[70%] max-w-[870px] rounded-md" />
+                <img
+                  src={Seamless}
+                  alt="..."
+                  className="!w-[70%] max-w-[870px] rounded-md"
+                />
               </div>
             </Carousel>
           </div>

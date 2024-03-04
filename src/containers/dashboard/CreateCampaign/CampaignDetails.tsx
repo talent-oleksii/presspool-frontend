@@ -22,7 +22,7 @@ const customStyles = (isError: boolean) => ({
 });
 
 const CampaignDetails: FC = () => {
-  const [audiences, setAudiences] = useState();
+  const [audiences, setAudiences] = useState<any>([]);
   const [regions, setRegions] = useState();
   const [positions, setPositions] = useState();
   const {
@@ -40,12 +40,7 @@ const CampaignDetails: FC = () => {
 
   const loadAudiences = async () => {
     const response = await APIInstance.get("data/audience");
-    setAudiences(
-      (response.data || []).map((x: { name: string }) => ({
-        value: x.name,
-        label: x.name,
-      }))
-    );
+    setAudiences(response.data || []);
   };
 
   const loadRegions = async () => {
@@ -74,6 +69,19 @@ const CampaignDetails: FC = () => {
     loadPositions();
   }, []);
 
+  const processed = (data: any) => {
+    const processedData: string[] = [];
+    data.forEach((item: { value: string; label: string }) => {
+      const values = item.value.split(",");
+      values.forEach((value) => {
+        if (!processedData.includes(value)) {
+          processedData.push(value.trim());
+        }
+      });
+    });
+    return processedData;
+  };
+
   return (
     <div className="relative">
       <div className="h-full w-[720px] flex flex-col gap-4">
@@ -93,7 +101,7 @@ const CampaignDetails: FC = () => {
                   onBlur={field.onBlur}
                   value={field.value}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border text-xs font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -114,7 +122,7 @@ const CampaignDetails: FC = () => {
                 <input
                   {...field}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border text-xs font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -247,9 +255,21 @@ const CampaignDetails: FC = () => {
                   label: x,
                 }))}
                 placeholder="Type your tag(s) and press enter"
-                onChange={(e) => onChange(e.map((item) => item.value))}
+                onChange={(items) => onChange(processed(items))}
                 isMulti
-                options={audiences}
+                options={audiences
+                  .filter(
+                    (x: { type: string }) =>
+                      x.type ===
+                      (currentTarget === CampaignTargetType.PROFESSIONAL
+                        ? "B2B"
+                        : "B2C")
+                  )
+                  .map((x: { name: string }) => ({
+                    value: x.name,
+                    label: x.name,
+                  }))}
+                closeMenuOnSelect={false}
               />
             )}
           />
@@ -273,9 +293,10 @@ const CampaignDetails: FC = () => {
                     label: x,
                   }))}
                   placeholder="Type your tag(s) and press enter"
-                  onChange={(e) => onChange(e.map((item) => item.value))}
+                  onChange={(items) => onChange(processed(items))}
                   isMulti
                   options={positions}
+                  closeMenuOnSelect={false}
                 />
               )}
             />
@@ -299,9 +320,10 @@ const CampaignDetails: FC = () => {
                   label: x,
                 }))}
                 placeholder="Type your tag(s) and press enter"
-                onChange={(e) => onChange(e.map((item) => item.value))}
+                onChange={(items) => onChange(processed(items))}
                 isMulti
                 options={regions}
+                closeMenuOnSelect={false}
               />
             )}
           />

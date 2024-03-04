@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { FADE_RIGHT_ANIMATION_VARIANTS } from "../../../utils/TransitionConstants";
 import CustomTooltip from "../../../components/CustomTooltip";
 import ALogoImage from "../../../assets/icon/alogo.png";
 import SampleLogo from "../../../assets/logo/logo_with_name.png";
@@ -25,6 +23,7 @@ const CampaignContent: FC = () => {
   const additionalFiles = watch("additionalFiles");
   const image = watch("image");
   const cta = watch("cta");
+  const headline = watch("headLine");
 
   const loadFilePreview = useCallback((file?: File) => {
     if (file) {
@@ -89,7 +88,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={60}
@@ -110,7 +109,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full text-xs rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`mb-0 w-full font-medium text-sm rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={500}
@@ -133,7 +132,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={20}
@@ -143,7 +142,7 @@ const CampaignContent: FC = () => {
             <ErrorMessage message={errors["cta"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
+            <div className="font-[Inter] leading-3.5 font-medium text-sm font-semibold mb-0 flex items-center">
               CTA Link
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
@@ -161,7 +160,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg border-[1px] text-xs focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-lg border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[red]" : ""
                   }`}
                 />
@@ -353,19 +352,23 @@ const CampaignContent: FC = () => {
               better, faster and easier.
             </p>
             <div className="bg-white z-10 w-full rounded-[14px] flex flex-col h-full">
-              <div className="py-4 px-2 flex items-center justify-start">
+              <div className={`${headline ? "py-4" : "py-2"} px-4 flex`}>
+                <div className="text-left w-full">
+                  <h2 className="w-full text-left font-bold font-[Inter] text-base break-words leading-4">
+                    {headline}
+                  </h2>
+                </div>
+              </div>
+              <div className="pb-4 px-4 flex items-center justify-start">
                 <img
                   src={(previewUrl as string) || SampleLogo}
                   alt="sample logo"
-                  className={`h-[140px] w-full object-cover`}
+                  className={`h-[140px] w-full object-cover rounded-[15px]`}
                 />
               </div>
-              <div className="pb-2 px-2 flex flex-col items-center justify-between flex-1">
+              <div className="pb-3 px-4 flex flex-col items-center justify-between flex-1">
                 <div className="text-left w-full">
-                  <h2 className="w-full text-left font-bold font-[Inter] text-base break-words">
-                    {watch("headLine")}
-                  </h2>
-                  <p className="mt-4 w-full text-left font-[Inter] text-black text-xs break-words">
+                  <p className="w-full text-left font-[Inter] font-normal text-black text-xs break-words">
                     {watch("body")}
                   </p>
                 </div>
@@ -373,7 +376,7 @@ const CampaignContent: FC = () => {
                   <div className="mt-4 flex justify-between w-full items-center">
                     <button
                       type="button"
-                      className="font-[Inter] text-gray-500 px-4 py-2 rounded-[5px] border-[1px] text-xs font-medium border-[#D1CEFF]"
+                      className="font-[Inter] font-normal bg-main text-black px-4 py-2 rounded-[5px] border-[1px] text-xs font-medium"
                     >
                       {cta}
                     </button>

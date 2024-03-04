@@ -151,7 +151,7 @@ const CampaignReview: FC<ICampaignReview> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md"
+                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] font-medium text-sm  2xl:text-md"
                   >
                     {cardList.map((item: any, index) => (
                       <option value={item.card_id} key={index}>
@@ -257,7 +257,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             // onCancel={() => setOpenConfirm(false)}
             okButtonProps={{
               style: {
-                background: "#bff7ae",
+                background: "#7FFBAE",
                 padding: "1rem 1rem 1rem 1rem",
                 color: "black",
                 display: "inline-flex",

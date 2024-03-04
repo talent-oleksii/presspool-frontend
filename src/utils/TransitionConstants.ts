@@ -22,6 +22,6 @@ export const FADE_RIGHT_ANIMATION_VARIANTS = {
 export const MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS = (
   duration: number = 1
 ) => ({
-  hidden: { opacity: 0, y: "100%" },
+  hidden: { opacity: 0, y: "100vh" },
   show: { opacity: 1, y: 0, transition: { duration, type: "tween" } },
 });

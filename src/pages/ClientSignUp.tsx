@@ -97,7 +97,7 @@ const ClientSignUp: FC = () => {
   }, [token]);
 
   return (
-    <div className="flex h-auto h-full relative items-center justify-center w-full md:bg-white xsm:pt-8 xsm:bg-[#EDECF2]">
+    <div className="flex h-auto md:h-full xsm:min-h-full relative items-center justify-center w-full md:bg-white xsm:pt-8 xsm:bg-[#EDECF2]">
       {loading && <Loading />}
       <div className="min-w-[400px] h-full bg-[#edecf2] px-[40px] py-[60px] hidden md:flex flex-col justify-between border-r-[1px] border-black">
         <div>
@@ -176,14 +176,14 @@ const ClientSignUp: FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex xsm:flex-col flex-1 justify-center items-center h-full xsm:pt-7  md:bg-white w-full">
+      <div className="flex xsm:flex-col flex-1 justify-center items-center md:h-full xsm:min-h-full  md:bg-white w-full">
         <div className="flex items-center gap-1.5 md:hidden">
           <img src={Mark} alt="mark" className="w-[30px]" />
           <h3 className="font-[Inter] text-black text-[22px] font-medium -tracking-[1.02px]">
             presspool.ai
           </h3>
         </div>
-        <div className="w-full xsm:h-full rounded-t-[17.2px] xsm:mt-16 xsm:pt-7 xsm:pb-10 md:rounded-[15px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
+        <div className="w-full xsm:min-h-full rounded-t-[17.2px] xsm:mt-16 xsm:pt-7 xsm:pb-48 md:rounded-[15px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
           <div className="flex flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +204,7 @@ const ClientSignUp: FC = () => {
             <h2 className="font-[Inter] font-semibold text-[20px] md:text-[40px] -tracking-[1.2px] mt-3 md:mt-[26px]">
               Welcome!
             </h2>
-            <p className="font-[Inter] text-[16px] md:text-xs -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
+            <p className="font-[Inter] text-[17px] -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
               Access the power of the Presspool Platform to deliver your
               solution <br className="xsm:hidden" /> directly in front of
               targeted, engaged readers.
@@ -375,7 +375,7 @@ const ClientSignUp: FC = () => {
               Sign Up
             </button>
           </form>
-          <div className="flex items-center justify-center mt-8">
+          <div className="flex items-center justify-center mt-7">
             <p className="text-[17px] md:text-[19px] text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
               Already have an account?{" "}
               <Link to="/login" className="text-black underline">
