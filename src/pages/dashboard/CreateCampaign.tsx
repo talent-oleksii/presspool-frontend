@@ -35,7 +35,7 @@ const CreateCampaign: FC = () => {
     campaignBudgetMethods,
     campaignContentMethods,
     campaignReviewMethods,
-  } = useUpsertCampaign(id);
+  } = useUpsertCampaign(setLoading, id);
 
   const handleClick = (tab: string) => {
     setCurrentTab(tab);

@@ -34,7 +34,10 @@ const options: ICommonOptions = Object.freeze({
   },
 });
 
-export const useUpsertCampaign = (id?: string | undefined) => {
+export const useUpsertCampaign = (
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  id?: string | undefined
+) => {
   const campaignDetailMethods = useForm({
     ...options,
     defaultValues: defaultCampaignDetailsFormData,
@@ -103,11 +106,15 @@ export const useUpsertCampaign = (id?: string | undefined) => {
 
   useEffect(() => {
     if (id) {
-      APIInstance.get("data/campaign_detail", { params: { id } }).then((res) =>
-        setFormValues(res.data)
-      );
+      setLoading(true);
+      APIInstance.get("data/campaign_detail", { params: { id } })
+        .then((res) => {
+          setFormValues(res.data);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
     }
-  }, [id, setFormValues]);
+  }, [id, setFormValues, setLoading]);
 
   return {
     campaignDetailMethods,
