@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { Collapse } from "antd";
 import { Link } from "react-router-dom";
-
+import { capitalize } from "lodash";
 import { selectAuth } from "../../store/authSlice";
 import { selectData, setCampaign, updateCampaign } from "../../store/dataSlice";
 
@@ -11,10 +11,7 @@ import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
 
-import {
-  FADE_UP_ANIMATION_VARIANTS,
-  MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS,
-} from "../../utils/TransitionConstants";
+import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
 import { DownOutlined } from "@ant-design/icons";
 
 const Campaign: FC = () => {
@@ -178,7 +175,7 @@ const Campaign: FC = () => {
       ),
       children: (
         <div className="bg-white py-3">
-          <div className="grid grid-cols-[5fr_3fr] gap-7">
+          <div className="grid grid-cols-[1fr_400px] gap-7">
             <div className="w-full flex flex-col items-start justify-center">
               <p className="text-black font-[Inter] text-sm font-semibold font-normal">
                 Headline
@@ -204,6 +201,18 @@ const Campaign: FC = () => {
                     Target Audience
                   </p>
                   <p className="text-black font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                    <button className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs">
+                      {capitalize(item.demographic)}
+                    </button>
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-end justify-between w-full">
+                <div className="w-auto">
+                  <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                    Target Industrie(s)
+                  </p>
+                  <p className="text-black font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
                     {(item.audience || []).map((aud: string, index: number) => (
                       <button
                         key={index}
@@ -215,6 +224,27 @@ const Campaign: FC = () => {
                   </p>
                 </div>
               </div>
+              {item.position && (
+                <div className="flex items-end justify-between w-full">
+                  <div className="w-auto">
+                    <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                      Target Demographic(s)
+                    </p>
+                    <p className="text-black font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                      {(item.position || []).map(
+                        (pos: string, index: number) => (
+                          <button
+                            key={index}
+                            className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                          >
+                            {pos}
+                          </button>
+                        )
+                      )}
+                    </p>
+                  </div>
+                </div>
+              )}
               <div className="flex items-end justify-between w-full">
                 <div className="w-auto">
                   <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
@@ -236,7 +266,7 @@ const Campaign: FC = () => {
             <div className="w-full flex flex-col items-start justify-center">
               <div className="flex flex-col h-full w-full justify-between">
                 <img
-                  className="w-full max-h-[200px] object-cover rounded-[15px]"
+                  className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[15px]"
                   alt="market"
                   src={item.image}
                 />
