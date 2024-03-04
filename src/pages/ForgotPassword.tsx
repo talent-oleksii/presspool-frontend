@@ -247,12 +247,12 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                     <h3 className="text-black font-[Inter] text-[20px] md:text-3xl mt-7 md:mt-8 font-semibold -tracking-[.72px]">
                       Forgot Password?
                     </h3>
-                    <p className="text-[#7f8182] font-[Inter] text-[14px] xsm:leading-4 md:text-xs mt-6 md:mt-[10px] text-left md:text-center">
+                    <p className="text-[#7f8182] font-[Inter] text-[14px] xsm:leading-4 md:text-base mt-6 md:mt-[10px] text-left md:text-center">
                       Enter the email address associated with your account. Make
                       sure <br className="xsm:hidden" /> it's the same email
                       address you used when signing up.
                     </p>
-                    <p className="w-full text-left font-[Inter] text-[14px] md:text-xs font-medium -tracking-[.42px] mt-16 md:mt-7">
+                    <p className="w-full text-left font-[Inter] text-[14px] md:text-base font-medium -tracking-[.42px] mt-16 md:mt-7">
                       Email Address
                       {showWarning && (
                         <span className="text-[red] text-xs ms-2 font-[Inter] -tracking-[.48px]">
@@ -270,7 +270,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <button
-                      className="mt-5 flex items-center justify-center text-xs bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
+                      className="mt-5 flex items-center justify-center text-base bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
                       onClick={handleGoToVerify}
                     >
                       Continue
