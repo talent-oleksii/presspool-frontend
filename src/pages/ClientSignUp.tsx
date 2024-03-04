@@ -204,7 +204,7 @@ const ClientSignUp: FC = () => {
             <h2 className="font-[Inter] font-semibold text-[20px] md:text-[40px] -tracking-[1.2px] mt-3 md:mt-[26px]">
               Welcome!
             </h2>
-            <p className="font-[Inter] text-[17px] -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
+            <p className="font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
               Access the power of the Presspool Platform to deliver your
               solution <br className="xsm:hidden" /> directly in front of
               targeted, engaged readers.
@@ -212,7 +212,7 @@ const ClientSignUp: FC = () => {
           </div>
           <form autoComplete="off" className="text-left mt-9 md:mt-[30px]" onSubmit={handleSubmit}>
             <label
-              className={`font-[Inter] text-[14px] md:text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && validator.isEmpty(formData.fullName)
                   ? "text-[red]"
                   : "text-black"
@@ -236,7 +236,7 @@ const ClientSignUp: FC = () => {
               className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2"
             />
             <label
-              className={`font-[Inter] text-[14px] md:text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && validator.isEmpty(formData.company || "")
                   ? "text-[red]"
                   : "text-black"
@@ -262,7 +262,7 @@ const ClientSignUp: FC = () => {
               disabled={!!(token && formData.company)}
             />
             <label
-              className={`font-[Inter] text-[14px] md:text-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && !validator.isEmail(formData.email || "")
                   ? "text-[red]"
                   : "text-black"
@@ -288,7 +288,7 @@ const ClientSignUp: FC = () => {
               disabled={!!(token && formData.email)}
             />
             <label
-              className={`font-[Inter] text-[14px] md:ext-sm 2xl:text-[17px] font-medium -tracking-[.5px] ${
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && !validator.isStrongPassword(formData.password)
                   ? "text-[red]"
                   : "text-black"
@@ -346,7 +346,7 @@ const ClientSignUp: FC = () => {
                 type="checkbox"
                 className="w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0"
               />
-              <span className="ms-2 font-[Inter] -tracking-[.544px] text-[17px] md:text-lg text-[#525252]">
+              <span className="ms-2 font-[Inter] -tracking-[.544px] text-base text-[#525252]">
                 I agree to the{" "}
                 <a
                   target="_blank"
@@ -368,7 +368,7 @@ const ClientSignUp: FC = () => {
               </span>
             </div>
             <button
-              className="rounded-[6px] text-[17px] bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
+              className="rounded-[6px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >
@@ -376,7 +376,7 @@ const ClientSignUp: FC = () => {
             </button>
           </form>
           <div className="flex items-center justify-center mt-7">
-            <p className="text-[17px] md:text-[19px] text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
+            <p className="text-base text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
               Already have an account?{" "}
               <Link to="/login" className="text-black underline">
                 Login

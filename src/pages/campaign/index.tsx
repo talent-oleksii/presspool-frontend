@@ -186,7 +186,7 @@ const Campaign: FC = () => {
               <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                 Description
               </p>
-              <p className="text-black font-[Inter] font-medium text-xs">
+              <p className="text-black font-[Inter] font-normal text-xs">
                 {item.body}
               </p>
               <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
