@@ -193,7 +193,7 @@ const Login: FC = () => {
             <h2 className="font-[Inter] font-semibold text-[20px] md:text-[40px] -tracking-[1.2px] mt-3 md:mt-[26px]">
               Welcome Back
             </h2>
-            <p className="font-[Inter] text-[17px] -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
+            <p className="font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
               Enter your details to login
             </p>
           </div>
@@ -204,7 +204,7 @@ const Login: FC = () => {
             onSubmit={handleSubmit}
           >
             <div className="md:my-1">
-              <label className="font-[Inter] text-[14px] md:text-[17px] block font-medium -tracking-[.508px]">
+              <label className="font-[Inter] text-[14px] md:text-base block font-medium -tracking-[.508px]">
                 Email Address <abbr className="text-red-600">*</abbr>
               </label>
               <input
@@ -218,7 +218,7 @@ const Login: FC = () => {
               />
             </div>
             <div className="mt-2 md:mt-4">
-              <label className="font-[Inter] block text-[14px] md:text-[17px] font-medium -tracking-[.508px]">
+              <label className="font-[Inter] block text-[14px] md:text-base font-medium -tracking-[.508px]">
                 Password <abbr className="text-red-600">*</abbr>
               </label>
               <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-3 md:mt-2 xsm:mt-0.5 rounded-[10px] px-4">
@@ -259,16 +259,16 @@ const Login: FC = () => {
             </div>
             <div className="w-full text-right">
               <div
-                className="font-[Inter] text-black text-[17px] md:text-lg mt-4 underline -tracking-[.504px]"
+                className="font-[Inter] text-black text-base mt-4 underline -tracking-[.504px] cursor-pointer"
                 onClick={handleForgotPassword}
               >
                 Forgot Password?
               </div>
             </div>
-            <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] md:my-2 2xl:my-4 text-[17px] text-black md:mt-[32px] xsm:mt-4 font-semibold">
+            <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] md:my-2 2xl:my-4 text-base text-black md:mt-[32px] xsm:mt-4 font-semibold">
               Log In
             </button>
-            <p className="mt-7 md:mt-[35px] font-[Inter] text-[#525252] text-[17px] md:text-xl flex items-center justify-center -tracking-[.574px]">
+            <p className="mt-7 md:mt-[35px] font-[Inter] text-[#525252] text-base flex items-center justify-center -tracking-[.574px]">
               Don't have an account?
               <Link
                 className="block text-center text-black ms-1 underline"
