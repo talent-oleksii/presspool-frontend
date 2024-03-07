@@ -42,7 +42,7 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
     <div ref={ref} className="group inline-flex flex-col w-[170px] relative">
       <button
         onClick={handleOpenChange}
-        className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[15px] ${
+        className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[10px] ${
           id !== "all"
             ? "bg-white ring-1 ring-main shadow-md"
             : "bg-transparent ring-none"
@@ -51,7 +51,7 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
         By Campaign
       </button>
       {open && (
-        <Menu className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[15px] text-left z-[9]">
+        <Menu className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]">
           {!!items.length ? (
             items.map((item) => (
               <Menu.Item

@@ -4,60 +4,66 @@ interface DataState {
   campaign: Array<any>;
   cardList: Array<any>;
   clicked: Array<any>;
+  isCampaignLoading: boolean;
 }
 
 const initialState: DataState = {
-  campaign: localStorage.getItem('campaign') ? JSON.parse(localStorage.getItem('campaign') || '') : [],
-  cardList: localStorage.getItem('cardList') ? JSON.parse(localStorage.getItem('cardList') || '') : [],
-  clicked: localStorage.getItem('clicked') ? JSON.parse(localStorage.getItem('clicked') || '') : [],
+  campaign: localStorage.getItem("campaign")
+    ? JSON.parse(localStorage.getItem("campaign") || "")
+    : [],
+  cardList: localStorage.getItem("cardList")
+    ? JSON.parse(localStorage.getItem("cardList") || "")
+    : [],
+  clicked: localStorage.getItem("clicked")
+    ? JSON.parse(localStorage.getItem("clicked") || "")
+    : [],
+  isCampaignLoading: false,
 };
 
 const dataSlice = createSlice({
-  name: 'data',
+  name: "data",
   initialState,
   reducers: {
+    setCampaignLoading: (state, action) => {
+      state.isCampaignLoading = action.payload;
+    },
     setCampaign: (state, action) => {
       state.campaign = action.payload.campaign;
-      localStorage.setItem('campaign', JSON.stringify(action.payload.campaign));
+      state.isCampaignLoading = false;
+      localStorage.setItem("campaign", JSON.stringify(action.payload.campaign));
     },
     addCampaign: (state, action) => {
-      state.campaign = [
-        ...state.campaign,
-        action.payload.campaign
-      ];
-      localStorage.setItem('campaign', JSON.stringify(state.campaign));
+      state.campaign = [...state.campaign, action.payload.campaign];
+      localStorage.setItem("campaign", JSON.stringify(state.campaign));
     },
     updateCampaign: (state, action) => {
       const campaignList = [...state.campaign];
 
-      state.campaign = campaignList.map(item => {
+      state.campaign = campaignList.map((item) => {
         if (item.id === action.payload.id) {
           return action.payload.data;
         }
         return item;
       });
 
-      localStorage.setItem('campaign', JSON.stringify(state.campaign));
+      localStorage.setItem("campaign", JSON.stringify(state.campaign));
     },
     setCardList: (state, action) => {
       state.cardList = action.payload.cardList;
-      localStorage.setItem('cardList', JSON.stringify(action.payload.cardList));
+      localStorage.setItem("cardList", JSON.stringify(action.payload.cardList));
     },
     addCard: (state, action) => {
-      state.cardList = [
-        ...state.cardList,
-        action.payload.card
-      ];
-      localStorage.setItem('cardList', JSON.stringify(state.cardList));
+      state.cardList = [...state.cardList, action.payload.card];
+      localStorage.setItem("cardList", JSON.stringify(state.cardList));
     },
     deleteCard: (state, action) => {
       const cardList = [...state.cardList];
-      state.cardList = cardList.filter(item => item.id !== action.payload.id)
-      localStorage.setItem('cardList', JSON.stringify(state.cardList));
+      state.cardList = cardList.filter((item) => item.id !== action.payload.id);
+      localStorage.setItem("cardList", JSON.stringify(state.cardList));
     },
     setClicked: (state, action) => {
       state.clicked = action.payload;
-      localStorage.setItem('clicked', JSON.stringify(state.clicked));
+      localStorage.setItem("clicked", JSON.stringify(state.clicked));
     },
   },
 });
@@ -70,6 +76,7 @@ export const {
   updateCampaign,
   deleteCard,
   setClicked,
+  setCampaignLoading
 } = dataSlice.actions;
 export const selectData = (state: { data: DataState }) => state.data;
 export default dataSlice.reducer;
