@@ -13,7 +13,7 @@ import {
 import { getUnixTimestamp } from "../../utils/DateUtils";
 import ByCampaignButton from "./ByCampaignButton";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import moment from "moment";
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -41,10 +41,14 @@ interface IDateRange {
 
 const CampaignFilter: FC = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { email } = useSelector(selectAuth);
   const [selectedFilter, setSelectedFilter] = useState("All Time");
+  const [selectedCampaigns, setSelectedCampaigns] = useState<Array<string>>(
+    id !== "all" ? (id ? id?.split(",") : []) : []
+  );
   const [dateRange, setDateRange] = useState<IDateRange>({
     startDate: null,
     endDate: null,
@@ -144,21 +148,26 @@ const CampaignFilter: FC = () => {
   useEffect(() => {
     dispatch(setCampaignLoading(true));
     APIInstance.get("data/campaign", {
-      params:
-        dateRange.endDate && dateRange.startDate
-          ? {
-              email,
-              from: getUnixTimestamp(dateRange.startDate),
-              to: getUnixTimestamp(dateRange.endDate),
-            }
-          : { email },
+      params: {
+        email,
+        ...(dateRange.endDate &&
+          dateRange.startDate && {
+            from: getUnixTimestamp(dateRange.startDate),
+            to: getUnixTimestamp(dateRange.endDate),
+          }),
+        ...(selectedCampaigns.length > 0 && {
+          campaignIds: selectedCampaigns,
+        }),
+      },
     })
       .then((res) => {
         dispatch(setClicked(res.data.clicked));
         dispatch(setCampaign({ campaign: res.data.data }));
       })
-      .finally(() => dispatch(setCampaignLoading(false)));
-  }, [dateRange, dispatch, email]);
+      .finally(() => {
+        dispatch(setCampaignLoading(false));
+      });
+  }, [dateRange, dispatch, email, selectedCampaigns]);
 
   const handleDownloadCSV = () => {
     var csv =
@@ -189,20 +198,30 @@ const CampaignFilter: FC = () => {
     hiddenElement.click();
   };
 
+  const handleOverviewClick = () => {
+    setSelectedCampaigns([]);
+    navigate(`/campaign/all`);
+  };
+
   return (
     <div className="flex justify-between items-center mt-4">
       <div>
-        <Link
+        <button
           className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${
             id === "all"
               ? "bg-white border border-solid border-main shadow-md"
               : "bg-transparent ring-none"
           }`}
-          to="/campaign/all"
+          onClick={handleOverviewClick}
         >
           Overview
-        </Link>
-        <ByCampaignButton id={id} items={campaign} />
+        </button>
+        <ByCampaignButton
+          id={id}
+          items={campaign}
+          setSelectedCampaigns={setSelectedCampaigns}
+          selectedCampaigns={selectedCampaigns}
+        />
       </div>
       <div className="flex gap-5">
         <div
@@ -210,8 +229,8 @@ const CampaignFilter: FC = () => {
           className="group inline-flex flex-col min-w-[100px] relative"
         >
           <button
-            onClick={handleOpenChange}
-            className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] justify-between flex px-4 py-[10px] gap-2.5 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
+            onMouseEnter={handleOpenChange}
+            className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
           >
             {selectedFilter}
             <CaretDownOutlined />

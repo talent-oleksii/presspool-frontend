@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { selectAuth } from "../../store/authSlice";
@@ -9,9 +9,12 @@ import CampaignFilter from "../../containers/dashboard/CampaignFilter";
 import Loading from "../../components/Loading";
 
 const Dashboard: FC = () => {
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
   const { name } = useSelector(selectAuth);
   const { isCampaignLoading } = useSelector(selectData);
-
+  useEffect(() => {
+    setIsFirstLoad(false);
+  }, []);
   return (
     <div className="text-left relative pt-1.5 h-full flex flex-col">
       <h1 className="font-semibold font-[Inter] text-[18px] md:text-xl -tracking-[.6px]">
@@ -29,7 +32,7 @@ const Dashboard: FC = () => {
       <motion.div
         className="flex xsm:hidden"
         initial="hidden"
-        animate="show"
+        animate={`${isFirstLoad && isCampaignLoading ? "" : "show"}`}
         variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
       >
         <div className="flex-1">
@@ -42,7 +45,11 @@ const Dashboard: FC = () => {
           )} */}
         </div>
       </motion.div>
-      {isCampaignLoading && <div className="flex-auto relative"><Loading /></div>}
+      {isCampaignLoading && (
+        <div className="flex-auto relative">
+          <Loading />
+        </div>
+      )}
     </div>
   );
 };

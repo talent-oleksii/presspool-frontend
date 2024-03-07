@@ -12,10 +12,6 @@ import {
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
-import APIInstance from "../../api";
-import Loading from "../../components/Loading";
-import { selectAuth } from "../../store/authSlice";
-import StripeUtil from "../../utils/stripe";
 
 import Card from "../../components/Card";
 import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
@@ -23,16 +19,16 @@ import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 const CampaignOverView: FC = () => {
   const { campaign: data } = useSelector(selectData);
   const [chartData, setChartData] = useState<Array<any>>([]);
-  const [loading, setLoading] = useState(false);
   const { clicked } = useSelector(selectData);
-  const { email } = useSelector(selectAuth);
 
   const getSum = (a: Array<any>) => {
-    let sum = 0;
+    let total = 0;
+    let uniqueClicks = 0;
     for (const i of a) {
-      sum += Number(i.count);
+      total += Number(i.count);
+      uniqueClicks += Number(i.unique_click ?? 0);
     }
-    return sum;
+    return { total, uniqueClicks };
   };
 
   useEffect(() => {
@@ -46,19 +42,65 @@ const CampaignOverView: FC = () => {
       grouped[key].push(item);
     });
 
-    console.log('group:', grouped);
-
     setChartData(
       Object.keys(grouped).map((item: any) => {
-        let sum = getSum(grouped[item]);
+        let { total, uniqueClicks } = getSum(grouped[item]);
         return {
-          impression: 0,
-          click: sum,
-          date: item
+          uniqueClicks,
+          total,
+          date: item,
         };
       })
     );
+    const halfPie = document.querySelector(".half-pie svg");
+    halfPie?.setAttribute("viewBox", "60 95 140 150");
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clicked]);
+
+  const generateColor = () => {
+    return "#" + Math.random().toString(16).substr(-6);
+  };
+
+  const sumCountByEmailAndBlog = useMemo(() => {
+    let sumEmail = 0;
+    let sumBlog = 0;
+
+    clicked.forEach((item) => {
+      if (item.user_medium === "email") {
+        sumEmail += item.count;
+      } else if (item.user_medium === "blog") {
+        sumBlog += item.count;
+      }
+    });
+
+    return {
+      email: sumEmail,
+      blog: sumBlog,
+    };
+  }, [clicked]);
+
+  const groupByAndSumCountOnCountry = useMemo(() => {
+    const ipCounts: { [x: string]: { total: number } } = {};
+    clicked.forEach((item) => {
+      const ip = item.ip;
+      const count = item.count;
+
+      if (!ipCounts[ip]) {
+        ipCounts[ip] = { total: 0 };
+      }
+      ipCounts[ip].total += count;
+    });
+    const totalSum = Object.values(ipCounts).reduce(
+      (acc: any, { total }: any) => acc + total,
+      0
+    );
+
+    const result = [];
+    for (const [ip, { total }] of Object.entries(ipCounts)) {
+      const percentage = ((total / totalSum) * 100).toFixed(2);
+      result.push({ ip, total, percentage, color: generateColor() });
+    }
+    return result;
   }, [clicked]);
 
   const avgCPC = useMemo(
@@ -91,61 +133,30 @@ const CampaignOverView: FC = () => {
     [data]
   );
 
-  const getUnbilled = () => {
-    let unbilled = 0;
-    for (const item of data) {
-      unbilled += Number(item.spent) - Number(item.billed);
-    }
+  const avgTime = useMemo(() => {
+    let totalDuration = 0;
+    let count = 0;
 
-    return unbilled;
-  };
+    clicked.forEach((item) => {
+      if (typeof item.duration === "number") {
+        totalDuration += item.duration;
+        count++;
+      }
+    });
 
-  const handlePayNow = () => {
-    setLoading(true);
-    APIInstance.get("data/unbilled", { params: { email } })
-      .then(async (data) => {
-        if (Number(data.data.unbilled) <= 0) return;
-        const customerId = await StripeUtil.getCustomerId(email);
+    const averageDurationSeconds = count > 0 ? totalDuration / count : 0;
+    const hours = Math.floor(averageDurationSeconds / 3600);
+    const minutes = Math.floor((averageDurationSeconds % 3600) / 60);
+    const seconds = averageDurationSeconds % 60;
 
-        const newPrice = await StripeUtil.stripe.prices.create({
-          currency: "usd",
-          unit_amount: Number(data.data.unbilled) * 100,
-          product_data: {
-            name: "Presspool AI Unbilled Services",
-          },
-          metadata: { state: "unbilled" },
-        });
-
-        const session = await StripeUtil.stripe.checkout.sessions.create({
-          customer: customerId,
-          mode: "payment",
-          line_items: [{ price: newPrice.id, quantity: 1 }],
-          success_url: "https://go.presspool.ai/campaign/all",
-          cancel_url: "https://go.presspool.ai/campaign/all",
-          payment_intent_data: {
-            metadata: {
-              state: "unbilled",
-            },
-          },
-        });
-
-        (await StripeUtil.stripePromise)?.redirectToCheckout({
-          sessionId: session.id,
-        });
-      })
-      .finally(() => setLoading(false));
-  };
-
-  const data1 = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-  ];
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds.toFixed(0)}`;
+  }, [clicked]);
 
   return (
     <div className="mt-3 h-full">
-      <div className="rounded-[20px] grid grid-cols-5 gap-3 min-h-[90px]">
+      <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[90px]">
         <Card
           title={"Total Clicks"}
           value={totalClicks}
@@ -166,16 +177,16 @@ const CampaignOverView: FC = () => {
         />
         <Card
           title={"AVG CPC"}
-          value={avgCPC}
+          value={avgCPC.toFixed(2)}
           percentage={0}
           totalCountLast4Week={0}
         />
-        <Card
+        {/* <Card
           title={"AVG Time on Page"}
-          value={`0:00`}
+          value={avgTime}
           percentage={0}
           totalCountLast4Week={0}
-        />
+        /> */}
       </div>
       <div
         className={`my-3 p-5 ${
@@ -193,10 +204,12 @@ const CampaignOverView: FC = () => {
           </div>
           <div>
             <div className="mt-[20px]">
-              <p className="font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
+              <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
+                <span className="w-4 h-[3px] shrink-0 rounded-full bg-main"></span>
                 Total Clicks
               </p>
-              <p className="font-[Inter] text-[#7F8182] text-[10px] 2xl:text-xs mt-2 font-semibold">
+              <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs mt-2 font-semibold">
+                <span className="w-4 h-[3px] shrink-0 rounded-full bg-[#6C63FF]"></span>
                 Unique Clicks
               </p>
             </div>
@@ -214,10 +227,20 @@ const CampaignOverView: FC = () => {
                   data={chartData}
                   margin={{ left: 0, bottom: 0, right: 50 }}
                 >
-                  <Line type="linear" dataKey="click" stroke="#7F8182" />
-                  <Line type="linear" dataKey="impression" stroke="black" />
+                  <Line
+                    type="linear"
+                    dataKey="total"
+                    stroke="#7FFBAE"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="linear"
+                    dataKey="uniqueClicks"
+                    stroke="#6C63FF"
+                    strokeWidth={3}
+                  />
                   <XAxis dataKey="date" />
-                  <YAxis />
+                  <YAxis strokeWidth={0} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
@@ -237,33 +260,40 @@ const CampaignOverView: FC = () => {
             Engagement by Channel
           </h2>
           <div className="flex justify-between flex w-full items-center mt-5">
-            <div className="flex flex-col justify-between gap-1">
-              <div className="pl-4 py-1 border-l-4 border-[#243c5a] text-sm font-normal">
-                Email
+            <div className="flex flex-col justify-between gap-5 pl-8">
+              <div className="pl-2 border-l-4 border-[#7FFBAE]  flex flex-col justify-between gap-1">
+                <span className="text-sm leading-[14px] font-normal">
+                  Email
+                </span>
+                <span className="text-xl leading-[20px] font-semibold">
+                  {sumCountByEmailAndBlog.email}
+                </span>
               </div>
-              <div className="py-1 pl-4 border-l-4 border-[blue] text-sm font-normal">
-                Blog
+              <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
+                <span className="text-sm leading-[14px] font-normal">Blog</span>
+                <span className="text-xl leading-[20px] font-semibold">
+                  {sumCountByEmailAndBlog.blog}
+                </span>
               </div>
             </div>
-            <PieChart width={200} height={200}>
+            <PieChart width={260} height={200} className="half-pie">
               <Pie
-                data={data1}
+                data={[
+                  { name: "Email", value: sumCountByEmailAndBlog.email },
+                  { name: "Blog", value: sumCountByEmailAndBlog.blog },
+                ]}
                 cx={"50%"}
-                cy={"95%"}
+                cy={"115%"}
                 startAngle={180}
                 endAngle={0}
-                innerRadius={80}
-                outerRadius={85}
+                innerRadius={90}
+                outerRadius={95}
                 fill="#8884d8"
                 paddingAngle={0}
                 dataKey="value"
               >
-                {data1.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
+                <Cell key={`cell-1`} fill={"#7FFBAE"} />
+                <Cell key={`cell-1`} fill={"#6C63FF"} />
               </Pie>
             </PieChart>
           </div>
@@ -274,34 +304,40 @@ const CampaignOverView: FC = () => {
           <h2 className="font-[Inter] text-base font-semibold">
             Engagement by Country
           </h2>
-          <div className="flex justify-between flex w-full items-center mt-5">
-            <div className="flex flex-col justify-between gap-1">
-              <div className="pl-4 py-1 border-l-4 border-[#243c5a] text-sm font-normal">
-                United States
-              </div>
-              <div className="py-1 pl-4 border-l-4 border-[blue] text-sm font-normal">
-                Mexico
-              </div>
-              <div className="py-1 pl-4 border-l-4 border-[red] text-sm font-normal">
-                Canada
-              </div>
+          <div className="flex justify-between w-full items-center mt-5">
+            <div className="flex flex-col gap-2 overflow-y-auto max-h-[200px]">
+              {groupByAndSumCountOnCountry.map((item, index) => (
+                <div className="flex justify-between gap-8 items-center">
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 shrink-0 text-sm font-normal h-8"
+                  >
+                    <span
+                      style={{ backgroundColor: item.color }}
+                      className={`w-[3px] h-full rounded-full`}
+                    ></span>
+                    {item.ip}
+                  </div>
+                  <span>{item.percentage}%</span>
+                </div>
+              ))}
             </div>
-            <PieChart width={200} height={200}>
+            <PieChart width={300} height={205}>
               <Pie
-                data={data1}
+                data={groupByAndSumCountOnCountry.map((item) => ({
+                  name: item.ip,
+                  value: item.total,
+                }))}
                 cx={100}
                 cy={100}
-                innerRadius={80}
-                outerRadius={85}
+                innerRadius={93}
+                outerRadius={100}
                 fill="#8884d8"
                 paddingAngle={0}
                 dataKey="value"
               >
-                {data1.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
+                {groupByAndSumCountOnCountry.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
             </PieChart>

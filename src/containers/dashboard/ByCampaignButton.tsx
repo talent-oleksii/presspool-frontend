@@ -1,13 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Menu } from "antd";
 import { useNavigate } from "react-router";
+import { CaretDownOutlined } from "@ant-design/icons";
 
 interface IByCampaignButton {
   id: string | undefined;
   items: Array<any>;
+  selectedCampaigns: Array<string>;
+  setSelectedCampaigns: Dispatch<SetStateAction<string[]>>;
 }
 
-const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
+const ByCampaignButton: React.FC<IByCampaignButton> = ({
+  id,
+  items,
+  setSelectedCampaigns,
+  selectedCampaigns,
+}) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   const ref = useRef<any>(null);
@@ -21,8 +35,15 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
   };
 
   const handleItemClick = (itemId: string) => {
-    navigate(`/campaign/${itemId}`);
-    hide();
+    const campaignIds = selectedCampaigns.includes(itemId.toString())
+      ? selectedCampaigns.filter((item) => Number(item) !== Number(itemId))
+      : [...selectedCampaigns, itemId.toString()];
+
+    setSelectedCampaigns(campaignIds);
+    navigate(campaignIds.length ? `/campaign/${campaignIds.join(',')}` : `/campaign/all`);
+    if(campaignIds.length === 0){
+      hide();
+    }
   };
 
   useEffect(() => {
@@ -39,19 +60,26 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({ id, items }) => {
   }, []);
 
   return (
-    <div ref={ref} className="group inline-flex flex-col w-[170px] relative">
+    <div
+      ref={ref}
+      className="group inline-flex flex-col min-w-[100px] relative"
+    >
       <button
-        onClick={handleOpenChange}
-        className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[10px] ${
+        onMouseEnter={handleOpenChange}
+        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-[#505050] flex px-4 py-[10px] rounded-[10px] ${
           id !== "all"
             ? "bg-white ring-1 ring-main shadow-md"
             : "bg-transparent ring-none"
         }`}
       >
         By Campaign
+        <CaretDownOutlined />
       </button>
       {open && (
-        <Menu className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]">
+        <Menu
+          selectedKeys={selectedCampaigns}
+          className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]"
+        >
           {!!items.length ? (
             items.map((item) => (
               <Menu.Item
