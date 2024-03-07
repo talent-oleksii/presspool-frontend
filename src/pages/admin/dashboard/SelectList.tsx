@@ -40,7 +40,7 @@ const SelectList: React.FC<ISelectList> = ({ id, items, setValue, name }: ISelec
   }, []);
 
   return (
-    <div ref={ref} className="group inline-flex min-w-[170px] flex-col relative me-2">
+    <div ref={ref} className="group inline-flex min-w-[170px] flex-col relative me-4">
       <button
         onClick={handleOpenChange}
         className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[15px] ${id !== "all"

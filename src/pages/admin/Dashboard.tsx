@@ -79,7 +79,7 @@ const AdminDashboard: FC = () => {
         </div>
         <div className="mt-4">
           <button
-            className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-2 bg-white border border-solid border-main shadow-md`}
+            className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
           >
             Overview
           </button>
