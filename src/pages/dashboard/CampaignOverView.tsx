@@ -19,7 +19,7 @@ import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 const CampaignOverView: FC = () => {
   const { campaign: data } = useSelector(selectData);
   const [chartData, setChartData] = useState<Array<any>>([]);
-  const { clicked } = useSelector(selectData);
+  const { clicked, selectedDateFilter } = useSelector(selectData);
 
   const getSum = (a: Array<any>) => {
     let total = 0;
@@ -42,8 +42,13 @@ const CampaignOverView: FC = () => {
       grouped[key].push(item);
     });
 
+    const sortedKeys = Object.keys(grouped).sort(
+      (a, b) =>
+        moment(b, "DD/MM/YYYY").valueOf() - moment(a, "DD/MM/YYYY").valueOf()
+    );
+
     setChartData(
-      Object.keys(grouped).map((item: any) => {
+      sortedKeys.map((item) => {
         let { total, uniqueClicks } = getSum(grouped[item]);
         return {
           uniqueClicks,
@@ -66,9 +71,9 @@ const CampaignOverView: FC = () => {
     let sumBlog = 0;
 
     clicked.forEach((item) => {
-      if (item.user_medium === "email") {
+      if (item.user_medium === "newsletter") {
         sumEmail += item.count;
-      } else if (item.user_medium === "blog") {
+      } else {
         sumBlog += item.count;
       }
     });
@@ -133,53 +138,28 @@ const CampaignOverView: FC = () => {
     [data]
   );
 
-  const avgTime = useMemo(() => {
-    let totalDuration = 0;
-    let count = 0;
-
-    clicked.forEach((item) => {
-      if (typeof item.duration === "number") {
-        totalDuration += item.duration;
-        count++;
-      }
-    });
-
-    const averageDurationSeconds = count > 0 ? totalDuration / count : 0;
-    const hours = Math.floor(averageDurationSeconds / 3600);
-    const minutes = Math.floor((averageDurationSeconds % 3600) / 60);
-    const seconds = averageDurationSeconds % 60;
-
-    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds.toFixed(0)}`;
-  }, [clicked]);
-
   return (
     <div className="mt-3 h-full">
       <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[90px]">
         <Card
           title={"Total Clicks"}
           value={totalClicks}
-          percentage={0}
-          totalCountLast4Week={0}
+          percentageText={`0% from ${selectedDateFilter}`}
         />
         <Card
           title={"Unique Clicks"}
           value={uniqueClicks}
-          percentage={0}
-          totalCountLast4Week={0}
+          percentageText={`0% from ${selectedDateFilter}`}
         />
         <Card
           title={"Total Spend"}
           value={`$${totalSpend}`}
-          percentage={0}
-          totalCountLast4Week={0}
+          percentageText={`0% from ${selectedDateFilter}`}
         />
         <Card
           title={"AVG CPC"}
           value={avgCPC.toFixed(2)}
-          percentage={0}
-          totalCountLast4Week={0}
+          percentageText={`0% from ${selectedDateFilter}`}
         />
         {/* <Card
           title={"AVG Time on Page"}
@@ -239,7 +219,7 @@ const CampaignOverView: FC = () => {
                     stroke="#6C63FF"
                     strokeWidth={3}
                   />
-                  <XAxis dataKey="date" />
+                  <XAxis dataKey="date" reversed />
                   <YAxis strokeWidth={0} />
                 </LineChart>
               </ResponsiveContainer>
