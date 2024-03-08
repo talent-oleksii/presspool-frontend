@@ -94,26 +94,22 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <Card
             title={"Total Clicks"}
             value={data?.click_count ?? 0}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`200% from last 7 days`}
           />
           <Card
             title={"Unique Clicks"}
             value={data?.unique_clicks ?? 0}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`200% from last 7 days`}
           />
           <Card
             title={"Total Spend"}
             value={`$${data?.spent ?? 0}`}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`200% from last 7 days`}
           />
           <Card
             title={"AVG CPC"}
             value={`$${data?.spent ? Math.round(Number(data?.spent) / Number(data?.unique_clicks)) : 11}`}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`200% from last 7 days`}
           />
         </div>
 

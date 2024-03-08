@@ -5,6 +5,7 @@ interface DataState {
   cardList: Array<any>;
   clicked: Array<any>;
   isCampaignLoading: boolean;
+  selectedDateFilter: string;
 }
 
 const initialState: DataState = {
@@ -18,12 +19,16 @@ const initialState: DataState = {
     ? JSON.parse(localStorage.getItem("clicked") || "")
     : [],
   isCampaignLoading: false,
+  selectedDateFilter: "All Time",
 };
 
 const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
+    setSelectedDateFilter : (state, action) => {
+      state.selectedDateFilter = action.payload;
+    },
     setCampaignLoading: (state, action) => {
       state.isCampaignLoading = action.payload;
     },
@@ -76,7 +81,8 @@ export const {
   updateCampaign,
   deleteCard,
   setClicked,
-  setCampaignLoading
+  setCampaignLoading,
+  setSelectedDateFilter
 } = dataSlice.actions;
 export const selectData = (state: { data: DataState }) => state.data;
 export default dataSlice.reducer;

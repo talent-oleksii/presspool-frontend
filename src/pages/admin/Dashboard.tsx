@@ -34,6 +34,7 @@ const AdminDashboard: FC = () => {
 
   const [data, setData] = useState<Array<any>>([]);
   const [clicked, setClicked] = useState<Array<any>>([]);
+  const [selectedDateFilter, setSelectedDateFilter] = useState('');
 
   useEffect(() => {
     // if (!location.pathname.includes('/overview') && !location.pathname.includes('/campaign') && !location.pathname.includes('/client'))
@@ -186,26 +187,22 @@ const AdminDashboard: FC = () => {
           <Card
             title={"Total Clicks"}
             value={totalClicks}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`0% from ${selectedDateFilter}`}
           />
           <Card
             title={"Unique Clicks"}
             value={uniqueClicks}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`0% from ${selectedDateFilter}`}
           />
           <Card
             title={"Total Spend"}
             value={`$${totalSpend}`}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`0% from ${selectedDateFilter}`}
           />
           <Card
             title={"AVG CPC"}
             value={avgCPC.toFixed(2)}
-            percentage={0}
-            totalCountLast4Week={0}
+            percentageText={`0% from ${selectedDateFilter}`}
           />
         </div>
         <div
