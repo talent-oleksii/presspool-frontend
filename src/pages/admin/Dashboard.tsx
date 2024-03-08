@@ -1,5 +1,6 @@
-import { FC, useEffect, useState, useMemo } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { FC, useEffect, useState, useMemo, useRef } from "react";
+import { CaretDownOutlined, CloudDownloadOutlined } from "@ant-design/icons";
+import { Menu, MenuProps, Space } from "antd";
 import {
   LineChart,
   Line,
@@ -17,12 +18,35 @@ import { selectAuth } from "../../store/authSlice";
 import SelectList from "./dashboard/SelectList";
 import AdminAPIInstance from "../../api/adminApi";
 import Loading from "../../components/Loading";
+import { getUnixTimestamp } from "../../utils/DateUtils";
+import moment from "moment";
+
+type MenuItem = Required<MenuProps>["items"][number];
+const getItem = (
+  label: React.ReactNode,
+  key?: React.Key | null,
+  icon?: React.ReactNode,
+  children?: MenuItem[],
+  theme?: "light" | "dark"
+): MenuItem => {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    theme,
+  } as MenuItem;
+};
+
+interface IDateRange {
+  startDate: Date | null;
+  endDate: Date | null;
+}
 
 const AdminDashboard: FC = () => {
   const { adminName, adminRole } = useSelector(selectAuth);
   const [loading, setLoading] = useState(false);
 
-  console.log('role:', adminRole);
   const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
   const [clients, setClients] = useState<Array<any>>([]);
   const [campaigns, setCampaigns] = useState<Array<any>>([]);
@@ -34,7 +58,34 @@ const AdminDashboard: FC = () => {
 
   const [data, setData] = useState<Array<any>>([]);
   const [clicked, setClicked] = useState<Array<any>>([]);
-  const [selectedDateFilter, setSelectedDateFilter] = useState('');
+  const [selectedDateFilter, setSelectedDateFilter] = useState('All Time');
+  const [open, setOpen] = useState<boolean>(false);
+  const [dateRange, setDateRange] = useState<IDateRange>({
+    startDate: null,
+    endDate: null,
+  });
+
+  const ref = useRef<any>(null);
+  const items: MenuItem[] = [
+    getItem("All Time", "All Time"),
+    getItem("Last 24 Hours", "Last 24 Hours"),
+    getItem("Last 7 Days", "Last 7 Days"),
+    getItem("Last 4 Weeks", "Last 4 Weeks"),
+    getItem("Last 12 Months", "Last 12 Months"),
+    getItem("Month to Date", "Month to Date"),
+    getItem("Quarter to Date", "Quarter to Date"),
+    getItem("Year to Date", "Year to Date"),
+  ];
+
+  const getSum = (a: Array<any>) => {
+    let total = 0;
+    let uniqueClicks = 0;
+    for (const i of a) {
+      total += Number(i.count);
+      uniqueClicks += Number(i.unique_click ?? 0);
+    }
+    return { total, uniqueClicks };
+  };
 
   useEffect(() => {
     // if (!location.pathname.includes('/overview') && !location.pathname.includes('/campaign') && !location.pathname.includes('/client'))
@@ -49,10 +100,54 @@ const AdminDashboard: FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log('am:', currentAM);
+    const handleClickOutside = (event: any) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        hide();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    let grouped: any = {};
+    clicked.forEach((item) => {
+      const date = moment(Number(item.create_time));
+      const key = date.format("DD/MM/YYYY");
+      if (!grouped[key]) {
+        grouped[key] = [];
+      }
+      grouped[key].push(item);
+    });
+
+    const sortedKeys = Object.keys(grouped).sort(
+      (a, b) =>
+        moment(b, "DD/MM/YYYY").valueOf() - moment(a, "DD/MM/YYYY").valueOf()
+    );
+
+    setChartData(
+      sortedKeys.map((item) => {
+        let { total, uniqueClicks } = getSum(grouped[item]);
+        return {
+          uniqueClicks,
+          total,
+          date: item,
+        };
+      })
+    );
+    const halfPie = document.querySelector(".half-pie svg");
+    halfPie?.setAttribute("viewBox", "60 95 140 150");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clicked]);
+
+  useEffect(() => {
     if (currentAM === 0) return;
     setLoading(true);
     setClients([]);
+    setCurrentClient(0);
     setCampaigns([]);
     AdminAPIInstance.get('/users', { params: { accountManager: currentAM } }).then(data => {
       setClients(data.data);
@@ -61,9 +156,9 @@ const AdminDashboard: FC = () => {
 
   useEffect(() => {
     if (currentClient === 0 || clients.length <= 0) return;
-    console.log('dfdf:', clients, currentClient);
 
     setLoading(true);
+    setCurrentCampaign(0);
     setCampaigns([]);
     AdminAPIInstance.get('/campaign', { params: { client: clients.find((value) => value.id === currentClient).email } }).then(data => {
       setCampaigns(data.data);
@@ -109,10 +204,10 @@ const AdminDashboard: FC = () => {
     let sumEmail = 0;
     let sumBlog = 0;
 
-    clicked.forEach((item: any) => {
-      if (item.user_medium === "email") {
+    clicked.forEach((item) => {
+      if (item.user_medium === "newsletter") {
         sumEmail += item.count;
-      } else if (item.user_medium === "blog") {
+      } else {
         sumBlog += item.count;
       }
     });
@@ -147,6 +242,109 @@ const AdminDashboard: FC = () => {
     return result;
   }, [clicked]);
 
+  const handleOpenChange = () => {
+    setOpen(true);
+  };
+
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const getDateRange = (item: string): IDateRange => {
+    const today: Date = new Date();
+    let startDate: Date | null = null,
+      endDate: Date | null = null;
+
+    switch (item) {
+      case "Last 24 Hours":
+        startDate = new Date(today);
+        startDate.setDate(today.getDate() - 1);
+        endDate = today;
+        break;
+      case "Last 7 Days":
+        startDate = new Date(today);
+        startDate.setDate(today.getDate() - 7);
+        endDate = today;
+        break;
+      case "Last 4 Weeks":
+        startDate = new Date(today);
+        startDate.setDate(today.getDate() - 28);
+        endDate = today;
+        break;
+      case "Last 12 Months":
+        startDate = new Date(today);
+        startDate.setFullYear(today.getFullYear() - 1);
+        endDate = today;
+        break;
+      case "Month to Date":
+        startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+        endDate = today;
+        break;
+      case "Quarter to Date":
+        startDate = new Date(
+          today.getFullYear(),
+          Math.floor(today.getMonth() / 3) * 3,
+          1
+        );
+        endDate = today;
+        break;
+      case "Year to Date":
+        startDate = new Date(today.getFullYear(), 0, 1);
+        endDate = today;
+        break;
+      default:
+        startDate = null;
+        endDate = null;
+        break;
+    }
+
+    return { startDate, endDate };
+  };
+
+  const onClick: MenuProps["onClick"] = (e) => {
+    setDateRange(getDateRange(e.key));
+    setSelectedDateFilter(e.key);
+    hide();
+  };
+
+  const onAccountManagerClicked = (e: any) => {
+    if (Number(e) === Number(currentAM)) return;
+    callAPI(e, 0, 0);
+  };
+
+  const onClientClicked = (e: any) => {
+    if (Number(e) === Number(currentClient)) return;
+    callAPI(currentAM, e, 0);
+  };
+
+  const onCampaignClicked = (e: any) => {
+    if (Number(e) === Number(currentCampaign)) return;
+    callAPI(currentAM, currentClient, e);
+  };
+
+  const onOverViewClicked = () => {
+    callAPI(0, 0, 0);
+  };
+
+  const callAPI = (am: any, client: any, campaign: any) => {
+    setLoading(true);
+    AdminAPIInstance.get('/dashboard/overview', {
+      params: {
+        accountManagerId: am,
+        clientId: client,
+        campaignId: campaign,
+        ...(dateRange.endDate &&
+          dateRange.startDate && {
+          from: getUnixTimestamp(dateRange.startDate),
+          to: getUnixTimestamp(dateRange.endDate),
+        }),
+      }
+    }).then(data => {
+      setClicked(data.data.clicked);
+      setData(data.data.campaign);
+    }).finally(() => setLoading(false));
+  };
+
   return (
     <div className="w-full flex relative">
       {loading && <Loading />}
@@ -157,30 +355,74 @@ const AdminDashboard: FC = () => {
             <p className="mt-1 text-[#43474a] font-[Inter] text-xs">Here's a snapshot of Presspool.ai, all in one place</p>
           </div>
         </div>
-        <div className="mt-4">
-          <button
-            className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
-          >
-            Overview
-          </button>
-          <SelectList
-            name={`${currentAM === 0 || !accountManagers.find((value) => value.id === currentAM) ? 'By Account Manager' : accountManagers.find((value) => value.id === currentAM).name}`}
-            setValue={(v: any) => setCurrentAM(v)}
-            items={accountManagers}
-            id={currentAM}
-          />
-          <SelectList
-            name={`${currentClient === 0 || !clients.find((value) => value.id === currentClient) ? 'By Client' : clients.find((value) => value.id === currentClient).name}`}
-            setValue={(v: any) => setCurrentClient(v)}
-            items={clients}
-            id={currentAM}
-          />
-          <SelectList
-            name={`${currentCampaign === 0 || !campaigns.find((value) => value.id === currentCampaign) ? 'By Campaign' : campaigns.find((value) => value.id === currentCampaign).name}`}
-            setValue={(v: any) => setCurrentCampaign(v)}
-            items={campaigns}
-            id={currentCampaign}
-          />
+        <div className="mt-4 flex justify-between items-center">
+          <div>
+            <button
+              className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
+              onClick={onOverViewClicked}
+            >
+              Overview
+            </button>
+            <SelectList
+              name={`${currentAM === 0 || !accountManagers.find((value) => value.id === currentAM) ? 'By Account Manager' : accountManagers.find((value) => value.id === currentAM).name}`}
+              setValue={(v: any) => {
+                setCurrentAM(v);
+                onAccountManagerClicked(v);
+              }}
+              items={accountManagers}
+              id={currentAM}
+            />
+            <SelectList
+              name={`${currentClient === 0 || !clients.find((value) => value.id === currentClient) ? 'By Client' : clients.find((value) => value.id === currentClient).name}`}
+              setValue={(v: any) => {
+                setCurrentClient(v);
+                onClientClicked(v);
+              }}
+              items={clients}
+              id={currentAM}
+            />
+            <SelectList
+              name={`${currentCampaign === 0 || !campaigns.find((value) => value.id === currentCampaign) ? 'By Campaign' : campaigns.find((value) => value.id === currentCampaign).name}`}
+              setValue={(v: any) => {
+                setCurrentCampaign(v);
+                onCampaignClicked(v);
+              }}
+              items={campaigns}
+              id={currentCampaign}
+            />
+          </div>
+          <div className="flex gap-5">
+            <div
+              ref={ref}
+              className="group inline-flex flex-col min-w-[100px] relative"
+            >
+              <button
+                onMouseEnter={handleOpenChange}
+                className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
+              >
+                {selectedDateFilter}
+                <CaretDownOutlined />
+              </button>
+              {open && (
+                <Menu
+                  selectedKeys={[selectedDateFilter]}
+                  onClick={onClick}
+                  items={items}
+                  className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]"
+                />
+              )}
+            </div>
+            <button
+              className="inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md disabled:text-[#a3a3a3] disabled:border-none"
+              // onClick={handleDownloadCSV}
+              disabled
+            >
+              <Space>
+                <CloudDownloadOutlined style={{ fontSize: "18px" }} />
+                Download Report
+              </Space>
+            </button>
+          </div>
         </div>
 
         <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[90px] mt-4">
