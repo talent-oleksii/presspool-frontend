@@ -324,7 +324,7 @@ const CampaignOverView: FC = () => {
           </div>
         </div>
       </div>
-      <CampaignNewsletter />
+      {/* <CampaignNewsletter /> */}
     </div>
   );
 };

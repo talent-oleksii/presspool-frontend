@@ -245,8 +245,9 @@ const CampaignFilter: FC = () => {
           )}
         </div>
         <button
-          className="inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md"
+          className="inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md disabled:text-[#a3a3a3] disabled:border-none"
           onClick={handleDownloadCSV}
+          disabled
         >
           <Space>
             <CloudDownloadOutlined style={{ fontSize: "18px" }} />
