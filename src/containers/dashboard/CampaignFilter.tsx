@@ -9,6 +9,7 @@ import {
   setCampaign,
   setCampaignLoading,
   setClicked,
+  setSelectedDateFilter,
 } from "../../store/dataSlice";
 import { getUnixTimestamp } from "../../utils/DateUtils";
 import ByCampaignButton from "./ByCampaignButton";
@@ -45,7 +46,6 @@ const CampaignFilter: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { email } = useSelector(selectAuth);
-  const [selectedFilter, setSelectedFilter] = useState("All Time");
   const [selectedCampaigns, setSelectedCampaigns] = useState<Array<string>>(
     id !== "all" ? (id ? id?.split(",") : []) : []
   );
@@ -53,7 +53,7 @@ const CampaignFilter: FC = () => {
     startDate: null,
     endDate: null,
   });
-  const { campaign } = useSelector(selectData);
+  const { campaign, selectedDateFilter } = useSelector(selectData);
   const ref = useRef<any>(null);
 
   const handleOpenChange = () => {
@@ -77,7 +77,7 @@ const CampaignFilter: FC = () => {
 
   const onClick: MenuProps["onClick"] = (e) => {
     setDateRange(getDateRange(e.key));
-    setSelectedFilter(e.key);
+    dispatch(setSelectedDateFilter(e.key));
     hide();
   };
 
@@ -167,7 +167,7 @@ const CampaignFilter: FC = () => {
       .finally(() => {
         dispatch(setCampaignLoading(false));
       });
-  }, [dateRange, dispatch, email, selectedCampaigns]);
+  }, [dateRange, dispatch, email, selectedCampaigns, selectedDateFilter]);
 
   const handleDownloadCSV = () => {
     var csv =
@@ -232,12 +232,12 @@ const CampaignFilter: FC = () => {
             onMouseEnter={handleOpenChange}
             className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
           >
-            {selectedFilter}
+            {selectedDateFilter}
             <CaretDownOutlined />
           </button>
           {open && (
             <Menu
-              selectedKeys={[selectedFilter]}
+              selectedKeys={[selectedDateFilter]}
               onClick={onClick}
               items={items}
               className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]"
@@ -245,8 +245,9 @@ const CampaignFilter: FC = () => {
           )}
         </div>
         <button
-          className="inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md"
+          className="inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md disabled:text-[#a3a3a3] disabled:border-none"
           onClick={handleDownloadCSV}
+          disabled
         >
           <Space>
             <CloudDownloadOutlined style={{ fontSize: "18px" }} />
