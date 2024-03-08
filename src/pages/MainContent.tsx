@@ -68,19 +68,11 @@ const MainContent: FC = () => {
             })
           );
 
-          Promise.all([
-            APIInstance.get("data/campaign", {
-              params: { email: ret[0]["fields"]["Email"] },
-            }),
-            APIInstance.get("stripe/card", {
-              params: { email: ret[0]["fields"]["Email"] },
-            }),
-          ])
-            .then((results: Array<any>) => {
-              dispatch(setClicked(results[0].data.clicked));
-              dispatch(setCampaign({ campaign: results[0].data.data }));
-              dispatch(setCardList({ cardList: results[1].data }));
-
+          APIInstance.get("stripe/card", {
+            params: { email: ret[0]["fields"]["Email"] },
+          })
+            .then((res) => {
+              dispatch(setCardList({ cardList: res.data }));
               if (location.pathname === "/") navigator("/campaign/all");
             })
             .finally(() => setLoading(false));
@@ -134,37 +126,6 @@ const MainContent: FC = () => {
     navigator("/");
   };
 
-  const feedbackItems: MenuProps["items"] = [
-    {
-      key: "1",
-      label: (
-        <a
-          href="https://forms.gle/T9Kc6JvaVhzwozYR8"
-          className="font-[Inter] font-medium text-xs flex items-center"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <span className="-ms-1 w-[20px] font-[Inter]">✐</span>
-          Give feedback
-        </a>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <a
-          href="https://forms.gle/j1HCrRcrGK9roPhGA"
-          className="font-[Inter] font-medium text-xs flex items-center"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <span className="-ms-1 w-[20px]">⚐</span>
-          Request a feature
-        </a>
-      ),
-    },
-  ];
-
   if (email_verified === "false") {
     return <div>Your email is not verified yet, please verify your email</div>;
   }
@@ -186,29 +147,8 @@ const MainContent: FC = () => {
             <Link to="/" className="text-left w-full ">
               <img src={Logo} className="h-5" alt="logo" />
             </Link>
-            {/* <button
-              className="ms-2 font-[Inter] -tracking-[.6px] text-xs whitespace-nowrap rounded-full bg-black text-white px-2 py-[2px]"
-              onClick={handleReload}
-            >
-              Reload Data
-            </button> */}
           </div>
-
           <Feedback />
-          {/* <div className="ms-[44px]">
-              <Dropdown
-                placement="bottomRight"
-                menu={{ items: profileItems }}
-              >
-                <button className="flex justify-center items-center border-none p-0 font-[Inter] text-[11px]">
-                  <Avatar className="bg-main text-black items-center justify-center flex" src={avatar} alt={getPlaceHolder()} size="small">
-                    {(!avatar || avatar.length <= 3) && <span className="text-xs font-[Inter] font-medium">{getPlaceHolder()}</span>}
-                  </Avatar>
-
-                  <span className="font-[Inter] text-xs font-medium ms-1">↓</span>
-                </button>
-              </Dropdown>
-            </div> */}
         </div>
       </div>
       <div className="flex xsm:flex-col md:grid md:grid-cols-[206px_repeat(4,1fr)] gap-4 h-full md:h-calc-vh xsm:px-9 xsm:py-8">
@@ -217,10 +157,11 @@ const MainContent: FC = () => {
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-black ${location.pathname.indexOf("new") > -1
-                  ? "ring-black ring-[2px]"
-                  : "ring-0"
-                  }`}
+                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-black ${
+                  location.pathname.indexOf("new") > -1
+                    ? "ring-black ring-[2px]"
+                    : "ring-0"
+                }`}
               >
                 <Space size="middle">
                   <PlusCircleOutlined
@@ -231,10 +172,11 @@ const MainContent: FC = () => {
               </Link>
               <NavLink
                 to="/campaign/all"
-                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${location.pathname.startsWith("/campaign/")
-                  ? "bg-white shadow-md"
-                  : ""
-                  }`}
+                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  location.pathname.startsWith("/campaign/")
+                    ? "bg-white shadow-md"
+                    : ""
+                }`}
               >
                 <Space size="middle">
                   <GridIcon />
@@ -244,7 +186,8 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                    isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -256,7 +199,8 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                    isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -268,7 +212,8 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                    isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >

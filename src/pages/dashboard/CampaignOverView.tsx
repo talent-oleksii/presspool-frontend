@@ -1,36 +1,34 @@
 import { FC, useEffect, useMemo, useState } from "react";
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
-import { Space, Tooltip } from "antd";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Pie,
+  Cell,
+  PieChart,
+} from "recharts";
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
-import APIInstance from "../../api";
-import Loading from "../../components/Loading";
-import { selectAuth } from "../../store/authSlice";
-import StripeUtil from "../../utils/stripe";
 
-import DownloadImage from "../../assets/icon/download.png";
 import Card from "../../components/Card";
-import { CloudDownloadOutlined } from "@ant-design/icons";
+import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 
-const data01: Array<any> = [];
-
-interface typeOverView {
-  data: Array<any>;
-}
-
-const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
+const CampaignOverView: FC = () => {
+  const { campaign: data } = useSelector(selectData);
   const [chartData, setChartData] = useState<Array<any>>([]);
-  const [loading, setLoading] = useState(false);
   const { clicked } = useSelector(selectData);
-  const { email } = useSelector(selectAuth);
 
   const getSum = (a: Array<any>) => {
-    let sum = 0;
+    let total = 0;
+    let uniqueClicks = 0;
     for (const i of a) {
-      sum += Number(i.count);
+      total += Number(i.count);
+      uniqueClicks += Number(i.unique_click ?? 0);
     }
-    return sum;
+    return { total, uniqueClicks };
   };
 
   useEffect(() => {
@@ -44,23 +42,78 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
       grouped[key].push(item);
     });
 
-    console.log('group:', grouped);
-
     setChartData(
       Object.keys(grouped).map((item: any) => {
-        let sum = getSum(grouped[item]);
+        let { total, uniqueClicks } = getSum(grouped[item]);
         return {
-          impression: 0,
-          click: sum,
-          date: item
+          uniqueClicks,
+          total,
+          date: item,
         };
       })
     );
+    const halfPie = document.querySelector(".half-pie svg");
+    halfPie?.setAttribute("viewBox", "60 95 140 150");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
 
-  const activeCampaigns = useMemo(
-    () => data.filter((item) => item.state === "active").length ?? 0,
+  const generateColor = () => {
+    return "#" + Math.random().toString(16).substr(-6);
+  };
+
+  const sumCountByEmailAndBlog = useMemo(() => {
+    let sumEmail = 0;
+    let sumBlog = 0;
+
+    clicked.forEach((item) => {
+      if (item.user_medium === "email") {
+        sumEmail += item.count;
+      } else if (item.user_medium === "blog") {
+        sumBlog += item.count;
+      }
+    });
+
+    return {
+      email: sumEmail,
+      blog: sumBlog,
+    };
+  }, [clicked]);
+
+  const groupByAndSumCountOnCountry = useMemo(() => {
+    const ipCounts: { [x: string]: { total: number } } = {};
+    clicked.forEach((item) => {
+      const ip = item.ip;
+      const count = item.count;
+
+      if (!ipCounts[ip]) {
+        ipCounts[ip] = { total: 0 };
+      }
+      ipCounts[ip].total += count;
+    });
+    const totalSum = Object.values(ipCounts).reduce(
+      (acc: any, { total }: any) => acc + total,
+      0
+    );
+
+    const result = [];
+    for (const [ip, { total }] of Object.entries(ipCounts)) {
+      const percentage = ((total / totalSum) * 100).toFixed(2);
+      result.push({ ip, total, percentage, color: generateColor() });
+    }
+    return result;
+  }, [clicked]);
+
+  const avgCPC = useMemo(
+    () =>
+      data.reduce((accumulator, currentValue) => {
+        const spent = Number(currentValue.spent);
+        const uniqueClicks = Number(currentValue.unique_clicks);
+        if (!isNaN(spent) && !isNaN(uniqueClicks) && uniqueClicks !== 0) {
+          accumulator += spent / uniqueClicks;
+        }
+
+        return accumulator;
+      }, 0),
     [data]
   );
 
@@ -76,95 +129,34 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
   );
 
   const totalSpend = useMemo(
-    () =>
-      data.reduce((prev, item) => prev + Number(item?.spent ?? 0), 0),
+    () => data.reduce((prev, item) => prev + Number(item?.spent ?? 0), 0),
     [data]
   );
 
-  const getUnbilled = () => {
-    let unbilled = 0;
-    for (const item of data) {
-      unbilled += Number(item.spent) - Number(item.billed);
-    }
+  const avgTime = useMemo(() => {
+    let totalDuration = 0;
+    let count = 0;
 
-    return unbilled;
-  };
-
-  const handleDownloadCSV = () => {
-    var csv =
-      "Date, URL, DEMOGRAPHIC, HEADLINE, BODY, CTA, CLICK_COUNT, PAGE_URL\n";
-
-    //merge the data with CSV
-    data.forEach(function (row) {
-      csv += moment(Number(row.create_time)).format("mm-dd-yyyy") + ",";
-      csv += row.url + ",";
-      csv += row.demographic + ",";
-      csv += `"${row.headline}",`;
-      csv += `"${row.body}",`;
-      csv += `"${row.cta}",`;
-      csv += `"${row.click_count}",`;
-      csv += `"${row.page_url}"`;
-
-      csv += "\n";
+    clicked.forEach((item) => {
+      if (typeof item.duration === "number") {
+        totalDuration += item.duration;
+        count++;
+      }
     });
 
-    //display the created CSV data on the web browser
+    const averageDurationSeconds = count > 0 ? totalDuration / count : 0;
+    const hours = Math.floor(averageDurationSeconds / 3600);
+    const minutes = Math.floor((averageDurationSeconds % 3600) / 60);
+    const seconds = averageDurationSeconds % 60;
 
-    var hiddenElement = document.createElement("a");
-    hiddenElement.href = "data:text/csv;charset=utf-8," + encodeURI(csv);
-    hiddenElement.target = "_blank";
-
-    //provide the name for the CSV file to be downloaded
-    hiddenElement.download = "Reports.csv";
-    hiddenElement.click();
-  };
-
-  const handlePayNow = () => {
-    setLoading(true);
-    APIInstance.get("data/unbilled", { params: { email } })
-      .then(async (data) => {
-        if (Number(data.data.unbilled) <= 0) return;
-        const customerId = await StripeUtil.getCustomerId(email);
-
-        const newPrice = await StripeUtil.stripe.prices.create({
-          currency: "usd",
-          unit_amount: Number(data.data.unbilled) * 100,
-          product_data: {
-            name: "Presspool AI Unbilled Services",
-          },
-          metadata: { state: "unbilled" },
-        });
-
-        const session = await StripeUtil.stripe.checkout.sessions.create({
-          customer: customerId,
-          mode: "payment",
-          line_items: [{ price: newPrice.id, quantity: 1 }],
-          success_url: "https://go.presspool.ai/campaign/all",
-          cancel_url: "https://go.presspool.ai/campaign/all",
-          payment_intent_data: {
-            metadata: {
-              state: "unbilled",
-            },
-          },
-        });
-
-        (await StripeUtil.stripePromise)?.redirectToCheckout({
-          sessionId: session.id,
-        });
-      })
-      .finally(() => setLoading(false));
-  };
+    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds.toFixed(0)}`;
+  }, [clicked]);
 
   return (
-    <div className="mt-3">
-      {loading && <Loading />}
-      <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[200px]">
-        <Card
-          title={"Active Campaigns"}
-          value={activeCampaigns}
-          percentage={0}
-          totalCountLast4Week={0}
-        />
+    <div className="mt-3 h-full">
+      <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[90px]">
         <Card
           title={"Total Clicks"}
           value={totalClicks}
@@ -183,16 +175,23 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
           percentage={0}
           totalCountLast4Week={0}
         />
-        {/* <div className='col-span-1 py-5 px-4 flex flex-col justify-center items-center items-center rounded-[20px] bg-white'>
-          <h2 className='text-[20px] 2xl:text-[25px] font-[Inter] font-semibold'>{`$${getAverageCPC()}`}</h2>
-          <p className='text-xs font-[Inter] font-normal my-1 text-gray-600'>AVG CPC</p>
-          <div className='bg-main rounded-full font-[Inter] py-1 px-4 text-xs font-semibold text-black my-1'>0%</div>
-          <p className='text-gray-500 text-xs'>from 0 (last 4 weeks)</p>
-        </div> */}
+        <Card
+          title={"AVG CPC"}
+          value={avgCPC.toFixed(2)}
+          percentage={0}
+          totalCountLast4Week={0}
+        />
+        {/* <Card
+          title={"AVG Time on Page"}
+          value={avgTime}
+          percentage={0}
+          totalCountLast4Week={0}
+        /> */}
       </div>
       <div
-        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${
+          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+        } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline">
           <div>
@@ -204,20 +203,13 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
             </p>
           </div>
           <div>
-            <button
-              className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-xs font-medium border-black rounded-lg"
-              onClick={handleDownloadCSV}
-            >
-              <Space>
-                <CloudDownloadOutlined style={{ fontSize: "18px" }} />
-                Download PDF
-              </Space>
-            </button>
             <div className="mt-[20px]">
-              <p className="font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
+              <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
+                <span className="w-4 h-[3px] shrink-0 rounded-full bg-main"></span>
                 Total Clicks
               </p>
-              <p className="font-[Inter] text-[#7F8182] text-[10px] 2xl:text-xs mt-2 font-semibold">
+              <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs mt-2 font-semibold">
+                <span className="w-4 h-[3px] shrink-0 rounded-full bg-[#6C63FF]"></span>
                 Unique Clicks
               </p>
             </div>
@@ -225,8 +217,9 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+            className={`flex w-full ${
+              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+            } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
@@ -234,93 +227,124 @@ const CampaignOverView: FC<typeOverView> = ({ data }: typeOverView) => {
                   data={chartData}
                   margin={{ left: 0, bottom: 0, right: 50 }}
                 >
-                  <Line type="linear" dataKey="click" stroke="#7F8182" />
-                  <Line type="linear" dataKey="impression" stroke="black" />
+                  <Line
+                    type="linear"
+                    dataKey="total"
+                    stroke="#7FFBAE"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="linear"
+                    dataKey="uniqueClicks"
+                    stroke="#6C63FF"
+                    strokeWidth={3}
+                  />
                   <XAxis dataKey="date" />
-                  <YAxis />
+                  <YAxis strokeWidth={0} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <p className="font-[Inter] mt-4 text-[10px]">No data is available yet. Please create and launch your first campaign</p>
+              <p className="font-[Inter] mt-4 text-[10px]">
+                No data is available yet. Please create and launch your first
+                campaign
+              </p>
             )}
           </div>
         </div>
       </div>
-      <div className="col-span-1 p-5 flex flex-col items-center bg-white rounded-[10px] shadow-md">
-        <p className="font-[Inter] text-black mb-4 text-left font-semibold w-full text-base">
-          Newsletters (by the numbers)
-        </p>
-        <table className="w-full">
-          <thead>
-            <tr>
-              <td className="text-[10px] font-[Inter]">Name</td>
-              <td className="text-[10px] font-[Inter]">Impressions</td>
-              <td className="text-[10px] font-[Inter]">Clicks</td>
-              <td className="text-[10px] font-[Inter]">Total Spend</td>
-              <td className="text-[10px] font-[Inter]">
-                <span className="flex items-center">
-                  CTR
-                  <Tooltip
-                    title="The percentage of clicks from the total impressions."
-                    color="#EDECF2"
-                    getPopupContainer={() =>
-                      document.getElementById("ctr-tooltip") as HTMLElement
-                    }
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 -960 960 960"
-                      className="h-[20px] w-[20px] 2xl:w-[24px] 2xl:h-[24px] ms-1"
-                    >
-                      <path d="M460-300h40v-220h-40v220Zm20-276.923q10.462 0 17.539-7.077 7.076-7.077 7.076-17.539 0-10.461-7.076-17.538-7.077-7.077-17.539-7.077-10.462 0-17.539 7.077-7.076 7.077-7.076 17.538 0 10.462 7.076 17.539 7.077 7.077 17.539 7.077ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120ZM480-160q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-                    </svg>
-                  </Tooltip>
-                  <div id="ctr-tooltip"></div>
+      <div className="grid grid-cols-2 gap-7">
+        <div
+          className={`my-3 p-5 min-h-[225px] rounded-[10px] bg-white shadow-md`}
+        >
+          <h2 className="font-[Inter] text-base font-semibold">
+            Engagement by Channel
+          </h2>
+          <div className="flex justify-between flex w-full items-center mt-5">
+            <div className="flex flex-col justify-between gap-5 pl-8">
+              <div className="pl-2 border-l-4 border-[#7FFBAE]  flex flex-col justify-between gap-1">
+                <span className="text-sm leading-[14px] font-normal">
+                  Email
                 </span>
-              </td>
-              <td className="text-[10px] font-[Inter]">
-                <span className="flex items-center">
-                  % of Total Traffic
-                  <Tooltip
-                    title="The percentage of the individual newsletter’s impressions from  the total number of impressions."
-                    color="#EDECF2"
-                    getPopupContainer={() =>
-                      document.getElementById("total-trafic") as HTMLElement
-                    }
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 -960 960 960"
-                      className="h-[20px] w-[20px] 2xl:w-[24px] 2xl:h-[24px] ms-1"
-                    >
-                      <path d="M460-300h40v-220h-40v220Zm20-276.923q10.462 0 17.539-7.077 7.076-7.077 7.076-17.539 0-10.461-7.076-17.538-7.077-7.077-17.539-7.077-10.462 0-17.539 7.077-7.076 7.077-7.076 17.538 0 10.462 7.076 17.539 7.077 7.077 17.539 7.077ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120ZM480-160q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-                    </svg>
-                  </Tooltip>
-                  <div id="total-trafic"></div>
+                <span className="text-xl leading-[20px] font-semibold">
+                  {sumCountByEmailAndBlog.email}
                 </span>
-              </td>
-              <td className="text-[10px] font-[Inter]">Feedback</td>
-            </tr>
-          </thead>
-          <tbody>
-            {data01.map((item, index) => (
-              <tr key={index}>
-                <td>{item.name}</td>
-                <td>15,000</td>
-                <td>250</td>
-                <td>1.67%</td>
-                <td className="flex">
-                  <button className="text-[10px]">👍</button>
-                  <button className="text-[10px]">👎</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className="font-[Inter] mt-4 text-[10px]">
-          No data is available yet. Please create and launch your first campaign
-        </p>
+              </div>
+              <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
+                <span className="text-sm leading-[14px] font-normal">Blog</span>
+                <span className="text-xl leading-[20px] font-semibold">
+                  {sumCountByEmailAndBlog.blog}
+                </span>
+              </div>
+            </div>
+            <PieChart width={260} height={200} className="half-pie">
+              <Pie
+                data={[
+                  { name: "Email", value: sumCountByEmailAndBlog.email },
+                  { name: "Blog", value: sumCountByEmailAndBlog.blog },
+                ]}
+                cx={"50%"}
+                cy={"115%"}
+                startAngle={180}
+                endAngle={0}
+                innerRadius={90}
+                outerRadius={95}
+                fill="#8884d8"
+                paddingAngle={0}
+                dataKey="value"
+              >
+                <Cell key={`cell-1`} fill={"#7FFBAE"} />
+                <Cell key={`cell-1`} fill={"#6C63FF"} />
+              </Pie>
+            </PieChart>
+          </div>
+        </div>
+        <div
+          className={`my-3 p-5 min-h-[225px] rounded-[10px] bg-white shadow-md`}
+        >
+          <h2 className="font-[Inter] text-base font-semibold">
+            Engagement by Country
+          </h2>
+          <div className="flex justify-between w-full items-center mt-5">
+            <div className="flex flex-col gap-2 overflow-y-auto max-h-[200px]">
+              {groupByAndSumCountOnCountry.map((item, index) => (
+                <div className="flex justify-between gap-8 items-center">
+                  <div
+                    key={index}
+                    className="flex items-center gap-3 shrink-0 text-sm font-normal h-8"
+                  >
+                    <span
+                      style={{ backgroundColor: item.color }}
+                      className={`w-[3px] h-full rounded-full`}
+                    ></span>
+                    {item.ip}
+                  </div>
+                  <span>{item.percentage}%</span>
+                </div>
+              ))}
+            </div>
+            <PieChart width={300} height={205}>
+              <Pie
+                data={groupByAndSumCountOnCountry.map((item) => ({
+                  name: item.ip,
+                  value: item.total,
+                }))}
+                cx={100}
+                cy={100}
+                innerRadius={93}
+                outerRadius={100}
+                fill="#8884d8"
+                paddingAngle={0}
+                dataKey="value"
+              >
+                {groupByAndSumCountOnCountry.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </div>
+        </div>
       </div>
+      <CampaignNewsletter />
     </div>
   );
 };
