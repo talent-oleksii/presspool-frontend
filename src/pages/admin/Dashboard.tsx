@@ -101,6 +101,7 @@ const AdminDashboard: FC = () => {
     if (adminRole === 'account_manager') {
       setCurrentAM(adminId);
     }
+    onOverViewClicked();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -328,7 +329,11 @@ const AdminDashboard: FC = () => {
   };
 
   const onOverViewClicked = () => {
-    callAPI(0, 0, 0);
+    if (adminRole === 'super_admin') {
+      callAPI(0, 0, 0);
+    } else {
+      callAPI(currentAM, 0, 0);
+    }
   };
 
   const callAPI = (am: any, client: any, campaign: any) => {
