@@ -43,6 +43,7 @@ interface IDateRange {
 const CampaignFilter: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { email } = useSelector(selectAuth);
@@ -54,7 +55,15 @@ const CampaignFilter: FC = () => {
     endDate: null,
   });
   const { campaign, selectedDateFilter } = useSelector(selectData);
+  const [campaignList, setCampaignList] = useState<Array<any>>([]);
   const ref = useRef<any>(null);
+
+  useEffect(() => {
+    setLoading(true);
+    APIInstance.get('/data/campaign_list', { params: { email } }).then(data => {
+      setCampaignList(data.data);
+    }).finally(() => setLoading(false));
+  }, []);
 
   const handleOpenChange = () => {
     setOpen(true);
@@ -152,9 +161,9 @@ const CampaignFilter: FC = () => {
         email,
         ...(dateRange.endDate &&
           dateRange.startDate && {
-            from: getUnixTimestamp(dateRange.startDate),
-            to: getUnixTimestamp(dateRange.endDate),
-          }),
+          from: getUnixTimestamp(dateRange.startDate),
+          to: getUnixTimestamp(dateRange.endDate),
+        }),
         ...(selectedCampaigns.length > 0 && {
           campaignIds: selectedCampaigns,
         }),
@@ -207,18 +216,17 @@ const CampaignFilter: FC = () => {
     <div className="flex justify-between items-center mt-4">
       <div>
         <button
-          className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${
-            id === "all"
-              ? "bg-white border border-solid border-main shadow-md"
-              : "bg-transparent ring-none"
-          }`}
+          className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${id === "all"
+            ? "bg-white border border-solid border-main shadow-md"
+            : "bg-transparent ring-none"
+            }`}
           onClick={handleOverviewClick}
         >
           Overview
         </button>
         <ByCampaignButton
           id={id}
-          items={campaign}
+          items={campaignList}
           setSelectedCampaigns={setSelectedCampaigns}
           selectedCampaigns={selectedCampaigns}
         />

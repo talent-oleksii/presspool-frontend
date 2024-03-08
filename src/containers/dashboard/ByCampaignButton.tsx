@@ -37,11 +37,11 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
   const handleItemClick = (itemId: string) => {
     const campaignIds = selectedCampaigns.includes(itemId.toString())
       ? selectedCampaigns.filter((item) => Number(item) !== Number(itemId))
-      : [...selectedCampaigns, itemId.toString()];
+      : [itemId.toString()];
 
     setSelectedCampaigns(campaignIds);
     navigate(campaignIds.length ? `/campaign/${campaignIds.join(',')}` : `/campaign/all`);
-    if(campaignIds.length === 0){
+    if (campaignIds.length === 0) {
       hide();
     }
   };
@@ -66,13 +66,12 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
     >
       <button
         onMouseEnter={handleOpenChange}
-        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-[#505050] flex px-4 py-[10px] rounded-[10px] ${
-          id !== "all"
-            ? "bg-white ring-1 ring-main shadow-md"
-            : "bg-transparent ring-none"
-        }`}
+        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-[#505050] flex px-4 py-[10px] rounded-[10px] ${id !== "all"
+          ? "bg-white ring-1 ring-main shadow-md"
+          : "bg-transparent ring-none"
+          }`}
       >
-        By Campaign
+        {selectedCampaigns.length <= 0 ? 'By Campaign' : items.filter(it => Number(it.id) === Number(selectedCampaigns[0]))[0].name}
         <CaretDownOutlined />
       </button>
       {open && (

@@ -32,10 +32,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     setLoading(true);
     APIInstance.get('/data/newsletter', { params: { email } }).then(data => {
       console.log('data:', data.data);
-      setNewsletter(data.data.filter((item: any) => Number(item.campaign_id) == Number(id)));
+      setNewsletter(data.data.filter((item: any) => Number(item.campaign_id) === Number(id)));
     }).catch(error => {
       console.log('err:', error);
     }).finally(() => setLoading(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getSum = (a: Array<any>) => {
