@@ -44,7 +44,7 @@ interface IDateRange {
 }
 
 const AdminDashboard: FC = () => {
-  const { adminName, adminRole } = useSelector(selectAuth);
+  const { adminName, adminRole, adminId } = useSelector(selectAuth);
   const [loading, setLoading] = useState(false);
 
   const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
@@ -96,6 +96,11 @@ const AdminDashboard: FC = () => {
     ]).then((results: Array<any>) => {
       setAccountManagers(results[0].data);
     }).finally(() => setLoading(false));
+
+
+    if (adminRole === 'account_manager') {
+      setCurrentAM(adminId);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -363,15 +368,18 @@ const AdminDashboard: FC = () => {
             >
               Overview
             </button>
-            <SelectList
-              name={`${currentAM === 0 || !accountManagers.find((value) => value.id === currentAM) ? 'By Account Manager' : accountManagers.find((value) => value.id === currentAM).name}`}
-              setValue={(v: any) => {
-                setCurrentAM(v);
-                onAccountManagerClicked(v);
-              }}
-              items={accountManagers}
-              id={currentAM}
-            />
+            {
+              adminRole === 'super_admin' &&
+              <SelectList
+                name={`${currentAM === 0 || !accountManagers.find((value) => value.id === currentAM) ? 'By Account Manager' : accountManagers.find((value) => value.id === currentAM).name}`}
+                setValue={(v: any) => {
+                  setCurrentAM(v);
+                  onAccountManagerClicked(v);
+                }}
+                items={accountManagers}
+                id={currentAM}
+              />
+            }
             <SelectList
               name={`${currentClient === 0 || !clients.find((value) => value.id === currentClient) ? 'By Client' : clients.find((value) => value.id === currentClient).name}`}
               setValue={(v: any) => {
