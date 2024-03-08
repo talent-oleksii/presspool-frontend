@@ -332,7 +332,7 @@ const AdminDashboard: FC = () => {
     if (adminRole === 'super_admin') {
       callAPI(0, 0, 0);
     } else {
-      callAPI(currentAM, 0, 0);
+      callAPI(adminId, 0, 0);
     }
   };
 
