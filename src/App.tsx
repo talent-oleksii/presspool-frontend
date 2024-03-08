@@ -24,8 +24,8 @@ const App: FC = () => {
       calculatedZoom < minZoom
         ? minZoom
         : calculatedZoom > maxZoom
-          ? maxZoom
-          : calculatedZoom
+        ? maxZoom
+        : calculatedZoom
     );
   };
   const handleResize = () => {
@@ -45,6 +45,14 @@ const App: FC = () => {
         token: {
           fontFamily: "Inter",
           fontWeightStrong: 500,
+        },
+        components: {
+          Menu: {
+            itemHoverBg: "#7FFBAE",
+            itemSelectedBg: "#7FFBAE",
+            itemSelectedColor: "#000000",
+            itemHeight: 32
+          },
         },
       }}
     >
