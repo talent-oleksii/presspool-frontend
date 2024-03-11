@@ -216,7 +216,7 @@ const CampaignFilter: FC = () => {
     <div className="flex justify-between items-center mt-4">
       <div>
         <button
-          className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${id === "all"
+          className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${id === "all"
             ? "bg-white border border-solid border-main shadow-md"
             : "bg-transparent ring-none"
             }`}
@@ -238,7 +238,7 @@ const CampaignFilter: FC = () => {
         >
           <button
             onMouseEnter={handleOpenChange}
-            className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
+            className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-primary justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
           >
             {selectedDateFilter}
             <CaretDownOutlined />
@@ -253,7 +253,7 @@ const CampaignFilter: FC = () => {
           )}
         </div>
         <button
-          className="inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md disabled:text-[#a3a3a3] disabled:border-none"
+          className="inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md disabled:text-[#a3a3a3] disabled:border-none"
           onClick={handleDownloadCSV}
           disabled
         >

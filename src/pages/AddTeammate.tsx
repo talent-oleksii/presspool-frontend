@@ -86,7 +86,7 @@ const AddTeammate: FC<typeAddTeammate> = ({
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-2 w-full text-xs font-[Inter] italic px-4 py-3 focus:ring-0 focus:border-black -tracking-[.48px] text-black border-black underline border-[1px] rounded-[10px] bg-[#FBFBFB]"
+                    className="mt-2 w-full text-xs font-[Inter] italic px-4 py-3 focus:ring-0 focus:border-black -tracking-[.48px] text-primary border-black underline border-[1px] rounded-[10px] bg-[#FBFBFB]"
                   />
                   <button
                     className="bg-black rounded-[5px] text-xs text-white font-semibold font-[Inter] py-3 w-full mt-8 disabled:bg-[#7f8183]"

@@ -66,12 +66,12 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
     >
       <button
         onMouseEnter={handleOpenChange}
-        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-[#505050] flex px-4 py-[10px] rounded-[10px] ${id !== "all"
+        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-primary flex px-4 py-[10px] rounded-[10px] ${id !== "all"
           ? "bg-white ring-1 ring-main shadow-md"
           : "bg-transparent ring-none"
           }`}
       >
-        {selectedCampaigns.length <= 0 ? 'By Campaign' : items.filter(it => Number(it.id) === Number(selectedCampaigns[0]))[0].name}
+        {selectedCampaigns.length <= 0 ? 'By Campaign' : items.filter(it => Number(it.id) === Number(selectedCampaigns[0]))[0]?.name}
         <CaretDownOutlined />
       </button>
       {open && (

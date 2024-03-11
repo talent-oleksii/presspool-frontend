@@ -69,26 +69,26 @@ const AdminLogin: FC = () => {
         <div>
           <div className="flex items-center">
             <img src={Mark} alt="mark" className="w-[50px] me-2" />
-            <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
+            <h3 className="font-[Inter] text-primary text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
           </div>
           <div className="mt-10 flex">
             <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
             </div>
           </div>
           <div className="mt-6 flex">
             <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Access your assigned Clients and<br />their campaigns all in one place</p>
             </div>
           </div>
           <div className="mt-6 flex">
             <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">The more campaigns you manage <br />successfully, the more money you<br />can make by increasing your <br />Client's spent</p>
             </div>
           </div>
@@ -100,7 +100,7 @@ const AdminLogin: FC = () => {
           <div className="mt-5 flex items-center">
             <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
             <div className="text-left">
-              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
+              <p className="text-primary font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
               <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
             </div>
           </div>
@@ -125,12 +125,12 @@ const AdminLogin: FC = () => {
                 type="email"
                 placeholder="Enter here..."
                 onChange={handleChange}
-                className="w-full border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
+                className="w-full border-secondry2 bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
               />
             </div>
             <div>
               <label className="font-[Inter] block text-xs font-medium mt-[18px] -tracking-[.508px]">Password</label>
-              <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4">
+              <div className="flex items-center justify-center border-secondry2 bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4">
                 <input
                   id="password"
                   name="password"
@@ -148,13 +148,13 @@ const AdminLogin: FC = () => {
               </div>
             </div>
             <div className="w-full text-right">
-              <div className="font-[Inter] text-black text-xs 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
+              <div className="font-[Inter] text-primary text-xs 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
             </div>
-            <button className="rounded-[6px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-black text-semibold mt-[32px]">Log In</button>
+            <button className="rounded-[6px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-primary text-semibold mt-[32px]">Log In</button>
 
             <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
               Don't have an account?
-              <Link className="block text-center text-black ms-1 underline" to="/admin/signup">Sign Up</Link>
+              <Link className="block text-center text-primary ms-1 underline" to="/admin/signup">Sign Up</Link>
             </p>
           </form>
         </div>

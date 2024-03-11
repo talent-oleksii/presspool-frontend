@@ -40,9 +40,9 @@ const Landing: FC = () => {
     <div className="w-full h-screen pt-8 flex flex-col px-8">
       <div className="flex flex-col text-center items-center justify-center">
         <img alt="logo" src={Logo} className="w-[30px] mb-5" />
-        <h2 className="font-[Inter] font-semibold text-[24px] leading-7 md:text-[34px] mt-7 md:mt-[12px] text-black md:mb-2 -tracking-[1.2px]">
+        <h2 className="font-[Inter] font-semibold text-[24px] leading-7 md:text-[34px] mt-7 md:mt-[12px] text-primary md:mb-2 -tracking-[1.2px]">
           Welcome to the
-          {/* <h2 className="font-[Inter] font-semibold text-black text-[40px] -tracking-[1.2px] -mt-5"> */}
+          {/* <h2 className="font-[Inter] font-semibold text-primary text-[40px] -tracking-[1.2px] -mt-5"> */}
           <span className="bg-[#43474a] text-main mx-2 rounded-full px-2 py-0">
             Future
           </span>
@@ -52,7 +52,7 @@ const Landing: FC = () => {
           {!isAuthenticated ? (
             <>
               <Link
-                className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center bg-white rounded-[10px] shadow-md w-[250px]"
+                className="flex flex-col font-semibold -tracking-[.42px] text-primary py-[15px] text-sm 2xl:text-sm items-center justify-center bg-white rounded-[10px] shadow-md w-[250px]"
                 to="client-sign-up"
               >
                 <img
@@ -63,7 +63,7 @@ const Landing: FC = () => {
                 <p className="mb-0 mt-[9px]">I'm a Company</p>
                 {/* <p className='mb-0 -mt-1'>Company</p> */}
               </Link>
-              <button className="flex flex-col font-semibold -tracking-[.42px] text-black py-[15px] text-sm 2xl:text-sm items-center justify-center  bg-white rounded-[10px] shadow-md w-[250px]">
+              <button className="flex flex-col font-semibold -tracking-[.42px] text-primary py-[15px] text-sm 2xl:text-sm items-center justify-center  bg-white rounded-[10px] shadow-md w-[250px]">
                 <img
                   alt="creator"
                   src={Creator}
@@ -82,9 +82,9 @@ const Landing: FC = () => {
           )}
         </div>
         {!isAuthenticated ? (
-          <p className="mt-12 md:mt-5 font-[Inter] font-medium text-sm text-[#7F8182]">
+          <p className="mt-12 md:mt-5 font-[Inter] font-medium text-sm text-secondry2">
             Already have an account? Sign in{" "}
-            <Link to="/login" className="text-black underline">
+            <Link to="/login" className="text-primary underline">
               here
             </Link>
           </p>
@@ -98,7 +98,7 @@ const Landing: FC = () => {
         )}
       </div>
       <div className="hidden overflow-hidden md:flex flex-1 items-center flex-col mt-5 rounded-[10px] px-[15px] pt-[19px] pb-[14px] w-full px-8 shadow-md bg-[#fffdfd]">
-        <p className="text-black text-xl font-semibold -tracking-[.54px]">
+        <p className="text-primary text-xl font-semibold -tracking-[.54px]">
           Discover Features
         </p>
         <div className="">
@@ -106,7 +106,7 @@ const Landing: FC = () => {
             <button
               className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
                 current === 0
-                  ? "text-black border-main"
+                  ? "text-primary border-main"
                   : "text-[#525252] border-[#EDECF2]"
               }`}
               onClick={() => setCurrent(0)}
@@ -132,7 +132,7 @@ const Landing: FC = () => {
             <button
               className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
                 current === 1
-                  ? "text-black border-main"
+                  ? "text-primary border-main"
                   : "text-[#525252] border-[#EDECF2]"
               }`}
               onClick={() => setCurrent(1)}
@@ -158,7 +158,7 @@ const Landing: FC = () => {
             <button
               className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
                 current === 2
-                  ? "text-black border-main"
+                  ? "text-primary border-main"
                   : "text-[#525252] border-[#EDECF2]"
               }`}
               onClick={() => setCurrent(2)}

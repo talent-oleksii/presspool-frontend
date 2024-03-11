@@ -67,7 +67,7 @@ const AdminClientCampaign: FC = () => {
             </Avatar>
             <div className='ms-2 py-[20px]'>
               {/* <p className='font-[Inter] text-xs text-[#a3a3a3] -tracking-[.36px]'>{`ID: ${userData.id}`}</p> */}
-              <p className='font-[Inter] text-lg text-[#43474a] -tracking-[.54px]'>{data.company}</p>
+              <p className='font-[Inter] text-lg text-secondry1 -tracking-[.54px]'>{data.company}</p>
             </div>
           </div>
           <div className='flex gap-4'>
@@ -123,7 +123,7 @@ const AdminClientCampaign: FC = () => {
               {data.state && <span className={`rounded-full text-[10px] px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{data.state}</span>}
               <h2 className='font-[Inter] mt-4 text-xs 2xl:text-lg font-semibold'>{data.name || ''}</h2>
               {/* <p className='text-xs'>{`https://track.presspool.ai/${data.uid || 1}`}</p> */}
-              <p className='font-[Inter] text-[#43474A] mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
+              <p className='font-[Inter] text-secondry1 mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
             </div>
 
             {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
@@ -139,8 +139,8 @@ const AdminClientCampaign: FC = () => {
               <YAxis />
             </LineChart>
             <div className='absolute right-[20px] top-0'>
-              <p className='font-[Inter] text-black text-xs 2xl:text-xs font-semibold mb-2'>Total Impressions</p>
-              <p className='font-[Inter] text-[#7F8182] text-xs 2xl:text-xs mt-2 font-semibold'>Total Clicks</p>
+              <p className='font-[Inter] text-primary text-xs 2xl:text-xs font-semibold mb-2'>Total Impressions</p>
+              <p className='font-[Inter] text-secondry2 text-xs 2xl:text-xs mt-2 font-semibold'>Total Clicks</p>
             </div>
           </div>
         </div>

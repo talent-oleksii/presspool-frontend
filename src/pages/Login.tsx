@@ -92,7 +92,7 @@ const Login: FC = () => {
         <div>
           <div className="flex items-center">
             <img src={Mark} alt="mark" className="w-[50px] me-2" />
-            <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">
+            <h3 className="font-[Inter] text-primary text-[34px] font-medium -tracking-[1.02px]">
               presspool.ai
             </h3>
           </div>
@@ -101,7 +101,7 @@ const Login: FC = () => {
               1
             </span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">
+              <h3 className="text-primary font-[Inter] text-base font-semibold -tracking-[.6px]">
                 Sign Up / Log In
               </h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">
@@ -114,7 +114,7 @@ const Login: FC = () => {
               2
             </span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">
+              <h3 className="text-primary font-[Inter] text-base font-semibold -tracking-[.6px]">
                 Create / manage your campaigns
               </h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">
@@ -128,7 +128,7 @@ const Login: FC = () => {
               3
             </span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">
+              <h3 className="text-primary font-[Inter] text-base font-semibold -tracking-[.6px]">
                 Grow your client base
               </h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">
@@ -155,7 +155,7 @@ const Login: FC = () => {
               className="w-[63px] h-[63px] rounded-full me-2"
             />
             <div className="text-left">
-              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-base">
+              <p className="text-primary font-semibold -tracking-[.48px] font-[Inter] text-base">
                 Morgan A.
               </p>
               <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">
@@ -168,7 +168,7 @@ const Login: FC = () => {
       <div className="flex xsm:flex-col flex-1 items-center h-full bg-white md:justify-center w-full xsm:pt-8 xsm:gap-16 xsm:bg-[#EDECF2]">
         <div className="flex items-center gap-1.5 md:hidden">
           <img src={Mark} alt="mark" className="w-[30px]" />
-          <h3 className="font-[Inter] text-black text-[22px] font-medium -tracking-[1.02px]">
+          <h3 className="font-[Inter] text-primary text-[22px] font-medium -tracking-[1.02px]">
             presspool.ai
           </h3>
         </div>
@@ -214,14 +214,14 @@ const Login: FC = () => {
                 placeholder="Enter here..."
                 value={formData.email || ""}
                 onChange={handleChange}
-                className="w-full border-[#7F8182] bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2"
+                className="w-full border-secondry2 bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2"
               />
             </div>
             <div className="mt-2 md:mt-4">
               <label className="font-[Inter] block text-[14px] md:text-base font-medium -tracking-[.508px]">
                 Password <abbr className="text-red-600">*</abbr>
               </label>
-              <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-3 md:mt-2 xsm:mt-0.5 rounded-[10px] px-4">
+              <div className="flex items-center justify-center border-secondry2 bg-transparent border-[1px] mt-3 md:mt-2 xsm:mt-0.5 rounded-[10px] px-4">
                 <input
                   id="password"
                   name="password"
@@ -259,19 +259,19 @@ const Login: FC = () => {
             </div>
             <div className="w-full text-right">
               <div
-                className="font-[Inter] text-black text-base mt-4 underline -tracking-[.504px] cursor-pointer"
+                className="font-[Inter] text-primary text-base mt-4 underline -tracking-[.504px] cursor-pointer"
                 onClick={handleForgotPassword}
               >
                 Forgot Password?
               </div>
             </div>
-            <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] md:my-2 2xl:my-4 text-base text-black md:mt-[32px] xsm:mt-4 font-semibold">
+            <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] md:my-2 2xl:my-4 text-base text-primary md:mt-[32px] xsm:mt-4 font-semibold">
               Log In
             </button>
             <p className="mt-7 md:mt-[35px] font-[Inter] text-[#525252] text-base flex items-center justify-center -tracking-[.574px]">
               Don't have an account?
               <Link
-                className="block text-center text-black ms-1 underline"
+                className="block text-center text-primary ms-1 underline"
                 to="/client-sign-up"
               >
                 Sign Up

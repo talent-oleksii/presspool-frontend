@@ -16,11 +16,11 @@ const CampaignBudget: FC = () => {
   const currentPrice = watch("currentPrice");
   return (
     <div className="w-[720px]">
-      <h2 className="font-[Inter] text-base 2xl:text-base font-semibold text-black">
+      <h2 className="font-[Inter] text-base 2xl:text-base font-semibold text-primary">
         Please type in your budget cap for this campaign (This is not a one-time
         charge)
       </h2>
-      <p className="font-[Inter] text-[#43474a] font-light text-sm 2xl:text-sm mt-[14px]">
+      <p className="font-[Inter] text-secondry1 font-light text-sm 2xl:text-sm mt-[14px]">
         *Keep in mind, these are all verified, targeted and engaged readers that
         will be clicking through directly to your landing page of choice. We
         only charge per <span className="font-bold">unique click</span> as they
@@ -46,7 +46,7 @@ const CampaignBudget: FC = () => {
       </div>
       {currentPrice && (
         <div className="mt-[9px]">
-          <span className="font-[Inter] font-normal text-xs 2xl:text-xs my-3 text-black">
+          <span className="font-[Inter] font-normal text-xs 2xl:text-xs my-3 text-primary">
             {`*Estimated clicks for the campaign are ${Math.floor(
               Number(currentPrice) / getCPC(Number(currentPrice))
             )}`}
@@ -79,7 +79,7 @@ const CampaignBudget: FC = () => {
       )}
       <div className="mt-[35px] w-full text-center">
         <button
-          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold disabled:bg-gray-400 text-sm"
+          className="rounded-[5px] bg-main px-[50px] py-[10px] text-primary font-semibold disabled:bg-gray-400 text-sm"
           disabled={!isValid}
         >
           Next Step

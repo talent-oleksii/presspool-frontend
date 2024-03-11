@@ -97,7 +97,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                 />
                 <p className='mt-2 text-base -tracking-[.48px] font-medium'>Choose an option</p>
                 <div className='flex mt-2'>
-                  <label className='text-[#7F8182] -tracking-[.48px] font-medium flex items-center'>
+                  <label className='text-secondry2 -tracking-[.48px] font-medium flex items-center'>
                     <input
                       type="radio"
                       className='me-1 border-[#7FFBAE] text-[#7ffbae] focus:ring-0 focus:outline-0'
@@ -107,7 +107,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                     />
                     Upload File
                   </label>
-                  <label className='text-[#7F8182] -tracking-[.48px] font-medium flex items-center ms-4'>
+                  <label className='text-secondry2 -tracking-[.48px] font-medium flex items-center ms-4'>
                     <input
                       type="radio"
                       className='me-1 border-[#7FFBAE] text-[#7ffbae] focus:ring-0 focus:outline-0'

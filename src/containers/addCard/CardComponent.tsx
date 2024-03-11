@@ -155,7 +155,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
         </div>
         <button
           onClick={handleSubmit}
-          className="rounded-[5px] w-full text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
+          className="rounded-[5px] w-full text-primary bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
           disabled={loading}
         >
           Add Card

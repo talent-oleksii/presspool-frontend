@@ -53,13 +53,13 @@ const AskDialog: FC<typeAskDialog> = ({
                 />
               </svg>
             </div>
-            <h2 className="mt-[12px] font-[Inter] text-black text-[20px] font-semibold text-center -tracking-[.6px]">
+            <h2 className="mt-[12px] font-[Inter] text-primary text-[20px] font-semibold text-center -tracking-[.6px]">
               {title.length > 0 ? title : "Are you sure?"}
             </h2>
           </div>
 
           <div className="mt-[10px]">
-            <p className="font-[Inter] text-[15px] text-center text-[#43474a] -tracking-[].45px]">
+            <p className="font-[Inter] text-[15px] text-center text-secondry1 -tracking-[].45px]">
               {content}
             </p>
           </div>

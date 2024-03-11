@@ -88,14 +88,14 @@ const RaiseBudget: FC = () => {
     <>
       <div className="shadow-md rounded-[15px] px-[100px] py-[30px] bg-white max-w-[900px] relative">
         {loading && <Loading />}
-        <h3 className="text-center w-full font-[Inter] text-lg font-semibold -tracking-[.6px] text-black">
+        <h3 className="text-center w-full font-[Inter] text-lg font-semibold -tracking-[.6px] text-primary">
           Raise Budget
         </h3>
         <div className="text-left">
           <p className="mt-8 font-[Inter] text-xs -tracking-[.48px] font-semibold">
             Please type in your updated budget cap for this campaign.
           </p>
-          <p className="text-[#43474a] text-xs font-light mt-1">
+          <p className="text-secondry1 text-xs font-light mt-1">
             *Keep in mind, these are all verified, targeted and engaged readers
             that will be clicking through directly to your landing page of
             choice. We only charge per{" "}
@@ -116,7 +116,7 @@ const RaiseBudget: FC = () => {
           </div>
           {newPrice && (
             <div className="mt-[9px]">
-              <span className="font-[Inter] text-xs 2xl:text-xs my-3 text-black">
+              <span className="font-[Inter] text-xs 2xl:text-xs my-3 text-primary">
                 {`*Total estimated clicks for the campaign are ${Math.floor(
                   Number(newPrice) / (currentTarget === "consumer" ? 8 : 20)
                 )}`}
@@ -144,7 +144,7 @@ const RaiseBudget: FC = () => {
               {`Your campaign is being raised from $${originPrice} to $${newPrice}`}
             </span>
           </div>
-          <h3 className="text-black mt-8 font-[Inter] font-semibold -tracking-[.6px] text-lg">
+          <h3 className="text-primary mt-8 font-[Inter] font-semibold -tracking-[.6px] text-lg">
             Payment Method
           </h3>
           <div className="w-full flex mt-4">
@@ -166,7 +166,7 @@ const RaiseBudget: FC = () => {
                       </option>
                     ))}
                   </select>
-                  {/* <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button> */}
+                  {/* <button className='text-primary font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button> */}
                 </div>
 
                 <div className="flex-1 ms-[18px]">
@@ -254,7 +254,7 @@ const RaiseBudget: FC = () => {
               checked={checked}
               onChange={(e) => setChecked(e.target.checked)}
             />
-            <p className="text-[12px] text-black font-[Inter] font-normal">
+            <p className="text-[12px] text-primary font-[Inter] font-normal">
               I agree and authorize weekly automatic billing for accrued click
               costs per the{" "}
               <a

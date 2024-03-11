@@ -8,6 +8,7 @@ import {
   Pie,
   Cell,
   PieChart,
+  Tooltip,
 } from "recharts";
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
@@ -15,6 +16,7 @@ import { selectData } from "../../store/dataSlice";
 
 import Card from "../../components/Card";
 import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
+import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
 
 const CampaignOverView: FC = () => {
   const { campaign: data } = useSelector(selectData);
@@ -177,17 +179,17 @@ const CampaignOverView: FC = () => {
             <h2 className="font-[Inter] text-base font-semibold">
               All Campaigns
             </h2>
-            <p className="font-[Inter] text-[#43474A] mt-[5px] text-xs">
+            <p className="font-[Inter] text-secondry1 mt-[5px] text-xs">
               Let’s see how your campaigns are performing
             </p>
           </div>
           <div>
             <div className="mt-[20px]">
-              <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
+              <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs font-semibold mb-2">
                 <span className="w-4 h-[3px] shrink-0 rounded-full bg-main"></span>
                 Total Clicks
               </p>
-              <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs mt-2 font-semibold">
+              <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
                 <span className="w-4 h-[3px] shrink-0 rounded-full bg-[#6C63FF]"></span>
                 Unique Clicks
               </p>
@@ -219,6 +221,7 @@ const CampaignOverView: FC = () => {
                   />
                   <XAxis dataKey="date" reversed />
                   <YAxis strokeWidth={0} />
+                  <Tooltip content={<CustomLineChartTooltip />} />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
@@ -300,7 +303,7 @@ const CampaignOverView: FC = () => {
                 </div>
               ))}
             </div>
-            <PieChart width={300} height={205}>
+            <PieChart width={210} height={210}>
               <Pie
                 data={groupByAndSumCountOnCountry.map((item) => ({
                   name: item.ip,

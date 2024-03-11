@@ -177,19 +177,19 @@ const Campaign: FC = () => {
         <div className="bg-white py-3">
           <div className="grid grid-cols-[1fr_400px] gap-7">
             <div className="w-full flex flex-col items-start justify-center">
-              <p className="text-black font-[Inter] text-sm font-semibold font-normal">
+              <p className="text-primary font-[Inter] text-sm font-semibold font-normal">
                 Headline
               </p>
-              <h2 className="font-[Inter] text-black font-normal text-xs -tracking-[.42px]">
+              <h2 className="font-[Inter] text-primary font-normal text-xs -tracking-[.42px]">
                 {item.headline}
               </h2>
-              <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+              <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                 Description
               </p>
-              <p className="text-black font-[Inter] font-normal text-xs">
+              <p className="text-primary font-[Inter] font-normal text-xs">
                 {item.body}
               </p>
-              <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+              <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                 Landing Page Link
               </p>
               <p className="text-[#6C63FF] font-[Inter] font-medium text-xs">
@@ -197,10 +197,10 @@ const Campaign: FC = () => {
               </p>
               <div className="flex items-end justify-between w-full">
                 <div className="w-auto">
-                  <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                     Target Audience
                   </p>
-                  <p className="text-black font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
                     <button className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs">
                       {capitalize(item.demographic)}
                     </button>
@@ -209,10 +209,10 @@ const Campaign: FC = () => {
               </div>
               <div className="flex items-end justify-between w-full">
                 <div className="w-auto">
-                  <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                     Target Industrie(s)
                   </p>
-                  <p className="text-black font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
                     {(item.audience || []).map((aud: string, index: number) => (
                       <button
                         key={index}
@@ -227,10 +227,10 @@ const Campaign: FC = () => {
               {item.position && (
                 <div className="flex items-end justify-between w-full">
                   <div className="w-auto">
-                    <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                       Target Demographic(s)
                     </p>
-                    <p className="text-black font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
                       {(item.position || []).map(
                         (pos: string, index: number) => (
                           <button
@@ -247,10 +247,10 @@ const Campaign: FC = () => {
               )}
               <div className="flex items-end justify-between w-full">
                 <div className="w-auto">
-                  <p className="text-black font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                     Target Region(s)
                   </p>
-                  <p className="text-black font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
                     {(item.region || []).map((reg: string, index: number) => (
                       <button
                         key={index}
@@ -282,7 +282,7 @@ const Campaign: FC = () => {
                   {item.state !== "active" && (
                     <>
                       <button
-                        className="font-[Inter] text-[#505050] text-[red] px-4 py-2 me-2 text-xs 2xl:text-xs"
+                        className="font-[Inter] text-primary text-[red] px-4 py-2 me-2 text-xs 2xl:text-xs"
                         onClick={() => handleDeleteConfirm(item.id)}
                       >
                         Delete
@@ -310,10 +310,10 @@ const Campaign: FC = () => {
     <div className="text-left relative pt-1.5">
       {loading && <Loading />}
       <h1 className="font-semibold font-[Inter] text-xl -tracking-[.6px]">{`${company}'s Campaigns 📈`}</h1>
-      <p className="text-sm text-[#43474A]">Here's your account at a glance.</p>
+      <p className="text-sm text-secondry1">Here's your account at a glance.</p>
 
       <div className="flex items-center w-full mt-[24px]">
-        <div className="flex w-[342px] border-[1px] rounded-[5px] border-[#7F8182] items-center px-4 py-1.5">
+        <div className="flex w-[342px] border-[1px] rounded-[5px] border-secondry2 items-center px-4 py-1.5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
@@ -329,13 +329,13 @@ const Campaign: FC = () => {
             <circle cx="8.00586" cy="8.00488" r="6" fill="#F5F5F5" />
           </svg>
           <input
-            className="me-2 font-[Inter] flex-1 border-0 text-xs focus:ring-0 p-0 focus:border-[#7F8182] bg-transparent"
+            className="me-2 font-[Inter] flex-1 border-0 text-xs focus:ring-0 p-0 focus:border-secondry2 bg-transparent"
             placeholder="Type here to search by campaign name"
             value={searchStr}
             onChange={(e) => setSearchStr(e.target.value)}
           />
         </div>
-        <select className="font-[Inter] rounded-[5px] border-[1px] text-xs focus:ring-0 focus:border-[#7F8182] bg-transparent min-w-[200px] ms-4">
+        <select className="font-[Inter] rounded-[5px] border-[1px] text-xs focus:ring-0 focus:border-secondry2 bg-transparent min-w-[200px] ms-4">
           <option value="nto">Newest to Oldest</option>
           <option value="otn">Oldest to Newest</option>
         </select>

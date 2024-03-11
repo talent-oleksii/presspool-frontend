@@ -37,7 +37,7 @@ const Feedback: React.FC = () => {
     <div ref={ref} className="flex items-center relative">
       <button
         onClick={handleOpenChange}
-        className="flex font-[Inter] rounded-[20px] h-7 px-3 py-[3px] font-medium text-black text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main hover:text-black"
+        className="flex font-[Inter] rounded-[20px] h-7 px-3 py-[3px] font-medium text-primary text-xs whitespace-nowrap items-center border border-solid border-main bg-[#05be751a] hover:bg-main hover:text-primary"
       >
         <span role="img" aria-label="support">
           <SupportIcon fontSize={18} />

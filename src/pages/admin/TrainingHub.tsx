@@ -60,13 +60,13 @@ const TrainingHub: FC = () => {
       </div>
       <div className='mt-8'>
         <button
-          className={`mr-4 border-[1px] rounded-lg border-[#7f8182] min-w-[150px] py-1.5 font-semibold ${currentTab === 'video' ? 'text-black bg-[#7ffbae]' : 'text-[#7f8182] bg-transparent'}`}
+          className={`mr-4 border-[1px] rounded-lg border-[#7f8182] min-w-[150px] py-1.5 font-semibold ${currentTab === 'video' ? 'text-primary bg-[#7ffbae]' : 'text-[#7f8182] bg-transparent'}`}
           onClick={() => setCurrentTab('video')}
         >
           Videos
         </button>
         <button
-          className={`mr-4 border-[1px] rounded-lg border-[#7f8182] min-w-[150px] py-1.5 font-semibold ${currentTab === 'document' ? 'text-black bg-[#7ffbae]' : 'text-[#7f8182] bg-transparent'}`}
+          className={`mr-4 border-[1px] rounded-lg border-[#7f8182] min-w-[150px] py-1.5 font-semibold ${currentTab === 'document' ? 'text-primary bg-[#7ffbae]' : 'text-[#7f8182] bg-transparent'}`}
           onClick={() => setCurrentTab('document')}
         >
           Documents
@@ -94,7 +94,7 @@ const TrainingHub: FC = () => {
                     className='w-full h-[180px] object-cover rounded-[6px]'
                   />
                   <p className='mt-2 w-full text-left text-[15px] -tracking-[.45px] font-medium truncate'>{item.title}</p>
-                  <p className='mt-3 w-full text-sm text-[#43474a]'>{item.description}</p>
+                  <p className='mt-3 w-full text-sm text-secondry1'>{item.description}</p>
                 </div>
                 <div className='flex items-center mt-4 justify-between'>
                   <p className='text-sm -tracking-[.36px] font-medium text-[#a3a3a3]'>{`Date: ${moment(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>

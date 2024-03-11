@@ -67,7 +67,7 @@ const InviteNewClient: FC<typeInviteNewClient> = ({ show, onClose, link }: typeI
                     {copyText}
                   </button>
                 </div>
-                <p className='mt-4 text-xs w-full -tracking-[.48px] text-black font-medium'>Email Invite</p>
+                <p className='mt-4 text-xs w-full -tracking-[.48px] text-primary font-medium'>Email Invite</p>
                 <input
                   className='mt-2 w-full px-4 py-2.5 flex border-[1px] rounded-[9.675px] border-[#7f8182] items-center justify-between'
                   placeholder="Use comma's to separate multiple emails"

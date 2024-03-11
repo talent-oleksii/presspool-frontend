@@ -89,26 +89,26 @@ const AdminSignUp: FC = () => {
         <div>
           <div className="flex items-center">
             <img src={Mark} alt="mark" className="w-[50px] me-2" />
-            <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
+            <h3 className="font-[Inter] text-primary text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
           </div>
           <div className="mt-10 flex">
             <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
             </div>
           </div>
           <div className="mt-6 flex">
             <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Access your assigned Clients and<br />their campaigns all in one place</p>
             </div>
           </div>
           <div className="mt-6 flex">
             <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">The more campaigns you manage <br />successfully, the more money you<br />can make by increasing your <br />Client's spent</p>
             </div>
           </div>
@@ -120,7 +120,7 @@ const AdminSignUp: FC = () => {
           <div className="mt-5 flex items-center">
             <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
             <div className="text-left">
-              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
+              <p className="text-primary font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
               <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
             </div>
           </div>
@@ -137,7 +137,7 @@ const AdminSignUp: FC = () => {
           </div>
 
           <form className="text-left mt-[30px]" onSubmit={handleSubmit}>
-            <label className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName) ? 'text-[red]' : 'text-primary'}`}>
               Full Name
               {formData.fullName.length > 0 && validator.isEmpty(formData.fullName) && <span className='ms-1 text-[red] text-xs'>*Input your full name</span>}
             </label>
@@ -150,7 +150,7 @@ const AdminSignUp: FC = () => {
               type="text"
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
             />
-            <label className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company) ? 'text-[red]' : 'text-primary'}`}>
               Affiliate Link (TrackDesk)
               {formData.company.length > 0 && validator.isEmpty(formData.company) && <span className='ms-1 text-[red] text-xs'>*Input company name</span>}
             </label>
@@ -163,7 +163,7 @@ const AdminSignUp: FC = () => {
               type="text"
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
             />
-            <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email) ? 'text-[red]' : 'text-primary'}`}>
               Email Address
               {formData.email.length > 0 && !validator.isEmail(formData.email) && !isOurAffiliate(formData.email) && <span className='ms-1 text-[red] text-xs'>*Input valid email address</span>}
             </label>
@@ -176,7 +176,7 @@ const AdminSignUp: FC = () => {
               type="email"
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[9.6px] px-4 py-2"
             />
-            <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-black'}`}>
+            <label className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password) ? 'text-[red]' : 'text-primary'}`}>
               Password
               {formData.password.length > 0 && !validator.isStrongPassword(formData.password) && <span className='ms-1 text-[red] text-xs'>* Your password is not secure</span>}
             </label>
@@ -205,11 +205,11 @@ const AdminSignUp: FC = () => {
                 className='w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0'
               />
               <span className='ms-2 font-[Inter] -tracking-[.544px] text-xs text-[#525252]'>
-                I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-black underline'>Terms</a> and <a className='text-black underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
+                I agree to the <a target='_blank' href='https://www.presspool.ai/terms' rel="noreferrer" className='text-primary underline'>Terms</a> and <a className='text-primary underline' target='_blank' href="https://www.presspool.ai/privacy-policy" rel="noreferrer">Privacy Policy</a>
               </span>
             </div>
             <button
-              className="rounded-[6px] text-xs bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
+              className="rounded-[6px] text-xs bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >
@@ -217,7 +217,7 @@ const AdminSignUp: FC = () => {
             </button>
           </form>
           <div className='flex items-center justify-center mt-8'>
-            <p className="text-lg text-center w-full font-[Inter] text-[#525252] 2xl:text-lg -tracking-[.574px]" >Already have an account? <Link to="/admin/login" className='text-black underline'>Login</Link></p>
+            <p className="text-lg text-center w-full font-[Inter] text-[#525252] 2xl:text-lg -tracking-[.574px]" >Already have an account? <Link to="/admin/login" className='text-primary underline'>Login</Link></p>
           </div>
         </div>
       </div>

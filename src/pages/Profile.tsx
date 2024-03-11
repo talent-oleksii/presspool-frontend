@@ -224,7 +224,7 @@ const Profile: FC = () => {
         {loading && <Loading />}
 
         <div className="border-b-[1px] border-b-[#bcbcbc] bg-white p-6 rounded-[10px] mt-4">
-          <p className="text-black text-lg font-medium -tracking-[.6px]">
+          <p className="text-primary text-lg font-medium -tracking-[.6px]">
             Personal
           </p>
           <div className="items-center flex mt-4 gap-12">
@@ -265,7 +265,7 @@ const Profile: FC = () => {
             </div>
             <div className="flex gap-8 grid grid-cols-2 flex-1 pe-12">
               <div className="col-span-1">
-                <p className="text-base font-[Inter] font-medium text-black -tracking-[.48px]">
+                <p className="text-base font-[Inter] font-medium text-primary -tracking-[.48px]">
                   Full Name
                 </p>
                 <input
@@ -275,7 +275,7 @@ const Profile: FC = () => {
                 />
               </div>
               <div className="col-span-1">
-                <p className="text-base font-[Inter] font-medium text-black -tracking-[.48px]">
+                <p className="text-base font-[Inter] font-medium text-primary -tracking-[.48px]">
                   Email Address
                 </p>
                 <input
@@ -287,18 +287,18 @@ const Profile: FC = () => {
             </div>
           </div>
           {/* <div className='flex items-center justify-between w-full py-2 px-3'>
-          <p className='font-[Inter] text-[#43474A] text-xs font-medium -tracking-[.54px]'>{fullName}</p>
+          <p className='font-[Inter] text-secondry1 text-xs font-medium -tracking-[.54px]'>{fullName}</p>
           <p className='font-[Inter] text-[#A3A3A3] text-xs font-medium text-xs -tracking-[.48px]'>{`Date Joined: ${date}`}</p>
         </div> */}
           <button
-            className="rounded-[5px] text-black bg-main font-[Inter] text-sm font-semibold px-8 py-1.5 mt-10"
+            className="rounded-[5px] text-primary bg-main font-[Inter] text-sm font-semibold px-8 py-1.5 mt-10"
             onClick={handlePublish}
           >
             Save
           </button>
         </div>
         <div className="mt-4 p-6 bg-white rounded-[10px] shadow-md">
-          <p className="text-black text-lg font-medium -tracking-[.6px]">
+          <p className="text-primary text-lg font-medium -tracking-[.6px]">
             Company
           </p>
           <div className="items-start flex mt-4 gap-12  border-b-[1px] border-[#bcbcbc]">
@@ -340,7 +340,7 @@ const Profile: FC = () => {
             </div>
             <div className="flex gap-8 grid grid-cols-2 flex-1 pe-12">
               <div className="col-span-1">
-                <p className="text-base font-[Inter] font-medium text-black mt-3 -tracking-[.48px]">
+                <p className="text-base font-[Inter] font-medium text-primary mt-3 -tracking-[.48px]">
                   Company Name
                 </p>
                 <input
@@ -350,7 +350,7 @@ const Profile: FC = () => {
                 />
               </div>
               <div className="col-span-1">
-                <h4 className="text-base font-[Inter] font-medium text-black mt-3 -tracking-[.48px]">
+                <h4 className="text-base font-[Inter] font-medium text-primary mt-3 -tracking-[.48px]">
                   Payment Methods
                 </h4>
                 <div className="mt-2">
@@ -359,13 +359,13 @@ const Profile: FC = () => {
                       {/* <div className='flex justify-between w-full'>
                       <p className='font-[Inter] text-[#7f8182] text-xs -tracking-[.42px]'>{`Added Date: ${moment.unix(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>
                     </div> */}
-                      <div className="bg-[#fbfbfb] text-base text-black border-[1px] border-[rgba(127, 129, 130, 0.13)] rounded-[10px] p-3 my-1.5 flex justify-between">
+                      <div className="bg-[#fbfbfb] text-base text-primary border-[1px] border-[rgba(127, 129, 130, 0.13)] rounded-[10px] p-3 my-1.5 flex justify-between">
                         {`${item.brand.toUpperCase()} **** **** **** ${
                           item.last4
                         }`}
                         <div
                           role="button"
-                          className="text-[#7F8182] cursor-pointer"
+                          className="text-secondry2 cursor-pointer"
                           onClick={() =>
                             handleRemoveCard(item.customer_id, item.card_id)
                           }
@@ -377,7 +377,7 @@ const Profile: FC = () => {
                   ))}
                   {cardList.length <= 0 && (
                     <div>
-                      <p className="text-xs font-[Inter] font-medium text-black mt-8 -tracking-[.48px]">
+                      <p className="text-xs font-[Inter] font-medium text-primary mt-8 -tracking-[.48px]">
                         My Card
                       </p>
                     </div>
@@ -385,7 +385,7 @@ const Profile: FC = () => {
                 </div>
                 <div className="flex my-4">
                   <button
-                    className="font-[Inter] text-[#7F8182] text-xs flex items-center -tracking-[.45px] font-medium border-[1px] border-[#7f8182] rounded-lg px-8 py-2"
+                    className="font-[Inter] text-secondry2 text-xs flex items-center -tracking-[.45px] font-medium border-[1px] border-[#7f8182] rounded-lg px-8 py-2"
                     onClick={handleAddCard}
                   >
                     <svg
@@ -412,7 +412,7 @@ const Profile: FC = () => {
           </div>
 
           <div className="flex items-center justify-between mt-4">
-            <h4 className="font-[Inter] text-black text-base font-medium -tracking-[.6px]">
+            <h4 className="font-[Inter] text-primary text-base font-medium -tracking-[.6px]">
               Files
             </h4>
             <button className="font-[Inter] font-medium -tracking-[.45px] text-xs flex items-center text-white bg-black rounded-[8px] px-4 py-2 gap-4">
@@ -464,7 +464,7 @@ const Profile: FC = () => {
             </Table>
           </div>
           <div className="flex items-center justify-between mt-4">
-            <h4 className="font-[Inter] text-black text-base font-medium -tracking-[.6px]">
+            <h4 className="font-[Inter] text-primary text-base font-medium -tracking-[.6px]">
               Company Users
             </h4>
             <button
@@ -498,7 +498,7 @@ const Profile: FC = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex">
                     <Avatar
-                      className="bg-main text-black items-center justify-center flex"
+                      className="bg-main text-primary items-center justify-center flex"
                       src={item.avatar}
                       alt={getPlaceHolder(item.name)}
                       size={53}
@@ -510,7 +510,7 @@ const Profile: FC = () => {
                       )}
                     </Avatar>
                     <div className="text-left ms-2 flex flex-col gap-1">
-                      <p className="font-[Inter] text-[#43474a] text-sm font-medium -tracking-[.36px] leading-[14px]">
+                      <p className="font-[Inter] text-secondry1 text-sm font-medium -tracking-[.36px] leading-[14px]">
                         {item.name}
                       </p>
                       <p className="font-[Inter] text-[#A3A3A3] text-xs font-normal -tracking-[.3px]">

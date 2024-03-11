@@ -87,7 +87,7 @@ const CampaignDetails: FC = () => {
       <div className="h-full w-[720px] flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-7">
           <div className="flex flex-col gap-1">
-            <div className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
+            <div className="text-base 2xl:text-base font-[Inter] text-primary font-semibold flex items-center">
               Campaign Name
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter the name of your campaign(this is just for your reference)" />
@@ -101,7 +101,7 @@ const CampaignDetails: FC = () => {
                   onBlur={field.onBlur}
                   value={field.value}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -110,7 +110,7 @@ const CampaignDetails: FC = () => {
             <ErrorMessage message={errors["campaignName"]?.message} />
           </div>
           <div className="flex flex-col gap-1">
-            <div className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
+            <div className="text-base 2xl:text-base font-[Inter] text-primary font-semibold flex items-center">
               Website URL
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Please enter your full site URL. Example: https://www.test.com" />
@@ -122,7 +122,7 @@ const CampaignDetails: FC = () => {
                 <input
                   {...field}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-[#7F8182] focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -141,7 +141,7 @@ const CampaignDetails: FC = () => {
               className={`${
                 currentTarget === CampaignTargetType.CUSTOMER
                   ? "bg-black text-white"
-                  : "bg-[#f5f5f5] text-black"
+                  : "bg-[#f5f5f5] text-primary"
               } relative w-1/2 font-[Inter] font-semibold text-xs flex w-full rounded-lg z-[1] px-4 py-[18px] flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
               onClick={() =>
                 handleCurrentTargetChange(CampaignTargetType.CUSTOMER)
@@ -191,7 +191,7 @@ const CampaignDetails: FC = () => {
               className={`${
                 currentTarget === CampaignTargetType.PROFESSIONAL
                   ? "bg-black text-white"
-                  : "bg-[#f5f5f5] text-black"
+                  : "bg-[#f5f5f5] text-primary"
               } relative w-1/2 font-[Inter] font-semibold text-xs flex rounded-lg px-4 z-[1] py-[18px] w-full flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
               onClick={() =>
                 handleCurrentTargetChange(CampaignTargetType.PROFESSIONAL)
@@ -239,7 +239,7 @@ const CampaignDetails: FC = () => {
           </div>
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
+          <p className="text-base 2xl:text-base font-[Inter] text-primary font-semibold flex items-center">
             Please add specific audience industry tags you would like to target
             <span className="ms-1 text-[red] text-xs">*</span>
             <CustomTooltip title="Enter industry-specific tags to target sectors like ‘AI’, ‘HealthTech’, or ‘Finance’. This helps tailor your campaign to the right audience." />
@@ -277,7 +277,7 @@ const CampaignDetails: FC = () => {
         </div>
         {currentTarget === CampaignTargetType.PROFESSIONAL ? (
           <div className="flex flex-col gap-1">
-            <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
+            <p className="text-base 2xl:text-base font-[Inter] text-primary font-semibold flex items-center">
               Please add tags for the position you are targeting:
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Add job titles you’re targeting, such as ‘CTO’, ‘IT Manager’, or ‘CFO’, to ensure your campaign reaches the professionals most likely to engage." />
@@ -304,7 +304,7 @@ const CampaignDetails: FC = () => {
           </div>
         ) : null}
         <div className="flex flex-col gap-1">
-          <p className="text-base 2xl:text-base font-[Inter] text-black font-semibold flex items-center">
+          <p className="text-base 2xl:text-base font-[Inter] text-primary font-semibold flex items-center">
             Please add specific geography/region tags you would like to target:
             <abbr className="ms-1 text-[red] text-xs">*</abbr>
             <CustomTooltip title="Select countries you’d like to reach with your campaign. Focusing on specific countries sharpens your campaign’s geographic focus." />
@@ -333,7 +333,7 @@ const CampaignDetails: FC = () => {
       <div className="w-full mt-[35px] text-center">
         <button
           type="submit"
-          className="rounded-[5px] bg-main px-[50px] py-[10px] text-black font-semibold text-sm disabled:bg-gray-400"
+          className="rounded-[5px] bg-main px-[50px] py-[10px] text-primary font-semibold text-sm disabled:bg-gray-400"
           disabled={!isValid}
         >
           Next Step

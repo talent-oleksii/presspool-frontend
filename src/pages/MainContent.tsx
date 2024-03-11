@@ -157,7 +157,7 @@ const MainContent: FC = () => {
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-black ${
+                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-primary ${
                   location.pathname.indexOf("new") > -1
                     ? "ring-black ring-[2px]"
                     : "ring-0"
@@ -172,7 +172,7 @@ const MainContent: FC = () => {
               </Link>
               <NavLink
                 to="/campaign/all"
-                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                   location.pathname.startsWith("/campaign/")
                     ? "bg-white shadow-md"
                     : ""
@@ -186,7 +186,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -199,7 +199,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -212,7 +212,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-black hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -242,7 +242,7 @@ const MainContent: FC = () => {
         <div className="flex justify-between gap-4 md:hidden">
           <div className="flex items-center gap-1.5 md:hidden">
             <img src={Mark} alt="mark" className="w-[24px]" />
-            <h3 className="font-[Inter] text-black text-[16px] md:text-[22px] font-medium -tracking-[1.02px]">
+            <h3 className="font-[Inter] text-primary text-[16px] md:text-[22px] font-medium -tracking-[1.02px]">
               presspool.ai
             </h3>
           </div>

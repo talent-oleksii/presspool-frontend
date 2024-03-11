@@ -193,7 +193,7 @@ const CreateCampaign: FC = () => {
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] leading-5 text-base transition-colors duration-500 ${
               currentTab === "detail"
                 ? "text-white font-semibold"
-                : "text-black"
+                : "text-primary"
             }`}
             onClick={() => handleClick("detail")}
           >
@@ -203,7 +203,7 @@ const CreateCampaign: FC = () => {
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
               currentTab === "budget"
                 ? "text-white font-semibold"
-                : "text-black"
+                : "text-primary"
             }`}
             onClick={() => handleClick("budget")}
           >
@@ -213,7 +213,7 @@ const CreateCampaign: FC = () => {
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
               currentTab === "content"
                 ? "text-white font-semibold"
-                : "text-black"
+                : "text-primary"
             }`}
             onClick={() => handleClick("content")}
           >
@@ -223,7 +223,7 @@ const CreateCampaign: FC = () => {
             className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
               currentTab === "review"
                 ? "text-white font-semibold"
-                : "text-black"
+                : "text-primary"
             }`}
             onClick={() => handleClick("review")}
           >

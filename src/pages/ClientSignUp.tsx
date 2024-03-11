@@ -103,7 +103,7 @@ const ClientSignUp: FC = () => {
         <div>
           <div className="flex items-center">
             <img src={Mark} alt="mark" className="w-[50px] me-2" />
-            <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">
+            <h3 className="font-[Inter] text-primary text-[34px] font-medium -tracking-[1.02px]">
               presspool.ai
             </h3>
           </div>
@@ -112,7 +112,7 @@ const ClientSignUp: FC = () => {
               1
             </span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">
+              <h3 className="text-primary font-[Inter] text-base font-semibold -tracking-[.6px]">
                 Sign Up / Log In
               </h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">
@@ -125,7 +125,7 @@ const ClientSignUp: FC = () => {
               2
             </span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">
+              <h3 className="text-primary font-[Inter] text-base font-semibold -tracking-[.6px]">
                 Create / manage your campaigns
               </h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">
@@ -139,7 +139,7 @@ const ClientSignUp: FC = () => {
               3
             </span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-base font-semibold -tracking-[.6px]">
+              <h3 className="text-primary font-[Inter] text-base font-semibold -tracking-[.6px]">
                 Grow your client base
               </h3>
               <p className="text-[#525252] font-[Inter] text-sm -tracking-[.24px] font-normal mt-2">
@@ -166,7 +166,7 @@ const ClientSignUp: FC = () => {
               className="w-[63px] h-[63px] rounded-full me-2"
             />
             <div className="text-left">
-              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-base">
+              <p className="text-primary font-semibold -tracking-[.48px] font-[Inter] text-base">
                 Morgan A.
               </p>
               <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">
@@ -179,7 +179,7 @@ const ClientSignUp: FC = () => {
       <div className="flex xsm:flex-col flex-1 justify-center items-center md:h-full xsm:min-h-full  md:bg-white w-full">
         <div className="flex items-center gap-1.5 md:hidden">
           <img src={Mark} alt="mark" className="w-[30px]" />
-          <h3 className="font-[Inter] text-black text-[22px] font-medium -tracking-[1.02px]">
+          <h3 className="font-[Inter] text-primary text-[22px] font-medium -tracking-[1.02px]">
             presspool.ai
           </h3>
         </div>
@@ -215,7 +215,7 @@ const ClientSignUp: FC = () => {
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && validator.isEmpty(formData.fullName)
                   ? "text-[red]"
-                  : "text-black"
+                  : "text-primary"
               }`}
             >
               Full Name
@@ -239,7 +239,7 @@ const ClientSignUp: FC = () => {
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && validator.isEmpty(formData.company || "")
                   ? "text-[red]"
-                  : "text-black"
+                  : "text-primary"
               }`}
             >
               Company Name
@@ -265,7 +265,7 @@ const ClientSignUp: FC = () => {
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && !validator.isEmail(formData.email || "")
                   ? "text-[red]"
-                  : "text-black"
+                  : "text-primary"
               }`}
             >
               Email Address
@@ -291,7 +291,7 @@ const ClientSignUp: FC = () => {
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && !validator.isStrongPassword(formData.password)
                   ? "text-[red]"
-                  : "text-black"
+                  : "text-primary"
               }`}
             >
               Password
@@ -352,13 +352,13 @@ const ClientSignUp: FC = () => {
                   target="_blank"
                   href="https://www.presspool.ai/terms"
                   rel="noreferrer"
-                  className="text-black underline"
+                  className="text-primary underline"
                 >
                   Terms
                 </a>{" "}
                 and{" "}
                 <a
-                  className="text-black underline"
+                  className="text-primary underline"
                   target="_blank"
                   href="https://www.presspool.ai/privacy-policy"
                   rel="noreferrer"
@@ -368,7 +368,7 @@ const ClientSignUp: FC = () => {
               </span>
             </div>
             <button
-              className="rounded-[6px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-black font-semibold disabled:bg-[gray]"
+              className="rounded-[6px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >
@@ -378,7 +378,7 @@ const ClientSignUp: FC = () => {
           <div className="flex items-center justify-center mt-7">
             <p className="text-base text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
               Already have an account?{" "}
-              <Link to="/login" className="text-black underline">
+              <Link to="/login" className="text-primary underline">
                 Login
               </Link>
             </p>

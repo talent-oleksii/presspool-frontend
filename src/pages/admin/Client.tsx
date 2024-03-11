@@ -129,7 +129,7 @@ const AdminClient: FC = () => {
             </svg>
             <span>{currentTab === 'user' ? 'Details' : 'Campaign'}</span>
           </h2>
-          {/* <p className='text-[#43474a] text-xs font-[Inter] mt-1'>One-stop shop to manage all clients</p> */}
+          {/* <p className='text-secondry1 text-xs font-[Inter] mt-1'>One-stop shop to manage all clients</p> */}
           <div className='mt-4 flex justify-between items-center border-b-[1px] border-[#bcbcbc] py-4'>
             <div className='flex items-center'>
               <Avatar size={77} src={userData.avatar} className='bg-[#7f8182]'>
@@ -137,7 +137,7 @@ const AdminClient: FC = () => {
               </Avatar>
               <div className='ms-2 py-[20px]'>
                 {/* <p className='font-[Inter] text-xs text-[#a3a3a3] -tracking-[.36px]'>{`ID: ${userData.id}`}</p> */}
-                <p className='font-[Inter] text-lg text-[#43474a] -tracking-[.54px]'>{userData.company}</p>
+                <p className='font-[Inter] text-lg text-secondry1 -tracking-[.54px]'>{userData.company}</p>
               </div>
             </div>
             <div className='flex gap-4'>
@@ -210,7 +210,7 @@ const AdminClient: FC = () => {
                         {
                           accountManager &&
                           <div className='rounded-[10px] bg-[#fbfbfb] border-[1px] border-[#7f8183]/[.13] my-2 px-4 py-2 flex items-center justify-between'>
-                            <p className='text-[#43474a] font-[Inter] -tracking-[.5px] font-medium text-xs'>{accountManager.name}</p>
+                            <p className='text-secondry1 font-[Inter] -tracking-[.5px] font-medium text-xs'>{accountManager.name}</p>
                             <button className='text-xs font-[Inter] text-white px-3 py-1 rounded-lg bg-[#e3392e] flex items-center justify-center' onClick={handleRemove}>
                               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
                                 <path d="M11.5358 2.82128C11.7001 2.82147 11.8581 2.889 11.9776 3.01006C12.0971 3.13112 12.169 3.29658 12.1787 3.47262C12.1883 3.64867 12.1349 3.82202 12.0295 3.95725C11.924 4.09248 11.7744 4.17939 11.6112 4.20022L11.5358 4.20506H11.4835L10.891 11.8159C10.8911 12.3453 10.7026 12.8548 10.3641 13.24C10.0257 13.6252 9.56284 13.857 9.07034 13.8881L8.95687 13.8915H3.79908C2.76881 13.8915 1.9268 13.0274 1.87006 11.9888L1.86684 11.8733L1.27176 4.20506H1.22018C1.05585 4.20487 0.897799 4.13734 0.778308 4.01628C0.658818 3.89522 0.586911 3.72977 0.577281 3.55372C0.567651 3.37767 0.621023 3.20432 0.726494 3.06909C0.831964 2.93386 0.981572 2.84695 1.14475 2.82612L1.22018 2.82128H11.5358ZM5.41798 6.3776C5.2829 6.29131 5.12309 6.26095 4.96861 6.29224C4.81414 6.32354 4.67564 6.41432 4.57916 6.54752C4.48268 6.68072 4.43488 6.84716 4.44474 7.01553C4.4546 7.1839 4.52145 7.34261 4.63271 7.4618L5.46569 8.35641L4.63271 9.25103L4.57919 9.31607C4.479 9.45513 4.43188 9.62991 4.44741 9.80491C4.46295 9.9799 4.53997 10.142 4.66283 10.2583C4.78569 10.3745 4.94518 10.4362 5.10891 10.4309C5.27264 10.4255 5.42832 10.3535 5.54435 10.2294L6.37797 9.33544L7.2116 10.2294L7.27221 10.2868C7.40179 10.3943 7.56465 10.4449 7.72772 10.4282C7.89079 10.4115 8.04182 10.3289 8.15016 10.197C8.25849 10.0652 8.316 9.89403 8.311 9.71832C8.306 9.54262 8.23887 9.37554 8.12324 9.25103L7.29026 8.35641L8.12324 7.4618L8.17675 7.39676C8.27695 7.2577 8.32407 7.08292 8.30853 6.90792C8.293 6.73292 8.21598 6.57084 8.09312 6.45457C7.97026 6.33831 7.81077 6.2766 7.64704 6.28196C7.48331 6.28733 7.32762 6.35937 7.2116 6.48346L6.37797 7.37739L5.54435 6.48346L5.48374 6.42604L5.41798 6.3776Z" fill="white" />
@@ -257,7 +257,7 @@ const AdminClient: FC = () => {
                 onClose={(show: boolean) => setShowAssignModal(show)}
               />
               <div className='mt-3 rounded-[10px] bg-white p-4'>
-                <p className='font-[Inter] text-lg font-medium -tracking-[.6px] text-black'>Notes</p>
+                <p className='font-[Inter] text-lg font-medium -tracking-[.6px] text-primary'>Notes</p>
                 <textarea
                   value={note}
                   className='bg-[#fbfbfb] border-[1px] border-[#7f8182] rounded-[10px] min-h-[140px] w-full mt-4'
@@ -292,7 +292,7 @@ const AdminClient: FC = () => {
                   </div>
                 </div>
                 <DatePicker.RangePicker
-                  className='font-[Inter] rounded-[15px] py-[10px] border-[#7F8182] w-[270px] col-span-full'
+                  className='font-[Inter] rounded-[15px] py-[10px] border-secondry2 w-[270px] col-span-full'
                   onChange={(e) => setRange(e)}
                 />
               </div>
@@ -306,19 +306,19 @@ const AdminClient: FC = () => {
                         <div className='flex items-center justify-between'>
                           <div className=''>
                             <p className='text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Tracking No.</p>
-                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`#${item.id}`}</p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-secondry1'>{`#${item.id}`}</p>
                           </div>
                           <div className=''>
                             <p className='text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Compaign Name</p>
-                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`${item.name}`}</p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-secondry1'>{`${item.name}`}</p>
                           </div>
                           <div className=''>
                             <p className='text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Budget/<span className='text-xs -tracking-[.36px]'>week</span></p>
-                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-[#43474a]'>{`$${Number(item.price) / 4}`}</p>
+                            <p className='mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-secondry1'>{`$${Number(item.price) / 4}`}</p>
                           </div>
                           <div className=''>
                             <p className='text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Status</p>
-                            <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-[#43474a] ${item.state === 'active' ? 'bg-main' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
+                            <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-secondry1 ${item.state === 'active' ? 'bg-main' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
                           </div>
                         </div>
                         <Link to={`/admin/client/${id}/${item.id}`} className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>

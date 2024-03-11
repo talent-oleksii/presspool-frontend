@@ -8,10 +8,10 @@ const Support: FC = () => {
   return (
     <div className="text-left relative h-[calc(100vh - 80px)] flex flex-col pt-1.5">
       <div className="h-fit">
-        <h2 className="text-xl font-[Inter] text-black font-semibold -tracking-[.6px]">
+        <h2 className="text-xl font-[Inter] text-primary font-semibold -tracking-[.6px]">
           Presspool Support 📖
         </h2>
-        <p className="mt-[6px] text-[#43474A] text-sm font-normal 2xl:text-md">
+        <p className="mt-[6px] text-secondry1 text-sm font-normal 2xl:text-md">
           Automatic and personal support options can be found below.
         </p>
       </div>
@@ -24,10 +24,10 @@ const Support: FC = () => {
         <div className="pt-2 flex-1 flex flex-col items-center justify-between w-full rounded-[10px] bg-white">
           <div className="flex flex-col items-center justify-center">
             <img src={Ava} className="rounded-full w-[50px]" alt="ava" />
-            <h2 className="font-[Inter] text-black text-xs font-semibold mt-[3px]">
+            <h2 className="font-[Inter] text-primary text-xs font-semibold mt-[3px]">
               Talk to Ava
             </h2>
-            <p className="font-[Inter] text-[#43474a] font-medium text-[12px] text-center mt-[5px]">
+            <p className="font-[Inter] text-secondry1 font-medium text-[12px] text-center mt-[5px]">
               Our support bot trained on our <br /> platfrom from A~Z!
             </p>
           </div>
@@ -39,12 +39,12 @@ const Support: FC = () => {
         </div>
         <div className="mt-[24px] h-fit">
           {/* <div className='py-[30px] px-[35px] bg-white rounded-[10px] shadow-md'>
-          <h2 className='font-[Inter] text-black text-xs font-semibold -tracking-[.48px]'>Human Support</h2>
-          <p className='text-xs font-[Inter] text-[#43474a] font-medium mt-[18px] -tracking-[.36px]'>Email support@presspool.ai anytime, or send us a message on Slack and we will get back to you ASAP!</p>
+          <h2 className='font-[Inter] text-primary text-xs font-semibold -tracking-[.48px]'>Human Support</h2>
+          <p className='text-xs font-[Inter] text-secondry1 font-medium mt-[18px] -tracking-[.36px]'>Email support@presspool.ai anytime, or send us a message on Slack and we will get back to you ASAP!</p>
           <a target="_blank" href="mailto:support@presspool.ai" rel="noreferrer" className='mt-[73px] rounded-[5px] w-full py-[13px] items-center flex justify-center text-xs font-[Inter] bg-black text-white'>Email Support</a>
         </div> */}
           <div className="bg-white rounded-[10px] shadow-md p-8">
-            <h2 className="font-[Inter] text-black text-xs font-semibold -tracking-[.48px]">
+            <h2 className="font-[Inter] text-primary text-xs font-semibold -tracking-[.48px]">
               Additional Resources
             </h2>
             <div className="mt-[30px] min-w-[200px] flex">

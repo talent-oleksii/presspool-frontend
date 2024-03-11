@@ -117,11 +117,11 @@ const AdminMember: FC = () => {
                     <p className='font-[Inter] text-xs font-medium -tracking-[.36px] text-[#a3a3a3]'>Account Manager</p>
                     <div className='flex items-center justify-between mt-2'>
                       <div className='flex'>
-                        <Avatar className="bg-main text-black items-center justify-center flex" src={item.avatar} alt={getPlaceHolder(item.name)} size={40}>
+                        <Avatar className="bg-main text-primary items-center justify-center flex" src={item.avatar} alt={getPlaceHolder(item.name)} size={40}>
                           {(!item.avatar || item.avatar.length <= 3) && <span className="text-xs font-[Inter] font-medium">{getPlaceHolder(item.name)}</span>}
                         </Avatar>
                         <div className='text-left ms-2'>
-                          <p className='font-[Inter] text-[#43474a] text-xs font-medium -tracking-[.36px]'>{item.name}</p>
+                          <p className='font-[Inter] text-secondry1 text-xs font-medium -tracking-[.36px]'>{item.name}</p>
                           <p className='font-[Inter] text-[#A3A3A3] text-xs -tracking-[.3px]'>{item.email}</p>
                         </div>
                       </div>
@@ -156,7 +156,7 @@ const AdminMember: FC = () => {
                         placeholder={<p className='text-xs'>Select User</p>}
                         options={users.map((c: any) => ({
                           value: c.id,
-                          label: <p className='text-black text-xs font-[Inter]'>{c.name}</p>
+                          label: <p className='text-primary text-xs font-[Inter]'>{c.name}</p>
                         }))}
                       />
                     </div>

@@ -134,7 +134,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             <h2 className="font-semibold text-base 2xl:text-base font-[Inter]">
               Billing Setup
             </h2>
-            <p className="font-[Inter] text-xs 2xl:text-xs font-normal text-[#43474A] mb-0">
+            <p className="font-[Inter] text-xs 2xl:text-xs font-normal text-secondry1 mb-0">
               All campaign activity is billed at the end of every week or when
               your account hits its billing threshold. You will only be charged
               for unique clicks to ensure all clicks are quality and verified.
@@ -163,7 +163,7 @@ const CampaignReview: FC<ICampaignReview> = ({
                 )}
               />
               <ErrorMessage message={errors["currentCard"]?.message} />
-              {/* <button type="button" className="text-black font-[Inter] mx-3">
+              {/* <button type="button" className="text-primary font-[Inter] mx-3">
                 Refresh
               </button> */}
             </div>
@@ -210,7 +210,7 @@ const CampaignReview: FC<ICampaignReview> = ({
               )}
             />
 
-            <p className="text-xs text-black font-[Inter] font-normal">
+            <p className="text-xs text-primary font-[Inter] font-normal">
               I agree and authorize weekly automatic billing for accrued click
               costs per the{" "}
               <a
@@ -284,7 +284,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           >
             <button
               type="button"
-              className="rounded-[5px] text-black bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
+              className="rounded-[5px] text-primary bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
               disabled={!isValid}
             >
               Submit
@@ -292,7 +292,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           </Popconfirm>
           <button
             type="button"
-            className="rounded-[5px] text-black bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
+            className="rounded-[5px] text-primary bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
             onClick={handleSaveDraft}
           >
             Save Draft

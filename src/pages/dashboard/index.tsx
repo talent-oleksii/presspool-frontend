@@ -20,7 +20,7 @@ const Dashboard: FC = () => {
       <h1 className="font-semibold font-[Inter] text-[18px] md:text-xl -tracking-[.6px]">
         Welcome {name} 🤝
       </h1>
-      <p className="text-[12px] md:text-sm xsm:mt-1.5 font-normal text-[#43474A]">
+      <p className="text-[12px] md:text-sm xsm:mt-1.5 font-normal text-secondry1">
         Here’s a snapshot of your account, all in one place
       </p>
 
