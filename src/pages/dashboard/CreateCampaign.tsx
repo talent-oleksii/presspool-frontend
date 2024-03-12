@@ -77,6 +77,8 @@ const CreateCampaign: FC = () => {
         "image",
         typeof campaignContent.image !== "string" ? campaignContent.image : ""
       );
+      formData.append("conversion", campaignContent.conversion);
+      formData.append("conversionDetail", campaignContent.conversionDetail);
       if (!!campaignContent?.additionalFiles?.length) {
         for (const aFile of campaignContent.additionalFiles) {
           formData.append("additional_file", aFile);
@@ -190,41 +192,37 @@ const CreateCampaign: FC = () => {
         </h2>
         <div className="grid grid-cols-4 h-[62px] py-4 px-2 rounded-[10px] bg-[#f5f5f5] z-0 relative w-[800px]">
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] leading-5 text-base transition-colors duration-500 ${
-              currentTab === "detail"
-                ? "text-white font-semibold"
-                : "text-primary"
-            }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] leading-5 text-base transition-colors duration-500 ${currentTab === "detail"
+              ? "text-white font-semibold"
+              : "text-primary"
+              }`}
             onClick={() => handleClick("detail")}
           >
             Campaign Details
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${
-              currentTab === "budget"
-                ? "text-white font-semibold"
-                : "text-primary"
-            }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${currentTab === "budget"
+              ? "text-white font-semibold"
+              : "text-primary"
+              }`}
             onClick={() => handleClick("budget")}
           >
             Budget
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${
-              currentTab === "content"
-                ? "text-white font-semibold"
-                : "text-primary"
-            }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${currentTab === "content"
+              ? "text-white font-semibold"
+              : "text-primary"
+              }`}
             onClick={() => handleClick("content")}
           >
             Content
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${
-              currentTab === "review"
-                ? "text-white font-semibold"
-                : "text-primary"
-            }`}
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${currentTab === "review"
+              ? "text-white font-semibold"
+              : "text-primary"
+              }`}
             onClick={() => handleClick("review")}
           >
             Review

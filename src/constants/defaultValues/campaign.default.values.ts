@@ -19,6 +19,8 @@ export const defaultCampaignContentFormData = {
   cta: "",
   pageUrl: "",
   image: undefined as any,
+  conversion: 'free_trial',
+  conversionDetail: '',
 };
 
 export const defaultCampaignReviewFormData = {

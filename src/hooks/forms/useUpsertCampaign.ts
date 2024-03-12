@@ -56,6 +56,8 @@ export const useUpsertCampaign = (
     pageUrl: string;
     image: any;
     additionalFiles?: any;
+    conversion: string;
+    conversionDetail: string;
   }>({
     ...options,
     defaultValues: defaultCampaignContentFormData,
@@ -90,6 +92,8 @@ export const useUpsertCampaign = (
           ? data.additional_files?.split(",")
           : undefined,
         uiId: data.ui_id ?? 0,
+        conversion: data.conversion,
+        conversionDetail: data.conversion_detail
       });
       campaignReviewMethods.reset({
         currentCard: data.card_id,

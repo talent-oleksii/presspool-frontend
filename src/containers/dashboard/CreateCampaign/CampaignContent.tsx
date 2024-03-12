@@ -88,9 +88,8 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                    }`}
                   maxLength={60}
                 />
               )}
@@ -109,9 +108,8 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full font-medium text-sm rounded-[10px] border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                  className={`mb-0 w-full font-medium text-sm rounded-[10px] border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                    }`}
                   maxLength={500}
                   rows={5}
                   data-tooltip-id="body"
@@ -132,9 +130,8 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                    }`}
                   maxLength={20}
                 />
               )}
@@ -160,14 +157,57 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${
-                    !!errors[field.name] ? "border-[red]" : ""
-                  }`}
+                  className={`w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[red]" : ""
+                    }`}
                 />
               )}
             />
             <ErrorMessage message={errors["pageUrl"]?.message} />
           </div>
+          <div className="flex flex-col gap-1">
+            <div className="font-[Inter] leading-3.5 font-medium text-sm font-semibold mb-0 flex items-center">
+              Conversion Goal
+              <span className="ms-1 text-[red] text-xs">*</span>
+              <CustomTooltip
+                title={
+                  <p>
+                    What is the goal of the landing page/campaign?
+                  </p>
+                }
+              />
+            </div>
+            <Controller
+              name="conversion"
+              control={control}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className='w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 z-[1]'
+                >
+                  <option value="free_trial">Free Trial</option>
+                  <option value="book_call">Book a Call/Demo</option>
+                  <option value="registration">Registration</option>
+                  <option value="purchase">Immediate Purchase</option>
+                  <option value="download">Download</option>
+                  <option value="other">Other</option>
+                </select>
+              )}
+            />
+            {/* <ErrorMessage message={errors["conversion"]?.message} /> */}
+          </div>
+          <Controller
+            name="conversionDetail"
+            control={control}
+            render={({ field }) => (
+              <textarea
+                {...field}
+                className='mb-0 w-full font-medium text-sm rounded-[10px] border-t-0 border-x-[1px] focus:ring-0 focus:border-main pt-6 pb-2 px-3 -mt-8 z-[0]'
+                maxLength={500}
+                rows={5}
+                placeholder="Please explain in detail"
+              />
+            )}
+          />
           <div className="flex flex-col gap-1">
             <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
               Hero Image
@@ -183,9 +223,8 @@ const CampaignContent: FC = () => {
                 onClick={() => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
-                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-secondry2 ${
-                  !!errors["image"] ? "border-[red]" : ""
-                }`}
+                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-secondry2 ${!!errors["image"] ? "border-[red]" : ""
+                  }`}
               >
                 <>
                   <svg
@@ -294,9 +333,8 @@ const CampaignContent: FC = () => {
                   }}
                 >
                   <p className="text-xs">
-                    {`${additionalFiles?.length ?? 0} file${
-                      (additionalFiles?.length ?? 0) > 1 ? "s" : ""
-                    } are selected`}
+                    {`${additionalFiles?.length ?? 0} file${(additionalFiles?.length ?? 0) > 1 ? "s" : ""
+                      } are selected`}
                   </p>
 
                   <svg

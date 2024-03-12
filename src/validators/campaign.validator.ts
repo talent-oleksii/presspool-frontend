@@ -49,6 +49,8 @@ export const campaignContentSchema = yup.object().shape({
   image: yup.mixed().required("Please select an image file"),
   additionalFiles: yup.mixed(),
   uiId: yup.number(),
+  conversion: yup.string().required(),
+  conversionDetail: yup.string().required(),
 });
 
 export const campaignReviewSchema = yup.object().shape({

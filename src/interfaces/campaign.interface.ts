@@ -28,4 +28,6 @@ export interface ICampaignDetail {
   no_need_check: any;
   additional_files: string;
   ui_id: number;
+  conversion: string;
+  conversion_detail: string;
 }
