@@ -192,9 +192,11 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               AVG CPC
             </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`${(
-              item.spent / item.unique_clicks
-            ).toFixed(2)}`}</p>
+            <p className="font-normal text-primary font-[Inter] text-xs">{`${
+              isNaN(item.spent / item.unique_clicks)
+                ? 0
+                : (item.spent / item.unique_clicks).toFixed(2)
+            }`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">

@@ -65,6 +65,8 @@ const MainContent: FC = () => {
               email_verified:
                 Number(data.data["email_verified"]) === 0 ? "false" : "true",
               avatar: data.data["avatar"],
+              createTime: ret[0]["createdTime"],
+              domain : ret[0]["fields"]["Domain"],
             })
           );
 
