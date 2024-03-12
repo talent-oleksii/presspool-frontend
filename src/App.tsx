@@ -51,7 +51,11 @@ const App: FC = () => {
             itemHoverBg: "#7FFBAE",
             itemSelectedBg: "#7FFBAE",
             itemSelectedColor: "#000000",
-            itemHeight: 32
+            itemHeight: 32,
+          },
+          Table: {
+            headerColor: "#43474A",
+            cellFontSize: 12,
           },
         },
       }}

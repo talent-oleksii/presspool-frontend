@@ -414,20 +414,43 @@ const Profile: FC = () => {
           </div>
           <div className="border-b-[1px] border-[#bcbcbc] py-4">
             <Table className="file-table" dataSource={fileData}>
-              <Column title="Name" dataIndex="name" key="name" />
+              <Column
+                title="Name"
+                key="name"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.name}</span>
+                  </>
+                )}
+              />
               <Column
                 title="Campaign Name"
-                dataIndex="campaignName"
                 key="campaign name"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.campaignName}</span>
+                  </>
+                )}
               />
-              <Column title="Date Added" dataIndex="date" key="date" />
+              <Column
+                title="Date Added"
+                key="date"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.date}</span>
+                  </>
+                )}
+              />
               <Column
                 title={" "}
                 key="action"
                 render={(_: any, record: any) => (
                   <>
                     <button
-                      className="text-xs font-bold -tracking-[.45px] text-[#7f8182]"
+                      className="text-xs font-bold -tracking-[.45px] text-secondry2"
                       onClick={(e) => {
                         e.preventDefault();
                         handleDownload(record.fullUrl, record.name);
