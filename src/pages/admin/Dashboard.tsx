@@ -201,6 +201,8 @@ const AdminDashboard: FC = () => {
           accumulator += spent / uniqueClicks;
         }
 
+        console.log('dfd:', spent, uniqueClicks);
+
         return accumulator;
       }, 0),
     [data]
