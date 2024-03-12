@@ -187,7 +187,7 @@ const CampaignContent: FC = () => {
                   <option value="free_trial">Free Trial</option>
                   <option value="book_call">Book a Call/Demo</option>
                   <option value="registration">Registration</option>
-                  <option value="purchase">Immediate Purchase</option>
+                  <option value="immediate_purchase">Immediate Purchase</option>
                   <option value="download">Download</option>
                   <option value="other">Other</option>
                 </select>
