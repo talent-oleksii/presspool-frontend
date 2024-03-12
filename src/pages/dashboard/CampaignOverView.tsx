@@ -113,7 +113,7 @@ const CampaignOverView: FC = () => {
   const avgCPC = useMemo(
     () =>
       data.reduce((accumulator, currentValue) => {
-        const spent = Number(currentValue.spent);
+        const spent = Number(currentValue.billed);
         const uniqueClicks = Number(currentValue.unique_clicks);
         if (!isNaN(spent) && !isNaN(uniqueClicks) && uniqueClicks !== 0) {
           accumulator += spent / uniqueClicks;
@@ -136,7 +136,7 @@ const CampaignOverView: FC = () => {
   );
 
   const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.spent ?? 0), 0),
+    () => data.reduce((prev, item) => prev + Number(item?.billed ?? 0), 0),
     [data]
   );
 
