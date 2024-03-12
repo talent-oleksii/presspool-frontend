@@ -65,7 +65,7 @@ const CampaignContent: FC = () => {
           <div className="flex flex-col">
             <button
               type="button"
-              className="rounded-[5px] text-white text-left font-semibold bg-black px-4 gap-4 py-[10px] text-xs flex items-center justify-start w-[275px]"
+              className="rounded-[10px] text-white text-left font-semibold bg-black px-4 gap-4 py-[10px] text-xs flex items-center justify-start w-[275px]"
               onClick={handleExpertHelp}
             >
               <EditIcon />
@@ -88,7 +88,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={60}
@@ -109,7 +109,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full font-medium text-sm rounded-lg border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`mb-0 w-full font-medium text-sm rounded-[10px] border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={500}
@@ -132,7 +132,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                   maxLength={20}
@@ -160,7 +160,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-lg border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${
+                  className={`w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${
                     !!errors[field.name] ? "border-[red]" : ""
                   }`}
                 />
@@ -183,7 +183,7 @@ const CampaignContent: FC = () => {
                 onClick={() => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
-                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-[#7F8182] ${
+                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-secondry2 ${
                   !!errors["image"] ? "border-[red]" : ""
                 }`}
               >
@@ -200,7 +200,7 @@ const CampaignContent: FC = () => {
                       d="M460-336.923v-346l-93.231 93.231-28.308-28.769L480-760l141.539 141.539-28.308 28.769L500-682.923v346h-40ZM264.615-200Q237-200 218.5-218.5 200-237 200-264.615v-96.923h40v96.923q0 9.23 7.692 16.923Q255.385-240 264.615-240h430.77q9.23 0 16.923-7.692Q720-255.385 720-264.615v-96.923h40v96.923Q760-237 741.5-218.5 723-200 695.385-200h-430.77Z"
                     />
                   </svg>
-                  <span className="text-[#7F8182] font-[Inter] text-xs">
+                  <span className="text-secondry2 font-[Inter] text-xs">
                     Upload image
                   </span>
                 </>
@@ -265,7 +265,7 @@ const CampaignContent: FC = () => {
                   if (addtionalFileInputRef.current)
                     addtionalFileInputRef.current.click();
                 }}
-                className="overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-[#7F8182]"
+                className="overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-secondry2"
               >
                 <>
                   <svg
@@ -280,7 +280,7 @@ const CampaignContent: FC = () => {
                       d="M460-336.923v-346l-93.231 93.231-28.308-28.769L480-760l141.539 141.539-28.308 28.769L500-682.923v346h-40ZM264.615-200Q237-200 218.5-218.5 200-237 200-264.615v-96.923h40v96.923q0 9.23 7.692 16.923Q255.385-240 264.615-240h430.77q9.23 0 16.923-7.692Q720-255.385 720-264.615v-96.923h40v96.923Q760-237 741.5-218.5 723-200 695.385-200h-430.77Z"
                     />
                   </svg>
-                  <span className="text-[#7F8182] font-[Inter] text-xs">
+                  <span className="text-secondry2 font-[Inter] text-xs">
                     Upload files
                   </span>
                 </>
@@ -332,10 +332,10 @@ const CampaignContent: FC = () => {
           <div className="font-[Inter] text-xs 2xl:text-base font-semibold flex items-center">
             Preview
           </div>
-          <div className="h-full overflow-hidden relative flex flex-col items-center bg-[#43474A] rounded-[5px] px-2.5 py-6">
+          <div className="h-full overflow-hidden relative flex flex-col items-center bg-secondry1 rounded-[10px] px-2.5 py-6">
             {/* Content for Campaign */}
-            <div className="bg-[#D1CEFF] w-full flex items-center justify-center rounded-[14px]">
-              {/* <p className='text-black border-black border-[5px] p-3 text-3xl 2xl:text-lg font-bold'>ALOGO</p> */}
+            <div className="bg-[#D1CEFF] w-full flex items-center justify-center rounded-[10px]">
+              {/* <p className='text-primary border-black border-[5px] p-3 text-3xl 2xl:text-lg font-bold'>ALOGO</p> */}
               <img alt="alogo" src={ALogoImage} className="h-[100px]" />
             </div>
             <p className="text-gray-200 my-4 text-xs font-normal">
@@ -351,7 +351,7 @@ const CampaignContent: FC = () => {
               are reshaping how consumers and executives alike do their work
               better, faster and easier.
             </p>
-            <div className="bg-white z-10 w-full rounded-[14px] flex flex-col h-full">
+            <div className="bg-white z-10 w-full rounded-[10px] flex flex-col h-full">
               <div className={`${headline ? "py-4" : "py-2"} px-4 flex`}>
                 <div className="text-left w-full">
                   <h2 className="w-full text-left font-bold font-[Inter] text-base break-words leading-4">
@@ -363,12 +363,12 @@ const CampaignContent: FC = () => {
                 <img
                   src={(previewUrl as string) || SampleLogo}
                   alt="sample logo"
-                  className={`h-[140px] w-full object-cover rounded-[15px]`}
+                  className={`h-[140px] w-full object-cover rounded-[10px]`}
                 />
               </div>
               <div className="pb-3 px-4 flex flex-col items-center justify-between flex-1">
                 <div className="text-left w-full">
-                  <p className="w-full text-left font-[Inter] font-normal text-black text-xs break-words">
+                  <p className="w-full text-left font-[Inter] font-normal text-primary text-xs break-words">
                     {watch("body")}
                   </p>
                 </div>
@@ -376,7 +376,7 @@ const CampaignContent: FC = () => {
                   <div className="mt-4 flex justify-between w-full items-center">
                     <button
                       type="button"
-                      className="font-[Inter] font-normal bg-main text-black px-4 py-2 rounded-[5px] border-[1px] text-xs font-medium"
+                      className="font-[Inter] font-normal bg-main text-primary px-4 py-2 rounded-[10px] border-[1px] text-xs font-medium"
                     >
                       {cta}
                     </button>
@@ -390,7 +390,7 @@ const CampaignContent: FC = () => {
       <div className="w-full mt-[35px] text-center">
         <button
           type="submit"
-          className="rounded-[5px] text-black font-semibold bg-main px-[50px] py-[10px] text-sm disabled:bg-gray-400"
+          className="rounded-[10px] text-primary font-semibold bg-main px-[50px] py-[10px] text-sm disabled:bg-gray-400"
           disabled={!isValid}
         >
           Next Step

@@ -43,7 +43,7 @@ const SelectList: React.FC<ISelectList> = ({ id, items, setValue, name }: ISelec
     <div ref={ref} className="group inline-flex min-w-[170px] flex-col relative me-4">
       <button
         onClick={handleOpenChange}
-        className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] flex px-4 py-[10px] rounded-[15px] ${id !== "all"
+        className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-primary flex px-4 py-[10px] rounded-[10px] ${id !== "all"
           ? "bg-white ring-1 ring-main shadow-md"
           : "bg-transparent ring-none"
           }`}
@@ -51,7 +51,7 @@ const SelectList: React.FC<ISelectList> = ({ id, items, setValue, name }: ISelec
         {name}
       </button>
       {open && (
-        <Menu className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[15px] text-left z-[9]">
+        <Menu className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9]">
           {!!items.length ? (
             items.map((item) => (
               <Menu.Item

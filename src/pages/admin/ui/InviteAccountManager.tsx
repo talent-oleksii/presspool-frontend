@@ -39,7 +39,7 @@ const InviteAccountManager: FC<typeInviteAccountManager> = ({ show, onClose }: t
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className={`relative bg-white rounded-[22px] text-left flex items-center justify-center flex-col shadow-xl border-[1px] border-black px-[36px] pt-[45px] pb-[26px] min-w-[500px]`}>
+              <Dialog.Panel className={`relative bg-white rounded-[10px] text-left flex items-center justify-center flex-col shadow-xl border-[1px] border-black px-[36px] pt-[45px] pb-[26px] min-w-[500px]`}>
                 {loading && <Loading />}
                 <button onClick={() => onClose(false)} className='absolute right-4 top-4'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
@@ -47,15 +47,15 @@ const InviteAccountManager: FC<typeInviteAccountManager> = ({ show, onClose }: t
                   </svg>
                 </button>
                 <h2 className='text-xl font-semibold -tracking-[.72px]'>Add Account Manager</h2>
-                <p className='mt-4 text-xs w-full -tracking-[.48px] text-black font-medium'>Email Address</p>
+                <p className='mt-4 text-xs w-full -tracking-[.48px] text-primary font-medium'>Email Address</p>
                 <input
-                  className='mt-2 w-full px-4 py-2.5 flex border-[1px] rounded-[9.675px] border-[#7f8182] items-center justify-between'
+                  className='mt-2 w-full px-4 py-2.5 flex border-[1px] rounded-[10px] border-[#7f8182] items-center justify-between'
                   placeholder="Enter here"
                   value={emails}
                   onChange={e => setEmails(e.target.value)}
                 />
                 <button
-                  className='bg-[#7ffbae] rounded-[6.047px] text-xs font-semibold w-full mt-6 flex items-center justify-center py-3'
+                  className='bg-[#7ffbae] rounded-[10px] text-xs font-semibold w-full mt-6 flex items-center justify-center py-3'
                   onClick={handleSendInvite}
                 >
                   Add Member

@@ -7,7 +7,7 @@ const NewsLetterDetail: FC = () => {
         <div className='text-gray-700 font-[Inter] text-md'>
           Performance By:
 
-          <span className='rounded-full bg-gray-900 px-3 py-1 text-white ms-3'>NewsLetter</span>
+          <span className='rounded-[10px] bg-gray-900 px-3 py-1 text-white ms-3'>NewsLetter</span>
           <table className='w-full fot-[Inter] mt-5'>
             <thead>
               <tr className='border-b-[1px] border-gray-300'>

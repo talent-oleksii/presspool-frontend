@@ -86,22 +86,22 @@ const RaiseBudget: FC = () => {
 
   return (
     <>
-      <div className="shadow-md rounded-[15px] px-[100px] py-[30px] bg-white max-w-[900px] relative">
+      <div className="shadow-md rounded-[10px] px-[100px] py-[30px] bg-white max-w-[900px] relative">
         {loading && <Loading />}
-        <h3 className="text-center w-full font-[Inter] text-lg font-semibold -tracking-[.6px] text-black">
+        <h3 className="text-center w-full font-[Inter] text-lg font-semibold -tracking-[.6px] text-primary">
           Raise Budget
         </h3>
         <div className="text-left">
           <p className="mt-8 font-[Inter] text-xs -tracking-[.48px] font-semibold">
             Please type in your updated budget cap for this campaign.
           </p>
-          <p className="text-[#43474a] text-xs font-light mt-1">
+          <p className="text-secondry1 text-xs font-light mt-1">
             *Keep in mind, these are all verified, targeted and engaged readers
             that will be clicking through directly to your landing page of
             choice. We only charge per{" "}
             <span className="font-bold">unique click</span> as they come in.
           </p>
-          <div className="pl-2 pr-4 py-1 mt-[23px] border-[1px] rounded-lg border-black w-full flex justify-between items-center relative">
+          <div className="pl-2 pr-4 py-1 mt-[23px] border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative">
             <input
               value={newPrice}
               prefix="$"
@@ -116,14 +116,14 @@ const RaiseBudget: FC = () => {
           </div>
           {newPrice && (
             <div className="mt-[9px]">
-              <span className="font-[Inter] text-xs 2xl:text-xs my-3 text-black">
+              <span className="font-[Inter] text-xs 2xl:text-xs my-3 text-primary">
                 {`*Total estimated clicks for the campaign are ${Math.floor(
                   Number(newPrice) / (currentTarget === "consumer" ? 8 : 20)
                 )}`}
               </span>
             </div>
           )}
-          <div className="mt-4 rounded-lg flex mt-8">
+          <div className="mt-4 rounded-[10px] flex mt-8">
             <div>
               <svg
                 enableBackground="new 0 0 91.8 92.6"
@@ -144,7 +144,7 @@ const RaiseBudget: FC = () => {
               {`Your campaign is being raised from $${originPrice} to $${newPrice}`}
             </span>
           </div>
-          <h3 className="text-black mt-8 font-[Inter] font-semibold -tracking-[.6px] text-lg">
+          <h3 className="text-primary mt-8 font-[Inter] font-semibold -tracking-[.6px] text-lg">
             Payment Method
           </h3>
           <div className="w-full flex mt-4">
@@ -155,7 +155,7 @@ const RaiseBudget: FC = () => {
                     Select Card Details
                   </p>
                   <select
-                    className="w-[400px] pl-[16px] py-[11px] mt-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md"
+                    className="w-[400px] pl-[16px] py-[11px] mt-2 border-[1px] border-[#7f8182] rounded-[10px] font-[Inter] text-xs 2xl:text-md"
                     value={currentCard}
                     onChange={(e) => setCurrentCard(e.target.value)}
                   >
@@ -166,7 +166,7 @@ const RaiseBudget: FC = () => {
                       </option>
                     ))}
                   </select>
-                  {/* <button className='text-black font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button> */}
+                  {/* <button className='text-primary font-[Inter] mx-3' onClick={handleRefreshCard}>Refresh</button> */}
                 </div>
 
                 <div className="flex-1 ms-[18px]">
@@ -174,7 +174,7 @@ const RaiseBudget: FC = () => {
                     Add New Card
                   </p>
                   <button
-                    className="flex py-[11px] mt-2 px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md"
+                    className="flex py-[11px] mt-2 px-[17px] items-center justify-center text-[#7f8182] w-full rounded-[10px] border-[1px] border-[#7f8182] text-xs 2xl:text-md"
                     onClick={handleAddCard}
                   >
                     <svg
@@ -205,7 +205,7 @@ const RaiseBudget: FC = () => {
                     Add New Card
                   </p>
                   <button
-                    className="flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md"
+                    className="flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-[10px] border-[1px] border-[#7f8182] text-xs 2xl:text-md"
                     onClick={handleAddCard}
                   >
                     <svg
@@ -232,7 +232,7 @@ const RaiseBudget: FC = () => {
                     Select Card Details
                   </p>
                   <select
-                    className="w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md"
+                    className="w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-[10px] font-[Inter] text-xs 2xl:text-md"
                     value={currentCard}
                     onChange={(e) => setCurrentCard(e.target.value)}
                   >
@@ -254,7 +254,7 @@ const RaiseBudget: FC = () => {
               checked={checked}
               onChange={(e) => setChecked(e.target.checked)}
             />
-            <p className="text-[12px] text-black font-[Inter] font-normal">
+            <p className="text-[12px] text-primary font-[Inter] font-normal">
               I agree and authorize weekly automatic billing for accrued click
               costs per the{" "}
               <a
@@ -280,7 +280,7 @@ const RaiseBudget: FC = () => {
           </div>
           <div className="w-full mt-8 text-center">
             <button
-              className="font-[Inter] text-xs font-semibold px-4 py-2 rounded-[5px] bg-main disabled:bg-[gray]"
+              className="font-[Inter] text-xs font-semibold px-4 py-2 rounded-[10px] bg-main disabled:bg-[gray]"
               disabled={Number(newPrice) < 10000}
               onClick={handleSubmit}
             >

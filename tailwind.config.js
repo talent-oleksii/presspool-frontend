@@ -11,6 +11,9 @@ module.exports = {
       colors: {
         main: "#7FFBAE",
         cardBg: "rgba(255, 255, 255, 0.35)",
+        primary: "#000000",
+        secondry1: "#43474A",
+        secondry2: "#7F8182",
       },
       height: {
         "calc-vh": "calc(100% - 50px)",

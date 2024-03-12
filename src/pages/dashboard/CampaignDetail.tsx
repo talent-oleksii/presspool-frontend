@@ -91,7 +91,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     <div className="mt-5">
       {loading && <Loading />}
       <>
-        <div className="rounded-[20px] grid grid-cols-4 gap-5 min-h-[200px]">
+        <div className="rounded-[10px] grid grid-cols-4 gap-5 min-h-[200px]">
           <Card
             title={"Total Clicks"}
             value={data?.click_count ?? 0}
@@ -123,13 +123,13 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
               <h2 className="font-[Inter] text-lg font-semibold">
                 {data.name || ""}
               </h2>
-              <p className="font-[Inter] text-[#43474A] mt-[5px] text-xs">
+              <p className="font-[Inter] text-secondry1 mt-[5px] text-xs">
                 Let's see how your campaign is performing
               </p>
             </div>
             <div>
               <button
-                className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-xs font-medium border-black rounded-lg"
+                className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[10px] text-xs 2xl:text-xs font-medium border-black rounded-[10px]"
                 onClick={handleDownloadCSV}
               >
                 <img
@@ -140,10 +140,10 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
                 Download PDF
               </button>
               <div className="mt-[20px]">
-                <p className="font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
+                <p className="font-[Inter] text-primary text-[10px] 2xl:text-xs font-semibold mb-2">
                   Total Clicks
                 </p>
-                <p className="font-[Inter] text-[#7F8182] text-[10px] 2xl:text-xs mt-2 font-semibold">
+                <p className="font-[Inter] text-secondry2 text-[10px] 2xl:text-xs mt-2 font-semibold">
                   Unique Clicks
                 </p>
               </div>
@@ -173,7 +173,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           </div>
         </div>
         <div className="col-span-1 p-5 flex flex-col items-center bg-white rounded-[10px] shadow-md">
-          <p className="font-[Inter] text-black mb-4 text-left font-semibold w-full text-md 2xl:text-lg">
+          <p className="font-[Inter] text-primary mb-4 text-left font-semibold w-full text-md 2xl:text-lg">
             Newsletters (by the numbers)
           </p>
           <table className="w-full">

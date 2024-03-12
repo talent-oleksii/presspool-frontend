@@ -23,7 +23,7 @@ const AskDialog: FC<typeAskDialog> = ({
       <div className="ask-dialog">
         <div className="w-full flex-col flex items-center justify-center">
           <div className="flex flex-col items-center justify-center">
-            <div className="w-[95px] h-[95px] flex items-center justify-center bg-[#D22A2A] rounded-full">
+            <div className="w-[95px] h-[95px] flex items-center justify-center bg-[#D22A2A] rounded-[10px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="99"
@@ -53,20 +53,20 @@ const AskDialog: FC<typeAskDialog> = ({
                 />
               </svg>
             </div>
-            <h2 className="mt-[12px] font-[Inter] text-black text-[20px] font-semibold text-center -tracking-[.6px]">
+            <h2 className="mt-[12px] font-[Inter] text-primary text-[20px] font-semibold text-center -tracking-[.6px]">
               {title.length > 0 ? title : "Are you sure?"}
             </h2>
           </div>
 
           <div className="mt-[10px]">
-            <p className="font-[Inter] text-[15px] text-center text-[#43474a] -tracking-[].45px]">
+            <p className="font-[Inter] text-[15px] text-center text-secondry1 -tracking-[].45px]">
               {content}
             </p>
           </div>
           <div className="flex gap-5">
             <button
               onClick={() => onClose()}
-              className="mt-[25px] bg-[#FFAAA5] rounded-[5px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px]"
+              className="mt-[25px] bg-[#FFAAA5] rounded-[10px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px]"
             >
               {cancelText}
             </button>
@@ -75,7 +75,7 @@ const AskDialog: FC<typeAskDialog> = ({
                 onOk();
                 onClose();
               }}
-              className="mt-[25px] bg-white rounded-[5px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px] border-[#7f8182]"
+              className="mt-[25px] bg-white rounded-[10px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px] border-[#7f8182]"
             >
               {okText}
             </button>

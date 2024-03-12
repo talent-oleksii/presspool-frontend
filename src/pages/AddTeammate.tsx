@@ -55,7 +55,7 @@ const AddTeammate: FC<typeAddTeammate> = ({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel
-                className={`relative bg-white rounded-lg text-left shadow-xl items-center flex flex-col w-[600px] px-[40px] pt-[30px] pb-[26px]`}
+                className={`relative bg-white rounded-[10px] text-left shadow-xl items-center flex flex-col w-[600px] px-[40px] pt-[30px] pb-[26px]`}
               >
                 {loading && <Loading />}
                 <button
@@ -86,10 +86,10 @@ const AddTeammate: FC<typeAddTeammate> = ({
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-2 w-full text-xs font-[Inter] italic px-4 py-3 focus:ring-0 focus:border-black -tracking-[.48px] text-black border-black underline border-[1px] rounded-[10px] bg-[#FBFBFB]"
+                    className="mt-2 w-full text-xs font-[Inter] italic px-4 py-3 focus:ring-0 focus:border-black -tracking-[.48px] text-primary border-black underline border-[1px] rounded-[10px] bg-[#FBFBFB]"
                   />
                   <button
-                    className="bg-black rounded-[5px] text-xs text-white font-semibold font-[Inter] py-3 w-full mt-8 disabled:bg-[#7f8183]"
+                    className="bg-black rounded-[10px] text-xs text-white font-semibold font-[Inter] py-3 w-full mt-8 disabled:bg-[#7f8183]"
                     onClick={handleSubmit}
                     disabled={!validator.isEmail(email)}
                   >
