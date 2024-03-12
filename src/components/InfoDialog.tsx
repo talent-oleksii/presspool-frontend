@@ -24,7 +24,7 @@ const InfoDialog: FC<typeInfoDialog> = ({ type, title, content, onClose }) => {
           {
             type && type === 'error' &&
             <div className='flex flex-col items-center justify-center'>
-              <div className='w-[95px] h-[95px] flex items-center justify-center bg-[#D22A2A] rounded-full'>
+              <div className='w-[95px] h-[95px] flex items-center justify-center bg-[#D22A2A] rounded-[10px]'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="6" height="49" viewBox="0 0 6 49" fill="none">
                   <path d="M3 3.38867V24.4998M3 45.6109H3.05278" stroke="white" strokeWidth="4.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -36,7 +36,7 @@ const InfoDialog: FC<typeInfoDialog> = ({ type, title, content, onClose }) => {
           <div className="mt-[10px]">
             <p className='text-xs font-[Inter] text-normal text-center text-secondry1'>{content}</p>
           </div>
-          <button onClick={onClose} className='mt-[25px] bg-main rounded-[5px] px-[52px] py-[11px] font-[Inter] text-white text-xs font-semibold'>OK</button>
+          <button onClick={onClose} className='mt-[25px] bg-main rounded-[10px] px-[52px] py-[11px] font-[Inter] text-white text-xs font-semibold'>OK</button>
         </div>
       </div>
     </div>

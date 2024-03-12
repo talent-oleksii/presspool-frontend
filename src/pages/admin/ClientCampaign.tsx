@@ -120,13 +120,13 @@ const AdminClientCampaign: FC = () => {
         <div className='my-[14px] p-[25px] min-h-[250px] rounded-[10px] bg-white shadow-md'>
           <div className='flex justify-between items-center'>
             <div>
-              {data.state && <span className={`rounded-full text-[10px] px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{data.state}</span>}
+              {data.state && <span className={`rounded-[10px] text-[10px] px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-[#7ffbae]'}`}>{data.state}</span>}
               <h2 className='font-[Inter] mt-4 text-xs 2xl:text-lg font-semibold'>{data.name || ''}</h2>
               {/* <p className='text-xs'>{`https://track.presspool.ai/${data.uid || 1}`}</p> */}
               <p className='font-[Inter] text-secondry1 mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
             </div>
 
-            {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
+            {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[10px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
             Download as CSV
           </button> */}
           </div>

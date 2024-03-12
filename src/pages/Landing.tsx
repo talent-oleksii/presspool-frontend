@@ -43,7 +43,7 @@ const Landing: FC = () => {
         <h2 className="font-[Inter] font-semibold text-[24px] leading-7 md:text-[34px] mt-7 md:mt-[12px] text-primary md:mb-2 -tracking-[1.2px]">
           Welcome to the
           {/* <h2 className="font-[Inter] font-semibold text-primary text-[40px] -tracking-[1.2px] -mt-5"> */}
-          <span className="bg-[#43474a] text-main mx-2 rounded-full px-2 py-0">
+          <span className="bg-[#43474a] text-main mx-2 rounded-[10px] px-2 py-0">
             Future
           </span>
           of Marketing
@@ -104,7 +104,7 @@ const Landing: FC = () => {
         <div className="">
           <div className="flex justify-center items-center mt-[15px]">
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${
                 current === 0
                   ? "text-primary border-main"
                   : "text-[#525252] border-[#EDECF2]"
@@ -130,7 +130,7 @@ const Landing: FC = () => {
               Easy Campaign Creation
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${
                 current === 1
                   ? "text-primary border-main"
                   : "text-[#525252] border-[#EDECF2]"
@@ -156,7 +156,7 @@ const Landing: FC = () => {
               Transparent Analytics
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[4.5px] items-center flex flex-col hover:border-main border-b-[1px] ${
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${
                 current === 2
                   ? "text-primary border-main"
                   : "text-[#525252] border-[#EDECF2]"
@@ -196,21 +196,21 @@ const Landing: FC = () => {
                 <img
                   src={Precise}
                   alt="..."
-                  className="!w-[70%] max-w-[870px] rounded-md"
+                  className="!w-[70%] max-w-[870px] rounded-[10px]"
                 />
               </div>
               <div>
                 <img
                   src={Launch}
                   alt="..."
-                  className="!w-[70%] max-w-[870px] rounded-md"
+                  className="!w-[70%] max-w-[870px] rounded-[10px]"
                 />
               </div>
               <div>
                 <img
                   src={Seamless}
                   alt="..."
-                  className="!w-[70%] max-w-[870px] rounded-md"
+                  className="!w-[70%] max-w-[870px] rounded-[10px]"
                 />
               </div>
             </Carousel>

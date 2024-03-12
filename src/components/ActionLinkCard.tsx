@@ -17,14 +17,14 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
   subHeading,
   links,
 }) => (
-  <div className="rounded-3.5 mt-8 text-left shadow-md">
-    <div className="bg-black px-[19px] py-[12px] w-full rounded-t-[14px]">
+  <div className="rounded-[10px] mt-8 text-left shadow-md">
+    <div className="bg-black px-[19px] py-[12px] w-full rounded-t-[10px]">
       <p className="text-white text-sm font-semibold font-[Inter]">{heading}</p>
       <p className="text-white font-[Inter] font-semibold text-[10px] 2xl:text-xs mt-[5px]">
         {subHeading}
       </p>
     </div>
-    <div className="bg-white py-4 w-full rounded-b-[14px]">
+    <div className="bg-white py-4 w-full rounded-b-[10px]">
       {(links || []).map((link, index) => (
         <a
           key={index}

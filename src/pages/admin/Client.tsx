@@ -173,13 +173,13 @@ const AdminClient: FC = () => {
           <div className='my-4 flex items-center justify-between'>
             <div>
               <button
-                className={`font-[Inter] text-xs rounded-lg px-[30px] py-[10px] font-semibold ${currentTab === 'user' ? 'bg-main' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
+                className={`font-[Inter] text-xs rounded-[10px] px-[30px] py-[10px] font-semibold ${currentTab === 'user' ? 'bg-main' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
                 onClick={() => setCurrentTab('user')}
               >
                 Client Details
               </button>
               <button
-                className={`font-[Inter] text-xs rounded-lg px-[30px] py-[10px] ms-6 font-semibold ${currentTab === 'campaign' ? 'bg-main' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
+                className={`font-[Inter] text-xs rounded-[10px] px-[30px] py-[10px] ms-6 font-semibold ${currentTab === 'campaign' ? 'bg-main' : 'bg-transparent ring-[1px] ring-[#7f8182]'}`}
                 onClick={() => setCurrentTab('campaign')}
               >
                 Campaigns
@@ -211,7 +211,7 @@ const AdminClient: FC = () => {
                           accountManager &&
                           <div className='rounded-[10px] bg-[#fbfbfb] border-[1px] border-[#7f8183]/[.13] my-2 px-4 py-2 flex items-center justify-between'>
                             <p className='text-secondry1 font-[Inter] -tracking-[.5px] font-medium text-xs'>{accountManager.name}</p>
-                            <button className='text-xs font-[Inter] text-white px-3 py-1 rounded-lg bg-[#e3392e] flex items-center justify-center' onClick={handleRemove}>
+                            <button className='text-xs font-[Inter] text-white px-3 py-1 rounded-[10px] bg-[#e3392e] flex items-center justify-center' onClick={handleRemove}>
                               <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
                                 <path d="M11.5358 2.82128C11.7001 2.82147 11.8581 2.889 11.9776 3.01006C12.0971 3.13112 12.169 3.29658 12.1787 3.47262C12.1883 3.64867 12.1349 3.82202 12.0295 3.95725C11.924 4.09248 11.7744 4.17939 11.6112 4.20022L11.5358 4.20506H11.4835L10.891 11.8159C10.8911 12.3453 10.7026 12.8548 10.3641 13.24C10.0257 13.6252 9.56284 13.857 9.07034 13.8881L8.95687 13.8915H3.79908C2.76881 13.8915 1.9268 13.0274 1.87006 11.9888L1.86684 11.8733L1.27176 4.20506H1.22018C1.05585 4.20487 0.897799 4.13734 0.778308 4.01628C0.658818 3.89522 0.586911 3.72977 0.577281 3.55372C0.567651 3.37767 0.621023 3.20432 0.726494 3.06909C0.831964 2.93386 0.981572 2.84695 1.14475 2.82612L1.22018 2.82128H11.5358ZM5.41798 6.3776C5.2829 6.29131 5.12309 6.26095 4.96861 6.29224C4.81414 6.32354 4.67564 6.41432 4.57916 6.54752C4.48268 6.68072 4.43488 6.84716 4.44474 7.01553C4.4546 7.1839 4.52145 7.34261 4.63271 7.4618L5.46569 8.35641L4.63271 9.25103L4.57919 9.31607C4.479 9.45513 4.43188 9.62991 4.44741 9.80491C4.46295 9.9799 4.53997 10.142 4.66283 10.2583C4.78569 10.3745 4.94518 10.4362 5.10891 10.4309C5.27264 10.4255 5.42832 10.3535 5.54435 10.2294L6.37797 9.33544L7.2116 10.2294L7.27221 10.2868C7.40179 10.3943 7.56465 10.4449 7.72772 10.4282C7.89079 10.4115 8.04182 10.3289 8.15016 10.197C8.25849 10.0652 8.316 9.89403 8.311 9.71832C8.306 9.54262 8.23887 9.37554 8.12324 9.25103L7.29026 8.35641L8.12324 7.4618L8.17675 7.39676C8.27695 7.2577 8.32407 7.08292 8.30853 6.90792C8.293 6.73292 8.21598 6.57084 8.09312 6.45457C7.97026 6.33831 7.81077 6.2766 7.64704 6.28196C7.48331 6.28733 7.32762 6.35937 7.2116 6.48346L6.37797 7.37739L5.54435 6.48346L5.48374 6.42604L5.41798 6.3776Z" fill="white" />
                                 <path d="M7.66688 0.0537109C8.00886 0.0537109 8.33684 0.199502 8.57865 0.459012C8.82047 0.718522 8.95632 1.07049 8.95632 1.43749C8.95614 1.61384 8.89322 1.78346 8.78041 1.9117C8.66761 2.03993 8.51343 2.11709 8.34938 2.12743C8.18534 2.13776 8.02381 2.08049 7.8978 1.9673C7.77178 1.85411 7.6908 1.69356 7.67139 1.51845L7.66688 1.43749H5.08798L5.08347 1.51845C5.06406 1.69356 4.98307 1.85411 4.85706 1.9673C4.73105 2.08049 4.56952 2.13776 4.40547 2.12743C4.24143 2.11709 4.08725 2.03993 3.97444 1.9117C3.86164 1.78346 3.79871 1.61384 3.79853 1.43749C3.79843 1.08838 3.92129 0.75213 4.14249 0.496143C4.36369 0.240155 4.66688 0.0833539 4.99127 0.0571705L5.08798 0.0537109H7.66688Z" fill="white" />
@@ -264,7 +264,7 @@ const AdminClient: FC = () => {
                   onChange={e => setNote(e.target.value)}
                 />
                 <div className='w-full text-right mt-2'>
-                  <button className='bg-main px-5 py-2 font-semibold text-xs font-[Inter] rounded-[6px]' onClick={handleSaveNote}>
+                  <button className='bg-main px-5 py-2 font-semibold text-xs font-[Inter] rounded-[10px]' onClick={handleSaveNote}>
                     Save
                   </button>
                 </div>
@@ -277,7 +277,7 @@ const AdminClient: FC = () => {
               {/* <p className='font-[Inter] text-xs font-medium -tracking-[.51px]'>Campaign Details</p> */}
               <div className='flex items-center justify-between'>
                 <div>
-                  <div className='flex items-center px-4 py-2 border-[#7f8182] border-[1px] rounded-lg'>
+                  <div className='flex items-center px-4 py-2 border-[#7f8182] border-[1px] rounded-[10px]'>
                     <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12.0016 1.07199C12.9542 1.62201 13.7832 2.36255 14.4368 3.24735C15.0903 4.13216 15.5544 5.14222 15.8 6.21444C16.0456 7.28666 16.0675 8.39801 15.8643 9.47908C15.6611 10.5601 15.2372 11.5877 14.619 12.4976L19.5637 17.4412C19.839 17.7125 19.9989 18.0795 20.0102 18.4659C20.0216 18.8522 19.8833 19.228 19.6244 19.5149C19.3655 19.8018 19.0058 19.9777 18.6203 20.006C18.2349 20.0342 17.8534 19.9126 17.5554 19.6665L17.4414 19.5635L12.4977 14.6188C11.3149 15.4222 9.93848 15.894 8.51156 15.9851C7.08464 16.0761 5.65938 15.7832 4.38408 15.1366C3.10878 14.4901 2.03003 13.5136 1.26007 12.3088C0.490105 11.104 0.0570647 9.71489 0.00600086 8.28598L0 8.00094L0.0050008 7.7159C0.0542013 6.33646 0.459431 4.99321 1.18131 3.8167C1.90318 2.64019 2.91715 1.67044 4.12465 1.00171C5.33216 0.332977 6.69213 -0.0119965 8.07239 0.00031853C9.45265 0.0126336 10.8063 0.381819 12.0016 1.07199Z" fill="#7F8182" />
                       <circle cx="8.00781" cy="8.00391" r="6" fill="#F5F5F5" />
@@ -292,7 +292,7 @@ const AdminClient: FC = () => {
                   </div>
                 </div>
                 <DatePicker.RangePicker
-                  className='font-[Inter] rounded-[15px] py-[10px] border-secondry2 w-[270px] col-span-full'
+                  className='font-[Inter] rounded-[10px] py-[10px] border-secondry2 w-[270px] col-span-full'
                   onChange={(e) => setRange(e)}
                 />
               </div>
@@ -302,7 +302,7 @@ const AdminClient: FC = () => {
                   filteredData.map(item => (
                     <div className='col-span-1' key={item.id}>
                       <p className='font-[Inter] text-[13px] font-semibold -tracking-[.39px]'>{`Launch Date: ${item.state === 'active' ? moment(Number(item.create_time)).format('DD MMM, yyyy') : 'Draft'}`}</p>
-                      <div className='rounded-lg bg-[#f5f5f5] w-full px-[20px] py-[16px] mt-2'>
+                      <div className='rounded-[10px] bg-[#f5f5f5] w-full px-[20px] py-[16px] mt-2'>
                         <div className='flex items-center justify-between'>
                           <div className=''>
                             <p className='text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Tracking No.</p>
@@ -318,10 +318,10 @@ const AdminClient: FC = () => {
                           </div>
                           <div className=''>
                             <p className='text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]'>Status</p>
-                            <p className={`mt-2 text-xs rounded-full -tracking-[.54px] text-center font-[Inter] font-semibold text-secondry1 ${item.state === 'active' ? 'bg-main' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
+                            <p className={`mt-2 text-xs rounded-[10px] -tracking-[.54px] text-center font-[Inter] font-semibold text-secondry1 ${item.state === 'active' ? 'bg-main' : 'bg-[#dbdbdb]'}`}>{`${item.state === 'active' ? 'Active' : 'Draft'}`}</p>
                           </div>
                         </div>
-                        <Link to={`/admin/client/${id}/${item.id}`} className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[6px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
+                        <Link to={`/admin/client/${id}/${item.id}`} className='block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[10px] font-semibold text-[15px] font-[Inter]'>View Campaign</Link>
                       </div>
                     </div>
                   ))

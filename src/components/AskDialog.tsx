@@ -23,7 +23,7 @@ const AskDialog: FC<typeAskDialog> = ({
       <div className="ask-dialog">
         <div className="w-full flex-col flex items-center justify-center">
           <div className="flex flex-col items-center justify-center">
-            <div className="w-[95px] h-[95px] flex items-center justify-center bg-[#D22A2A] rounded-full">
+            <div className="w-[95px] h-[95px] flex items-center justify-center bg-[#D22A2A] rounded-[10px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="99"
@@ -66,7 +66,7 @@ const AskDialog: FC<typeAskDialog> = ({
           <div className="flex gap-5">
             <button
               onClick={() => onClose()}
-              className="mt-[25px] bg-[#FFAAA5] rounded-[5px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px]"
+              className="mt-[25px] bg-[#FFAAA5] rounded-[10px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px]"
             >
               {cancelText}
             </button>
@@ -75,7 +75,7 @@ const AskDialog: FC<typeAskDialog> = ({
                 onOk();
                 onClose();
               }}
-              className="mt-[25px] bg-white rounded-[5px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px] border-[#7f8182]"
+              className="mt-[25px] bg-white rounded-[10px] py-2 font-[Inter] text-sm font-semibold w-[168px] border-[1px] border-[#7f8182]"
             >
               {okText}
             </button>

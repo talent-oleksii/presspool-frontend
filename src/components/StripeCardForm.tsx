@@ -58,7 +58,7 @@ const CardForm: FC = () => {
       {loading && <Loading />}
       <CardElement onChange={handleCardChange} />
       <button
-        className='font-[Inter] text-xs text-primary font-semibold py-[10px] bg-main w-full rounded-[5px] mt-[24px] disabled:bg-gray-400'
+        className='font-[Inter] text-xs text-primary font-semibold py-[10px] bg-main w-full rounded-[10px] mt-[24px] disabled:bg-gray-400'
         type="submit"
         disabled={addDisabled}
       >

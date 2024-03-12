@@ -77,7 +77,7 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
       {open && (
         <Menu
           selectedKeys={selectedCampaigns}
-          className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]"
+          className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9]"
         >
           {!!items.length ? (
             items.map((item) => (

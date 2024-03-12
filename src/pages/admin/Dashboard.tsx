@@ -368,7 +368,7 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
               onClick={onOverViewClicked}
             >
               Overview
@@ -421,7 +421,7 @@ const AdminDashboard: FC = () => {
                   selectedKeys={[selectedDateFilter]}
                   onClick={onClick}
                   items={items}
-                  className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]"
+                  className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9]"
                 />
               )}
             </div>
@@ -438,7 +438,7 @@ const AdminDashboard: FC = () => {
           </div>
         </div>
 
-        <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[90px] mt-4">
+        <div className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px] mt-4">
           <Card
             title={"Total Clicks"}
             value={totalClicks}
@@ -476,11 +476,11 @@ const AdminDashboard: FC = () => {
             <div>
               <div className="mt-[20px]">
                 <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs font-semibold mb-2">
-                  <span className="w-4 h-[3px] shrink-0 rounded-full bg-main"></span>
+                  <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-main"></span>
                   Total Clicks
                 </p>
                 <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
-                  <span className="w-4 h-[3px] shrink-0 rounded-full bg-[#6C63FF]"></span>
+                  <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
                   Unique Clicks
                 </p>
               </div>
@@ -584,7 +584,7 @@ const AdminDashboard: FC = () => {
                     >
                       <span
                         style={{ backgroundColor: item.color }}
-                        className={`w-[3px] h-full rounded-full`}
+                        className={`w-[3px] h-full rounded-[10px]`}
                       ></span>
                       {item.ip}
                     </div>

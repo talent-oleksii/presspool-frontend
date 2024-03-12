@@ -151,7 +151,7 @@ const CampaignReview: FC<ICampaignReview> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] font-medium text-sm  2xl:text-md"
+                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-[10px] font-[Inter] font-medium text-sm  2xl:text-md"
                   >
                     {cardList.map((item: any, index) => (
                       <option value={item.card_id} key={index}>
@@ -174,7 +174,7 @@ const CampaignReview: FC<ICampaignReview> = ({
               </p>
               <button
                 type="button"
-                className="flex h-full px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md"
+                className="flex h-full px-[17px] items-center justify-center text-[#7f8182] w-full rounded-[10px] border-[1px] border-[#7f8182] text-xs 2xl:text-md"
                 onClick={handleAddCard}
               >
                 <svg
@@ -284,7 +284,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           >
             <button
               type="button"
-              className="rounded-[5px] text-primary bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
+              className="rounded-[10px] text-primary bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
               disabled={!isValid}
             >
               Submit
@@ -292,7 +292,7 @@ const CampaignReview: FC<ICampaignReview> = ({
           </Popconfirm>
           <button
             type="button"
-            className="rounded-[5px] text-primary bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
+            className="rounded-[10px] text-primary bg-transparent px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-sm 2xl:text-md"
             onClick={handleSaveDraft}
           >
             Save Draft

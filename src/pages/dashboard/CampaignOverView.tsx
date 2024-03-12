@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
 
 import Card from "../../components/Card";
-import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
+// import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
 
 const CampaignOverView: FC = () => {
@@ -142,7 +142,7 @@ const CampaignOverView: FC = () => {
 
   return (
     <div className="mt-3 h-full">
-      <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[90px]">
+      <div className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px]">
         <Card
           title={"Total Clicks"}
           value={totalClicks}
@@ -186,11 +186,11 @@ const CampaignOverView: FC = () => {
           <div>
             <div className="mt-[20px]">
               <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs font-semibold mb-2">
-                <span className="w-4 h-[3px] shrink-0 rounded-full bg-main"></span>
+                <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-main"></span>
                 Total Clicks
               </p>
               <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
-                <span className="w-4 h-[3px] shrink-0 rounded-full bg-[#6C63FF]"></span>
+                <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
                 Unique Clicks
               </p>
             </div>
@@ -295,7 +295,7 @@ const CampaignOverView: FC = () => {
                   >
                     <span
                       style={{ backgroundColor: item.color }}
-                      className={`w-[3px] h-full rounded-full`}
+                      className={`w-[3px] h-full rounded-[10px]`}
                     ></span>
                     {item.ip}
                   </div>

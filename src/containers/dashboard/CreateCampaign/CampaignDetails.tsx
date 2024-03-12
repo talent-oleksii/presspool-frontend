@@ -101,7 +101,7 @@ const CampaignDetails: FC = () => {
                   onBlur={field.onBlur}
                   value={field.value}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -122,7 +122,7 @@ const CampaignDetails: FC = () => {
                 <input
                   {...field}
                   type="text"
-                  className={`px-3 py-2 rounded-[8px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
+                  className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
                     !!errors[field.name] ? "border-[#ff0000]" : ""
                   }`}
                 />
@@ -142,7 +142,7 @@ const CampaignDetails: FC = () => {
                 currentTarget === CampaignTargetType.CUSTOMER
                   ? "bg-black text-white"
                   : "bg-[#f5f5f5] text-primary"
-              } relative w-1/2 font-[Inter] font-semibold text-xs flex w-full rounded-lg z-[1] px-4 py-[18px] flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
+              } relative w-1/2 font-[Inter] font-semibold text-xs flex w-full rounded-[10px] z-[1] px-4 py-[18px] flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
               onClick={() =>
                 handleCurrentTargetChange(CampaignTargetType.CUSTOMER)
               }
@@ -192,7 +192,7 @@ const CampaignDetails: FC = () => {
                 currentTarget === CampaignTargetType.PROFESSIONAL
                   ? "bg-black text-white"
                   : "bg-[#f5f5f5] text-primary"
-              } relative w-1/2 font-[Inter] font-semibold text-xs flex rounded-lg px-4 z-[1] py-[18px] w-full flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
+              } relative w-1/2 font-[Inter] font-semibold text-xs flex rounded-[10px] px-4 z-[1] py-[18px] w-full flex-col items-center justify-center transition-all duration-300 border-black border-[1px]`}
               onClick={() =>
                 handleCurrentTargetChange(CampaignTargetType.PROFESSIONAL)
               }
@@ -333,7 +333,7 @@ const CampaignDetails: FC = () => {
       <div className="w-full mt-[35px] text-center">
         <button
           type="submit"
-          className="rounded-[5px] bg-main px-[50px] py-[10px] text-primary font-semibold text-sm disabled:bg-gray-400"
+          className="rounded-[10px] bg-main px-[50px] py-[10px] text-primary font-semibold text-sm disabled:bg-gray-400"
           disabled={!isValid}
         >
           Next Step

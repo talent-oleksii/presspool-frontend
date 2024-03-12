@@ -210,7 +210,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel
-                className={`xsm:flex-1 xsm:w-full xsm:-tracking-[.42px] relative bg-white xsm:rounded-t-[17.2px] md:rounded-[22px] text-left flex md:items-center md:justify-center flex-col shadow-xl md:border-[1px] border-black xsm:px-4 md:px-[36px] xsm:mt-10 md:pt-[45px] md:pb-[26px]`}
+                className={`xsm:flex-1 xsm:w-full xsm:-tracking-[.42px] relative bg-white xsm:rounded-t-[10px] md:rounded-[10px] text-left flex md:items-center md:justify-center flex-col shadow-xl md:border-[1px] border-black xsm:px-4 md:px-[36px] xsm:mt-10 md:pt-[45px] md:pb-[26px]`}
               >
                 <button
                   onClick={() => setShow(false)}
@@ -270,7 +270,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <button
-                      className="mt-5 flex items-center justify-center text-base bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
+                      className="mt-5 flex items-center justify-center text-base bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[10px]"
                       onClick={handleGoToVerify}
                     >
                       Continue
@@ -303,7 +303,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                         <input
                           key={index}
                           ref={ref}
-                          className="w-full md:w-[68px] py-[8px] text-center rounded-lg border-[#7f8182] bg-white text-[22px] font-semibold -tracking-[.66px]"
+                          className="w-full md:w-[68px] py-[8px] text-center rounded-[10px] border-[#7f8182] bg-white text-[22px] font-semibold -tracking-[.66px]"
                           placeholder="-"
                           maxLength={1}
                           value={code[index]}
@@ -327,7 +327,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       ))}
                     </div>
                     <button
-                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
+                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[10px]"
                       onClick={handleGoToFinal}
                     >
                       Continue
@@ -384,7 +384,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <button
-                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
+                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[10px]"
                       onClick={handleSubmit}
                     >
                       Submit

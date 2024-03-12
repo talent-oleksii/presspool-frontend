@@ -39,52 +39,52 @@ const AdminDashboardOverview: FC = () => {
     <div>
       {loading && <Loading />}
       <div className='grid grid-cols-4 gap-4'>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{data.totalClient || 0}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Clients</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{data.inactiveClient || 0}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Inactive Clients</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{data.activeCampaign || 0}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Active Campaigns</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] text-[red] font-[Inter] font-semibold'>{data.draftCampaign || 0}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Drafted Campaigns</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.totalRevenue || 0}`}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Revenue</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.totalSpent || 0}`}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Spend</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.totalProfit || 0}`}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Payout</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
-        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+        <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
           <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold text-[red]'>{`$${data.unpaid || 0}`}</h2>
           <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Unpaid Invoices</p>
-          <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+          <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
           <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
         </div>
       </div>
@@ -96,7 +96,7 @@ const AdminDashboardOverview: FC = () => {
             <p className='font-[Inter] text-secondry1 mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
           </div>
 
-          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
+          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[10px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
             Download as CSV
           </button> */}
         </div>

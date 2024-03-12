@@ -97,7 +97,7 @@ const Login: FC = () => {
             </h3>
           </div>
           <div className="mt-10 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">
+            <span className="rounded-[10px] text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">
               1
             </span>
             <div className="text-left">
@@ -110,7 +110,7 @@ const Login: FC = () => {
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
+            <span className="rounded-[10px] text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
               2
             </span>
             <div className="text-left">
@@ -124,7 +124,7 @@ const Login: FC = () => {
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
+            <span className="rounded-[10px] text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
               3
             </span>
             <div className="text-left">
@@ -152,7 +152,7 @@ const Login: FC = () => {
             <img
               src={SignUpAvatar}
               alt="avatar-"
-              className="w-[63px] h-[63px] rounded-full me-2"
+              className="w-[63px] h-[63px] rounded-[10px] me-2"
             />
             <div className="text-left">
               <p className="text-primary font-semibold -tracking-[.48px] font-[Inter] text-base">
@@ -172,7 +172,7 @@ const Login: FC = () => {
             presspool.ai
           </h3>
         </div>
-        <div className="w-full xl:max-w-[72%] px-[42px] xsm:bg-white xsm:h-full rounded-t-[17.2px] md:rounded-[15px] xsm:py-7 xsm:px-5">
+        <div className="w-full xl:max-w-[72%] px-[42px] xsm:bg-white xsm:h-full rounded-t-[10px] md:rounded-[10px] xsm:py-7 xsm:px-5">
           <div className="flex flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -265,7 +265,7 @@ const Login: FC = () => {
                 Forgot Password?
               </div>
             </div>
-            <button className="rounded-[6px] bg-main w-full py-[10px] 2xl:py-[10px] md:my-2 2xl:my-4 text-base text-primary md:mt-[32px] xsm:mt-4 font-semibold">
+            <button className="rounded-[10px] bg-main w-full py-[10px] 2xl:py-[10px] md:my-2 2xl:my-4 text-base text-primary md:mt-[32px] xsm:mt-4 font-semibold">
               Log In
             </button>
             <p className="mt-7 md:mt-[35px] font-[Inter] text-[#525252] text-base flex items-center justify-center -tracking-[.574px]">
@@ -298,7 +298,7 @@ const Login: FC = () => {
                   leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                  <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                  <Dialog.Panel className="relative transform overflow-hidden rounded-[10px] bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                     <div>
                       <div className="mt-3 text-center sm:mt-5">
                         <Dialog.Title
@@ -313,7 +313,7 @@ const Login: FC = () => {
                     <div className="mt-5">
                       <button
                         type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                        className="inline-flex w-full justify-center rounded-[10px] bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                         onClick={() => {
                           setShowDialog(false);
                         }}

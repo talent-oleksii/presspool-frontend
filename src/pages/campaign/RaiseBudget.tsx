@@ -86,7 +86,7 @@ const RaiseBudget: FC = () => {
 
   return (
     <>
-      <div className="shadow-md rounded-[15px] px-[100px] py-[30px] bg-white max-w-[900px] relative">
+      <div className="shadow-md rounded-[10px] px-[100px] py-[30px] bg-white max-w-[900px] relative">
         {loading && <Loading />}
         <h3 className="text-center w-full font-[Inter] text-lg font-semibold -tracking-[.6px] text-primary">
           Raise Budget
@@ -101,7 +101,7 @@ const RaiseBudget: FC = () => {
             choice. We only charge per{" "}
             <span className="font-bold">unique click</span> as they come in.
           </p>
-          <div className="pl-2 pr-4 py-1 mt-[23px] border-[1px] rounded-lg border-black w-full flex justify-between items-center relative">
+          <div className="pl-2 pr-4 py-1 mt-[23px] border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative">
             <input
               value={newPrice}
               prefix="$"
@@ -123,7 +123,7 @@ const RaiseBudget: FC = () => {
               </span>
             </div>
           )}
-          <div className="mt-4 rounded-lg flex mt-8">
+          <div className="mt-4 rounded-[10px] flex mt-8">
             <div>
               <svg
                 enableBackground="new 0 0 91.8 92.6"
@@ -155,7 +155,7 @@ const RaiseBudget: FC = () => {
                     Select Card Details
                   </p>
                   <select
-                    className="w-[400px] pl-[16px] py-[11px] mt-2 border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md"
+                    className="w-[400px] pl-[16px] py-[11px] mt-2 border-[1px] border-[#7f8182] rounded-[10px] font-[Inter] text-xs 2xl:text-md"
                     value={currentCard}
                     onChange={(e) => setCurrentCard(e.target.value)}
                   >
@@ -174,7 +174,7 @@ const RaiseBudget: FC = () => {
                     Add New Card
                   </p>
                   <button
-                    className="flex py-[11px] mt-2 px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md"
+                    className="flex py-[11px] mt-2 px-[17px] items-center justify-center text-[#7f8182] w-full rounded-[10px] border-[1px] border-[#7f8182] text-xs 2xl:text-md"
                     onClick={handleAddCard}
                   >
                     <svg
@@ -205,7 +205,7 @@ const RaiseBudget: FC = () => {
                     Add New Card
                   </p>
                   <button
-                    className="flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-lg border-[1px] border-[#7f8182] text-xs 2xl:text-md"
+                    className="flex py-[11px] px-[17px] items-center justify-center text-[#7f8182] w-full rounded-[10px] border-[1px] border-[#7f8182] text-xs 2xl:text-md"
                     onClick={handleAddCard}
                   >
                     <svg
@@ -232,7 +232,7 @@ const RaiseBudget: FC = () => {
                     Select Card Details
                   </p>
                   <select
-                    className="w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-lg font-[Inter] text-xs 2xl:text-md"
+                    className="w-[400px] pl-[16px] py-[11px] border-[1px] border-[#7f8182] rounded-[10px] font-[Inter] text-xs 2xl:text-md"
                     value={currentCard}
                     onChange={(e) => setCurrentCard(e.target.value)}
                   >
@@ -280,7 +280,7 @@ const RaiseBudget: FC = () => {
           </div>
           <div className="w-full mt-8 text-center">
             <button
-              className="font-[Inter] text-xs font-semibold px-4 py-2 rounded-[5px] bg-main disabled:bg-[gray]"
+              className="font-[Inter] text-xs font-semibold px-4 py-2 rounded-[10px] bg-main disabled:bg-[gray]"
               disabled={Number(newPrice) < 10000}
               onClick={handleSubmit}
             >

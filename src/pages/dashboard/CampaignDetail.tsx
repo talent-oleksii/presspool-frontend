@@ -91,7 +91,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     <div className="mt-5">
       {loading && <Loading />}
       <>
-        <div className="rounded-[20px] grid grid-cols-4 gap-5 min-h-[200px]">
+        <div className="rounded-[10px] grid grid-cols-4 gap-5 min-h-[200px]">
           <Card
             title={"Total Clicks"}
             value={data?.click_count ?? 0}
@@ -129,7 +129,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             </div>
             <div>
               <button
-                className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[5px] text-xs 2xl:text-xs font-medium border-black rounded-lg"
+                className="border-[1px] px-3 py-2 flex items-center font-[Inter] rounded-[10px] text-xs 2xl:text-xs font-medium border-black rounded-[10px]"
                 onClick={handleDownloadCSV}
               >
                 <img

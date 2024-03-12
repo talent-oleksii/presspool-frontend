@@ -13,27 +13,9 @@ import {
 } from "../../store/dataSlice";
 import { getUnixTimestamp } from "../../utils/DateUtils";
 import ByCampaignButton from "./ByCampaignButton";
-import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router";
 import moment from "moment";
-
-type MenuItem = Required<MenuProps>["items"][number];
-
-const getItem = (
-  label: React.ReactNode,
-  key?: React.Key | null,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  theme?: "light" | "dark"
-): MenuItem => {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    theme,
-  } as MenuItem;
-};
+import { GetItem, MenuItem } from "../shared/GetItem";
 
 interface IDateRange {
   startDate: Date | null;
@@ -60,10 +42,12 @@ const CampaignFilter: FC = () => {
 
   useEffect(() => {
     setLoading(true);
-    APIInstance.get('/data/campaign_list', { params: { email } }).then(data => {
-      setCampaignList(data.data);
-    }).finally(() => setLoading(false));
-  }, []);
+    APIInstance.get("/data/campaign_list", { params: { email } })
+      .then((data) => {
+        setCampaignList(data.data);
+      })
+      .finally(() => setLoading(false));
+  }, [email]);
 
   const handleOpenChange = () => {
     setOpen(true);
@@ -74,14 +58,14 @@ const CampaignFilter: FC = () => {
   };
 
   const items: MenuItem[] = [
-    getItem("All Time", "All Time"),
-    getItem("Last 24 Hours", "Last 24 Hours"),
-    getItem("Last 7 Days", "Last 7 Days"),
-    getItem("Last 4 Weeks", "Last 4 Weeks"),
-    getItem("Last 12 Months", "Last 12 Months"),
-    getItem("Month to Date", "Month to Date"),
-    getItem("Quarter to Date", "Quarter to Date"),
-    getItem("Year to Date", "Year to Date"),
+    GetItem("All Time", "All Time"),
+    GetItem("Last 24 Hours", "Last 24 Hours"),
+    GetItem("Last 7 Days", "Last 7 Days"),
+    GetItem("Last 4 Weeks", "Last 4 Weeks"),
+    GetItem("Last 12 Months", "Last 12 Months"),
+    GetItem("Month to Date", "Month to Date"),
+    GetItem("Quarter to Date", "Quarter to Date"),
+    GetItem("Year to Date", "Year to Date"),
   ];
 
   const onClick: MenuProps["onClick"] = (e) => {
@@ -161,9 +145,9 @@ const CampaignFilter: FC = () => {
         email,
         ...(dateRange.endDate &&
           dateRange.startDate && {
-          from: getUnixTimestamp(dateRange.startDate),
-          to: getUnixTimestamp(dateRange.endDate),
-        }),
+            from: getUnixTimestamp(dateRange.startDate),
+            to: getUnixTimestamp(dateRange.endDate),
+          }),
         ...(selectedCampaigns.length > 0 && {
           campaignIds: selectedCampaigns,
         }),
@@ -216,10 +200,11 @@ const CampaignFilter: FC = () => {
     <div className="flex justify-between items-center mt-4">
       <div>
         <button
-          className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${id === "all"
-            ? "bg-white border border-solid border-main shadow-md"
-            : "bg-transparent ring-none"
-            }`}
+          className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${
+            id === "all"
+              ? "bg-white border border-solid border-main shadow-md"
+              : "bg-transparent ring-none"
+          }`}
           onClick={handleOverviewClick}
         >
           Overview
@@ -248,7 +233,7 @@ const CampaignFilter: FC = () => {
               selectedKeys={[selectedDateFilter]}
               onClick={onClick}
               items={items}
-              className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]"
+              className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9]"
             />
           )}
         </div>

@@ -116,7 +116,7 @@ const AdminDashboardCampaign: FC = () => {
           }))}
         />
         <select
-          className='rounded-[6px] border-[1px] border-[#7f8182] bg-white py-1.5 ms-4 w-[23.5%] 2xl:w-[190px] font-[Inter] text-xs'
+          className='rounded-[10px] border-[1px] border-[#7f8182] bg-white py-1.5 ms-4 w-[23.5%] 2xl:w-[190px] font-[Inter] text-xs'
         >
           {filterOptions.map(item => (
             <option key={item.value} value={item.value}>{item.label}</option>
@@ -126,52 +126,52 @@ const AdminDashboardCampaign: FC = () => {
       {id === 'list' && <p className='mt-2 text-xs font-[Inter]'>Select Campaign to see the details here</p>}
       <div className='mt-2'>
         <div className='grid grid-cols-4 gap-4'>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{data.unique_clicks || 0}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Unique Clicks</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{(data.clicked && data.clicked.length) || 0}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Clicks</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.price || 0}`}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Budget</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${Number(data.price || 0) - Number(data.spent || 0)}`}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Budget Remaining</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${Number(data.price || 0)}`}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Revenue</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.spent || 0}`}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Spend</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${data.billed || 0}`}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Total Profit</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
-          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[20px] bg-white shadow-md'>
+          <div className='col-span-1 pt-[25px] pb-[20px] flex flex-col justify-center items-center rounded-[10px] bg-white shadow-md'>
             <h2 className='text-[25px] 2xl:text-[28px] font-[Inter] font-semibold'>{`$${Number(data.spent || 0) - Number(data.billed || 0)}`}</h2>
             <p className='text-xs font-[Inter] font-semibold mt-[5px] text-secondry1'>Unpaid Invoices</p>
-            <div className='bg-main rounded-full mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
+            <div className='bg-main rounded-[10px] mt-[12px] font-[Inter] py-[1px] px-[10px] text-xs 2xl:text-xs font-semibold text-primary my-1'>0%</div>
             <p className='text-secondry2 text-[8px] mt-[5px] 2xl:text-xs font-semibold'>from 0 (last 4 weeks)</p>
           </div>
         </div>
@@ -179,13 +179,13 @@ const AdminDashboardCampaign: FC = () => {
       <div className='my-[14px] p-[25px] min-h-[250px] rounded-[10px] bg-white shadow-md'>
         <div className='flex justify-between items-center'>
           <div>
-            {data.state && <span className={`rounded-full text-xs px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-main'}`}>{data.state}</span>}
+            {data.state && <span className={`rounded-[10px] text-xs px-[12px] py-[4px] font-medium ${data.state === 'draft' ? 'bg-[#dbdbdb]' : data.state === 'paused' ? 'bg-[#fdbdbd]' : 'bg-main'}`}>{data.state}</span>}
             <h2 className='font-[Inter] mt-4 text-xs 2xl:text-lg font-semibold'>{data.name || ''}</h2>
             <p className='text-xs'>{`https://track.presspool.ai/${data.uid || 1}`}</p>
             <p className='font-[Inter] text-secondry1 mt-[5px] text-xs 2xl:text-xs'>Let’s see how your campaigns are performing</p>
           </div>
 
-          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[5px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
+          {/* <button className='border-[1px] px-2 py-1 font-[Inter] rounded-[10px] text-xs 2xl:text-md font-semibold border-[#7f8182]' onClick={handleDownloadCSV}>
             Download as CSV
           </button> */}
         </div>
@@ -208,7 +208,7 @@ const AdminDashboardCampaign: FC = () => {
           <p className='text-[red] text-xs'>Do not use this features now. It's still in consideration cuz we admins can not change client's payment method</p>
           <div className='mt-4'>
             <Link
-              className='px-4 py-2 text-white bg-black rounded-[5px] text-xs font-semibold'
+              className='px-4 py-2 text-white bg-black rounded-[10px] text-xs font-semibold'
               to={`/edit/${data.id}`}
             >
               Edit Campaign

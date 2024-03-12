@@ -1,36 +1,41 @@
-import { FC, useState, useEffect, useCallback } from "react";
+import { FC, useState, useEffect, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import { Collapse } from "antd";
+import { Collapse, Menu, MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import { capitalize } from "lodash";
 import { selectAuth } from "../../store/authSlice";
 import { selectData, setCampaign, updateCampaign } from "../../store/dataSlice";
-
 import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
 
 import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
-import { DownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
+import { GetItem, MenuItem } from "../../containers/shared/GetItem";
 
 const Campaign: FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
+  const [open, setOpen] = useState<boolean>(false);
   const { company, email } = useSelector(selectAuth);
   const { campaign: fullCampaign } = useSelector(selectData);
   const [campaign, setCampaigns] = useState<Array<any>>([]);
+  const [clicked, setClicked] = useState<Array<any>>([]);
+  const [sort, setSort] = useState<string>("Newest to Oldest");
+  const ref = useRef<any>(null);
 
   const dispatch = useDispatch();
 
   const loadCampaigns = useCallback(async () => {
     if (email) {
       const {
-        data: { data },
+        data: { data, clicked },
       } = await APIInstance.get("data/campaign", {
         params: { email: email },
       });
       dispatch(setCampaign({ campaign: data }));
+      setClicked(clicked);
     }
   }, [dispatch, email]);
 
@@ -103,73 +108,115 @@ const Campaign: FC = () => {
       "0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
   };
 
+  const avgTime = (campaignId: number) => {
+    let totalDuration = 0;
+    let count = 0;
+
+    clicked
+      .filter((x) => x.campaign_id === campaignId)
+      .forEach((item) => {
+        totalDuration += item.duration;
+        count++;
+      });
+    const averageDurationSeconds = count > 0 ? totalDuration / count : 0;
+    const hours = Math.floor(averageDurationSeconds / 3600);
+    const minutes = Math.floor((averageDurationSeconds % 3600) / 60);
+    const seconds = averageDurationSeconds % 60;
+
+    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
+      seconds < 10 ? "0" : ""
+    }${seconds.toFixed(0)}`;
+  };
+
+  const handleOpenChange = () => {
+    setOpen(true);
+  };
+
+  const hide = () => {
+    setOpen(false);
+  };
+
+  const items: MenuItem[] = [
+    GetItem("Newest to Oldest", "Newest to Oldest"),
+    GetItem("Oldest to Newest", "Oldest to Newest"),
+  ];
+
   const getItems = (item: any, panelStyle: any) => [
     {
       key: "1",
       label: (
         <div className="flex pl-[24px] pr-[72px] py-[20px] justify-evenly items-center text-left w-full relative">
-          <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full">
-            {item.name}
-          </p>
+          <div className="flex flex-col items-center w-full border-r border-black border-solid border-0.5 gap-2 pr-8">
+            <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-center">
+              {item.name}
+            </p>
+            <p className="font-medium font-[Inter]">
+              <span
+                className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
+                  item.state === "draft"
+                    ? "bg-[#dbdbdb] text-primary"
+                    : item.state === "paused"
+                    ? "bg-[#fdbdbd]"
+                    : "bg-main text-primary"
+                }`}
+              >
+                {capitalize(item.state)}
+              </span>
+            </p>
+          </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-medium font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] text-secondry1 -tracking-[.3px]">
               Start Date
             </p>
-            <p className="font-medium font-[Inter] text-xs">
+            <p className="font-normal text-primary font-[Inter] text-xs">
               {new Date(Number(item.create_time)).toLocaleDateString()}
             </p>
           </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-medium font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               Total Clicks
             </p>
-            <p className="font-medium font-[Inter] text-xs">
+            <p className="font-normal text-primary font-[Inter] text-xs">
               {item.click_count}
             </p>
           </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-medium font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               Unique Clicks
             </p>
-            <p className="font-medium font-[Inter] text-xs">
+            <p className="font-normal text-primary font-[Inter] text-xs">
               {item.unique_clicks}
             </p>
           </div>
-          {/* <div className='flex flex-col items-center'>
-        <p className='font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px]'>AVG CPC:</p>
-        <p className='font-semibold font-[Inter] text-xs'>{`$${item.demographic === 'consumer' ? 8 : 20}`}</p>
-      </div> */}
           <div className="flex flex-col items-center w-full">
-            <p className="font-medium font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+              AVG CPC
+            </p>
+            <p className="font-normal text-primary font-[Inter] text-xs">{`${(
+              item.spent / item.unique_clicks
+            ).toFixed(2)}`}</p>
+          </div>
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+              AVG PageTime
+            </p>
+            <p className="font-normal text-primary font-[Inter] text-xs">{`${avgTime(
+              item.campaign_id
+            )}`}</p>
+          </div>
+          <div className="flex flex-col items-center w-full">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               Total Spend
             </p>
-            <p className="font-medium font-[Inter] text-xs">{`$${item.spent}`}</p>
+            <p className="font-normal text-primary font-[Inter] text-xs">{`$${item.spent}`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
-            <p className="font-medium font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
+            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               Budget Remaining
             </p>
-            <p className="font-medium font-[Inter] text-xs text-[#FF4D42]">{`$${
+            <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${
               Number(item.price) - Number(item.spent)
             }`}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-medium font-[Inter] text-xs mb-[17px] -tracking-[.3px]">
-              Status
-            </p>
-            <p className="font-medium font-[Inter]">
-              <span
-                className={`rounded-full text-xs px-[12px] mt-[25px] py-[4px] font-medium ${
-                  item.state === "draft"
-                    ? "bg-[#dbdbdb]"
-                    : item.state === "paused"
-                    ? "bg-[#fdbdbd]"
-                    : "bg-main"
-                }`}
-              >
-                {item.state}
-              </span>
-            </p>
           </div>
         </div>
       ),
@@ -266,7 +313,7 @@ const Campaign: FC = () => {
             <div className="w-full flex flex-col items-start justify-center">
               <div className="flex flex-col h-full w-full justify-between">
                 <img
-                  className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[15px]"
+                  className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
                   alt="market"
                   src={item.image}
                 />
@@ -306,14 +353,32 @@ const Campaign: FC = () => {
     },
   ];
 
+  const onClick: MenuProps["onClick"] = (e) => {
+    setSort(e.key);
+    hide();
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        hide();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="text-left relative pt-1.5">
       {loading && <Loading />}
       <h1 className="font-semibold font-[Inter] text-xl -tracking-[.6px]">{`${company}'s Campaigns 📈`}</h1>
       <p className="text-sm text-secondry1">Here's your account at a glance.</p>
 
-      <div className="flex items-center w-full mt-[24px]">
-        <div className="flex w-[342px] border-[1px] rounded-[5px] border-secondry2 items-center px-4 py-1.5">
+      <div className="flex items-center w-full mt-[24px] gap-5">
+        <div className="flex w-[342px] border-[2px] rounded-[10px] border-main items-center px-4 py-2 bg-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
@@ -329,20 +394,67 @@ const Campaign: FC = () => {
             <circle cx="8.00586" cy="8.00488" r="6" fill="#F5F5F5" />
           </svg>
           <input
-            className="me-2 font-[Inter] flex-1 border-0 text-xs focus:ring-0 p-0 focus:border-secondry2 bg-transparent"
+            className="me-2 font-[Inter] flex-1 border-0 text-sm text-primary focus:ring-0 p-0 focus:border-secondry2"
             placeholder="Type here to search by campaign name"
             value={searchStr}
             onChange={(e) => setSearchStr(e.target.value)}
           />
         </div>
-        <select className="font-[Inter] rounded-[5px] border-[1px] text-xs focus:ring-0 focus:border-secondry2 bg-transparent min-w-[200px] ms-4">
-          <option value="nto">Newest to Oldest</option>
-          <option value="otn">Oldest to Newest</option>
-        </select>
+        <div
+          ref={ref}
+          className="group inline-flex flex-col min-w-[100px] relative"
+        >
+          <button
+            onMouseEnter={handleOpenChange}
+            className={`font-[Inter] text-[14px] font-normal items-center justify-center text-primary justify-between flex px-4 py-2 gap-4 rounded-[10px] bg-white ring-2 ring-main shadow-md focus:ring-main`}
+          >
+            {sort}
+            <svg
+              width="18"
+              height="12"
+              viewBox="0 0 18 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                y1="1.75"
+                x2="18"
+                y2="1.75"
+                stroke="#505050"
+                stroke-width="2.5"
+              />
+              <line
+                x1="2"
+                y1="5"
+                x2="16"
+                y2="5"
+                stroke="#505050"
+                stroke-width="2"
+              />
+              <line x1="7" y1="11.5" x2="11" y2="11.5" stroke="#505050" />
+              <line
+                x1="4"
+                y1="8.25"
+                x2="14"
+                y2="8.25"
+                stroke="#505050"
+                stroke-width="1.5"
+              />
+            </svg>
+          </button>
+          {open && (
+            <Menu
+              selectedKeys={[sort]}
+              onClick={onClick}
+              items={items}
+              className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9] !focus:ring-main"
+            />
+          )}
+        </div>
       </div>
 
       <motion.div
-        className="mt-4 rounded-[15px] h-full"
+        className="mt-4 rounded-[10px] h-full"
         initial="hidden"
         animate="show"
         variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}

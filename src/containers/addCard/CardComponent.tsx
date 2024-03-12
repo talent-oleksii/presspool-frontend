@@ -126,7 +126,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
             Card number
           </p>
           <CardNumberElement
-            className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+            className={`w-full rounded-[10px] text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
             onChange={(event) => handleCardElementChange(event)}
           />
           <ErrorMessage message={cardErrors.cardNumber} />
@@ -137,7 +137,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
               Expiry
             </p>
             <CardExpiryElement
-              className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+              className={`w-full rounded-[10px] text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
               onChange={(event) => handleCardElementChange(event)}
             />
             <ErrorMessage message={cardErrors.cardExpiry} />
@@ -147,7 +147,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
               CVC
             </p>
             <CardCvcElement
-              className={`w-full rounded-lg text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
+              className={`w-full rounded-[10px] text-xs border-[1px] focus:ring-0 focus:border-main py-2 px-3`}
               onChange={(event) => handleCardElementChange(event)}
             />
             <ErrorMessage message={cardErrors.CVC} />
@@ -155,7 +155,7 @@ export const CardComponent: FC<ICardComponent> = ({ onSuccess }) => {
         </div>
         <button
           onClick={handleSubmit}
-          className="rounded-[5px] w-full text-primary bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
+          className="rounded-[10px] w-full text-primary bg-main px-[50px] 2xl:px-[60px] py-[10px] font-semibold mt-2 disabled:bg-gray-300 text-xs 2xl:text-md"
           disabled={loading}
         >
           Add Card

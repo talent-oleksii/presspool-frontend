@@ -182,15 +182,15 @@ const CreateCampaign: FC = () => {
       variants={FADE_UP_ANIMATION_VARIANTS}
     >
       <div
-        className={`relative bg-white rounded-lg text-left items-center shadow-xl flex flex-col px-[70px] pt-[15px] pb-[26px]`}
+        className={`relative bg-white rounded-[10px] text-left items-center shadow-xl flex flex-col px-[70px] pt-[15px] pb-[26px]`}
       >
         {loading && <Loading />}
         <h2 className="font-[Inter] text-xl font-bold my-[24px] text-center w-full">
           New Campaign
         </h2>
-        <div className="grid grid-cols-4 h-[62px] py-4 px-2 rounded-[5px] bg-[#f5f5f5] z-0 relative w-[800px]">
+        <div className="grid grid-cols-4 h-[62px] py-4 px-2 rounded-[10px] bg-[#f5f5f5] z-0 relative w-[800px]">
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] leading-5 text-base transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] leading-5 text-base transition-colors duration-500 ${
               currentTab === "detail"
                 ? "text-white font-semibold"
                 : "text-primary"
@@ -200,7 +200,7 @@ const CreateCampaign: FC = () => {
             Campaign Details
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${
               currentTab === "budget"
                 ? "text-white font-semibold"
                 : "text-primary"
@@ -210,7 +210,7 @@ const CreateCampaign: FC = () => {
             Budget
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${
               currentTab === "content"
                 ? "text-white font-semibold"
                 : "text-primary"
@@ -220,7 +220,7 @@ const CreateCampaign: FC = () => {
             Content
           </button>
           <button
-            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[5px] text-base transition-colors duration-500 ${
+            className={`w-full h-full flex items-center justify-center font-[Inter] rounded-[10px] text-base transition-colors duration-500 ${
               currentTab === "review"
                 ? "text-white font-semibold"
                 : "text-primary"
@@ -230,7 +230,7 @@ const CreateCampaign: FC = () => {
             Review
           </button>
           <div
-            className={`absolute h-[50px] bg-[#2D2C2D] w-1/4 rounded-[5px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`}
+            className={`absolute h-[50px] bg-[#2D2C2D] w-1/4 rounded-[10px] top-1.5 z-[-1] transition-all duration-500 transform ${getOffsetBack()}`}
           />
         </div>
         <div className="pt-4">

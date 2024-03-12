@@ -108,7 +108,7 @@ const ClientSignUp: FC = () => {
             </h3>
           </div>
           <div className="mt-10 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">
+            <span className="rounded-[10px] text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">
               1
             </span>
             <div className="text-left">
@@ -121,7 +121,7 @@ const ClientSignUp: FC = () => {
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
+            <span className="rounded-[10px] text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
               2
             </span>
             <div className="text-left">
@@ -135,7 +135,7 @@ const ClientSignUp: FC = () => {
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
+            <span className="rounded-[10px] text-sm font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">
               3
             </span>
             <div className="text-left">
@@ -163,7 +163,7 @@ const ClientSignUp: FC = () => {
             <img
               src={SignUpAvatar}
               alt="avatar-"
-              className="w-[63px] h-[63px] rounded-full me-2"
+              className="w-[63px] h-[63px] rounded-[10px] me-2"
             />
             <div className="text-left">
               <p className="text-primary font-semibold -tracking-[.48px] font-[Inter] text-base">
@@ -183,7 +183,7 @@ const ClientSignUp: FC = () => {
             presspool.ai
           </h3>
         </div>
-        <div className="w-full xsm:min-h-full rounded-t-[17.2px] xsm:mt-16 xsm:pt-7 xsm:pb-48 md:rounded-[15px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
+        <div className="w-full xsm:min-h-full rounded-t-[10px] xsm:mt-16 xsm:pt-7 xsm:pb-48 md:rounded-[10px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
           <div className="flex flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +233,7 @@ const ClientSignUp: FC = () => {
               onChange={handleChange}
               placeholder="Enter here..."
               type="text"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2"
+              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2"
             />
             <label
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
@@ -258,7 +258,7 @@ const ClientSignUp: FC = () => {
               onChange={handleChange}
               placeholder="Enter here..."
               type="text"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
+              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
               disabled={!!(token && formData.company)}
             />
             <label
@@ -284,7 +284,7 @@ const ClientSignUp: FC = () => {
               onChange={handleChange}
               placeholder="Enter here..."
               type="email"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[9.6px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
+              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
               disabled={!!(token && formData.email)}
             />
             <label
@@ -302,7 +302,7 @@ const ClientSignUp: FC = () => {
                   </span>
                 )}
             </label>
-            <div className="w-full border-[1px] bg-transparent border-[#797979] rounded-[9.6px] px-4 flex md:mt-2 xsm:mt-0.5">
+            <div className="w-full border-[1px] bg-transparent border-[#797979] rounded-[10px] px-4 flex md:mt-2 xsm:mt-0.5">
               <input
                 id="password"
                 name="password"
@@ -368,7 +368,7 @@ const ClientSignUp: FC = () => {
               </span>
             </div>
             <button
-              className="rounded-[6px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
+              className="rounded-[10px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >
@@ -416,7 +416,7 @@ const ClientSignUp: FC = () => {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-[10px] bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                   <div>
                     <div className="mt-3 text-center sm:mt-5">
                       <Dialog.Title
@@ -434,7 +434,7 @@ const ClientSignUp: FC = () => {
                   <div className="mt-5">
                     <button
                       type="button"
-                      className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                      className="inline-flex w-full justify-center rounded-[10px] bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                       onClick={() => {
                         setShowDialog(false);
                         navigator("/campaign/all");

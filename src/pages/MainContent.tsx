@@ -142,7 +142,7 @@ const MainContent: FC = () => {
   return (
     <div className="min-h-full w-full h-full">
       <div className="w-full z-[7] pt-2.5 pl-2.5 pr-8 xsm:hidden">
-        <div className="flex bg-[#fffdfd] rounded-[15px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between">
+        <div className="flex bg-[#fffdfd] rounded-[10px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between">
           <div className="flex items-center justify-center px-2 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
               <img src={Logo} className="h-5" alt="logo" />
@@ -157,7 +157,7 @@ const MainContent: FC = () => {
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[15px] text-primary ${
+                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[10px] text-primary ${
                   location.pathname.indexOf("new") > -1
                     ? "ring-black ring-[2px]"
                     : "ring-0"
@@ -172,7 +172,7 @@ const MainContent: FC = () => {
               </Link>
               <NavLink
                 to="/campaign/all"
-                className={` w-full text-left font-[Inter] rounded-[15px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                className={` w-full text-left font-[Inter] rounded-[10px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                   location.pathname.startsWith("/campaign/")
                     ? "bg-white shadow-md"
                     : ""
@@ -186,7 +186,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -199,7 +199,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -212,7 +212,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[15px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }

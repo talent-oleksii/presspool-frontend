@@ -26,7 +26,7 @@ const CampaignBudget: FC = () => {
         only charge per <span className="font-bold">unique click</span> as they
         come in.
       </p>
-      <div className="pl-2 pr-4 mt-[23px] border-[1px] rounded-lg border-black w-full flex justify-between items-center relative">
+      <div className="pl-2 pr-4 mt-[23px] border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative">
         <span className="text-sm font-medium">$</span>
         <Controller
           name="currentPrice"
@@ -54,7 +54,7 @@ const CampaignBudget: FC = () => {
         </div>
       )}
       {Number(currentPrice) < 20000 && (
-        <div className="mt-4 bg-[#fcd9d7] rounded-lg p-2 flex">
+        <div className="mt-4 bg-[#fcd9d7] rounded-[10px] p-2 flex">
           <div>
             <svg
               enableBackground="new 0 0 91.8 92.6"
@@ -79,7 +79,7 @@ const CampaignBudget: FC = () => {
       )}
       <div className="mt-[35px] w-full text-center">
         <button
-          className="rounded-[5px] bg-main px-[50px] py-[10px] text-primary font-semibold disabled:bg-gray-400 text-sm"
+          className="rounded-[10px] bg-main px-[50px] py-[10px] text-primary font-semibold disabled:bg-gray-400 text-sm"
           disabled={!isValid}
         >
           Next Step

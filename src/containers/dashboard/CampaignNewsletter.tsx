@@ -6,7 +6,7 @@ const CampaignNewsletter: React.FC = () => {
       <p className="font-[Inter] text-primary mb-4 text-left font-semibold w-full text-base">
         Engagement by Newsletter
       </p>
-      <div className="text-secondry1 font-medium text-sm rounded-[20px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center">
+      <div className="text-secondry1 font-medium text-sm rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center">
         <div>Name</div>
         <div>Total Clicks</div>
         <div>Unique Clicks</div>
