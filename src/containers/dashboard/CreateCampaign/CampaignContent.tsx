@@ -24,6 +24,7 @@ const CampaignContent: FC = () => {
   const image = watch("image");
   const cta = watch("cta");
   const headline = watch("headLine");
+  const conversion = watch('conversion');
 
   const loadFilePreview = useCallback((file?: File) => {
     if (file) {
@@ -201,7 +202,7 @@ const CampaignContent: FC = () => {
             render={({ field }) => (
               <textarea
                 {...field}
-                className='mb-0 w-full font-medium text-sm rounded-[10px] border-t-0 border-x-[1px] focus:ring-0 focus:border-main pt-6 pb-2 px-3 -mt-8 z-[0]'
+                className={`mb-0 w-full font-medium text-sm rounded-[10px] border-t-0 border-x-[1px] focus:ring-0 focus:border-main pt-6 pb-2 px-3 -mt-8 z-[0] ${conversion === 'other' ? 'block' : 'hidden'}`}
                 maxLength={500}
                 rows={5}
                 placeholder="Please explain in detail"
