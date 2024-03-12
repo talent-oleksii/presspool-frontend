@@ -72,7 +72,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className={`relative bg-white rounded-[22px] text-left shadow-xl border-[1px] border-black px-[36px] pt-[45px] pb-[26px] w-[500px]`}>
+              <Dialog.Panel className={`relative bg-white rounded-[10px] text-left shadow-xl border-[1px] border-black px-[36px] pt-[45px] pb-[26px] w-[500px]`}>
                 {loading && <Loading />}
                 <button onClick={() => onClose(false)} className='absolute right-4 top-4'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
@@ -82,14 +82,14 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                 <h2 className='text-xl font-semibold -tracking-[.72px] w-full text-center'>Add New Guide</h2>
                 <p className='text-base -tracking-[.48px] font-medium'>Guide Title</p>
                 <input
-                  className='w-full px-4 border-[1px] border-[#7f8182] rounded-[9.675px] mt-1'
+                  className='w-full px-4 border-[1px] border-[#7f8182] rounded-[10px] mt-1'
                   placeholder='Enter here...'
                   value={title}
                   onChange={e => setTitle(e.target.value)}
                 />
                 <p className='mt-2 text-base -tracking-[.48px] font-medium'>Description</p>
                 <textarea
-                  className='w-full px-4 border-[1px] border-[#7f8182] rounded-[9.675px] mt-1'
+                  className='w-full px-4 border-[1px] border-[#7f8182] rounded-[10px] mt-1'
                   placeholder='Enter here...'
                   rows={3}
                   value={description}
@@ -97,7 +97,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                 />
                 <p className='mt-2 text-base -tracking-[.48px] font-medium'>Choose an option</p>
                 <div className='flex mt-2'>
-                  <label className='text-[#7F8182] -tracking-[.48px] font-medium flex items-center'>
+                  <label className='text-secondry2 -tracking-[.48px] font-medium flex items-center'>
                     <input
                       type="radio"
                       className='me-1 border-[#7FFBAE] text-[#7ffbae] focus:ring-0 focus:outline-0'
@@ -107,7 +107,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                     />
                     Upload File
                   </label>
-                  <label className='text-[#7F8182] -tracking-[.48px] font-medium flex items-center ms-4'>
+                  <label className='text-secondry2 -tracking-[.48px] font-medium flex items-center ms-4'>
                     <input
                       type="radio"
                       className='me-1 border-[#7FFBAE] text-[#7ffbae] focus:ring-0 focus:outline-0'
@@ -124,7 +124,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                       option === 'file' ? <>
                         <p className='text-base -tracking-[.48px] font-medium'>{`Upload ${currentTab === 'video' ? 'Video' : 'Document'}`}</p>
                         <button
-                          className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'
+                          className='px-4 py-2 flex items-center rounded-[10px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'
                           onClick={() => {
                             if (fileRef) fileRef.current?.click();
                           }}
@@ -146,7 +146,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                         />
                       </> : <>
                         <p className='text-base -tracking-[.48px] font-medium'>Embedded Link</p>
-                        <div className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'>
+                        <div className='px-4 py-2 flex items-center rounded-[10px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'>
                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" className='me-2'>
                             <path d="M6 12.0004L12 6.00037M8 3.00031L8.463 2.46431C9.40081 1.52663 10.6727 0.999906 11.9989 1C13.325 1.00009 14.5968 1.527 15.5345 2.46481C16.4722 3.40261 16.9989 4.6745 16.9988 6.00066C16.9987 7.32682 16.4718 8.59863 15.534 9.53631L15 10.0003M10.0001 15.0004L9.60314 15.5344C8.65439 16.4726 7.37393 16.9987 6.03964 16.9987C4.70535 16.9987 3.42489 16.4726 2.47614 15.5344C2.0085 15.072 1.63724 14.5214 1.38385 13.9145C1.13047 13.3076 1 12.6565 1 11.9989C1 11.3412 1.13047 10.6901 1.38385 10.0832C1.63724 9.47635 2.0085 8.92577 2.47614 8.46337L3.00014 8.00037" stroke="#505050" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
@@ -164,7 +164,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
 
                     <p className='text-base -tracking-[.48px] font-medium'>Upload Thumbnail</p>
                     <button
-                      className='px-4 py-2 flex items-center rounded-[9.675px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'
+                      className='px-4 py-2 flex items-center rounded-[10px] border-[1px] border-[#7f8182] w-full mt-1 -tracking-[.54px] text-base font-medium text-[#7f8182]'
                       onClick={() => {
                         if (thumbnailRef) thumbnailRef.current?.click();
                       }}
@@ -186,7 +186,7 @@ const AddNewGuide: FC<typeAddNewGuide> = ({ show, onClose, currentTab, onAdd }: 
                     />
                   </div>
                 </div>
-                <button className='bg-[#7ffbae] text-lg font-semibold rounded-[6px] py-2 items-center w-full mt-4' onClick={handleAdd}>Add Guide</button>
+                <button className='bg-[#7ffbae] text-lg font-semibold rounded-[10px] py-2 items-center w-full mt-4' onClick={handleAdd}>Add Guide</button>
               </Dialog.Panel>
             </Transition.Child>
           </div>

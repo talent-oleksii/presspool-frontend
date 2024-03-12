@@ -196,7 +196,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                 </svg>
               </span>
               <img src={Logo} alt="mark" className="w-[30px]" />
-              <h3 className="font-[Inter] text-black text-[22px] font-medium -tracking-[1.02px]">
+              <h3 className="font-[Inter] text-primary text-[22px] font-medium -tracking-[1.02px]">
                 presspool.ai
               </h3>
             </div>
@@ -210,7 +210,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel
-                className={`xsm:flex-1 xsm:w-full xsm:-tracking-[.42px] relative bg-white xsm:rounded-t-[17.2px] md:rounded-[22px] text-left flex md:items-center md:justify-center flex-col shadow-xl md:border-[1px] border-black xsm:px-4 md:px-[36px] xsm:mt-10 md:pt-[45px] md:pb-[26px]`}
+                className={`xsm:flex-1 xsm:w-full xsm:-tracking-[.42px] relative bg-white xsm:rounded-t-[10px] md:rounded-[10px] text-left flex md:items-center md:justify-center flex-col shadow-xl md:border-[1px] border-black xsm:px-4 md:px-[36px] xsm:mt-10 md:pt-[45px] md:pb-[26px]`}
               >
                 <button
                   onClick={() => setShow(false)}
@@ -244,7 +244,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                     animate="show"
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
-                    <h3 className="text-black font-[Inter] text-[20px] md:text-3xl mt-7 md:mt-8 font-semibold -tracking-[.72px]">
+                    <h3 className="text-primary font-[Inter] text-[20px] md:text-3xl mt-7 md:mt-8 font-semibold -tracking-[.72px]">
                       Forgot Password?
                     </h3>
                     <p className="text-[#7f8182] font-[Inter] text-[14px] xsm:leading-4 md:text-base mt-6 md:mt-[10px] text-left md:text-center">
@@ -261,7 +261,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       )}
                     </p>
                     <input
-                      className={`w-full border-[#7F8182] bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2 ${
+                      className={`w-full border-secondry2 bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2 ${
                         showWarning ? "border-[red]" : "border-[#7f8182]"
                       }`}
                       placeholder="Enter your email address"
@@ -270,7 +270,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <button
-                      className="mt-5 flex items-center justify-center text-base bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
+                      className="mt-5 flex items-center justify-center text-base bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[10px]"
                       onClick={handleGoToVerify}
                     >
                       Continue
@@ -284,7 +284,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                     animate="show"
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
-                    <h3 className="text-black font-[Inter] text-[20px] md:text-3xl mt-7 md:mt-8 font-semibold -tracking-[.72px]">
+                    <h3 className="text-primary font-[Inter] text-[20px] md:text-3xl mt-7 md:mt-8 font-semibold -tracking-[.72px]">
                       Verification
                     </h3>
                     <p className="text-[#7f8182] font-[Inter] text-xs mt-6 md:mt-[10px] text-center">
@@ -303,7 +303,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                         <input
                           key={index}
                           ref={ref}
-                          className="w-full md:w-[68px] py-[8px] text-center rounded-lg border-[#7f8182] bg-white text-[22px] font-semibold -tracking-[.66px]"
+                          className="w-full md:w-[68px] py-[8px] text-center rounded-[10px] border-[#7f8182] bg-white text-[22px] font-semibold -tracking-[.66px]"
                           placeholder="-"
                           maxLength={1}
                           value={code[index]}
@@ -327,7 +327,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       ))}
                     </div>
                     <button
-                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
+                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[10px]"
                       onClick={handleGoToFinal}
                     >
                       Continue
@@ -341,7 +341,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                     animate="show"
                     variants={FADE_UP_ANIMATION_VARIANTS}
                   >
-                    <h3 className="text-black font-[Inter] text-[20px] md:text-3xl mt-7 md:mt-8 font-semibold -tracking-[.72px]">
+                    <h3 className="text-primary font-[Inter] text-[20px] md:text-3xl mt-7 md:mt-8 font-semibold -tracking-[.72px]">
                       New Password
                     </h3>
                     <p className="text-[#7f8182] font-[Inter] text-[14px] md:text-xs mt-6 md:mt-[10px] text-center">
@@ -357,7 +357,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                         )}
                     </p>
                     <input
-                      className={`w-full border-[#7F8182] bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2 ${
+                      className={`w-full border-secondry2 bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2 ${
                         showWarning ? "border-[red]" : "border-[#7f8182]"
                       }`}
                       placeholder="Enter here"
@@ -375,7 +375,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                         )}
                     </p>
                     <input
-                      className={`w-full border-[#7F8182] bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2 ${
+                      className={`w-full border-secondry2 bg-transparent border-[1px] md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 md:py-3 xsm:py2 ${
                         showWarning ? "border-[red]" : "border-[#7f8182]"
                       }`}
                       placeholder="Enter here"
@@ -384,7 +384,7 @@ const ForgotPassword: FC<typeForgotPassword> = ({
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <button
-                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-black font-semibold font-[Inter] py-[13px] w-full rounded-[5px]"
+                      className="mt-9 md:mt-5 flex items-center justify-center text-xs bg-main text-primary font-semibold font-[Inter] py-[13px] w-full rounded-[10px]"
                       onClick={handleSubmit}
                     >
                       Submit

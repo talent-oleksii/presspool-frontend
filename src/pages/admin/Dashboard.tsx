@@ -364,13 +364,13 @@ const AdminDashboard: FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-[Inter] font-semibold -tracking-[.6px] text-[20px]">{`Welcome ${adminName} 🤝`}</h2>
-            <p className="mt-1 text-[#43474a] font-[Inter] text-xs">Here's a snapshot of Presspool.ai, all in one place</p>
+            <p className="mt-1 text-secondry1 font-[Inter] text-xs">Here's a snapshot of Presspool.ai, all in one place</p>
           </div>
         </div>
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[15px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
               onClick={onOverViewClicked}
             >
               Overview
@@ -413,7 +413,7 @@ const AdminDashboard: FC = () => {
             >
               <button
                 onMouseEnter={handleOpenChange}
-                className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-[#505050] justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
+                className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-primary justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
               >
                 {selectedDateFilter}
                 <CaretDownOutlined />
@@ -423,12 +423,12 @@ const AdminDashboard: FC = () => {
                   selectedKeys={[selectedDateFilter]}
                   onClick={onClick}
                   items={items}
-                  className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[5px] text-left z-[9]"
+                  className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9]"
                 />
               )}
             </div>
             <button
-              className="inline-flex items-center justify-center text-[#505050] text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md disabled:text-[#a3a3a3] disabled:border-none"
+              className="inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] me-2 bg-white border border-solid border-main shadow-md disabled:text-[#a3a3a3] disabled:border-none"
               // onClick={handleDownloadCSV}
               disabled
             >
@@ -440,7 +440,7 @@ const AdminDashboard: FC = () => {
           </div>
         </div>
 
-        <div className="rounded-[20px] grid grid-cols-4 gap-3 min-h-[90px] mt-4">
+        <div className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px] mt-4">
           <Card
             title={"Total Clicks"}
             value={totalClicks}
@@ -471,18 +471,18 @@ const AdminDashboard: FC = () => {
               <h2 className="font-[Inter] text-base font-semibold">
                 All Campaigns
               </h2>
-              <p className="font-[Inter] text-[#43474A] mt-[5px] text-xs">
+              <p className="font-[Inter] text-secondry1 mt-[5px] text-xs">
                 Let’s see how your campaigns are performing
               </p>
             </div>
             <div>
               <div className="mt-[20px]">
-                <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs font-semibold mb-2">
-                  <span className="w-4 h-[3px] shrink-0 rounded-full bg-main"></span>
+                <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs font-semibold mb-2">
+                  <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-main"></span>
                   Total Clicks
                 </p>
-                <p className="flex items-center gap-1 font-[Inter] text-black text-[10px] 2xl:text-xs mt-2 font-semibold">
-                  <span className="w-4 h-[3px] shrink-0 rounded-full bg-[#6C63FF]"></span>
+                <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
+                  <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
                   Unique Clicks
                 </p>
               </div>
@@ -586,7 +586,7 @@ const AdminDashboard: FC = () => {
                     >
                       <span
                         style={{ backgroundColor: item.color }}
-                        className={`w-[3px] h-full rounded-full`}
+                        className={`w-[3px] h-full rounded-[10px]`}
                       ></span>
                       {item.ip}
                     </div>

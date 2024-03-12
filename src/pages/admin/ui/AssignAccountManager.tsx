@@ -50,7 +50,7 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className={`relative bg-white rounded-[22px] text-left flex items-center justify-center flex-col shadow-xl border-[1px] border-black px-[36px] pt-[45px] pb-[26px] min-w-[500px]`}>
+              <Dialog.Panel className={`relative bg-white rounded-[10px] text-left flex items-center justify-center flex-col shadow-xl border-[1px] border-black px-[36px] pt-[45px] pb-[26px] min-w-[500px]`}>
                 {loading && <Loading />}
                 <button onClick={() => onClose(false)} className='absolute right-4 top-4'>
                   <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34" fill="none">
@@ -60,7 +60,7 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
                 <h3 className='font-[Inter] -tracking-[.72px] text-center font-semibold text-lg'>Assign Account Manager</h3>
                 <div className='text-left w-full'>
                   <p className='mt-8 text-xs font-[Inter] -tracking-[.48px] font-medium'>Company Name</p>
-                  <p className='mt-1 rounded-[9.675px] border-[1px] border-[#7f8182] w-full px-4 py-2 text-[#7f8182] text-xs font-medium -tracking-[.5px]'>{company}</p>
+                  <p className='mt-1 rounded-[10px] border-[1px] border-[#7f8182] w-full px-4 py-2 text-[#7f8182] text-xs font-medium -tracking-[.5px]'>{company}</p>
                   <p className='mt-4 text-xs font-[Inter] -tracking-[.54px] font-medium'>Assigned Members</p>
                   <Select
                     className='select-account-manager w-full mt-1'
@@ -70,7 +70,7 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({ show, company, onC
                     options={accountManagers.map((item: any) => ({ value: item.id, label: item.name }))}
                   />
                 </div>
-                <button className='mt-4 text-xs font-semibold py-3 text-black bg-main w-full rounded-[6px] disabled:bg-[gray]' onClick={handleSubmit} disabled={!manager || manager.toString().length <= 0}>Assign</button>
+                <button className='mt-4 text-xs font-semibold py-3 text-primary bg-main w-full rounded-[10px] disabled:bg-[gray]' onClick={handleSubmit} disabled={!manager || manager.toString().length <= 0}>Assign</button>
               </Dialog.Panel>
             </Transition.Child>
           </div>

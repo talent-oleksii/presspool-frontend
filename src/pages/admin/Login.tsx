@@ -69,26 +69,26 @@ const AdminLogin: FC = () => {
         <div>
           <div className="flex items-center">
             <img src={Mark} alt="mark" className="w-[50px] me-2" />
-            <h3 className="font-[Inter] text-black text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
+            <h3 className="font-[Inter] text-primary text-[34px] font-medium -tracking-[1.02px]">presspool.ai</h3>
           </div>
           <div className="mt-10 flex">
-            <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
+            <span className="rounded-[10px] text-xs font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">1</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Sign Up / Log In</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Input your Presspool.ai email credentials <br /> and password</p>
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
+            <span className="rounded-[10px] text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">2</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Access your clients / campaigns</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">Access your assigned Clients and<br />their campaigns all in one place</p>
             </div>
           </div>
           <div className="mt-6 flex">
-            <span className="rounded-full text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
+            <span className="rounded-[10px] text-xs font-[Inter] font-medium -tracking-[.42px] text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3 border-[1px] border-[#9f9f9f]">3</span>
             <div className="text-left">
-              <h3 className="text-black font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
+              <h3 className="text-primary font-[Inter] text-lg font-semibold -tracking-[.6px]">Grow your client base</h3>
               <p className="text-[#525252] font-[Inter] text-xs -tracking-[.24px] font-normal mt-2">The more campaigns you manage <br />successfully, the more money you<br />can make by increasing your <br />Client's spent</p>
             </div>
           </div>
@@ -98,16 +98,16 @@ const AdminLogin: FC = () => {
             "Was a game-changer, helping me generate sign-<br />ups and connect with a highly targeted audience. It's<br />the secret weapon that boosted our awareness as a<br />new player in the market."
           </p>
           <div className="mt-5 flex items-center">
-            <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-full me-2" />
+            <img src={SignUpAvatar} alt="avatar-" className="w-[63px] h-[63px] rounded-[10px] me-2" />
             <div className="text-left">
-              <p className="text-black font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
+              <p className="text-primary font-semibold -tracking-[.48px] font-[Inter] text-xs">Morgan A.</p>
               <p className="text-[#525252] font-[Inter] text-xs text-normal -tracking-[.36px]">Marketing Manager</p>
             </div>
           </div>
         </div>
       </div>
       <div className="flex flex-1 items-center justify-center px-[82px] bg-white h-full">
-        <div className="rounded-[15px] w-full xl:max-w-[72%] px-[42px]">
+        <div className="rounded-[10px] w-full xl:max-w-[72%] px-[42px]">
           <div className="flex flex-col items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="47" height="44" viewBox="0 0 47 44" fill="none">
               <path d="M17.1765 12V7C17.1765 5.67392 17.7095 4.40215 18.6582 3.46447C19.6069 2.52678 20.8936 2 22.2353 2H39.9412C41.2829 2 42.5696 2.52678 43.5183 3.46447C44.467 4.40215 45 5.67392 45 7V37C45 38.3261 44.467 39.5979 43.5183 40.5355C42.5696 41.4732 41.2829 42 39.9412 42H22.2353C20.8936 42 19.6069 41.4732 18.6582 40.5355C17.7095 39.5979 17.1765 38.3261 17.1765 37V32M2 22H34.8824M34.8824 22L27.2941 14.5M34.8824 22L27.2941 29.5" stroke="black" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -125,12 +125,12 @@ const AdminLogin: FC = () => {
                 type="email"
                 placeholder="Enter here..."
                 onChange={handleChange}
-                className="w-full border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
+                className="w-full border-secondry2 bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
               />
             </div>
             <div>
               <label className="font-[Inter] block text-xs font-medium mt-[18px] -tracking-[.508px]">Password</label>
-              <div className="flex items-center justify-center border-[#7F8182] bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4">
+              <div className="flex items-center justify-center border-secondry2 bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4">
                 <input
                   id="password"
                   name="password"
@@ -148,13 +148,13 @@ const AdminLogin: FC = () => {
               </div>
             </div>
             <div className="w-full text-right">
-              <div className="font-[Inter] text-black text-xs 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
+              <div className="font-[Inter] text-primary text-xs 2xl:text-[17px] mt-4 underline -tracking-[.504px]" onClick={handleForgotPassword}>Forgot Password?</div>
             </div>
-            <button className="rounded-[6px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-black text-semibold mt-[32px]">Log In</button>
+            <button className="rounded-[10px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-primary text-semibold mt-[32px]">Log In</button>
 
             <p className="mt-[35px] font-[Inter] text-[#525252] text-lg flex items-center justify-center -tracking-[.574px]">
               Don't have an account?
-              <Link className="block text-center text-black ms-1 underline" to="/admin/signup">Sign Up</Link>
+              <Link className="block text-center text-primary ms-1 underline" to="/admin/signup">Sign Up</Link>
             </p>
           </form>
         </div>
@@ -173,7 +173,7 @@ const AdminLogin: FC = () => {
                   leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                   leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                  <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                  <Dialog.Panel className="relative transform overflow-hidden rounded-[10px] bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                     <div>
                       <div className="mt-3 text-center sm:mt-5">
                         <Dialog.Title
@@ -188,7 +188,7 @@ const AdminLogin: FC = () => {
                     <div className="mt-5">
                       <button
                         type="button"
-                        className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
+                        className="inline-flex w-full justify-center rounded-[10px] bg-indigo-600 px-3 py-2 text-xs font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
                         onClick={() => { setShowDialog(false); }}
                       >
                         OK
