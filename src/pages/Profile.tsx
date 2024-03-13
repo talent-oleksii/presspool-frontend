@@ -1,13 +1,10 @@
 import { FC, useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Select, Avatar, Table } from "antd";
+import { Avatar, Table } from "antd";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  FADE_UP_ANIMATION_VARIANTS,
-  MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS,
-} from "../utils/TransitionConstants";
+import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../utils/TransitionConstants";
 
 import AddTeammate from "./AddTeammate";
 import StripeUtil from "../utils/stripe";
@@ -22,7 +19,8 @@ import { AddCard } from "../containers/addCard";
 const Profile: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const companyfileInputRef = useRef<HTMLInputElement>(null);
-  const { fullName, email, company } = useSelector(selectAuth);
+  const { fullName, email, company, createTime, domain } =
+    useSelector(selectAuth);
   const { campaign, cardList } = useSelector(selectData);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<any>(null);
@@ -33,7 +31,6 @@ const Profile: FC = () => {
   const [showAddTeamModal, setShowAddTeamModal] = useState(false);
   const [fileData, setFileData] = useState<Array<any>>([]);
   const [open, setOpen] = useState(false);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -82,8 +79,21 @@ const Profile: FC = () => {
       reader.onloadend = () => {
         setImage(reader.result);
       };
-
       reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append("email", email);
+      formData.append("avatar", file);
+      APIInstance.put("data/profile", formData)
+        .then((data) => {
+          // here comes the data, you can use it.
+          dispatch(setAvatar({ avatar: data.data.avatar }));
+          DialogUtils.show(
+            "success",
+            "",
+            "Your profile has successfully updated!"
+          );
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -115,24 +125,24 @@ const Profile: FC = () => {
     }
   };
 
-  const handlePublish = () => {
-    setLoading(true);
-    if (!file) return;
-    const formData = new FormData();
-    formData.append("email", email);
-    formData.append("avatar", file);
-    APIInstance.put("data/profile", formData)
-      .then((data) => {
-        // here comes the data, you can use it.
-        dispatch(setAvatar({ avatar: data.data.avatar }));
-        DialogUtils.show(
-          "success",
-          "",
-          "Your profile has successfully updated!"
-        );
-      })
-      .finally(() => setLoading(false));
-  };
+  // const handlePublish = () => {
+  //   setLoading(true);
+  //   if (!file) return;
+  //   const formData = new FormData();
+  //   formData.append("email", email);
+  //   formData.append("avatar", file);
+  //   APIInstance.put("data/profile", formData)
+  //     .then((data) => {
+  //       // here comes the data, you can use it.
+  //       dispatch(setAvatar({ avatar: data.data.avatar }));
+  //       DialogUtils.show(
+  //         "success",
+  //         "",
+  //         "Your profile has successfully updated!"
+  //       );
+  //     })
+  //     .finally(() => setLoading(false));
+  // };
 
   const getPlaceHolder = (name: string) => {
     if (!name) return "";
@@ -223,194 +233,162 @@ const Profile: FC = () => {
       >
         {loading && <Loading />}
 
-        <div className="border-b-[1px] border-b-[#bcbcbc] bg-white p-6 rounded-[10px] mt-4">
-          <p className="text-primary text-lg font-medium -tracking-[.6px]">
-            Personal
-          </p>
-          <div className="items-center flex mt-4 gap-12">
-            <div className="flex flex-col">
-              <button className="relative">
-                {image ? (
-                  <Avatar
-                    src={image}
-                    className="z-[0] transition-all duration-150  hover:blur-[1.5px] w-[100px] h-[100px]"
-                  />
-                ) : (
-                  <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-[10px] flex items-center justify-center font-[Inter] text-3xl">
-                    {getPlaceHolder(fullName)}
-                  </div>
-                )}
-                {/* <span className='opacity-0 absolute p-[27px] top-1/2 left-1/2 hover:opacity-100 -translate-x-1/2 -translate-y-1/2 hover:bg-[#505050]/[.5] rounded-[10px]'>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                  <path d="M482.769-216.923 579.077-313l-96.308-96.077L457.692-384 513-328.692q-46.462.23-82.577-10.923-36.115-11.154-57.884-32.924-22.308-22.307-33.577-50.615-11.27-28.308-11.27-56.615 0-17 3.731-34T342.385-546l-27.077-24Q303.692-548.846 298-526.167q-5.692 22.678-5.692 46.167 0 35.651 13.846 70.364t40.923 62.175q27.077 27.461 71.154 40.807 44.077 13.346 90.538 13.577L457.692-242l25.077 25.077ZM645.462-390q11.615-21.154 17.307-43.833 5.693-22.678 5.693-46.167 0-35.53-13.731-70.592t-41.192-62.177q-26.693-27.462-71.034-40.693-44.341-13.23-90.505-13.23L503.077-718 478-743.077 381.692-647 478-550.923 503.077-576l-55.538-55.538q46.23 0 82.692 11.269 36.461 11.269 58.227 33.094 21.765 21.826 33.192 50.198 11.427 28.373 11.427 56.746 0 17-3.731 34T618.385-414l27.077 24ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120Z" />
-                </svg>
-              </span> */}
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  hidden
-                  className="w-[75px] h-[75px]"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                />
-              </button>
-              <button
-                className="text-[#0af] text-xs -tracking-[.36px] font-medium mt-4"
-                onClick={() => {
-                  if (fileInputRef.current) fileInputRef.current.click();
-                }}
-              >
-                Edit
-              </button>
-            </div>
-            <div className="flex gap-8 grid grid-cols-2 flex-1 pe-12">
-              <div className="col-span-1">
-                <p className="text-base font-[Inter] font-medium text-primary -tracking-[.48px]">
-                  Full Name
-                </p>
-                <input
-                  className="text-base font-medium p-3 rounded-[10px] border-[1px] border-[#7f8182]/[.13]  text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-main"
-                  value={fullName}
-                  disabled
-                />
-              </div>
-              <div className="col-span-1">
-                <p className="text-base font-[Inter] font-medium text-primary -tracking-[.48px]">
-                  Email Address
-                </p>
-                <input
-                  className="text-base font-medium p-3 rounded-[10px] border-[1px] border-[#7f8182]/[.13]  text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-main"
-                  value={email}
-                  disabled
-                />
-              </div>
-            </div>
-          </div>
-          {/* <div className='flex items-center justify-between w-full py-2 px-3'>
-          <p className='font-[Inter] text-secondry1 text-xs font-medium -tracking-[.54px]'>{fullName}</p>
-          <p className='font-[Inter] text-[#A3A3A3] text-xs font-medium text-xs -tracking-[.48px]'>{`Date Joined: ${date}`}</p>
-        </div> */}
-          <button
-            className="rounded-[10px] text-primary bg-main font-[Inter] text-sm font-semibold px-8 py-1.5 mt-10"
-            onClick={handlePublish}
-          >
-            Save
-          </button>
-        </div>
         <div className="mt-4 p-6 bg-white rounded-[10px] shadow-md">
-          <p className="text-primary text-lg font-medium -tracking-[.6px]">
-            Company
-          </p>
-          <div className="items-start flex mt-4 gap-12  border-b-[1px] border-[#bcbcbc]">
-            <div className="flex flex-col">
-              <button className="relative">
-                {companyImage ? (
-                  <Avatar
-                    src={companyImage}
-                    className="z-[0] transition-all duration-150  hover:blur-[1.5px] w-[100px] h-[100px]"
-                  />
-                ) : (
-                  <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-[10px] flex items-center justify-center font-[Inter] text-3xl">
-                    {getPlaceHolder(company)}
-                  </div>
-                )}
-                {/* <span className='opacity-0 absolute p-[27px] top-1/2 left-1/2 hover:opacity-100 -translate-x-1/2 -translate-y-1/2 hover:bg-[#505050]/[.5] rounded-[10px]'>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                  <path d="M482.769-216.923 579.077-313l-96.308-96.077L457.692-384 513-328.692q-46.462.23-82.577-10.923-36.115-11.154-57.884-32.924-22.308-22.307-33.577-50.615-11.27-28.308-11.27-56.615 0-17 3.731-34T342.385-546l-27.077-24Q303.692-548.846 298-526.167q-5.692 22.678-5.692 46.167 0 35.651 13.846 70.364t40.923 62.175q27.077 27.461 71.154 40.807 44.077 13.346 90.538 13.577L457.692-242l25.077 25.077ZM645.462-390q11.615-21.154 17.307-43.833 5.693-22.678 5.693-46.167 0-35.53-13.731-70.592t-41.192-62.177q-26.693-27.462-71.034-40.693-44.341-13.23-90.505-13.23L503.077-718 478-743.077 381.692-647 478-550.923 503.077-576l-55.538-55.538q46.23 0 82.692 11.269 36.461 11.269 58.227 33.094 21.765 21.826 33.192 50.198 11.427 28.373 11.427 56.746 0 17-3.731 34T618.385-414l27.077 24ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120Z" />
-                </svg>
-              </span> */}
-                <input
-                  ref={companyfileInputRef}
-                  type="file"
-                  hidden
-                  className="w-[75px] h-[75px]"
-                  accept="image/*"
-                  onChange={handleCompanyFileChange}
-                />
-              </button>
-              <button
-                className="text-[#0af] text-xs -tracking-[.36px] font-medium mt-4"
-                onClick={() => {
-                  if (companyfileInputRef.current)
-                    companyfileInputRef.current.click();
-                }}
-              >
-                Edit
-              </button>
-            </div>
-            <div className="flex gap-8 grid grid-cols-2 flex-1 pe-12">
-              <div className="col-span-1">
-                <p className="text-base font-[Inter] font-medium text-primary mt-3 -tracking-[.48px]">
-                  Company Name
-                </p>
-                <input
-                  className="text-base font-medium p-3 rounded-[10px] border-[1px] border-[#7f8183]/[.13]  text-[#7f8182] -tracking-[.54px] mt-2 bg-[#fbfbfb] w-full focus:ring-0 focus:border-main"
-                  value={company}
-                  disabled
-                />
-              </div>
-              <div className="col-span-1">
-                <h4 className="text-base font-[Inter] font-medium text-primary mt-3 -tracking-[.48px]">
-                  Payment Methods
-                </h4>
-                <div className="mt-2">
-                  {cardList.map((item, index) => (
-                    <div key={index}>
-                      {/* <div className='flex justify-between w-full'>
-                      <p className='font-[Inter] text-[#7f8182] text-xs -tracking-[.42px]'>{`Added Date: ${moment.unix(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>
-                    </div> */}
-                      <div className="bg-[#fbfbfb] text-base text-primary border-[1px] border-[rgba(127, 129, 130, 0.13)] rounded-[10px] p-3 my-1.5 flex justify-between">
-                        {`${item.brand.toUpperCase()} **** **** **** ${
-                          item.last4
-                        }`}
-                        <div
-                          role="button"
-                          className="text-secondry2 cursor-pointer"
-                          onClick={() =>
-                            handleRemoveCard(item.customer_id, item.card_id)
-                          }
-                        >
-                          Remove
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                  {cardList.length <= 0 && (
-                    <div>
-                      <p className="text-xs font-[Inter] font-medium text-primary mt-8 -tracking-[.48px]">
-                        My Card
-                      </p>
-                    </div>
-                  )}
-                </div>
-                <div className="flex my-4">
-                  <button
-                    className="font-[Inter] text-secondry2 text-xs flex items-center -tracking-[.45px] font-medium border-[1px] border-[#7f8182] rounded-[10px] px-8 py-2"
-                    onClick={handleAddCard}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      className="me-2"
-                    >
-                      <path
-                        d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z"
-                        stroke="#7F8182"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+          <div className="bg-white pb-7 flex flex-col-2 justify-between border-b-[1px] border-[#bcbcbc]">
+            <div className="flex-1">
+              <p className="text-primary text-lg font-medium -tracking-[.6px]">
+                Personal
+              </p>
+              <div className="items-center flex mt-4 gap-5">
+                <div className="flex flex-col">
+                  <button className="relative">
+                    {image ? (
+                      <Avatar
+                        src={image}
+                        className="z-[0] transition-all duration-150  hover:blur-[1.5px] w-[100px] h-[100px]"
                       />
-                    </svg>
-                    Add New Card
+                    ) : (
+                      <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
+                        {getPlaceHolder(fullName)}
+                      </div>
+                    )}
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      hidden
+                      className="w-[75px] h-[75px]"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                    />
+                  </button>
+                  <button
+                    className="text-[#0af] text-xs -tracking-[.36px] font-medium mt-4"
+                    onClick={() => {
+                      if (fileInputRef.current) fileInputRef.current.click();
+                    }}
+                  >
+                    Edit
                   </button>
                 </div>
+                <div className="text-left ms-2 flex flex-col gap-1">
+                  <p className="font-[Inter] text-primary text-base font-semibold -tracking-[.36px] leading-[16px]">
+                    {fullName}
+                  </p>
+                  <p className="font-[Inter] text-secondry1 text-sm font-normal -tracking-[.3px]">
+                    {email}
+                  </p>
+                  <p className="font-[Inter] text-secondry2 text-sm font-normal -tracking-[.3px]">
+                    {`Date Joined : ${moment(new Date(createTime)).format(
+                      "DD MMM, YYYY"
+                    )}`}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex-1">
+              <p className="text-primary text-lg font-medium -tracking-[.6px]">
+                Company
+              </p>
+              <div className="items-center flex mt-4 gap-5">
+                <div className="flex flex-col">
+                  <button className="relative">
+                    {companyImage ? (
+                      <Avatar
+                        src={companyImage}
+                        className="z-[0] transition-all duration-150  hover:blur-[1.5px] w-[100px] h-[100px]"
+                      />
+                    ) : (
+                      <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
+                        {getPlaceHolder(company)}
+                      </div>
+                    )}
+                    <input
+                      ref={companyfileInputRef}
+                      type="file"
+                      hidden
+                      className="w-[75px] h-[75px]"
+                      accept="image/*"
+                      onChange={handleCompanyFileChange}
+                    />
+                  </button>
+                  <button
+                    className="text-[#0af] text-xs -tracking-[.36px] font-medium mt-4"
+                    onClick={() => {
+                      if (companyfileInputRef.current)
+                        companyfileInputRef.current.click();
+                    }}
+                  >
+                    Edit
+                  </button>
+                </div>
+                <div className="text-left ms-2 flex flex-col gap-1">
+                  <p className="font-[Inter] text-primary text-base font-semibold -tracking-[.36px] leading-[16px]">
+                    {company}
+                  </p>
+                  <p className="font-[Inter] text-secondry1 text-sm font-normal -tracking-[.3px]">
+                    {domain}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-
+          <div className="col-span-1 mt-7">
+            <h4 className="text-base font-[Inter] font-medium text-primary mt-3 -tracking-[.48px]">
+              Payment Methods
+            </h4>
+            <div className="mt-2">
+              {cardList.map((item, index) => (
+                <div key={index}>
+                  {/* <div className='flex justify-between w-full'>
+                      <p className='font-[Inter] text-[#7f8182] text-xs -tracking-[.42px]'>{`Added Date: ${moment.unix(Number(item.create_time)).format('DD MMM, yyyy')}`}</p>
+                    </div> */}
+                  <div className="bg-[#fbfbfb] w-[424px] text-base text-primary border-[1px] border-[rgba(127, 129, 130, 0.13)] rounded-[10px] p-3 my-1.5 flex justify-between">
+                    {`${item.brand.toUpperCase()} **** **** **** ${item.last4}`}
+                    <div
+                      role="button"
+                      className="text-secondry2 cursor-pointer"
+                      onClick={() =>
+                        handleRemoveCard(item.customer_id, item.card_id)
+                      }
+                    >
+                      Remove
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {cardList.length <= 0 && (
+                <div>
+                  <p className="text-xs font-[Inter] font-medium text-primary mt-8 -tracking-[.48px]">
+                    My Card
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="flex my-4">
+              <button
+                className="font-[Inter] text-secondry2 text-xs flex items-center -tracking-[.45px] font-medium border-[1px] border-[#7f8182] rounded-[10px] px-8 py-2"
+                onClick={handleAddCard}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  className="me-2"
+                >
+                  <path
+                    d="M7 10H13M10 7V13M1 10C1 11.1819 1.23279 12.3522 1.68508 13.4442C2.13738 14.5361 2.80031 15.5282 3.63604 16.364C4.47177 17.1997 5.46392 17.8626 6.55585 18.3149C7.64778 18.7672 8.8181 19 10 19C11.1819 19 12.3522 18.7672 13.4442 18.3149C14.5361 17.8626 15.5282 17.1997 16.364 16.364C17.1997 15.5282 17.8626 14.5361 18.3149 13.4442C18.7672 12.3522 19 11.1819 19 10C19 7.61305 18.0518 5.32387 16.364 3.63604C14.6761 1.94821 12.3869 1 10 1C7.61305 1 5.32387 1.94821 3.63604 3.63604C1.94821 5.32387 1 7.61305 1 10Z"
+                    stroke="#7F8182"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Add New Card
+              </button>
+            </div>
+          </div>
           <div className="flex items-center justify-between mt-4">
             <h4 className="font-[Inter] text-primary text-base font-medium -tracking-[.6px]">
               Files
@@ -436,20 +414,43 @@ const Profile: FC = () => {
           </div>
           <div className="border-b-[1px] border-[#bcbcbc] py-4">
             <Table className="file-table" dataSource={fileData}>
-              <Column title="Name" dataIndex="name" key="name" />
+              <Column
+                title="Name"
+                key="name"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.name}</span>
+                  </>
+                )}
+              />
               <Column
                 title="Campaign Name"
-                dataIndex="campaignName"
                 key="campaign name"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.campaignName}</span>
+                  </>
+                )}
               />
-              <Column title="Date Added" dataIndex="date" key="date" />
+              <Column
+                title="Date Added"
+                key="date"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.date}</span>
+                  </>
+                )}
+              />
               <Column
                 title={" "}
                 key="action"
                 render={(_: any, record: any) => (
                   <>
                     <button
-                      className="text-xs font-bold -tracking-[.45px] text-[#7f8182]"
+                      className="text-xs font-bold -tracking-[.45px] text-secondry2"
                       onClick={(e) => {
                         e.preventDefault();
                         handleDownload(record.fullUrl, record.name);
@@ -465,7 +466,7 @@ const Profile: FC = () => {
           </div>
           <div className="flex items-center justify-between mt-4">
             <h4 className="font-[Inter] text-primary text-base font-medium -tracking-[.6px]">
-              Company Users
+              Users
             </h4>
             <button
               className="font-[Inter] font-medium -tracking-[.45px] text-xs flex items-center text-white bg-black rounded-[10px] px-4 py-2 gap-4"
@@ -509,14 +510,16 @@ const Profile: FC = () => {
                         </span>
                       )}
                     </Avatar>
-                    <div className="text-left ms-2 flex flex-col gap-1">
-                      <p className="font-[Inter] text-secondry1 text-sm font-medium -tracking-[.36px] leading-[14px]">
-                        {item.name}
-                      </p>
-                      <p className="font-[Inter] text-[#A3A3A3] text-xs font-normal -tracking-[.3px]">
-                        {item.manager}
-                      </p>
-                      <p className="font-[Inter] text-[#A3A3A3] text-[10px] font-normal -tracking-[.3px]">
+                    <div className="text-left ms-2 flex flex-col gap-1 justify-between">
+                      <div>
+                        <p className="font-[Inter] text-secondry1 text-sm font-medium -tracking-[.36px] leading-[14px]">
+                          {item.name}
+                        </p>
+                        <p className="font-[Inter] text-secondry1 text-xs font-normal -tracking-[.3px]">
+                          {item.manager}
+                        </p>
+                      </div>
+                      <p className="font-[Inter] text-secondry2 text-[10px] font-normal -tracking-[.3px]">
                         {`Joined : ${moment(
                           new Date((item.create_time / 1000) * 1000)
                         ).format("MM/DD/YYYY")}`}
@@ -524,7 +527,7 @@ const Profile: FC = () => {
                     </div>
                   </div>
                   <button
-                    className="flex text-[8px] text-white px-2 py-[2px] bg-[#E3392E] h-[24px] rounded-[10px] font-[Inter] items-center justify-center"
+                    className="flex text-sm font-medium text-white p-5 bg-[#FF4D42] h-[24px] rounded-[10px] font-[Inter] items-center justify-center"
                     onClick={() =>
                       setTeamData(
                         teamData.filter((team) => team.id !== item.id)
@@ -533,8 +536,8 @@ const Profile: FC = () => {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="8"
-                      height="9"
+                      width="14"
+                      height="14"
                       viewBox="0 0 8 9"
                       fill="none"
                       className="me-1"

@@ -10,6 +10,8 @@ import {
   Pie,
   Cell,
   PieChart,
+  Legend,
+  Tooltip,
 } from "recharts";
 
 import Card from "../../components/Card";
@@ -20,6 +22,7 @@ import AdminAPIInstance from "../../api/adminApi";
 import Loading from "../../components/Loading";
 import { getUnixTimestamp } from "../../utils/DateUtils";
 import moment from "moment";
+import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const getItem = (
@@ -50,7 +53,7 @@ const AdminDashboard: FC = () => {
   const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
   const [clients, setClients] = useState<Array<any>>([]);
   const [campaigns, setCampaigns] = useState<Array<any>>([]);
-
+  console.log(clients);
   const [currentAM, setCurrentAM] = useState<any>(0);
   const [currentClient, setCurrentClient] = useState<any>(0);
   const [currentCampaign, setCurrentCampaign] = useState<any>(0);
@@ -58,7 +61,7 @@ const AdminDashboard: FC = () => {
 
   const [data, setData] = useState<Array<any>>([]);
   const [clicked, setClicked] = useState<Array<any>>([]);
-  const [selectedDateFilter, setSelectedDateFilter] = useState('All Time');
+  const [selectedDateFilter, setSelectedDateFilter] = useState("All Time");
   const [open, setOpen] = useState<boolean>(false);
   const [dateRange, setDateRange] = useState<IDateRange>({
     startDate: null,
@@ -91,14 +94,13 @@ const AdminDashboard: FC = () => {
     // if (!location.pathname.includes('/overview') && !location.pathname.includes('/campaign') && !location.pathname.includes('/client'))
     //   navigator('/admin/dashboard/overview');
     setLoading(true);
-    Promise.all([
-      AdminAPIInstance.get('/user/account-manager'),
-    ]).then((results: Array<any>) => {
-      setAccountManagers(results[0].data);
-    }).finally(() => setLoading(false));
+    Promise.all([AdminAPIInstance.get("/user/account-manager")])
+      .then((results: Array<any>) => {
+        setAccountManagers(results[0].data);
+      })
+      .finally(() => setLoading(false));
 
-
-    if (adminRole === 'account_manager') {
+    if (adminRole === "account_manager") {
       setCurrentAM(adminId);
     }
     onOverViewClicked();
@@ -122,7 +124,7 @@ const AdminDashboard: FC = () => {
     let grouped: any = {};
     clicked.forEach((item) => {
       const date = moment(Number(item.create_time));
-      const key = date.format("DD/MM/YYYY");
+      const key = date.format("MM/DD/YYYY");
       if (!grouped[key]) {
         grouped[key] = [];
       }
@@ -131,7 +133,7 @@ const AdminDashboard: FC = () => {
 
     const sortedKeys = Object.keys(grouped).sort(
       (a, b) =>
-        moment(b, "DD/MM/YYYY").valueOf() - moment(a, "DD/MM/YYYY").valueOf()
+        moment(b, "MM/DD/YYYY").valueOf() - moment(a, "MM/DD/YYYY").valueOf()
     );
 
     setChartData(
@@ -145,7 +147,10 @@ const AdminDashboard: FC = () => {
       })
     );
     const halfPie = document.querySelector(".half-pie svg");
-    halfPie?.setAttribute("viewBox", "60 95 140 150");
+    halfPie?.setAttribute("viewBox", "65 120 130 180");
+
+    const fullPie = document.querySelector(".full-pie svg");
+    fullPie?.setAttribute("viewBox", "70 5 130 200");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
 
@@ -155,9 +160,11 @@ const AdminDashboard: FC = () => {
     setClients([]);
     setCurrentClient(0);
     setCampaigns([]);
-    AdminAPIInstance.get('/users', { params: { accountManager: currentAM } }).then(data => {
-      setClients(data.data);
-    }).finally(() => setLoading(false));
+    AdminAPIInstance.get("/users", { params: { accountManager: currentAM } })
+      .then((data) => {
+        setClients(data.data);
+      })
+      .finally(() => setLoading(false));
   }, [currentAM]);
 
   useEffect(() => {
@@ -166,9 +173,15 @@ const AdminDashboard: FC = () => {
     setLoading(true);
     setCurrentCampaign(0);
     setCampaigns([]);
-    AdminAPIInstance.get('/campaign', { params: { client: clients.find((value) => value.id === currentClient).email } }).then(data => {
-      setCampaigns(data.data);
-    }).finally(() => setLoading(false));
+    AdminAPIInstance.get("/campaign", {
+      params: {
+        client: clients.find((value) => value.id === currentClient).email,
+      },
+    })
+      .then((data) => {
+        setCampaigns(data.data);
+      })
+      .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentClient]);
 
@@ -188,24 +201,13 @@ const AdminDashboard: FC = () => {
   );
 
   const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.spent ?? 0), 0),
+    () => data.reduce((prev, item) => prev + Number(item?.billed ?? 0), 0),
     [data]
   );
 
   const avgCPC = useMemo(
-    () =>
-      data.reduce((accumulator, currentValue) => {
-        const spent = Number(currentValue.spent);
-        const uniqueClicks = Number(currentValue.unique_clicks);
-        if (!isNaN(spent) && !isNaN(uniqueClicks) && uniqueClicks !== 0) {
-          accumulator += spent / uniqueClicks;
-        }
-
-        console.log('dfd:', spent, uniqueClicks);
-
-        return accumulator;
-      }, 0),
-    [data]
+    () => (!!uniqueClicks ? totalSpend / uniqueClicks : 0),
+    [totalSpend, uniqueClicks]
   );
 
   const sumCountByEmailAndBlog = useMemo(() => {
@@ -331,7 +333,7 @@ const AdminDashboard: FC = () => {
   };
 
   const onOverViewClicked = () => {
-    if (adminRole === 'super_admin') {
+    if (adminRole === "super_admin") {
       callAPI(0, 0, 0);
     } else {
       callAPI(adminId, 0, 0);
@@ -340,21 +342,23 @@ const AdminDashboard: FC = () => {
 
   const callAPI = (am: any, client: any, campaign: any) => {
     setLoading(true);
-    AdminAPIInstance.get('/dashboard/overview', {
+    AdminAPIInstance.get("/dashboard/overview", {
       params: {
         accountManagerId: am,
         clientId: client,
         campaignId: campaign,
         ...(dateRange.endDate &&
           dateRange.startDate && {
-          from: getUnixTimestamp(dateRange.startDate),
-          to: getUnixTimestamp(dateRange.endDate),
-        }),
-      }
-    }).then(data => {
-      setClicked(data.data.clicked);
-      setData(data.data.campaign);
-    }).finally(() => setLoading(false));
+            from: getUnixTimestamp(dateRange.startDate),
+            to: getUnixTimestamp(dateRange.endDate),
+          }),
+      },
+    })
+      .then((data) => {
+        setClicked(data.data.clicked);
+        setData(data.data.campaign);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -364,7 +368,9 @@ const AdminDashboard: FC = () => {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-[Inter] font-semibold -tracking-[.6px] text-[20px]">{`Welcome ${adminName} 🤝`}</h2>
-            <p className="mt-1 text-secondry1 font-[Inter] text-xs">Here's a snapshot of Presspool.ai, all in one place</p>
+            <p className="mt-1 text-secondry1 font-[Inter] text-xs">
+              Here's a snapshot of Presspool.ai, all in one place
+            </p>
           </div>
         </div>
         <div className="mt-4 flex justify-between items-center">
@@ -375,10 +381,15 @@ const AdminDashboard: FC = () => {
             >
               Overview
             </button>
-            {
-              adminRole === 'super_admin' &&
+            {adminRole === "super_admin" && (
               <SelectList
-                name={`${currentAM === 0 || !accountManagers.find((value) => value.id === currentAM) ? 'By Account Manager' : accountManagers.find((value) => value.id === currentAM).name}`}
+                name={`${
+                  currentAM === 0 ||
+                  !accountManagers.find((value) => value.id === currentAM)
+                    ? "By Account Manager"
+                    : accountManagers.find((value) => value.id === currentAM)
+                        .name
+                }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                   onAccountManagerClicked(v);
@@ -386,18 +397,28 @@ const AdminDashboard: FC = () => {
                 items={accountManagers}
                 id={currentAM}
               />
-            }
+            )}
             <SelectList
-              name={`${currentClient === 0 || !clients.find((value) => value.id === currentClient) ? 'By Client' : clients.find((value) => value.id === currentClient).name}`}
+              name={`${
+                currentClient === 0 ||
+                !clients.find((value) => value.id === currentClient)
+                  ? "By Company"
+                  : clients.find((value) => value.id === currentClient).company
+              }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
                 onClientClicked(v);
               }}
-              items={clients}
+              items={clients.map((x) => ({ id: x.id, name: x.company }))}
               id={currentAM}
             />
             <SelectList
-              name={`${currentCampaign === 0 || !campaigns.find((value) => value.id === currentCampaign) ? 'By Campaign' : campaigns.find((value) => value.id === currentCampaign).name}`}
+              name={`${
+                currentCampaign === 0 ||
+                !campaigns.find((value) => value.id === currentCampaign)
+                  ? "By Campaign"
+                  : campaigns.find((value) => value.id === currentCampaign).name
+              }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
                 onCampaignClicked(v);
@@ -463,8 +484,9 @@ const AdminDashboard: FC = () => {
           />
         </div>
         <div
-          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-            } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${
+            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -490,8 +512,9 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-                } items-center justify-center mt-5`}
+              className={`flex w-full ${
+                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
@@ -511,8 +534,9 @@ const AdminDashboard: FC = () => {
                       stroke="#6C63FF"
                       strokeWidth={3}
                     />
-                    <XAxis dataKey="date" />
+                    <XAxis dataKey="date" reversed />
                     <YAxis strokeWidth={0} />
+                    <Tooltip content={<CustomLineChartTooltip />} />
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
@@ -542,13 +566,19 @@ const AdminDashboard: FC = () => {
                   </span>
                 </div>
                 <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
-                  <span className="text-sm leading-[14px] font-normal">Blog</span>
+                  <span className="text-sm leading-[14px] font-normal">
+                    Blog
+                  </span>
                   <span className="text-xl leading-[20px] font-semibold">
                     {sumCountByEmailAndBlog.blog}
                   </span>
                 </div>
               </div>
-              <PieChart width={260} height={200} className="half-pie">
+              <PieChart
+                width={260}
+                height={200}
+                className="half-pie flex flex-1 justify-center"
+              >
                 <Pie
                   data={[
                     { name: "Email", value: sumCountByEmailAndBlog.email },
@@ -556,10 +586,10 @@ const AdminDashboard: FC = () => {
                   ]}
                   cx={"50%"}
                   cy={"115%"}
-                  startAngle={180}
-                  endAngle={0}
+                  startAngle={-45}
+                  endAngle={225}
                   innerRadius={90}
-                  outerRadius={95}
+                  outerRadius={96}
                   fill="#8884d8"
                   paddingAngle={0}
                   dataKey="value"
@@ -567,6 +597,21 @@ const AdminDashboard: FC = () => {
                   <Cell key={`cell-1`} fill={"#7FFBAE"} />
                   <Cell key={`cell-1`} fill={"#6C63FF"} />
                 </Pie>
+                <Legend
+                  content={
+                    <div>
+                      <div className="text-xl font-semibold">
+                        {sumCountByEmailAndBlog.email +
+                          sumCountByEmailAndBlog.blog}
+                      </div>
+                      <div className="text-sm font-normal">
+                        Total Engagement
+                      </div>
+                    </div>
+                  }
+                  align="center"
+                  className="h-[0px]"
+                />
               </PieChart>
             </div>
           </div>
@@ -579,7 +624,10 @@ const AdminDashboard: FC = () => {
             <div className="flex justify-between w-full items-center mt-5">
               <div className="flex flex-col gap-2 overflow-y-auto max-h-[200px]">
                 {groupByAndSumCountOnCountry.map((item, index) => (
-                  <div className="flex justify-between gap-8 items-center" key={index}>
+                  <div
+                    className="flex justify-between gap-8 items-center"
+                    key={index}
+                  >
                     <div
                       key={index}
                       className="flex items-center gap-3 shrink-0 text-sm font-normal h-8"
@@ -594,13 +642,17 @@ const AdminDashboard: FC = () => {
                   </div>
                 ))}
               </div>
-              <PieChart width={300} height={205}>
+              <PieChart
+                width={260}
+                height={210}
+                className="full-pie flex flex-1 justify-center"
+              >
                 <Pie
                   data={groupByAndSumCountOnCountry.map((item) => ({
                     name: item.ip,
                     value: item.total,
                   }))}
-                  cx={100}
+                  cx={130}
                   cy={100}
                   innerRadius={93}
                   outerRadius={100}

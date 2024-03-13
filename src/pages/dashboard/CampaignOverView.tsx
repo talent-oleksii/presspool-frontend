@@ -17,6 +17,7 @@ import { selectData } from "../../store/dataSlice";
 import Card from "../../components/Card";
 // import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
+import { Legend } from "recharts";
 
 const CampaignOverView: FC = () => {
   const { campaign: data } = useSelector(selectData);
@@ -37,7 +38,7 @@ const CampaignOverView: FC = () => {
     let grouped: any = {};
     clicked.forEach((item) => {
       const date = moment(Number(item.create_time));
-      const key = date.format("DD/MM/YYYY");
+      const key = date.format("MM/DD/YYYY");
       if (!grouped[key]) {
         grouped[key] = [];
       }
@@ -46,7 +47,7 @@ const CampaignOverView: FC = () => {
 
     const sortedKeys = Object.keys(grouped).sort(
       (a, b) =>
-        moment(b, "DD/MM/YYYY").valueOf() - moment(a, "DD/MM/YYYY").valueOf()
+        moment(b, "MM/DD/YYYY").valueOf() - moment(a, "MM/DD/YYYY").valueOf()
     );
 
     setChartData(
@@ -60,7 +61,11 @@ const CampaignOverView: FC = () => {
       })
     );
     const halfPie = document.querySelector(".half-pie svg");
-    halfPie?.setAttribute("viewBox", "60 95 140 150");
+    halfPie?.setAttribute("viewBox", "65 120 130 180");
+
+    const fullPie = document.querySelector(".full-pie svg");
+    fullPie?.setAttribute("viewBox", "70 5 130 200");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clicked]);
 
@@ -171,8 +176,9 @@ const CampaignOverView: FC = () => {
         /> */}
       </div>
       <div
-        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${
+          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+        } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline">
           <div>
@@ -198,8 +204,9 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+            className={`flex w-full ${
+              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+            } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
@@ -257,7 +264,11 @@ const CampaignOverView: FC = () => {
                 </span>
               </div>
             </div>
-            <PieChart width={260} height={200} className="half-pie">
+            <PieChart
+              width={260}
+              height={200}
+              className="half-pie flex flex-1 justify-center"
+            >
               <Pie
                 data={[
                   { name: "Email", value: sumCountByEmailAndBlog.email },
@@ -265,10 +276,10 @@ const CampaignOverView: FC = () => {
                 ]}
                 cx={"50%"}
                 cy={"115%"}
-                startAngle={180}
-                endAngle={0}
+                startAngle={-45}
+                endAngle={225}
                 innerRadius={90}
-                outerRadius={95}
+                outerRadius={96}
                 fill="#8884d8"
                 paddingAngle={0}
                 dataKey="value"
@@ -276,6 +287,16 @@ const CampaignOverView: FC = () => {
                 <Cell key={`cell-1`} fill={"#7FFBAE"} />
                 <Cell key={`cell-1`} fill={"#6C63FF"} />
               </Pie>
+              <Legend
+                content={
+                  <div>
+                    <div className="text-xl font-semibold">{sumCountByEmailAndBlog.email + sumCountByEmailAndBlog.blog}</div>
+                    <div className="text-sm font-normal">Total Engagement</div>
+                  </div>
+                }
+                align="center"
+                className="h-[0px]"
+              />
             </PieChart>
           </div>
         </div>
@@ -288,7 +309,10 @@ const CampaignOverView: FC = () => {
           <div className="flex justify-between w-full items-center mt-5">
             <div className="flex flex-col gap-2 overflow-y-auto max-h-[200px]">
               {groupByAndSumCountOnCountry.map((item, index) => (
-                <div className="flex justify-between gap-8 items-center" key={index}>
+                <div
+                  className="flex justify-between gap-8 items-center"
+                  key={index}
+                >
                   <div
                     key={index}
                     className="flex items-center gap-3 shrink-0 text-sm font-normal h-8"
@@ -303,13 +327,17 @@ const CampaignOverView: FC = () => {
                 </div>
               ))}
             </div>
-            <PieChart width={210} height={210}>
+            <PieChart
+              width={260}
+              height={210}
+              className="full-pie flex flex-1 justify-center"
+            >
               <Pie
                 data={groupByAndSumCountOnCountry.map((item) => ({
                   name: item.ip,
                   value: item.total,
                 }))}
-                cx={100}
+                cx={130}
                 cy={100}
                 innerRadius={93}
                 outerRadius={100}
