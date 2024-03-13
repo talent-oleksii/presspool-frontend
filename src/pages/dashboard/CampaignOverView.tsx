@@ -38,7 +38,7 @@ const CampaignOverView: FC = () => {
     let grouped: any = {};
     clicked.forEach((item) => {
       const date = moment(Number(item.create_time));
-      const key = date.format("DD/MM/YYYY");
+      const key = date.format("MM/DD/YYYY");
       if (!grouped[key]) {
         grouped[key] = [];
       }
@@ -47,7 +47,7 @@ const CampaignOverView: FC = () => {
 
     const sortedKeys = Object.keys(grouped).sort(
       (a, b) =>
-        moment(b, "DD/MM/YYYY").valueOf() - moment(a, "DD/MM/YYYY").valueOf()
+        moment(b, "MM/DD/YYYY").valueOf() - moment(a, "MM/DD/YYYY").valueOf()
     );
 
     setChartData(
