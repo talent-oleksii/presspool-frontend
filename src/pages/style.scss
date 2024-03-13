@@ -57,3 +57,12 @@
   margin: auto;
   border-top: 2px solid #d9d9d9 !important;
 }
+.recharts-legend-wrapper {
+  bottom: auto !important;
+  left: 50% !important;
+  top: 40% !important;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  position: absolute;
+}
