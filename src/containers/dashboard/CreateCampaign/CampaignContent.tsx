@@ -24,7 +24,7 @@ const CampaignContent: FC = () => {
   const image = watch("image");
   const cta = watch("cta");
   const headline = watch("headLine");
-  const conversion = watch('conversion');
+  const conversion = watch("conversion");
 
   const loadFilePreview = useCallback((file?: File) => {
     if (file) {
@@ -89,8 +89,9 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
-                    }`}
+                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                   maxLength={60}
                 />
               )}
@@ -109,8 +110,9 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <textarea
                   {...field}
-                  className={`mb-0 w-full font-medium text-sm rounded-[10px] border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
-                    }`}
+                  className={`mb-0 w-full font-medium text-sm rounded-[10px] border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                   maxLength={500}
                   rows={5}
                   data-tooltip-id="body"
@@ -131,8 +133,9 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[#ff0000]" : ""
-                    }`}
+                  className={`w-full rounded-[10px] font-medium text-sm border-[1px] focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                   maxLength={20}
                 />
               )}
@@ -158,8 +161,9 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  className={`w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${!!errors[field.name] ? "border-[red]" : ""
-                    }`}
+                  className={`w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 ${
+                    !!errors[field.name] ? "border-[red]" : ""
+                  }`}
                 />
               )}
             />
@@ -170,11 +174,7 @@ const CampaignContent: FC = () => {
               Conversion Goal
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip
-                title={
-                  <p>
-                    What is the goal of the landing page/campaign?
-                  </p>
-                }
+                title={<p>What is the goal of the landing page/campaign?</p>}
               />
             </div>
             <Controller
@@ -183,7 +183,7 @@ const CampaignContent: FC = () => {
               render={({ field }) => (
                 <select
                   {...field}
-                  className='w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 z-[1]'
+                  className="w-full rounded-[10px] border-[1px] font-medium text-sm focus:ring-0 focus:border-main py-2 px-3 z-[1]"
                 >
                   <option value="free_trial">Free Trial</option>
                   <option value="book_call">Book a Call/Demo</option>
@@ -202,7 +202,9 @@ const CampaignContent: FC = () => {
             render={({ field }) => (
               <textarea
                 {...field}
-                className={`mb-0 w-full font-medium text-sm rounded-[10px] border-t-0 border-x-[1px] focus:ring-0 focus:border-main pt-6 pb-2 px-3 -mt-8 z-[0] ${conversion === 'other' ? 'block' : 'hidden'}`}
+                className={`mb-0 w-full font-medium text-sm rounded-[10px] border-t-0 border-x-[1px] focus:ring-0 focus:border-main pt-6 pb-2 px-3 -mt-8 z-[0] ${
+                  conversion === "other" ? "block" : "hidden"
+                }`}
                 maxLength={500}
                 rows={5}
                 placeholder="Please explain in detail"
@@ -224,8 +226,9 @@ const CampaignContent: FC = () => {
                 onClick={() => {
                   if (fileInputRef.current) fileInputRef.current.click();
                 }}
-                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-secondry2 ${!!errors["image"] ? "border-[red]" : ""
-                  }`}
+                className={`overflow-hidden truncate px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-secondry2 ${
+                  !!errors["image"] ? "border-[red]" : ""
+                }`}
               >
                 <>
                   <svg
@@ -334,8 +337,9 @@ const CampaignContent: FC = () => {
                   }}
                 >
                   <p className="text-xs">
-                    {`${additionalFiles?.length ?? 0} file${(additionalFiles?.length ?? 0) > 1 ? "s" : ""
-                      } are selected`}
+                    {`${additionalFiles?.length ?? 0} file${
+                      (additionalFiles?.length ?? 0) > 1 ? "s" : ""
+                    } are selected`}
                   </p>
 
                   <svg
@@ -371,29 +375,36 @@ const CampaignContent: FC = () => {
           <div className="font-[Inter] text-xs 2xl:text-base font-semibold flex items-center">
             Preview
           </div>
-          <div className="h-full overflow-hidden relative flex flex-col items-center bg-secondry1 rounded-[10px] px-2.5 py-6">
+          <div className="h-full overflow-hidden relative flex flex-col items-center bg-primary rounded-[10px] px-2.5 py-6">
             {/* Content for Campaign */}
-            <div className="bg-[#D1CEFF] w-full flex items-center justify-center rounded-[10px]">
+            <div className="bg-white w-full flex items-center justify-center rounded-[10px]">
               {/* <p className='text-primary border-black border-[5px] p-3 text-3xl 2xl:text-lg font-bold'>ALOGO</p> */}
-              <img alt="alogo" src={ALogoImage} className="h-[100px]" />
+              <img alt="alogo" src={ALogoImage} className="h-[100px] scale-150" />
             </div>
-            <p className="text-gray-200 my-4 text-xs font-normal">
-              Happy Friday AI legends,
-              <br />
-              <br />
-              Today we are diving deep into some of the newest AI solutions that
-              are taking place this week.
-              <br />
-              <br />
-              With GPT’s just being released, the excitement has continued to
-              grow at an unprecedented rate for AI products and solutions that
-              are reshaping how consumers and executives alike do their work
-              better, faster and easier.
-            </p>
+            <div className="w-full">
+              <p className="text-white my-4 text-xs font-normal pr-20">
+                <span>Happy Friday AI legends,</span>
+                <br />
+                <br />
+                <span>
+                  Today we are diving deep into some of the newest AI solutions
+                  that are taking place this week.
+                </span>
+                <br />
+                <br />
+                <span>
+                  With GPT’s just being released, the excitement has continued
+                  to grow at an unprecedented rate for AI products and solutions
+                  that are reshaping how consumers and executives alike do their
+                  work better, faster and easier.
+                </span>
+              </p>
+            </div>
+
             <div className="bg-white z-10 w-full rounded-[10px] flex flex-col h-full">
               <div className={`${headline ? "py-4" : "py-2"} px-4 flex`}>
                 <div className="text-left w-full">
-                  <h2 className="w-full text-left font-bold font-[Inter] text-base break-words leading-4">
+                  <h2 className="w-full text-left font-semibold font-[Inter] text-primary text-base break-words leading-4">
                     {headline}
                   </h2>
                 </div>
@@ -402,7 +413,7 @@ const CampaignContent: FC = () => {
                 <img
                   src={(previewUrl as string) || SampleLogo}
                   alt="sample logo"
-                  className={`h-[140px] w-full object-cover rounded-[10px]`}
+                  className={`h-[173px] w-full object-cover rounded-[10px]`}
                 />
               </div>
               <div className="pb-3 px-4 flex flex-col items-center justify-between flex-1">
