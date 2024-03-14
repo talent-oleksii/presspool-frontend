@@ -6,6 +6,7 @@ import { selectAuth } from '../../store/authSlice';
 import AdminAPIInstance from '../../api/adminApi';
 import DialogUtils from '../../utils/DialogUtils';
 import Loading from '../../components/Loading';
+import StripeUtil from '../../utils/stripe';
 
 const Profile: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -61,6 +62,21 @@ const Profile: FC = () => {
     }).finally(() => setLoading(false));
   };
 
+  const handleConnectPaymentMethod = async () => {
+    // create account for this account manager:
+    const account = await StripeUtil.stripe.accounts.create({
+      type: 'standard'
+    });
+    const accountLink = await StripeUtil.stripe.accountLinks.create({
+      account: account.id,
+      refresh_url: 'https://go.presspool.ai/admin/profile',
+      return_url: 'https://go.presspool.ai/admin/profile',
+      type: 'account_onboarding',
+    });
+
+    window.open(accountLink.url);
+  };
+
   return (
     <div className='text-left'>
       {loading && <Loading />}
@@ -96,6 +112,13 @@ const Profile: FC = () => {
         <div className='flex items-center justify-between w-full py-2 px-3'>
           <p className='font-[Inter] text-secondry1 text-xs font-medium -tracking-[.54px]'>{adminName}</p>
           {/* <p className='font-[Inter] text-[#A3A3A3] text-xs font-medium text-xs -tracking-[.48px]'>{`Date Joined: ${date}`}</p>? */}
+
+          <button className='p-2 rounded-[10px] shadow-md text-white -tracking-[.42px] font-medium text-sm bg-[#6c63ff] flex items-center' onClick={handleConnectPaymentMethod}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none" className='me-2'>
+              <path d="M6 8.5H11M8.5 6V11M1 8.5C1 9.48491 1.19399 10.4602 1.5709 11.3701C1.94781 12.2801 2.50026 13.1069 3.1967 13.8033C3.89314 14.4997 4.71993 15.0522 5.62987 15.4291C6.53982 15.806 7.51509 16 8.5 16C9.48491 16 10.4602 15.806 11.3701 15.4291C12.2801 15.0522 13.1069 14.4997 13.8033 13.8033C14.4997 13.1069 15.0522 12.2801 15.4291 11.3701C15.806 10.4602 16 9.48491 16 8.5C16 6.51088 15.2098 4.60322 13.8033 3.1967C12.3968 1.79018 10.4891 1 8.5 1C6.51088 1 4.60322 1.79018 3.1967 3.1967C1.79018 4.60322 1 6.51088 1 8.5Z" stroke="white" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Connect Payment Method
+          </button>
         </div>
       </div>
       <div className='mt-4 p-5 bg-white rounded-[10px] shadow-md grid grid-cols-2 gap-24'>
