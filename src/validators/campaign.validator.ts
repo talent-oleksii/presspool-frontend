@@ -20,7 +20,11 @@ export const campaignDetailSchema = yup.object().shape({
     .min(1, "Select minimum one position")
     .when("currentTarget", {
       is: CampaignTargetType.PROFESSIONAL,
-      then: () => yup.array().min(1, "Select minimum one position").required("Select position"),
+      then: () =>
+        yup
+          .array()
+          .min(1, "Select minimum one position")
+          .required("Select position"),
       otherwise: () => yup.array().notRequired(),
     }),
   currentRegion: yup
@@ -50,7 +54,11 @@ export const campaignContentSchema = yup.object().shape({
   additionalFiles: yup.mixed(),
   uiId: yup.number(),
   conversion: yup.string().required(),
-  conversionDetail: yup.string().required(),
+  conversionDetail: yup.string().when("conversion", {
+    is: (value) => value !== "other",
+    then: () => yup.string().notRequired(),
+    otherwise: () => yup.string().required("Conversion detail is required"),
+  }),
 });
 
 export const campaignReviewSchema = yup.object().shape({
