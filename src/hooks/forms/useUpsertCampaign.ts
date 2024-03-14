@@ -57,7 +57,7 @@ export const useUpsertCampaign = (
     image: any;
     additionalFiles?: any;
     conversion: string;
-    conversionDetail: string;
+    conversionDetail?: string | undefined;
   }>({
     ...options,
     defaultValues: defaultCampaignContentFormData,
@@ -93,7 +93,7 @@ export const useUpsertCampaign = (
           : undefined,
         uiId: data.ui_id ?? 0,
         conversion: data.conversion,
-        conversionDetail: data.conversion_detail
+        conversionDetail: data.conversion_detail,
       });
       campaignReviewMethods.reset({
         currentCard: data.card_id,
