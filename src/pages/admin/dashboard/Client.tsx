@@ -349,7 +349,7 @@ const AdminDashboardClient: FC = () => {
                       </div>
                     </div>
                     <div className="flex flex-col items-center w-[50px] shrink-0">
-                      <span className="w-[1px] h-[25px] bg-primary"></span>
+                      <span className="w-[1px] h-[25px] bg-[#A4A4A4]"></span>
                     </div>
                     <div className="flex flex-col items-center w-full">
                       <p className="font-semibold font-[Inter] text-xs mb-[17px] text-secondry1 -tracking-[.3px]">
