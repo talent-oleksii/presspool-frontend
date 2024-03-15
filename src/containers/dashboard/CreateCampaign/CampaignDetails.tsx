@@ -36,6 +36,7 @@ const CampaignDetails: FC = () => {
     setValue("currentTarget", target);
     setValue("currentAudience", []);
     setValue("currentPosition", []);
+    setValue("currentRegion", []);
   };
 
   const currentTarget = watch("currentTarget");
