@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Menu } from "antd";
-import { useNavigate } from "react-router";
+import { CaretDownOutlined } from "@ant-design/icons";
 
 interface ISelectList {
   id: string | undefined;
@@ -9,7 +9,12 @@ interface ISelectList {
   name: string;
 }
 
-const SelectList: React.FC<ISelectList> = ({ id, items, setValue, name }: ISelectList) => {
+const SelectList: React.FC<ISelectList> = ({
+  id,
+  items,
+  setValue,
+  name,
+}: ISelectList) => {
   const [open, setOpen] = useState<boolean>(false);
   const ref = useRef<any>(null);
 
@@ -40,15 +45,20 @@ const SelectList: React.FC<ISelectList> = ({ id, items, setValue, name }: ISelec
   }, []);
 
   return (
-    <div ref={ref} className="group inline-flex min-w-[170px] flex-col relative me-4">
+    <div
+      ref={ref}
+      className="group inline-flex min-w-[170px] flex-col relative me-4"
+    >
       <button
         onClick={handleOpenChange}
-        className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-primary flex px-4 py-[10px] rounded-[10px] ${id !== "all"
-          ? "bg-white ring-1 ring-main shadow-md"
-          : "bg-transparent ring-none"
-          }`}
+        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-primary flex px-4 py-[10px] rounded-[10px] ${
+          id
+            ? "bg-white ring-1 ring-main shadow-md"
+            : "bg-transparent ring-none"
+        }`}
       >
         {name}
+        <CaretDownOutlined />
       </button>
       {open && (
         <Menu className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9]">
