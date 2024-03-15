@@ -334,6 +334,11 @@ const AdminDashboard: FC = () => {
 
   const onOverViewClicked = () => {
     if (adminRole === "super_admin") {
+      setCurrentAM(0);
+    }
+    setCurrentCampaign(0);
+    setCurrentClient(0);
+    if (adminRole === "super_admin") {
       callAPI(0, 0, 0);
     } else {
       callAPI(adminId, 0, 0);
@@ -361,6 +366,12 @@ const AdminDashboard: FC = () => {
       .finally(() => setLoading(false));
   };
 
+  const isOverview = useMemo(() => {
+    if (adminRole === "super_admin")
+      return !!!currentCampaign && !!!currentClient && !!!currentAM;
+    else return !!!currentCampaign && !!!currentClient;
+  }, [currentCampaign, currentClient, currentAM, adminRole]);
+
   return (
     <div className="w-full flex relative">
       {loading && <Loading />}
@@ -376,7 +387,11 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 bg-white border border-solid border-main shadow-md`}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
+                isOverview
+                  ? "bg-white border border-solid border-main shadow-md"
+                  : ""
+              } `}
               onClick={onOverViewClicked}
             >
               Overview
@@ -410,7 +425,7 @@ const AdminDashboard: FC = () => {
                 onClientClicked(v);
               }}
               items={clients.map((x) => ({ id: x.id, name: x.company }))}
-              id={currentAM}
+              id={currentClient}
             />
             <SelectList
               name={`${
