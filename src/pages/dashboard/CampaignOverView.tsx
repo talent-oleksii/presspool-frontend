@@ -115,20 +115,6 @@ const CampaignOverView: FC = () => {
     return result;
   }, [clicked]);
 
-  const avgCPC = useMemo(
-    () =>
-      data.reduce((accumulator, currentValue) => {
-        const spent = Number(currentValue.billed);
-        const uniqueClicks = Number(currentValue.unique_clicks);
-        if (!isNaN(spent) && !isNaN(uniqueClicks) && uniqueClicks !== 0) {
-          accumulator += spent / uniqueClicks;
-        }
-
-        return accumulator;
-      }, 0),
-    [data]
-  );
-
   const totalClicks = useMemo(
     () => data.reduce((prev, item) => prev + Number(item?.click_count ?? 0), 0),
     [data]
@@ -144,6 +130,8 @@ const CampaignOverView: FC = () => {
     () => data.reduce((prev, item) => prev + Number(item?.billed ?? 0), 0),
     [data]
   );
+
+  const avgCPC = totalSpend === 0 || uniqueClicks === 0 ? 0 : totalSpend / uniqueClicks;
 
   return (
     <div className="mt-3 h-full">
@@ -176,9 +164,8 @@ const CampaignOverView: FC = () => {
         /> */}
       </div>
       <div
-        className={`my-3 p-5 ${
-          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-        } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline">
           <div>
@@ -204,9 +191,8 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${
-              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-            } items-center justify-center mt-5`}
+            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
