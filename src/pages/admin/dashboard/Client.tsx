@@ -1,18 +1,14 @@
 import { FC, useEffect, useState, useMemo, useRef } from "react";
 import Loading from "../../../components/Loading";
 import AdminAPIInstance from "../../../api/adminApi";
-import { Avatar, Collapse, Menu, MenuProps } from "antd";
+import { Avatar, Menu, MenuProps } from "antd";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../../../store/authSlice";
 import { GetItem, MenuItem } from "../../../containers/shared/GetItem";
-import { capitalize } from "lodash";
 
 const AdminDashboardClient: FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
-  const { adminName } = useSelector(selectAuth);
   const [data, setData] = useState<Array<any>>([]);
   const [showData, setShowData] = useState<Array<any>>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -89,99 +85,6 @@ const AdminDashboardClient: FC = () => {
     setSort(e.key);
     hide();
   };
-
-  const panelStyle: React.CSSProperties = {
-    marginBottom: 20,
-    background: "#ffffff",
-    borderRadius: 14,
-    overflow: "hidden",
-    boxShadow:
-      "0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-  };
-
-  const getItems = (item: any, panelStyle: any) => [
-    {
-      key: "1",
-      label: (
-        <div className="flex pl-[24px] pr-[72px] py-[20px] justify-evenly items-center text-left w-full relative">
-          <div className="flex flex-col items-center w-full border-r border-black border-solid border-0.5 gap-2 pr-8">
-            <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-center">
-              {item.name}
-            </p>
-            <p className="font-medium font-[Inter]">
-              <span
-                className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
-                  item.state === "draft"
-                    ? "bg-[#dbdbdb] text-primary"
-                    : item.state === "paused"
-                    ? "bg-[#fdbdbd]"
-                    : "bg-main text-primary"
-                }`}
-              >
-                {capitalize(item.state)}
-              </span>
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] text-secondry1 -tracking-[.3px]">
-              Start Date
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">
-              {new Date(Number(item.create_time)).toLocaleDateString()}
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Total Clicks
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">
-              {item.click_count}
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Unique Clicks
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">
-              {item.unique_clicks}
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              AVG CPC
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`${
-              isNaN(item.spent / item.unique_clicks)
-                ? 0
-                : (item.spent / item.unique_clicks).toFixed(2)
-            }`}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              AVG PageTime
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{``}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Total Spend
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`$${item.spent}`}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Budget Remaining
-            </p>
-            <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${
-              Number(item.price) - Number(item.spent)
-            }`}</p>
-          </div>
-        </div>
-      ),
-      style: panelStyle,
-      showArrow: false,
-    },
-  ];
 
   return (
     <div className="w-full flex">
@@ -289,7 +192,7 @@ const AdminDashboardClient: FC = () => {
                     x2="18"
                     y2="1.75"
                     stroke="#505050"
-                    stroke-width="2.5"
+                    strokeWidth="2.5"
                   />
                   <line
                     x1="2"
@@ -297,7 +200,7 @@ const AdminDashboardClient: FC = () => {
                     x2="16"
                     y2="5"
                     stroke="#505050"
-                    stroke-width="2"
+                    strokeWidth="2"
                   />
                   <line x1="7" y1="11.5" x2="11" y2="11.5" stroke="#505050" />
                   <line
@@ -306,7 +209,7 @@ const AdminDashboardClient: FC = () => {
                     x2="14"
                     y2="8.25"
                     stroke="#505050"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                   />
                 </svg>
               </button>
