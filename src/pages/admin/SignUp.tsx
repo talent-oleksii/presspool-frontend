@@ -242,30 +242,6 @@ const AdminSignUp: FC = () => {
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[10px] px-4 py-2"
             />
             <label
-              className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.company)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
-            >
-              Affiliate Link (TrackDesk)
-              {formData.company.length > 0 &&
-                validator.isEmpty(formData.company) && (
-                  <span className="ms-1 text-[red] text-xs">
-                    *Input company name
-                  </span>
-                )}
-            </label>
-            <input
-              id="company"
-              name="company"
-              value={formData.company}
-              onChange={handleChange}
-              placeholder="Enter here..."
-              type="text"
-              className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[10px] px-4 py-2"
-            />
-            <label
               className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${
                 check && !validator.isEmail(formData.email)
                   ? "text-[red]"
