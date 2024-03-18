@@ -128,8 +128,8 @@ const Campaign: FC = () => {
                   : item.state === "paused"
                     ? "bg-[#fdbdbd]"
                     : item.complete_date
-                    ? "bg-white ring-2 ring-main"
-                    : "bg-main text-primary"
+                      ? "bg-white ring-2 ring-main"
+                      : "bg-main text-primary"
                   }`}
               >
                 {capitalize(item.complete_date ? "Completed" : item.state)}
@@ -173,14 +173,6 @@ const Campaign: FC = () => {
               ? 0
               : (item.billed / item.unique_clicks).toFixed(2)
               }`}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              AVG PageTime
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`${avgTime(
-              item.campaign_id
-            )}`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
