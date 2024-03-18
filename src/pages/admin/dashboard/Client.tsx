@@ -59,7 +59,8 @@ const AdminDashboardClient: FC = () => {
   );
 
   const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
+    () =>
+      data.reduce((prev, item) => prev + Number(item?.total_budget ?? 0), 0),
     [data]
   );
 
@@ -85,6 +86,19 @@ const AdminDashboardClient: FC = () => {
     setSort(e.key);
     hide();
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        hide();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="w-full flex">
