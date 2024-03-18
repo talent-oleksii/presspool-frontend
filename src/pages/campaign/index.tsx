@@ -123,9 +123,8 @@ const Campaign: FC = () => {
     const minutes = Math.floor((averageDurationSeconds % 3600) / 60);
     const seconds = averageDurationSeconds % 60;
 
-    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds.toFixed(0)}`;
+    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""
+      }${seconds.toFixed(0)}`;
   };
 
   const handleOpenChange = () => {
@@ -152,16 +151,22 @@ const Campaign: FC = () => {
             </p>
             <p className="font-medium font-[Inter]">
               <span
-                className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
-                  item.state === "draft"
-                    ? "bg-[#dbdbdb] text-primary"
-                    : item.state === "paused"
+                className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${item.state === "draft"
+                  ? "bg-[#dbdbdb] text-primary"
+                  : item.state === "paused"
                     ? "bg-[#fdbdbd]"
+                    : item.complete_date
+                    ? "bg-white ring-2 ring-main"
                     : "bg-main text-primary"
-                }`}
+                  }`}
               >
-                {capitalize(item.state)}
+                {capitalize(item.complete_date ? "Completed" : item.state)}
               </span>
+            </p>
+            <p className="font-normal font-[Inter] text-[8px] -tracking-[.42px] w-full text-center">
+              {item.complete_date
+                ? new Date(Number(item.complete_date)).toLocaleDateString()
+                : ""}
             </p>
           </div>
           <div className="flex flex-col items-center w-full">
@@ -192,11 +197,10 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               AVG CPC
             </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`${
-              isNaN(item.spent / item.unique_clicks)
-                ? 0
-                : (item.spent / item.unique_clicks).toFixed(2)
-            }`}</p>
+            <p className="font-normal text-primary font-[Inter] text-xs">{`$${isNaN(item.billed / item.unique_clicks)
+              ? 0
+              : (item.billed / item.unique_clicks).toFixed(2)
+              }`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
@@ -210,15 +214,14 @@ const Campaign: FC = () => {
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               Total Spend
             </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`$${item.spent}`}</p>
+            <p className="font-normal text-primary font-[Inter] text-xs">{`$${item.billed}`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
               Budget Remaining
             </p>
-            <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${
-              Number(item.price) - Number(item.spent)
-            }`}</p>
+            <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${Number(item.price) - Number(item.spent)
+              }`}</p>
           </div>
         </div>
       ),
