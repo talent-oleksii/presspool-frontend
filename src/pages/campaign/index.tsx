@@ -5,13 +5,13 @@ import { Collapse, Menu, MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import { capitalize } from "lodash";
 import { selectAuth } from "../../store/authSlice";
-import { selectData, setCampaign, updateCampaign } from "../../store/dataSlice";
+import { selectData, setCampaign } from "../../store/dataSlice";
 import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
 
 import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
-import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
 import { GetItem, MenuItem } from "../../containers/shared/GetItem";
 
 const Campaign: FC = () => {
@@ -49,34 +49,6 @@ const Campaign: FC = () => {
     });
     setCampaigns(campaignData);
   }, [searchStr, fullCampaign]);
-
-  const handleUpdate = (id: string, state: string) => {
-    setLoading(true);
-    APIInstance.put("data/campaign_detail", {
-      state,
-      id,
-      type: "state",
-    })
-      .then(() => {
-        dispatch(
-          updateCampaign({
-            id,
-            data: { ...campaign.filter((item) => item.id === id)[0], state },
-          })
-        );
-        DialogUtils.show(
-          "success",
-          state === "paused"
-            ? "Campaign Paused"
-            : "Successfully Started the Campaign",
-          ""
-        );
-      })
-      .catch((err) => {
-        DialogUtils.show("error", "", err.response.data.message);
-      })
-      .finally(() => setLoading(false));
-  };
 
   const handleDeleteCampaign = async (campaignId: string) => {
     setLoading(true);
@@ -419,7 +391,7 @@ const Campaign: FC = () => {
                 x2="18"
                 y2="1.75"
                 stroke="#505050"
-                stroke-width="2.5"
+                strokeWidth="2.5"
               />
               <line
                 x1="2"
@@ -427,7 +399,7 @@ const Campaign: FC = () => {
                 x2="16"
                 y2="5"
                 stroke="#505050"
-                stroke-width="2"
+                strokeWidth="2"
               />
               <line x1="7" y1="11.5" x2="11" y2="11.5" stroke="#505050" />
               <line
@@ -436,7 +408,7 @@ const Campaign: FC = () => {
                 x2="14"
                 y2="8.25"
                 stroke="#505050"
-                stroke-width="1.5"
+                strokeWidth="1.5"
               />
             </svg>
           </button>
