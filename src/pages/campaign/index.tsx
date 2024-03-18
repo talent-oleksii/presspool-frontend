@@ -5,13 +5,13 @@ import { Collapse, Menu, MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import { capitalize } from "lodash";
 import { selectAuth } from "../../store/authSlice";
-import { selectData, setCampaign, updateCampaign } from "../../store/dataSlice";
+import { selectData, setCampaign } from "../../store/dataSlice";
 import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
 
 import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
-import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
+import { DownOutlined } from "@ant-design/icons";
 import { GetItem, MenuItem } from "../../containers/shared/GetItem";
 
 const Campaign: FC = () => {
@@ -49,34 +49,6 @@ const Campaign: FC = () => {
     });
     setCampaigns(campaignData);
   }, [searchStr, fullCampaign]);
-
-  const handleUpdate = (id: string, state: string) => {
-    setLoading(true);
-    APIInstance.put("data/campaign_detail", {
-      state,
-      id,
-      type: "state",
-    })
-      .then(() => {
-        dispatch(
-          updateCampaign({
-            id,
-            data: { ...campaign.filter((item) => item.id === id)[0], state },
-          })
-        );
-        DialogUtils.show(
-          "success",
-          state === "paused"
-            ? "Campaign Paused"
-            : "Successfully Started the Campaign",
-          ""
-        );
-      })
-      .catch((err) => {
-        DialogUtils.show("error", "", err.response.data.message);
-      })
-      .finally(() => setLoading(false));
-  };
 
   const handleDeleteCampaign = async (campaignId: string) => {
     setLoading(true);
@@ -156,8 +128,8 @@ const Campaign: FC = () => {
                   : item.state === "paused"
                     ? "bg-[#fdbdbd]"
                     : item.complete_date
-                    ? "bg-white ring-2 ring-main"
-                    : "bg-main text-primary"
+                      ? "bg-white ring-2 ring-main"
+                      : "bg-main text-primary"
                   }`}
               >
                 {capitalize(item.complete_date ? "Completed" : item.state)}
@@ -201,14 +173,6 @@ const Campaign: FC = () => {
               ? 0
               : (item.billed / item.unique_clicks).toFixed(2)
               }`}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              AVG PageTime
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`${avgTime(
-              item.campaign_id
-            )}`}</p>
           </div>
           <div className="flex flex-col items-center w-full">
             <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
@@ -426,7 +390,7 @@ const Campaign: FC = () => {
                 x2="18"
                 y2="1.75"
                 stroke="#505050"
-                stroke-width="2.5"
+                strokeWidth="2.5"
               />
               <line
                 x1="2"
@@ -434,7 +398,7 @@ const Campaign: FC = () => {
                 x2="16"
                 y2="5"
                 stroke="#505050"
-                stroke-width="2"
+                strokeWidth="2"
               />
               <line x1="7" y1="11.5" x2="11" y2="11.5" stroke="#505050" />
               <line
@@ -443,7 +407,7 @@ const Campaign: FC = () => {
                 x2="14"
                 y2="8.25"
                 stroke="#505050"
-                stroke-width="1.5"
+                strokeWidth="1.5"
               />
             </svg>
           </button>

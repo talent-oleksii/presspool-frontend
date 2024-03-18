@@ -1,18 +1,14 @@
 import { FC, useEffect, useState, useMemo, useRef } from "react";
 import Loading from "../../../components/Loading";
 import AdminAPIInstance from "../../../api/adminApi";
-import { Avatar, Collapse, Menu, MenuProps } from "antd";
+import { Avatar, Menu, MenuProps } from "antd";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../../../store/authSlice";
 import { GetItem, MenuItem } from "../../../containers/shared/GetItem";
-import { capitalize } from "lodash";
 
 const AdminDashboardClient: FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
-  const { adminName } = useSelector(selectAuth);
   const [data, setData] = useState<Array<any>>([]);
   const [showData, setShowData] = useState<Array<any>>([]);
   const [open, setOpen] = useState<boolean>(false);
@@ -210,7 +206,7 @@ const AdminDashboardClient: FC = () => {
                     x2="18"
                     y2="1.75"
                     stroke="#505050"
-                    stroke-width="2.5"
+                    strokeWidth="2.5"
                   />
                   <line
                     x1="2"
@@ -218,7 +214,7 @@ const AdminDashboardClient: FC = () => {
                     x2="16"
                     y2="5"
                     stroke="#505050"
-                    stroke-width="2"
+                    strokeWidth="2"
                   />
                   <line x1="7" y1="11.5" x2="11" y2="11.5" stroke="#505050" />
                   <line
@@ -227,7 +223,7 @@ const AdminDashboardClient: FC = () => {
                     x2="14"
                     y2="8.25"
                     stroke="#505050"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                   />
                 </svg>
               </button>
