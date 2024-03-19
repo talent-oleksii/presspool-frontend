@@ -54,9 +54,8 @@ const AdminSignUp: FC = () => {
     if (
       validator.isEmpty(formData.fullName) ||
       !validator.isEmail(formData.email) ||
-      validator.isEmail(formData.company) ||
-      !validator.isStrongPassword(formData.password) ||
-      !isOurAffiliate(formData.email)
+      !validator.isStrongPassword(formData.password) 
+      || !isOurAffiliate(formData.email)
     )
       return;
 
