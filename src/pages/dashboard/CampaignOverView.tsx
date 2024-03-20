@@ -115,7 +115,7 @@ const CampaignOverView: FC = () => {
     return result.sort((a, b) => b.percentage - a.percentage);
   }, [clicked]);
 
-  
+
 
   const totalClicks = useMemo(
     () => data.reduce((prev, item) => prev + Number(item?.click_count ?? 0), 0),
@@ -129,12 +129,12 @@ const CampaignOverView: FC = () => {
   );
 
   const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.billed ?? 0), 0),
+    () => data.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
     [data]
   );
 
   const avgCPC =
-    totalSpend === 0 || uniqueClicks === 0 ? 0 : totalSpend / uniqueClicks;
+    totalSpend === 0 || uniqueClicks === 0 ? 0 : totalSpend / uniqueClicks > 10 ? 10 : totalSpend / uniqueClicks;
 
   return (
     <div className="mt-3 h-full">
@@ -150,13 +150,13 @@ const CampaignOverView: FC = () => {
           percentageText={`0% from ${selectedDateFilter}`}
         />
         <Card
-          title={"Total Spend"}
+          title={"Total Budget"}
           value={`$${totalSpend}`}
           percentageText={`0% from ${selectedDateFilter}`}
         />
         <Card
           title={"AVG CPC"}
-          value={avgCPC.toFixed(2)}
+          value={`$${avgCPC.toFixed(2)}`}
           percentageText={`0% from ${selectedDateFilter}`}
         />
         {/* <Card
@@ -167,9 +167,8 @@ const CampaignOverView: FC = () => {
         /> */}
       </div>
       <div
-        className={`my-3 p-5 ${
-          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-        } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline">
           <div>
@@ -195,9 +194,8 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${
-              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-            } items-center justify-center mt-5`}
+            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>

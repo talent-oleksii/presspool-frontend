@@ -87,6 +87,9 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     return Math.round(Number(click) * 100 / sumClick);
   };
 
+  const avgCPC =
+    data.price === 0 || data.unique_clicks === 0 ? 0 : data.price / data.unique_clicks > 10 ? 10 : data.price / data.unique_clicks;
+
   return (
     <div className="mt-5">
       {loading && <Loading />}
@@ -103,13 +106,13 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             percentageText={`200% from last 7 days`}
           />
           <Card
-            title={"Total Spend"}
-            value={`$${data?.billed ?? 0}`}
+            title={"Total Budget"}
+            value={`$${data?.price ?? 0}`}
             percentageText={`200% from last 7 days`}
           />
           <Card
             title={"AVG CPC"}
-            value={`$${data?.billed ? Math.round(Number(data?.spent) / Number(data?.unique_clicks)) : 11}`}
+            value={`$${avgCPC}`}
             percentageText={`200% from last 7 days`}
           />
         </div>
