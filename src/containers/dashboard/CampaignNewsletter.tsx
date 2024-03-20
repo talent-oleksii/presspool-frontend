@@ -1,9 +1,31 @@
-import React, {  } from "react";
+import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
 
 const CampaignNewsletter: React.FC = () => {
   const { newsletter } = useSelector(selectData);
+
+  const data: Array<any> = useMemo(() => {
+    const aggregatedData = newsletter.reduce((acc, entry) => {
+      const name = entry.name;
+      if (!acc[name]) {
+        acc[name] = {
+          total_clicks: 0,
+          unique_clicks: 0,
+          total_spent: 0,
+        };
+      }
+
+      acc[name].total_clicks += parseInt(entry.total_clicks);
+      acc[name].unique_clicks += parseInt(entry.unique_clicks);
+      acc[name].total_spent += parseInt(entry.total_spent);
+      return acc;
+    }, {});
+    return Object.entries(aggregatedData).map(([name, values]: any) => ({
+      name,
+      ...values,
+    }));
+  }, [newsletter]);
 
   return (
     <div className="col-span-1 p-5 flex flex-col bg-white rounded-[10px] shadow-md">
@@ -17,8 +39,8 @@ const CampaignNewsletter: React.FC = () => {
         <div className="text-center">Total Spent</div>
         <div className="text-center">Rating</div>
       </div>
-      {newsletter.length
-        ? newsletter.map((item, index) => (
+      {data.length
+        ? data.map((item, index) => (
             <div
               key={index}
               className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center"
