@@ -177,26 +177,6 @@ const CampaignFilter: FC = () => {
       .finally(() => {
         dispatch(setCampaignLoading(false));
       });
-    // APIInstance.get("data/campaign", {
-    //   params: {
-    //     email,
-    //     ...(dateRange.endDate &&
-    //       dateRange.startDate && {
-    //         from: getUnixTimestamp(dateRange.startDate),
-    //         to: getUnixTimestamp(dateRange.endDate),
-    //       }),
-    //     ...(selectedCampaigns.length > 0 && {
-    //       campaignIds: selectedCampaigns,
-    //     }),
-    //   },
-    // })
-    //   .then((res) => {
-    //     dispatch(setClicked(res.data.clicked));
-    //     dispatch(setCampaign({ campaign: res.data.data }));
-    //   })
-    //   .finally(() => {
-    //     dispatch(setCampaignLoading(false));
-    //   });
   }, [dateRange, dispatch, email, selectedCampaigns, selectedDateFilter]);
 
   const handleDownloadCSV = () => {

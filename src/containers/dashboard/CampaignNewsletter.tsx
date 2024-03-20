@@ -32,18 +32,18 @@ const CampaignNewsletter: React.FC = () => {
       <p className="font-[Inter] text-primary mb-4 text-left font-semibold w-full text-base">
         Engagement by Newsletter
       </p>
-      <div className="text-secondry1 font-medium text-sm rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center">
+      <div className="text-secondry1 font-medium text-sm rounded-[10px] grid grid-cols-4 gap-3 min-h-[60px] items-end justify-center">
         <div>Name</div>
         <div className="text-center">Total Clicks</div>
         <div className="text-center">Unique Clicks</div>
         <div className="text-center">Total Spent</div>
-        <div className="text-center">Rating</div>
+        {/* <div className="text-center">Rating</div> */}
       </div>
       {data.length
         ? data.map((item, index) => (
             <div
               key={index}
-              className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center"
+              className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[60px] items-end justify-center"
             >
               <div className="text-primary font-bold text-sm">{item.name}</div>
               <div className="text-primary font-medium text-sm text-center">
@@ -55,7 +55,7 @@ const CampaignNewsletter: React.FC = () => {
               <div className="text-primary font-medium text-sm text-center">
                 ${item.total_spent}
               </div>
-              <div></div>
+              {/* <div></div> */}
             </div>
           ))
         : null}

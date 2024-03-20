@@ -109,11 +109,13 @@ const CampaignOverView: FC = () => {
 
     const result = [];
     for (const [ip, { total }] of Object.entries(ipCounts)) {
-      const percentage = ((total / totalSum) * 100).toFixed(2);
+      const percentage = Number(((total / totalSum) * 100).toFixed(2));
       result.push({ ip, total, percentage, color: generateColor() });
     }
-    return result;
+    return result.sort((a, b) => b.percentage - a.percentage);
   }, [clicked]);
+
+  
 
   const totalClicks = useMemo(
     () => data.reduce((prev, item) => prev + Number(item?.click_count ?? 0), 0),
