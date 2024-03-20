@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
 
 import Card from "../../components/Card";
-// import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
+import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
 import { Legend } from "recharts";
 
@@ -131,7 +131,8 @@ const CampaignOverView: FC = () => {
     [data]
   );
 
-  const avgCPC = totalSpend === 0 || uniqueClicks === 0 ? 0 : totalSpend / uniqueClicks;
+  const avgCPC =
+    totalSpend === 0 || uniqueClicks === 0 ? 0 : totalSpend / uniqueClicks;
 
   return (
     <div className="mt-3 h-full">
@@ -164,8 +165,9 @@ const CampaignOverView: FC = () => {
         /> */}
       </div>
       <div
-        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${
+          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+        } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline">
           <div>
@@ -191,8 +193,9 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+            className={`flex w-full ${
+              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+            } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
@@ -276,7 +279,10 @@ const CampaignOverView: FC = () => {
               <Legend
                 content={
                   <div>
-                    <div className="text-xl font-semibold">{sumCountByEmailAndBlog.email + sumCountByEmailAndBlog.blog}</div>
+                    <div className="text-xl font-semibold">
+                      {sumCountByEmailAndBlog.email +
+                        sumCountByEmailAndBlog.blog}
+                    </div>
                     <div className="text-sm font-normal">Total Engagement</div>
                   </div>
                 }
@@ -339,7 +345,7 @@ const CampaignOverView: FC = () => {
           </div>
         </div>
       </div>
-      {/* <CampaignNewsletter /> */}
+      <CampaignNewsletter />
     </div>
   );
 };
