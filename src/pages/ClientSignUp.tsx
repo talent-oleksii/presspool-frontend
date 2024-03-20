@@ -23,15 +23,14 @@ interface FormData {
   agreeTerm: boolean;
 }
 
-
-
 const ClientSignUp: FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { token } = useQuery();
+  const { token, sourceId } = useQuery();
   const [check, setCheck] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isCompanyDisabled, setIsCompanyDisabled] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
     company: "",
@@ -64,7 +63,7 @@ const ClientSignUp: FC = () => {
     setLoading(true);
     APIInstance.post("auth/client-sign-up", {
       ...formData,
-      linkUrl: location.search,
+      sourceId,
     })
       .then((data) => {
         const ret = data.data;
@@ -88,9 +87,10 @@ const ClientSignUp: FC = () => {
   useEffect(() => {
     if (token) {
       const decodedToken = jwtDecode<IToken>(token);
+      if (decodedToken.companyName) setIsCompanyDisabled(true);
       setFormData((prev) => ({
         ...prev,
-        company: decodedToken.companyName,
+        company: decodedToken.companyName ?? "",
         email: decodedToken.email,
       }));
     }
@@ -210,7 +210,11 @@ const ClientSignUp: FC = () => {
               targeted, engaged readers.
             </p>
           </div>
-          <form autoComplete="off" className="text-left mt-9 md:mt-[30px]" onSubmit={handleSubmit}>
+          <form
+            autoComplete="off"
+            className="text-left mt-9 md:mt-[30px]"
+            onSubmit={handleSubmit}
+          >
             <label
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
                 check && validator.isEmpty(formData.fullName)
@@ -259,7 +263,7 @@ const ClientSignUp: FC = () => {
               placeholder="Enter here..."
               type="text"
               className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
-              disabled={!!(token && formData.company)}
+              disabled={isCompanyDisabled}
             />
             <label
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${

@@ -4,6 +4,7 @@ interface DataState {
   campaign: Array<any>;
   cardList: Array<any>;
   clicked: Array<any>;
+  newsletter: Array<any>;
   isCampaignLoading: boolean;
   selectedDateFilter: string;
 }
@@ -18,6 +19,7 @@ const initialState: DataState = {
   clicked: localStorage.getItem("clicked")
     ? JSON.parse(localStorage.getItem("clicked") || "")
     : [],
+  newsletter: [],
   isCampaignLoading: false,
   selectedDateFilter: "All Time",
 };
@@ -26,7 +28,7 @@ const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setSelectedDateFilter : (state, action) => {
+    setSelectedDateFilter: (state, action) => {
       state.selectedDateFilter = action.payload;
     },
     setCampaignLoading: (state, action) => {
@@ -70,6 +72,9 @@ const dataSlice = createSlice({
       state.clicked = action.payload;
       localStorage.setItem("clicked", JSON.stringify(state.clicked));
     },
+    setNewsletter: (state, action) => {
+      state.newsletter = action.payload;
+    },
   },
 });
 
@@ -82,7 +87,8 @@ export const {
   deleteCard,
   setClicked,
   setCampaignLoading,
-  setSelectedDateFilter
+  setSelectedDateFilter,
+  setNewsletter,
 } = dataSlice.actions;
 export const selectData = (state: { data: DataState }) => state.data;
 export default dataSlice.reducer;

@@ -9,6 +9,7 @@ import {
   setCampaign,
   setCampaignLoading,
   setClicked,
+  setNewsletter,
   setSelectedDateFilter,
 } from "../../store/dataSlice";
 import { getUnixTimestamp } from "../../utils/DateUtils";
@@ -140,22 +141,38 @@ const CampaignFilter: FC = () => {
 
   useEffect(() => {
     dispatch(setCampaignLoading(true));
-    APIInstance.get("data/campaign", {
-      params: {
-        email,
-        ...(dateRange.endDate &&
-          dateRange.startDate && {
-            from: getUnixTimestamp(dateRange.startDate),
-            to: getUnixTimestamp(dateRange.endDate),
+    Promise.all([
+      APIInstance.get("data/campaign", {
+        params: {
+          email,
+          ...(dateRange.endDate &&
+            dateRange.startDate && {
+              from: getUnixTimestamp(dateRange.startDate),
+              to: getUnixTimestamp(dateRange.endDate),
+            }),
+          ...(selectedCampaigns.length > 0 && {
+            campaignIds: selectedCampaigns,
           }),
-        ...(selectedCampaigns.length > 0 && {
-          campaignIds: selectedCampaigns,
-        }),
-      },
-    })
-      .then((res) => {
-        dispatch(setClicked(res.data.clicked));
-        dispatch(setCampaign({ campaign: res.data.data }));
+        },
+      }),
+      APIInstance.get("/data/newsletter", {
+        params: {
+          email,
+          ...(dateRange.endDate &&
+            dateRange.startDate && {
+              from: getUnixTimestamp(dateRange.startDate),
+              to: getUnixTimestamp(dateRange.endDate),
+            }),
+          ...(selectedCampaigns.length > 0 && {
+            campaignIds: selectedCampaigns,
+          }),
+        },
+      }),
+    ])
+      .then((res: Array<any>) => {
+        dispatch(setClicked(res[0].data.clicked));
+        dispatch(setCampaign({ campaign: res[0].data.data }));
+        dispatch(setNewsletter(res[1].data));
       })
       .finally(() => {
         dispatch(setCampaignLoading(false));
