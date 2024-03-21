@@ -205,10 +205,12 @@ const AdminDashboard: FC = () => {
     [data]
   );
 
-  const avgCPC = useMemo(
-    () => (!!uniqueClicks ? totalSpend / uniqueClicks : 0),
-    [totalSpend, uniqueClicks]
-  );
+  const avgCPC =
+    totalSpend === 0 || uniqueClicks === 0
+      ? 0
+      : totalSpend / uniqueClicks > 10
+      ? 10
+      : totalSpend / uniqueClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -488,7 +490,7 @@ const AdminDashboard: FC = () => {
             percentageText={`0% from ${selectedDateFilter}`}
           />
           <Card
-            title={"Total Spend"}
+            title={"Total Budget"}
             value={`$${totalSpend}`}
             percentageText={`0% from ${selectedDateFilter}`}
           />
