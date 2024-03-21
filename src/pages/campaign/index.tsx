@@ -228,7 +228,7 @@ const Campaign: FC = () => {
                   <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                     Target Industrie(s)
                   </p>
-                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
                     {(item.audience || []).map((aud: string, index: number) => (
                       <button
                         key={index}
@@ -246,7 +246,7 @@ const Campaign: FC = () => {
                     <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                       Target Demographic(s)
                     </p>
-                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
                       {(item.position || []).map(
                         (pos: string, index: number) => (
                           <button
@@ -266,7 +266,7 @@ const Campaign: FC = () => {
                   <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                     Target Region(s)
                   </p>
-                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
                     {(item.region || []).map((reg: string, index: number) => (
                       <button
                         key={index}
