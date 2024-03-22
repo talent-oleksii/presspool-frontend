@@ -115,17 +115,15 @@ const CampaignOverView: FC = () => {
     return result.sort((a, b) => b.percentage - a.percentage);
   }, [clicked]);
 
-
-
   const totalClicks = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.click_count ?? 0), 0),
-    [data]
+    () => clicked.reduce((prev, item) => prev + Number(item?.count ?? 0), 0),
+    [clicked]
   );
 
   const uniqueClicks = useMemo(
     () =>
-      data.reduce((prev, item) => prev + Number(item?.unique_clicks ?? 0), 0),
-    [data]
+      clicked.reduce((prev, item) => prev + Number(item?.unique_click ?? 0), 0),
+    [clicked]
   );
 
   const totalSpend = useMemo(
@@ -134,7 +132,11 @@ const CampaignOverView: FC = () => {
   );
 
   const avgCPC =
-    totalSpend === 0 || uniqueClicks === 0 ? 0 : totalSpend / uniqueClicks > 10 ? 10 : totalSpend / uniqueClicks;
+    totalSpend === 0 || uniqueClicks === 0
+      ? 0
+      : totalSpend / uniqueClicks > 10
+      ? 10
+      : totalSpend / uniqueClicks;
 
   return (
     <div className="mt-3 h-full">
@@ -167,8 +169,9 @@ const CampaignOverView: FC = () => {
         /> */}
       </div>
       <div
-        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${
+          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+        } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline">
           <div>
@@ -194,8 +197,9 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+            className={`flex w-full ${
+              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+            } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
@@ -343,7 +347,6 @@ const CampaignOverView: FC = () => {
                 ))}
               </Pie>
             </PieChart>
-            
           </div>
         </div>
       </div>

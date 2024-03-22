@@ -45,7 +45,7 @@ const CampaignNewsletter: React.FC = () => {
               key={index}
               className="rounded-[10px] grid grid-cols-3 gap-3 min-h-[60px] items-end justify-center"
             >
-              <div className="text-primary font-bold text-sm">{item.name}</div>
+              <div className="text-primary font-bold text-sm">{item.name ? item.name : "N/A"}</div>
               <div className="text-primary font-medium text-sm text-center">
                 {item.total_clicks}
               </div>

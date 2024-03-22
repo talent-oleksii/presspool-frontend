@@ -190,14 +190,14 @@ const AdminDashboard: FC = () => {
   };
 
   const totalClicks = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.click_count ?? 0), 0),
-    [data]
+    () => clicked.reduce((prev, item) => prev + Number(item?.count ?? 0), 0),
+    [clicked]
   );
 
   const uniqueClicks = useMemo(
     () =>
-      data.reduce((prev, item) => prev + Number(item?.unique_clicks ?? 0), 0),
-    [data]
+      clicked.reduce((prev, item) => prev + Number(item?.unique_click ?? 0), 0),
+    [clicked]
   );
 
   const totalSpend = useMemo(
