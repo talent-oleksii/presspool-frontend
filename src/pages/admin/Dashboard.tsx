@@ -201,7 +201,7 @@ const AdminDashboard: FC = () => {
   );
 
   const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.billed ?? 0), 0),
+    () => data.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
     [data]
   );
 
