@@ -2,7 +2,8 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
 
-const CampaignNewsletter: React.FC = () => {
+const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
+  const { avgCPC } = props;
   const { newsletter } = useSelector(selectData);
 
   const data: Array<any> = useMemo(() => {
@@ -32,29 +33,31 @@ const CampaignNewsletter: React.FC = () => {
       <p className="font-[Inter] text-primary mb-4 text-left font-semibold w-full text-base">
         Engagement by Newsletter
       </p>
-      <div className="text-secondry1 font-medium text-sm rounded-[10px] grid grid-cols-3 gap-3 min-h-[60px] items-end justify-center">
+      <div className="text-secondry1 font-medium text-sm rounded-[10px] grid grid-cols-4 gap-3 min-h-[60px] items-end justify-center">
         <div>Name</div>
         <div className="text-center">Total Clicks</div>
         <div className="text-center">Unique Clicks</div>
-        {/* <div className="text-center">Total Spent</div> */}
+        <div className="text-center">Total Spent</div>
         {/* <div className="text-center">Rating</div> */}
       </div>
       {data.length
         ? data.map((item, index) => (
             <div
               key={index}
-              className="rounded-[10px] grid grid-cols-3 gap-3 min-h-[60px] items-end justify-center"
+              className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[60px] items-end justify-center"
             >
-              <div className="text-primary font-bold text-sm">{item.name ? item.name : "N/A"}</div>
+              <div className="text-primary font-bold text-sm">
+                {item.name ? item.name : "N/A"}
+              </div>
               <div className="text-primary font-medium text-sm text-center">
                 {item.total_clicks}
               </div>
               <div className="text-primary font-medium text-sm text-center">
                 {item.unique_clicks}
               </div>
-              {/* <div className="text-primary font-medium text-sm text-center">
-                ${item.total_spent}
-              </div> */}
+              <div className="text-primary font-medium text-sm text-center">
+                ${(avgCPC * item.unique_clicks)?.toFixed(2)}
+              </div>
               {/* <div></div> */}
             </div>
           ))

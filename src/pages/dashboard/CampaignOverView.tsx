@@ -18,8 +18,10 @@ import Card from "../../components/Card";
 import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
 import { Legend } from "recharts";
+import { useParams } from "react-router";
 
 const CampaignOverView: FC = () => {
+  const { id } = useParams();
   const { campaign: data } = useSelector(selectData);
   const [chartData, setChartData] = useState<Array<any>>([]);
   const { clicked, selectedDateFilter } = useSelector(selectData);
@@ -350,7 +352,7 @@ const CampaignOverView: FC = () => {
           </div>
         </div>
       </div>
-      <CampaignNewsletter />
+      {id?.toLowerCase() !== "all" ? <CampaignNewsletter avgCPC={avgCPC} /> : null}
     </div>
   );
 };
