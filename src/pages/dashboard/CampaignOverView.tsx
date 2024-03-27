@@ -142,7 +142,7 @@ const CampaignOverView: FC = () => {
 
   return (
     <div className="mt-3 h-full">
-      <div className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px]">
+      <div className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px]">
         <Card
           title={"Total Clicks"}
           value={totalClicks}
@@ -151,6 +151,11 @@ const CampaignOverView: FC = () => {
         <Card
           title={"Unique Clicks"}
           value={uniqueClicks}
+          percentageText={`0% from ${selectedDateFilter}`}
+        />
+        <Card
+          title={"Verified Clicks"}
+          value={0}
           percentageText={`0% from ${selectedDateFilter}`}
         />
         <Card
@@ -163,12 +168,6 @@ const CampaignOverView: FC = () => {
           value={`$${avgCPC.toFixed(2)}`}
           percentageText={`0% from ${selectedDateFilter}`}
         />
-        {/* <Card
-          title={"AVG Time on Page"}
-          value={avgTime}
-          percentage={0}
-          totalCountLast4Week={0}
-        /> */}
       </div>
       <div
         className={`my-3 p-5 ${
@@ -352,7 +351,9 @@ const CampaignOverView: FC = () => {
           </div>
         </div>
       </div>
-      {id?.toLowerCase() !== "all" ? <CampaignNewsletter avgCPC={avgCPC} /> : null}
+      {id?.toLowerCase() !== "all" ? (
+        <CampaignNewsletter avgCPC={avgCPC} />
+      ) : null}
     </div>
   );
 };

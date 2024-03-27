@@ -15,7 +15,7 @@ import {
 } from "recharts";
 
 import Card from "../../components/Card";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "../../store/authSlice";
 import SelectList from "./dashboard/SelectList";
 import AdminAPIInstance from "../../api/adminApi";
@@ -23,6 +23,8 @@ import Loading from "../../components/Loading";
 import { getUnixTimestamp } from "../../utils/DateUtils";
 import moment from "moment";
 import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
+import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
+import { setNewsletter } from "../../store/dataSlice";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const getItem = (
@@ -49,11 +51,10 @@ interface IDateRange {
 const AdminDashboard: FC = () => {
   const { adminName, adminRole, adminId } = useSelector(selectAuth);
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
   const [clients, setClients] = useState<Array<any>>([]);
   const [campaigns, setCampaigns] = useState<Array<any>>([]);
-  console.log(clients);
   const [currentAM, setCurrentAM] = useState<any>(0);
   const [currentClient, setCurrentClient] = useState<any>(0);
   const [currentCampaign, setCurrentCampaign] = useState<any>(0);
@@ -349,21 +350,34 @@ const AdminDashboard: FC = () => {
 
   const callAPI = (am: any, client: any, campaign: any) => {
     setLoading(true);
-    AdminAPIInstance.get("/dashboard/overview", {
-      params: {
-        accountManagerId: am,
-        clientId: client,
-        campaignId: campaign,
-        ...(dateRange.endDate &&
-          dateRange.startDate && {
-            from: getUnixTimestamp(dateRange.startDate),
-            to: getUnixTimestamp(dateRange.endDate),
-          }),
-      },
-    })
-      .then((data) => {
-        setClicked(data.data.clicked);
-        setData(data.data.campaign);
+    Promise.all([
+      AdminAPIInstance.get("/dashboard/overview", {
+        params: {
+          accountManagerId: am,
+          clientId: client,
+          campaignId: campaign,
+          ...(dateRange.endDate &&
+            dateRange.startDate && {
+              from: getUnixTimestamp(dateRange.startDate),
+              to: getUnixTimestamp(dateRange.endDate),
+            }),
+        },
+      }),
+      AdminAPIInstance.get("/dashboard/newsletter", {
+        params: {
+          campaignId: campaign,
+          ...(dateRange.endDate &&
+            dateRange.startDate && {
+              from: getUnixTimestamp(dateRange.startDate),
+              to: getUnixTimestamp(dateRange.endDate),
+            }),
+        },
+      }),
+    ])
+      .then((res) => {
+        setClicked(res[0].data.clicked);
+        setData(res[0].data.campaign);
+        dispatch(setNewsletter(res[1].data));
       })
       .finally(() => setLoading(false));
   };
@@ -685,6 +699,7 @@ const AdminDashboard: FC = () => {
             </div>
           </div>
         </div>
+        {currentCampaign ? <CampaignNewsletter avgCPC={avgCPC} /> : null}
         {/* <div className="mt-4">
           <Routes>
             <Route path="/overview" element={<AdminDashboardOverview />} />
