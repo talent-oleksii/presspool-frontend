@@ -142,7 +142,7 @@ const CampaignOverView: FC = () => {
 
   return (
     <div className="mt-3 h-full">
-      <div className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px]">
+      <div className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px]">
         <Card
           title={"Total Clicks"}
           value={totalClicks}
