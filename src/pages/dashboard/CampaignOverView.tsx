@@ -133,16 +133,18 @@ const CampaignOverView: FC = () => {
     [data]
   );
 
+  const verifiedClicks = useMemo(() => clicked.reduce((prev, item) => prev + Number(item?.user_medium === 'referral' || item?.user_medium === 'newsletter' ? item?.unique_click : 0), 0), [clicked]);
+
   const avgCPC =
-    totalSpend === 0 || uniqueClicks === 0
+    totalSpend === 0 || verifiedClicks === 0
       ? 0
-      : totalSpend / uniqueClicks > 10
+      : totalSpend / verifiedClicks > 10
         ? 10
-        : totalSpend / uniqueClicks;
+        : totalSpend / verifiedClicks;
 
   return (
     <div className="mt-3 h-full">
-      <div className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px]">
+      <div className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px]">
         <Card
           title={"Total Clicks"}
           value={totalClicks}
@@ -153,11 +155,11 @@ const CampaignOverView: FC = () => {
           value={uniqueClicks}
           percentageText={`0% from ${selectedDateFilter}`}
         />
-        {/* <Card
+        <Card
           title={"Verified Clicks"}
-          value={0}
+          value={verifiedClicks}
           percentageText={`0% from ${selectedDateFilter}`}
-        /> */}
+        />
         <Card
           title={"Total Budget"}
           value={`$${totalSpend}`}

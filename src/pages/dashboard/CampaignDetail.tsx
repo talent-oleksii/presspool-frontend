@@ -87,8 +87,10 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     return Math.round(Number(click) * 100 / sumClick);
   };
 
+  const verifiedClicks = clicked.reduce((prev, item) => prev + item?.user_medium === 'referral' || item?.user_medium === 'newsletter' ? Number(item?.unique_click) : 0, 0);
   const avgCPC =
-    data.price === 0 || data.unique_clicks === 0 ? 0 : data.price / data.unique_clicks > 10 ? 10 : data.price / data.unique_clicks;
+    data.price === 0 || verifiedClicks === 0 ? 0 : data.price / verifiedClicks > 10 ? 10 : data.price / verifiedClicks;
+
 
   return (
     <div className="mt-5">
@@ -103,6 +105,11 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
           <Card
             title={"Unique Clicks"}
             value={data?.unique_clicks ?? 0}
+            percentageText={`200% from last 7 days`}
+          />
+          <Card
+            title={"Verified Clicks"}
+            value={verifiedClicks}
             percentageText={`200% from last 7 days`}
           />
           <Card
