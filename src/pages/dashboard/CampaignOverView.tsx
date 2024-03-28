@@ -81,9 +81,9 @@ const CampaignOverView: FC = () => {
 
     clicked.forEach((item) => {
       if (item.user_medium === "newsletter") {
-        sumEmail += item.count;
+        sumEmail += Number(item.unique_click);
       } else if (item.user_medium === 'referral') {
-        sumBlog += item.count;
+        sumBlog += Number(item.unique_click);
       }
     });
 
@@ -243,18 +243,19 @@ const CampaignOverView: FC = () => {
           </h2>
           <div className="flex justify-between flex w-full items-center mt-5">
             <div className="flex flex-col justify-between gap-5 pl-8">
+
+              <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
+                <span className="text-sm leading-[14px] font-normal">Newsletter</span>
+                <span className="text-xl leading-[20px] font-semibold">
+                  {sumCountByEmailAndBlog.email}
+                </span>
+              </div>
               <div className="pl-2 border-l-4 border-[#7FFBAE]  flex flex-col justify-between gap-1">
                 <span className="text-sm leading-[14px] font-normal">
                   Referral
                 </span>
                 <span className="text-xl leading-[20px] font-semibold">
                   {sumCountByEmailAndBlog.blog}
-                </span>
-              </div>
-              <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
-                <span className="text-sm leading-[14px] font-normal">Newsletter</span>
-                <span className="text-xl leading-[20px] font-semibold">
-                  {sumCountByEmailAndBlog.email}
                 </span>
               </div>
             </div>
@@ -265,8 +266,8 @@ const CampaignOverView: FC = () => {
             >
               <Pie
                 data={[
-                  { name: "Email", value: sumCountByEmailAndBlog.email },
-                  { name: "Blog", value: sumCountByEmailAndBlog.blog },
+                  { name: "Email", value: sumCountByEmailAndBlog.blog },
+                  { name: "Blog", value: sumCountByEmailAndBlog.email },
                 ]}
                 cx={"50%"}
                 cy={"115%"}
