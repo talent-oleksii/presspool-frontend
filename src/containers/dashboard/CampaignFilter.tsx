@@ -37,6 +37,7 @@ const CampaignFilter: FC = () => {
     startDate: null,
     endDate: null,
   });
+
   const { campaign, selectedDateFilter } = useSelector(selectData);
   const [campaignList, setCampaignList] = useState<Array<any>>([]);
   const ref = useRef<any>(null);
@@ -147,8 +148,8 @@ const CampaignFilter: FC = () => {
           email,
           ...(dateRange.endDate &&
             dateRange.startDate && {
-              from: getUnixTimestamp(dateRange.startDate),
-              to: getUnixTimestamp(dateRange.endDate),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
             }),
           ...(selectedCampaigns.length > 0 && {
             campaignIds: selectedCampaigns,
@@ -160,8 +161,8 @@ const CampaignFilter: FC = () => {
           email,
           ...(dateRange.endDate &&
             dateRange.startDate && {
-              from: getUnixTimestamp(dateRange.startDate),
-              to: getUnixTimestamp(dateRange.endDate),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
             }),
           ...(selectedCampaigns.length > 0 && {
             campaignIds: selectedCampaigns,
