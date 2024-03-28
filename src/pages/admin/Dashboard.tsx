@@ -210,8 +210,8 @@ const AdminDashboard: FC = () => {
     totalSpend === 0 || uniqueClicks === 0
       ? 0
       : totalSpend / uniqueClicks > 10
-      ? 10
-      : totalSpend / uniqueClicks;
+        ? 10
+        : totalSpend / uniqueClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -220,7 +220,7 @@ const AdminDashboard: FC = () => {
     clicked.forEach((item) => {
       if (item.user_medium === "newsletter") {
         sumEmail += item.count;
-      } else {
+      } else if (item.user_medium === 'referral') {
         sumBlog += item.count;
       }
     });
@@ -358,9 +358,9 @@ const AdminDashboard: FC = () => {
           campaignId: campaign,
           ...(dateRange.endDate &&
             dateRange.startDate && {
-              from: getUnixTimestamp(dateRange.startDate),
-              to: getUnixTimestamp(dateRange.endDate),
-            }),
+            from: getUnixTimestamp(dateRange.startDate),
+            to: getUnixTimestamp(dateRange.endDate),
+          }),
         },
       }),
       AdminAPIInstance.get("/dashboard/newsletter", {
@@ -368,9 +368,9 @@ const AdminDashboard: FC = () => {
           campaignId: campaign,
           ...(dateRange.endDate &&
             dateRange.startDate && {
-              from: getUnixTimestamp(dateRange.startDate),
-              to: getUnixTimestamp(dateRange.endDate),
-            }),
+            from: getUnixTimestamp(dateRange.startDate),
+            to: getUnixTimestamp(dateRange.endDate),
+          }),
         },
       }),
     ])
@@ -403,24 +403,22 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
-                isOverview
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
                   ? "bg-white border border-solid border-main shadow-md"
                   : ""
-              } `}
+                } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${
-                  currentAM === 0 ||
-                  !accountManagers.find((value) => value.id === currentAM)
+                name={`${currentAM === 0 ||
+                    !accountManagers.find((value) => value.id === currentAM)
                     ? "By Account Manager"
                     : accountManagers.find((value) => value.id === currentAM)
-                        .name
-                }`}
+                      .name
+                  }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                   onAccountManagerClicked(v);
@@ -430,12 +428,11 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${
-                currentClient === 0 ||
-                !clients.find((value) => value.id === currentClient)
+              name={`${currentClient === 0 ||
+                  !clients.find((value) => value.id === currentClient)
                   ? "By Company"
                   : clients.find((value) => value.id === currentClient).company
-              }`}
+                }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
                 onClientClicked(v);
@@ -444,12 +441,11 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${
-                currentCampaign === 0 ||
-                !campaigns.find((value) => value.id === currentCampaign)
+              name={`${currentCampaign === 0 ||
+                  !campaigns.find((value) => value.id === currentCampaign)
                   ? "By Campaign"
                   : campaigns.find((value) => value.id === currentCampaign).name
-              }`}
+                }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
                 onCampaignClicked(v);
@@ -515,9 +511,8 @@ const AdminDashboard: FC = () => {
           />
         </div>
         <div
-          className={`my-3 p-5 ${
-            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+            } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -543,9 +538,8 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${
-                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+                } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
@@ -590,7 +584,7 @@ const AdminDashboard: FC = () => {
               <div className="flex flex-col justify-between gap-5 pl-8">
                 <div className="pl-2 border-l-4 border-[#7FFBAE]  flex flex-col justify-between gap-1">
                   <span className="text-sm leading-[14px] font-normal">
-                    Email
+                    Referral
                   </span>
                   <span className="text-xl leading-[20px] font-semibold">
                     {sumCountByEmailAndBlog.email}
@@ -598,7 +592,7 @@ const AdminDashboard: FC = () => {
                 </div>
                 <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
                   <span className="text-sm leading-[14px] font-normal">
-                    Blog
+                    Newsletter
                   </span>
                   <span className="text-xl leading-[20px] font-semibold">
                     {sumCountByEmailAndBlog.blog}

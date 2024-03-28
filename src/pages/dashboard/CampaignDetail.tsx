@@ -12,8 +12,6 @@ import { selectAuth } from "../../store/authSlice";
 import DownloadImage from "../../assets/icon/download.png";
 import Card from "../../components/Card";
 
-const data01: Array<any> = [];
-
 interface typeCampaignDetail {
   id?: string;
 }

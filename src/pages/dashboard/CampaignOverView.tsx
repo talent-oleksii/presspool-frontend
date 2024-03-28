@@ -82,7 +82,7 @@ const CampaignOverView: FC = () => {
     clicked.forEach((item) => {
       if (item.user_medium === "newsletter") {
         sumEmail += item.count;
-      } else {
+      } else if (item.user_medium === 'referral') {
         sumBlog += item.count;
       }
     });
@@ -245,16 +245,16 @@ const CampaignOverView: FC = () => {
             <div className="flex flex-col justify-between gap-5 pl-8">
               <div className="pl-2 border-l-4 border-[#7FFBAE]  flex flex-col justify-between gap-1">
                 <span className="text-sm leading-[14px] font-normal">
-                  Email
+                  Referral
                 </span>
                 <span className="text-xl leading-[20px] font-semibold">
-                  {sumCountByEmailAndBlog.email}
+                  {sumCountByEmailAndBlog.blog}
                 </span>
               </div>
               <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
-                <span className="text-sm leading-[14px] font-normal">Blog</span>
+                <span className="text-sm leading-[14px] font-normal">Newsletter</span>
                 <span className="text-xl leading-[20px] font-semibold">
-                  {sumCountByEmailAndBlog.blog}
+                  {sumCountByEmailAndBlog.email}
                 </span>
               </div>
             </div>
