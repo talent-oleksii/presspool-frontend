@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useMemo, useRef } from "react";
+import { FC, useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { CaretDownOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 import { Menu, MenuProps, Space } from "antd";
 import {
@@ -191,18 +191,21 @@ const AdminDashboard: FC = () => {
   };
 
   const totalClicks = useMemo(
-    () => clicked.reduce((prev, item) => prev + Number(item?.count ?? 0), 0),
+    () => clicked?.reduce((prev, item) => prev + Number(item?.count ?? 0), 0),
     [clicked]
   );
 
   const uniqueClicks = useMemo(
     () =>
-      clicked.reduce((prev, item) => prev + Number(item?.unique_click ?? 0), 0),
+      clicked?.reduce(
+        (prev, item) => prev + Number(item?.unique_click ?? 0),
+        0
+      ),
     [clicked]
   );
 
   const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
+    () => data?.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
     [data]
   );
 
@@ -210,8 +213,8 @@ const AdminDashboard: FC = () => {
     totalSpend === 0 || uniqueClicks === 0
       ? 0
       : totalSpend / uniqueClicks > 10
-        ? 10
-        : totalSpend / uniqueClicks;
+      ? 10
+      : totalSpend / uniqueClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -220,7 +223,7 @@ const AdminDashboard: FC = () => {
     clicked.forEach((item) => {
       if (item.user_medium === "newsletter") {
         sumEmail += item.count;
-      } else if (item.user_medium === 'referral') {
+      } else if (item.user_medium === "referral") {
         sumBlog += item.count;
       }
     });
@@ -320,73 +323,64 @@ const AdminDashboard: FC = () => {
     hide();
   };
 
-  const onAccountManagerClicked = (e: any) => {
-    if (Number(e) === Number(currentAM)) return;
-    callAPI(e, 0, 0);
-  };
-
-  const onClientClicked = (e: any) => {
-    if (Number(e) === Number(currentClient)) return;
-    callAPI(currentAM, e, 0);
-  };
-
-  const onCampaignClicked = (e: any) => {
-    if (Number(e) === Number(currentCampaign)) return;
-    callAPI(currentAM, currentClient, e);
-  };
-
   const onOverViewClicked = () => {
     if (adminRole === "super_admin") {
       setCurrentAM(0);
     }
     setCurrentCampaign(0);
     setCurrentClient(0);
-    if (adminRole === "super_admin") {
-      callAPI(0, 0, 0);
-    } else {
-      callAPI(adminId, 0, 0);
-    }
   };
 
-  const callAPI = (am: any, client: any, campaign: any) => {
-    setLoading(true);
-    Promise.all([
-      AdminAPIInstance.get("/dashboard/overview", {
-        params: {
-          accountManagerId: am,
-          clientId: client,
-          campaignId: campaign,
-          ...(dateRange.endDate &&
-            dateRange.startDate && {
-            from: getUnixTimestamp(dateRange.startDate),
-            to: getUnixTimestamp(dateRange.endDate),
-          }),
-        },
-      }),
-      AdminAPIInstance.get("/dashboard/newsletter", {
-        params: {
-          campaignId: campaign,
-          ...(dateRange.endDate &&
-            dateRange.startDate && {
-            from: getUnixTimestamp(dateRange.startDate),
-            to: getUnixTimestamp(dateRange.endDate),
-          }),
-        },
-      }),
-    ])
-      .then((res) => {
-        setClicked(res[0].data.clicked);
-        setData(res[0].data.campaign);
-        dispatch(setNewsletter(res[1].data));
-      })
-      .finally(() => setLoading(false));
-  };
+  const callAPI = useCallback(
+    (am: any, client: any, campaign: any) => {
+      setLoading(true);
+      Promise.all([
+        AdminAPIInstance.get("/dashboard/overview", {
+          params: {
+            accountManagerId: am,
+            clientId: client,
+            campaignId: campaign,
+            ...(dateRange.endDate &&
+              dateRange.startDate && {
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
+          },
+        }),
+        AdminAPIInstance.get("/dashboard/newsletter", {
+          params: {
+            campaignId: campaign,
+            ...(dateRange.endDate &&
+              dateRange.startDate && {
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
+          },
+        }),
+      ])
+        .then((res) => {
+          setClicked(res[0].data.clicked);
+          setData(res[0].data.campaign);
+          dispatch(setNewsletter(res[1].data));
+        })
+        .finally(() => setLoading(false));
+    },
+    [dateRange.endDate, dateRange.startDate, dispatch]
+  );
 
   const isOverview = useMemo(() => {
     if (adminRole === "super_admin")
       return !!!currentCampaign && !!!currentClient && !!!currentAM;
     else return !!!currentCampaign && !!!currentClient;
   }, [currentCampaign, currentClient, currentAM, adminRole]);
+
+  useEffect(() => {
+    callAPI(
+      currentAM ? currentAM : 0,
+      currentClient ? currentClient : 0,
+      currentCampaign ? currentCampaign : 0
+    );
+  }, [currentAM, currentClient, currentCampaign, dateRange, callAPI]);
 
   return (
     <div className="w-full flex relative">
@@ -403,52 +397,53 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
+                isOverview
                   ? "bg-white border border-solid border-main shadow-md"
                   : ""
-                } `}
+              } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${currentAM === 0 ||
-                    !accountManagers.find((value) => value.id === currentAM)
+                name={`${
+                  currentAM === 0 ||
+                  !accountManagers.find((value) => value.id === currentAM)
                     ? "By Account Manager"
                     : accountManagers.find((value) => value.id === currentAM)
-                      .name
-                  }`}
+                        .name
+                }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
-                  onAccountManagerClicked(v);
                 }}
                 items={accountManagers}
                 id={currentAM}
               />
             )}
             <SelectList
-              name={`${currentClient === 0 ||
-                  !clients.find((value) => value.id === currentClient)
+              name={`${
+                currentClient === 0 ||
+                !clients.find((value) => value.id === currentClient)
                   ? "By Company"
                   : clients.find((value) => value.id === currentClient).company
-                }`}
+              }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
-                onClientClicked(v);
               }}
               items={clients.map((x) => ({ id: x.id, name: x.company }))}
               id={currentClient}
             />
             <SelectList
-              name={`${currentCampaign === 0 ||
-                  !campaigns.find((value) => value.id === currentCampaign)
+              name={`${
+                currentCampaign === 0 ||
+                !campaigns.find((value) => value.id === currentCampaign)
                   ? "By Campaign"
                   : campaigns.find((value) => value.id === currentCampaign).name
-                }`}
+              }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
-                onCampaignClicked(v);
               }}
               items={campaigns}
               id={currentCampaign}
@@ -511,8 +506,9 @@ const AdminDashboard: FC = () => {
           />
         </div>
         <div
-          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-            } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${
+            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -538,8 +534,9 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-                } items-center justify-center mt-5`}
+              className={`flex w-full ${
+                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
