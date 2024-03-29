@@ -29,11 +29,13 @@ const CampaignOverView: FC = () => {
   const getSum = (a: Array<any>) => {
     let total = 0;
     let uniqueClicks = 0;
+    let verifiedClicks = 0;
     for (const i of a) {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
+      verifiedClicks += i.user_medium === 'newsletter' || i.user_medium === 'referral' ? Number(i.unique_click) : 0;
     }
-    return { total, uniqueClicks };
+    return { total, uniqueClicks, verifiedClicks };
   };
 
   useEffect(() => {
@@ -54,10 +56,11 @@ const CampaignOverView: FC = () => {
 
     setChartData(
       sortedKeys.map((item) => {
-        let { total, uniqueClicks } = getSum(grouped[item]);
+        let { total, uniqueClicks, verifiedClicks } = getSum(grouped[item]);
         return {
           uniqueClicks,
           total,
+          verifiedClicks,
           date: item,
         };
       })
@@ -175,7 +178,7 @@ const CampaignOverView: FC = () => {
         className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
           } rounded-[10px] bg-white shadow-md`}
       >
-        <div className="flex justify-between items-baseline">
+        <div className="flex justify-between items-baseline relative">
           <div>
             <h2 className="font-[Inter] text-base font-semibold">
               All Campaigns
@@ -184,7 +187,7 @@ const CampaignOverView: FC = () => {
               Let’s see how your campaigns are performing
             </p>
           </div>
-          <div>
+          <div className="absolute right-6">
             <div className="mt-[20px]">
               <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs font-semibold mb-2">
                 <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-main"></span>
@@ -193,6 +196,10 @@ const CampaignOverView: FC = () => {
               <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
                 <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
                 Unique Clicks
+              </p>
+              <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
+                <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#FDE006]"></span>
+                Verified Clicks
               </p>
             </div>
           </div>
@@ -218,6 +225,12 @@ const CampaignOverView: FC = () => {
                     type="linear"
                     dataKey="uniqueClicks"
                     stroke="#6C63FF"
+                    strokeWidth={3}
+                  />
+                  <Line
+                    type="linear"
+                    dataKey="verifiedClicks"
+                    stroke="#FDE006"
                     strokeWidth={3}
                   />
                   <XAxis dataKey="date" reversed />
