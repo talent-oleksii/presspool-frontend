@@ -231,7 +231,7 @@ const CampaignOverView: FC = () => {
                     type="linear"
                     dataKey="verifiedClicks"
                     stroke="#FDE006"
-                    strokeWidth={3}
+                    strokeWidth={2}
                   />
                   <XAxis dataKey="date" reversed />
                   <YAxis strokeWidth={0} />
