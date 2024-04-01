@@ -80,24 +80,28 @@ const Campaign: FC = () => {
       "0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
   };
 
-  const avgTime = (campaignId: number) => {
-    let totalDuration = 0;
-    let count = 0;
-
-    clicked
+  const verifiedClicks = (campaignId: number) => {
+    return clicked
       .filter((x) => x.campaign_id === campaignId)
-      .forEach((item) => {
-        totalDuration += item.duration;
-        count++;
-      });
-    const averageDurationSeconds = count > 0 ? totalDuration / count : 0;
-    const hours = Math.floor(averageDurationSeconds / 3600);
-    const minutes = Math.floor((averageDurationSeconds % 3600) / 60);
-    const seconds = averageDurationSeconds % 60;
+      .reduce(
+        (prev, item) =>
+          prev +
+          Number(
+            item?.user_medium === "referral" ||
+              item?.user_medium === "newsletter"
+              ? item?.unique_click
+              : 0
+          ),
+        0
+      );
+  };
 
-    return `${hours}:${minutes < 10 ? "0" : ""}${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds.toFixed(0)}`;
+  const getAvgCPC = (price: number, id: number) => {
+    return price === 0 || verifiedClicks(id) === 0
+      ? 0
+      : price / verifiedClicks(id) > 10
+      ? 10
+      : Number(price / verifiedClicks(id));
   };
 
   const handleOpenChange = () => {
@@ -113,220 +117,231 @@ const Campaign: FC = () => {
     GetItem("Oldest to Newest", "Oldest to Newest"),
   ];
 
-  const getItems = (item: any, panelStyle: any) => [
-    {
-      key: "1",
-      label: (
-        <div className="flex pl-[24px] pr-[72px] py-[20px] justify-evenly items-center text-left w-full relative">
-          <div className="flex flex-col items-center w-full border-r border-black border-solid border-0.5 gap-2 pr-8">
-            <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-center">
-              {item.name}
-            </p>
-            <p className="font-medium font-[Inter]">
-              <span
-                className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
-                  item.state === "draft"
-                    ? "bg-[#dbdbdb] text-primary"
-                    : item.state === "paused"
-                    ? "bg-[#fdbdbd]"
-                    : item.billed >= Number(item.price)
-                    ? "bg-white ring-2 ring-main"
-                    : "bg-main text-primary"
-                }`}
-              >
-                {capitalize(
-                  item.billed >= Number(item.price) ? "Completed" : item.state
-                )}
-              </span>
-            </p>
-            <p className="font-normal font-[Inter] text-[8px] -tracking-[.42px] w-full text-center">
-              {item.complete_date
-                ? new Date(Number(item.complete_date)).toLocaleDateString()
-                : ""}
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] text-secondry1 -tracking-[.3px]">
-              Start Date
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">
-              {new Date(Number(item.create_time)).toLocaleDateString()}
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Total Clicks
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">
-              {item.click_count}
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Unique Clicks
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">
-              {item.unique_clicks}
-            </p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              AVG CPC
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`$${
-              isNaN(item.billed / item.unique_clicks)
-                ? 0
-                : (item.billed / item.unique_clicks).toFixed(2)
-            }`}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Total Spend
-            </p>
-            <p className="font-normal text-primary font-[Inter] text-xs">{`$${item.billed}`}</p>
-          </div>
-          <div className="flex flex-col items-center w-full">
-            <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-              Budget Allocated
-            </p>
-            <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${Number(
-              item.price
-            )}`}</p>
-          </div>
-        </div>
-      ),
-      children: (
-        <div className="bg-white py-3">
-          <div className="grid grid-cols-[1fr_400px] gap-7">
-            <div className="w-full flex flex-col items-start justify-center">
-              <p className="text-primary font-[Inter] text-sm font-semibold font-normal">
-                Headline
+  const getItems = (item: any, panelStyle: any) => {
+    const totalVerifiedClick = verifiedClicks(item.id);
+    const avgCPC = getAvgCPC(item.price, item.id);
+    const totalSpend = (totalVerifiedClick * avgCPC).toFixed(2);
+    return [
+      {
+        key: "1",
+        label: (
+          <div className="flex pl-[24px] pr-[72px] py-[20px] justify-evenly items-center text-left w-full relative">
+            <div className="flex flex-col items-center w-full border-r border-black border-solid border-0.5 gap-2 pr-8">
+              <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-center">
+                {item.name}
               </p>
-              <h2 className="font-[Inter] text-primary font-normal text-xs -tracking-[.42px]">
-                {item.headline}
-              </h2>
-              <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                Description
+              <p className="font-medium font-[Inter]">
+                <span
+                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
+                    item.state === "draft"
+                      ? "bg-[#dbdbdb] text-primary"
+                      : item.state === "paused"
+                      ? "bg-[#fdbdbd]"
+                      : item.billed >= Number(item.price)
+                      ? "bg-white ring-2 ring-main"
+                      : "bg-main text-primary"
+                  }`}
+                >
+                  {capitalize(
+                    item.billed >= Number(item.price) ? "Completed" : item.state
+                  )}
+                </span>
               </p>
-              <p className="text-primary font-[Inter] font-normal text-xs">
-                {item.body}
+              <p className="font-normal font-[Inter] text-[8px] -tracking-[.42px] w-full text-center">
+                {item.complete_date
+                  ? new Date(Number(item.complete_date)).toLocaleDateString()
+                  : ""}
               </p>
-              <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                Landing Page Link
+            </div>
+            <div className="flex flex-col items-center w-full">
+              <p className="font-semibold font-[Inter] text-xs mb-[17px] text-secondry1 -tracking-[.3px]">
+                Start Date
               </p>
-              <p className="text-[#6C63FF] font-[Inter] font-medium text-xs">
-                {item.page_url}
+              <p className="font-normal text-primary font-[Inter] text-xs">
+                {new Date(Number(item.create_time)).toLocaleDateString()}
               </p>
-              <div className="flex items-end justify-between w-full">
-                <div className="w-auto">
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                    Target Audience
-                  </p>
-                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
-                    <button className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs">
-                      {capitalize(item.demographic)}
-                    </button>
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-end justify-between w-full">
-                <div className="w-auto">
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                    Target Industrie(s)
-                  </p>
-                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
-                    {(item.audience || []).map((aud: string, index: number) => (
-                      <button
-                        key={index}
-                        className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs"
-                      >
-                        {aud}
-                      </button>
-                    ))}
-                  </p>
-                </div>
-              </div>
-              {item.position && (
+            </div>
+            <div className="flex flex-col items-center w-full">
+              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+                Total Clicks
+              </p>
+              <p className="font-normal text-primary font-[Inter] text-xs">
+                {item.click_count}
+              </p>
+            </div>
+            <div className="flex flex-col items-center w-full">
+              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+                Unique Clicks
+              </p>
+              <p className="font-normal text-primary font-[Inter] text-xs">
+                {item.unique_clicks}
+              </p>
+            </div>
+            <div className="flex flex-col items-center w-full">
+              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+                Verified Clicks
+              </p>
+              <p className="font-normal text-primary font-[Inter] text-xs">
+                {totalVerifiedClick}
+              </p>
+            </div>
+            <div className="flex flex-col items-center w-full">
+              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+                AVG CPC
+              </p>
+              <p className="font-normal text-primary font-[Inter] text-xs">{`$${avgCPC.toFixed(2)}`}</p>
+            </div>
+            <div className="flex flex-col items-center w-full">
+              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+                Total Spend
+              </p>
+              <p className="font-normal text-primary font-[Inter] text-xs">{`$${totalSpend}`}</p>
+            </div>
+            <div className="flex flex-col items-center w-full">
+              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+                Budget Allocated
+              </p>
+              <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${Number(
+                item.price
+              )}`}</p>
+            </div>
+          </div>
+        ),
+        children: (
+          <div className="bg-white py-3">
+            <div className="grid grid-cols-[1fr_400px] gap-7">
+              <div className="w-full flex flex-col items-start justify-center">
+                <p className="text-primary font-[Inter] text-sm font-semibold font-normal">
+                  Headline
+                </p>
+                <h2 className="font-[Inter] text-primary font-normal text-xs -tracking-[.42px]">
+                  {item.headline}
+                </h2>
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  Description
+                </p>
+                <p className="text-primary font-[Inter] font-normal text-xs">
+                  {item.body}
+                </p>
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  Landing Page Link
+                </p>
+                <p className="text-[#6C63FF] font-[Inter] font-medium text-xs">
+                  {item.page_url}
+                </p>
                 <div className="flex items-end justify-between w-full">
                   <div className="w-auto">
                     <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                      Target Demographic(s)
+                      Target Audience
+                    </p>
+                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                      <button className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs">
+                        {capitalize(item.demographic)}
+                      </button>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-end justify-between w-full">
+                  <div className="w-auto">
+                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                      Target Industrie(s)
                     </p>
                     <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
-                      {(item.position || []).map(
-                        (pos: string, index: number) => (
+                      {(item.audience || []).map(
+                        (aud: string, index: number) => (
                           <button
                             key={index}
-                            className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                            className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs"
                           >
-                            {pos}
+                            {aud}
                           </button>
                         )
                       )}
                     </p>
                   </div>
                 </div>
-              )}
-              <div className="flex items-end justify-between w-full">
-                <div className="w-auto">
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                    Target Region(s)
-                  </p>
-                  <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
-                    {(item.region || []).map((reg: string, index: number) => (
-                      <button
-                        key={index}
-                        className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
-                      >
-                        {reg}
-                      </button>
-                    ))}
-                  </p>
+                {item.position && (
+                  <div className="flex items-end justify-between w-full">
+                    <div className="w-auto">
+                      <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                        Target Demographic(s)
+                      </p>
+                      <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
+                        {(item.position || []).map(
+                          (pos: string, index: number) => (
+                            <button
+                              key={index}
+                              className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                            >
+                              {pos}
+                            </button>
+                          )
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                <div className="flex items-end justify-between w-full">
+                  <div className="w-auto">
+                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                      Target Region(s)
+                    </p>
+                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
+                      {(item.region || []).map((reg: string, index: number) => (
+                        <button
+                          key={index}
+                          className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                        >
+                          {reg}
+                        </button>
+                      ))}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="w-full flex flex-col items-start justify-center">
-              <div className="flex flex-col h-full w-full justify-between">
-                <img
-                  className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
-                  alt="market"
-                  src={item.image}
-                />
-                <div className="mt-[16px] flex items-center justify-end">
-                  {item.state === "active" && (
-                    <Link
-                      to={`/raise-budget/${item.id}`}
-                      className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
-                    >
-                      Raise Budget
-                    </Link>
-                  )}
-                  {item.state !== "active" && (
-                    <>
-                      <button
-                        className="font-[Inter] text-primary text-[red] px-4 py-2 me-2 text-xs 2xl:text-xs"
-                        onClick={() => handleDeleteConfirm(item.id)}
-                      >
-                        Delete
-                      </button>
+              <div className="w-full flex flex-col items-start justify-center">
+                <div className="flex flex-col h-full w-full justify-between">
+                  <img
+                    className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
+                    alt="market"
+                    src={item.image}
+                  />
+                  <div className="mt-[16px] flex items-center justify-end">
+                    {item.state === "active" && (
                       <Link
-                        to={`/edit/${item.id}`}
+                        to={`/raise-budget/${item.id}`}
                         className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
                       >
-                        Edit Campaign
+                        Raise Budget
                       </Link>
-                    </>
-                  )}
+                    )}
+                    {item.state !== "active" && (
+                      <>
+                        <button
+                          className="font-[Inter] text-primary text-[red] px-4 py-2 me-2 text-xs 2xl:text-xs"
+                          onClick={() => handleDeleteConfirm(item.id)}
+                        >
+                          Delete
+                        </button>
+                        <Link
+                          to={`/edit/${item.id}`}
+                          className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                        >
+                          Edit Campaign
+                        </Link>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      ),
-      style: panelStyle,
-      showArrow: true,
-    },
-  ];
+        ),
+        style: panelStyle,
+        showArrow: true,
+      },
+    ];
+  };
 
   const onClick: MenuProps["onClick"] = (e) => {
     setSort(e.key);
