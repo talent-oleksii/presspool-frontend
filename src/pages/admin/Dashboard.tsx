@@ -614,7 +614,7 @@ const AdminDashboard: FC = () => {
               <div className="flex flex-col justify-between gap-5 pl-8">
                 <div className="pl-2 border-l-4 border-[#7FFBAE]  flex flex-col justify-between gap-1">
                   <span className="text-sm leading-[14px] font-normal">
-                    Referral
+                    Newsletter
                   </span>
                   <span className="text-xl leading-[20px] font-semibold">
                     {sumCountByEmailAndBlog.email}
@@ -622,7 +622,7 @@ const AdminDashboard: FC = () => {
                 </div>
                 <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
                   <span className="text-sm leading-[14px] font-normal">
-                    Newsletter
+                    Referral
                   </span>
                   <span className="text-xl leading-[20px] font-semibold">
                     {sumCountByEmailAndBlog.blog}
