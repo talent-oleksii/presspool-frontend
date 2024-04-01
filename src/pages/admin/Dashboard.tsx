@@ -88,7 +88,10 @@ const AdminDashboard: FC = () => {
     for (const i of a) {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
-      verifiedClicks += i.user_medium === 'newsletter' || i.user_medium === 'referral' ? Number(i.unique_click) : 0;
+      verifiedClicks +=
+        i.user_medium === "newsletter" || i.user_medium === "referral"
+          ? Number(i.unique_click)
+          : 0;
     }
     return { total, uniqueClicks, verifiedClicks };
   };
@@ -212,12 +215,28 @@ const AdminDashboard: FC = () => {
     [data]
   );
 
+  const verifiedClicks = useMemo(
+    () =>
+      clicked.reduce(
+        (prev, item) =>
+          prev +
+          Number(
+            item?.user_medium === "referral" ||
+              item?.user_medium === "newsletter"
+              ? item?.unique_click
+              : 0
+          ),
+        0
+      ),
+    [clicked]
+  );
+
   const avgCPC =
     totalSpend === 0 || uniqueClicks === 0
       ? 0
       : totalSpend / uniqueClicks > 10
-        ? 10
-        : totalSpend / uniqueClicks;
+      ? 10
+      : totalSpend / uniqueClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -225,9 +244,9 @@ const AdminDashboard: FC = () => {
 
     clicked.forEach((item) => {
       if (item.user_medium === "newsletter") {
-        sumEmail += item.count;
+        sumEmail += Number(item.unique_click);
       } else if (item.user_medium === "referral") {
-        sumBlog += item.count;
+        sumBlog += Number(item.unique_click);
       }
     });
 
@@ -345,9 +364,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
           },
         }),
         AdminAPIInstance.get("/dashboard/newsletter", {
@@ -355,9 +374,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
           },
         }),
       ])
@@ -400,22 +419,24 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
-                ? "bg-white border border-solid border-main shadow-md"
-                : ""
-                } `}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
+                isOverview
+                  ? "bg-white border border-solid border-main shadow-md"
+                  : ""
+              } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${currentAM === 0 ||
+                name={`${
+                  currentAM === 0 ||
                   !accountManagers.find((value) => value.id === currentAM)
-                  ? "By Account Manager"
-                  : accountManagers.find((value) => value.id === currentAM)
-                    .name
-                  }`}
+                    ? "By Account Manager"
+                    : accountManagers.find((value) => value.id === currentAM)
+                        .name
+                }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                 }}
@@ -424,11 +445,12 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${currentClient === 0 ||
+              name={`${
+                currentClient === 0 ||
                 !clients.find((value) => value.id === currentClient)
-                ? "By Company"
-                : clients.find((value) => value.id === currentClient).company
-                }`}
+                  ? "By Company"
+                  : clients.find((value) => value.id === currentClient).company
+              }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
               }}
@@ -436,11 +458,12 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${currentCampaign === 0 ||
+              name={`${
+                currentCampaign === 0 ||
                 !campaigns.find((value) => value.id === currentCampaign)
-                ? "By Campaign"
-                : campaigns.find((value) => value.id === currentCampaign).name
-                }`}
+                  ? "By Campaign"
+                  : campaigns.find((value) => value.id === currentCampaign).name
+              }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
               }}
@@ -482,7 +505,7 @@ const AdminDashboard: FC = () => {
           </div>
         </div>
 
-        <div className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px] mt-4">
+        <div className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px] mt-4">
           <Card
             title={"Total Clicks"}
             value={totalClicks}
@@ -491,6 +514,11 @@ const AdminDashboard: FC = () => {
           <Card
             title={"Unique Clicks"}
             value={uniqueClicks}
+            percentageText={`0% from ${selectedDateFilter}`}
+          />
+          <Card
+            title={"Verified Clicks"}
+            value={verifiedClicks}
             percentageText={`0% from ${selectedDateFilter}`}
           />
           <Card
@@ -505,8 +533,9 @@ const AdminDashboard: FC = () => {
           />
         </div>
         <div
-          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-            } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${
+            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -532,8 +561,9 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-                } items-center justify-center mt-5`}
+              className={`flex w-full ${
+                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
@@ -584,7 +614,7 @@ const AdminDashboard: FC = () => {
               <div className="flex flex-col justify-between gap-5 pl-8">
                 <div className="pl-2 border-l-4 border-[#7FFBAE]  flex flex-col justify-between gap-1">
                   <span className="text-sm leading-[14px] font-normal">
-                    Referral
+                    Newsletter
                   </span>
                   <span className="text-xl leading-[20px] font-semibold">
                     {sumCountByEmailAndBlog.email}
@@ -592,7 +622,7 @@ const AdminDashboard: FC = () => {
                 </div>
                 <div className="pl-2 border-l-4 border-[#6C63FF]  flex flex-col justify-between gap-1">
                   <span className="text-sm leading-[14px] font-normal">
-                    Newsletter
+                    Referral
                   </span>
                   <span className="text-xl leading-[20px] font-semibold">
                     {sumCountByEmailAndBlog.blog}
