@@ -129,12 +129,14 @@ const Campaign: FC = () => {
                     ? "bg-[#dbdbdb] text-primary"
                     : item.state === "paused"
                     ? "bg-[#fdbdbd]"
-                    : item.complete_date
+                    : item.billed >= Number(item.price)
                     ? "bg-white ring-2 ring-main"
                     : "bg-main text-primary"
                 }`}
               >
-                {capitalize(item.complete_date ? "Completed" : item.state)}
+                {capitalize(
+                  item.billed >= Number(item.price) ? "Completed" : item.state
+                )}
               </span>
             </p>
             <p className="font-normal font-[Inter] text-[8px] -tracking-[.42px] w-full text-center">
