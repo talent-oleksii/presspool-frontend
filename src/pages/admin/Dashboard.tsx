@@ -84,11 +84,13 @@ const AdminDashboard: FC = () => {
   const getSum = (a: Array<any>) => {
     let total = 0;
     let uniqueClicks = 0;
+    let verifiedClicks = 0;
     for (const i of a) {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
+      verifiedClicks += i.user_medium === 'newsletter' || i.user_medium === 'referral' ? Number(i.unique_click) : 0;
     }
-    return { total, uniqueClicks };
+    return { total, uniqueClicks, verifiedClicks };
   };
 
   useEffect(() => {
@@ -139,10 +141,11 @@ const AdminDashboard: FC = () => {
 
     setChartData(
       sortedKeys.map((item) => {
-        let { total, uniqueClicks } = getSum(grouped[item]);
+        let { total, uniqueClicks, verifiedClicks } = getSum(grouped[item]);
         return {
           uniqueClicks,
           total,
+          verifiedClicks,
           date: item,
         };
       })
@@ -213,8 +216,8 @@ const AdminDashboard: FC = () => {
     totalSpend === 0 || uniqueClicks === 0
       ? 0
       : totalSpend / uniqueClicks > 10
-      ? 10
-      : totalSpend / uniqueClicks;
+        ? 10
+        : totalSpend / uniqueClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -342,9 +345,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
         AdminAPIInstance.get("/dashboard/newsletter", {
@@ -352,9 +355,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
       ])
@@ -397,24 +400,22 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
-                isOverview
-                  ? "bg-white border border-solid border-main shadow-md"
-                  : ""
-              } `}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
+                ? "bg-white border border-solid border-main shadow-md"
+                : ""
+                } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${
-                  currentAM === 0 ||
+                name={`${currentAM === 0 ||
                   !accountManagers.find((value) => value.id === currentAM)
-                    ? "By Account Manager"
-                    : accountManagers.find((value) => value.id === currentAM)
-                        .name
-                }`}
+                  ? "By Account Manager"
+                  : accountManagers.find((value) => value.id === currentAM)
+                    .name
+                  }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                 }}
@@ -423,12 +424,11 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${
-                currentClient === 0 ||
+              name={`${currentClient === 0 ||
                 !clients.find((value) => value.id === currentClient)
-                  ? "By Company"
-                  : clients.find((value) => value.id === currentClient).company
-              }`}
+                ? "By Company"
+                : clients.find((value) => value.id === currentClient).company
+                }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
               }}
@@ -436,12 +436,11 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${
-                currentCampaign === 0 ||
+              name={`${currentCampaign === 0 ||
                 !campaigns.find((value) => value.id === currentCampaign)
-                  ? "By Campaign"
-                  : campaigns.find((value) => value.id === currentCampaign).name
-              }`}
+                ? "By Campaign"
+                : campaigns.find((value) => value.id === currentCampaign).name
+                }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
               }}
@@ -506,9 +505,8 @@ const AdminDashboard: FC = () => {
           />
         </div>
         <div
-          className={`my-3 p-5 ${
-            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+            } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -534,9 +532,8 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${
-                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+                } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
@@ -555,6 +552,12 @@ const AdminDashboard: FC = () => {
                       dataKey="uniqueClicks"
                       stroke="#6C63FF"
                       strokeWidth={3}
+                    />
+                    <Line
+                      type="linear"
+                      dataKey="verifiedClicks"
+                      stroke="#FDE006"
+                      strokeWidth={2}
                     />
                     <XAxis dataKey="date" reversed />
                     <YAxis strokeWidth={0} />
