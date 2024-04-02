@@ -232,11 +232,11 @@ const AdminDashboard: FC = () => {
   );
 
   const avgCPC =
-    totalSpend === 0 || uniqueClicks === 0
+    totalSpend === 0 || verifiedClicks === 0
       ? 0
-      : totalSpend / uniqueClicks > 10
+      : totalSpend / verifiedClicks > 10
       ? 10
-      : totalSpend / uniqueClicks;
+      : totalSpend / verifiedClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
