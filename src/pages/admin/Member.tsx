@@ -11,19 +11,17 @@ const AdminMember: FC = () => {
   const [searchKey, setSearchKey] = useState('');
   const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const { adminRole } = useSelector(selectAuth);
 
   useEffect(() => {
-    setLoading(true);
     Promise.all([
       AdminAPIInstance.get('/user/account-manager'),
       AdminAPIInstance.get('/users'),
     ]).then((results: Array<any>) => {
       setAccountManagers(results[0].data);
       setUsers(results[1].data);
-    }).finally(() => setLoading(false));
+    });
   }, []);
 
   const getPlaceHolder = (name: string) => {

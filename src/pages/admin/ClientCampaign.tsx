@@ -9,7 +9,6 @@ import AdminAPIInstance from '../../api/adminApi';
 const AdminClientCampaign: FC = () => {
   const [chartData, setChartData] = useState<any>();
   const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState<any>({});
   const [data, setData] = useState<any>({});
   const { campaignId } = useParams();
 

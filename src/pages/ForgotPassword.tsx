@@ -9,8 +9,6 @@ import { FADE_UP_ANIMATION_VARIANTS } from "../utils/TransitionConstants";
 import Logo from "../assets/logo/logo.png";
 import DialogUtils from "../utils/DialogUtils";
 import AdminAPIInstance from "../api/adminApi";
-import { LeftCircleOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
 
 interface typeForgotPassword {
   show: boolean;
@@ -23,7 +21,6 @@ const ForgotPassword: FC<typeForgotPassword> = ({
   setShow,
   isAdmin,
 }: typeForgotPassword) => {
-  const navigator = useNavigate();
   const [email, setEmail] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [step, setStep] = useState("initial"); // initial, verify, final

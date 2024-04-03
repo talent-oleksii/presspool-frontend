@@ -2,9 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 
-import StripeUtil from "../../utils/stripe";
 import { selectData, setCardList } from "../../store/dataSlice";
-import { selectAuth } from "../../store/authSlice";
 import Loading from "../../components/Loading";
 import APIInstance from "../../api";
 import DialogUtils from "../../utils/DialogUtils";
@@ -23,7 +21,6 @@ const RaiseBudget: FC = () => {
   const [checked, setChecked] = useState(true);
   const [currentCard, setCurrentCard] = useState("");
   const [open, setOpen] = useState(false);
-  const { email } = useSelector(selectAuth);
 
   // const handleAddCard: React.MouseEventHandler<HTMLButtonElement> = async (
   //   e

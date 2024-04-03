@@ -1,9 +1,7 @@
 import { FC, Fragment, useState } from "react";
 import validator from "validator";
 import { Dialog, Transition } from "@headlessui/react";
-import { Dropdown, Select } from "antd";
 import { useSelector } from "react-redux";
-import { selectData } from "../store/dataSlice";
 import { selectAuth } from "../store/authSlice";
 import Loading from "../components/Loading";
 import APIInstance from "../api";
