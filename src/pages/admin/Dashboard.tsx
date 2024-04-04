@@ -89,7 +89,7 @@ const AdminDashboard: FC = () => {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
       verifiedClicks +=
-        i.user_medium === "newsletter" || i.user_medium === "referral"
+        i.user_medium === "newsletter" && i.duration > i.count * 1.2 && i.duration > 0
           ? Number(i.unique_click)
           : 0;
     }
@@ -221,8 +221,7 @@ const AdminDashboard: FC = () => {
         (prev, item) =>
           prev +
           Number(
-            item?.user_medium === "referral" ||
-              item?.user_medium === "newsletter"
+            item?.user_medium === "newsletter" && item.duration > item.count * 1.2 && item.duration > 0
               ? item?.unique_click
               : 0
           ),
@@ -235,8 +234,8 @@ const AdminDashboard: FC = () => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-      ? 10
-      : totalSpend / verifiedClicks;
+        ? 10
+        : totalSpend / verifiedClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -364,9 +363,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
         AdminAPIInstance.get("/dashboard/newsletter", {
@@ -374,9 +373,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
       ])
@@ -419,24 +418,22 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
-                isOverview
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
                   ? "bg-white border border-solid border-main shadow-md"
                   : ""
-              } `}
+                } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${
-                  currentAM === 0 ||
-                  !accountManagers.find((value) => value.id === currentAM)
+                name={`${currentAM === 0 ||
+                    !accountManagers.find((value) => value.id === currentAM)
                     ? "By Account Manager"
                     : accountManagers.find((value) => value.id === currentAM)
-                        .name
-                }`}
+                      .name
+                  }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                 }}
@@ -445,12 +442,11 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${
-                currentClient === 0 ||
-                !clients.find((value) => value.id === currentClient)
+              name={`${currentClient === 0 ||
+                  !clients.find((value) => value.id === currentClient)
                   ? "By Company"
                   : clients.find((value) => value.id === currentClient).company
-              }`}
+                }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
               }}
@@ -458,12 +454,11 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${
-                currentCampaign === 0 ||
-                !campaigns.find((value) => value.id === currentCampaign)
+              name={`${currentCampaign === 0 ||
+                  !campaigns.find((value) => value.id === currentCampaign)
                   ? "By Campaign"
                   : campaigns.find((value) => value.id === currentCampaign).name
-              }`}
+                }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
               }}
@@ -533,9 +528,8 @@ const AdminDashboard: FC = () => {
           />
         </div>
         <div
-          className={`my-3 p-5 ${
-            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+            } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -561,9 +555,8 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${
-                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+                } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>

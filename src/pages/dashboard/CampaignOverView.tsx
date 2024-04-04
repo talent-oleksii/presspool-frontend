@@ -35,7 +35,7 @@ const CampaignOverView: FC = () => {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
       verifiedClicks +=
-        i.user_medium === "newsletter" || i.user_medium === "referral"
+        (i.user_medium === "newsletter") && i.duration > i.count * 1.2 && i.duration > 0
           ? Number(i.unique_click)
           : 0;
     }
@@ -146,8 +146,8 @@ const CampaignOverView: FC = () => {
         (prev, item) =>
           prev +
           Number(
-            item?.user_medium === "referral" ||
-              item?.user_medium === "newsletter"
+            (
+              item?.user_medium === "newsletter") && item.duration > item.count * 1.2 && item.duration > 0
               ? item?.unique_click
               : 0
           ),
@@ -160,8 +160,8 @@ const CampaignOverView: FC = () => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-      ? 10
-      : totalSpend / verifiedClicks;
+        ? 10
+        : totalSpend / verifiedClicks;
 
   return (
     <div className="mt-3 h-full">
@@ -193,9 +193,8 @@ const CampaignOverView: FC = () => {
         />
       </div>
       <div
-        className={`my-3 p-5 ${
-          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-        } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline relative">
           <div>
@@ -225,9 +224,8 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${
-              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-            } items-center justify-center mt-5`}
+            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
