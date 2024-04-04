@@ -13,7 +13,6 @@ const Profile: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<any>(null);
-  const [file, setFile] = useState<any>(null);
   const { adminName, adminEmail, adminRole, adminCreateTime } =
     useSelector(selectAuth);
   const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
@@ -36,7 +35,6 @@ const Profile: FC = () => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (!file) return;
-      setFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);

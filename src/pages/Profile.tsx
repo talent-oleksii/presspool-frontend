@@ -25,8 +25,6 @@ const Profile: FC = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<any>(null);
   const [companyImage, setCompanyImage] = useState<any>(null);
-  const [file, setFile] = useState<any>(null);
-  const [date, setDate] = useState<any>(null);
   const [teamData, setTeamData] = useState<Array<any>>([]);
   const [showAddTeamModal, setShowAddTeamModal] = useState(false);
   const [fileData, setFileData] = useState<Array<any>>([]);
@@ -39,9 +37,6 @@ const Profile: FC = () => {
       .then((data) => {
         setImage(data.data.profile.avatar);
         setCompanyImage(data.data.profile.team_avatar);
-        setDate(
-          moment(Number(data.data.profile.create_time)).format("DD MMM, yyyy")
-        );
         setTeamData(data.data.teamData);
       })
       .finally(() => setLoading(false));
@@ -74,7 +69,6 @@ const Profile: FC = () => {
     if (e.target.files) {
       const file = e.target.files[0];
       if (!file) return;
-      setFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);

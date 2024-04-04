@@ -2,7 +2,6 @@ import { FC, Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 import Loading from '../../../components/Loading';
-import PIN from '../../../assets/image/ping.png';
 import AdminAPIInstance from '../../../api/adminApi';
 import DialogUtils from '../../../utils/DialogUtils';
 

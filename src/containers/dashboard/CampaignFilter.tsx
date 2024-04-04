@@ -12,7 +12,6 @@ import {
   setNewsletter,
   setSelectedDateFilter,
 } from "../../store/dataSlice";
-import { getUnixTimestamp } from "../../utils/DateUtils";
 import ByCampaignButton from "./ByCampaignButton";
 import { useNavigate, useParams } from "react-router";
 import moment from "moment";
@@ -26,7 +25,6 @@ interface IDateRange {
 const CampaignFilter: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { email } = useSelector(selectAuth);
@@ -43,12 +41,11 @@ const CampaignFilter: FC = () => {
   const ref = useRef<any>(null);
 
   useEffect(() => {
-    setLoading(true);
-    APIInstance.get("/data/campaign_list", { params: { email } })
-      .then((data) => {
+    APIInstance.get("/data/campaign_list", { params: { email } }).then(
+      (data) => {
         setCampaignList(data.data);
-      })
-      .finally(() => setLoading(false));
+      }
+    );
   }, [email]);
 
   const handleOpenChange = () => {

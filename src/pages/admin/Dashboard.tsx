@@ -20,11 +20,11 @@ import { selectAuth } from "../../store/authSlice";
 import SelectList from "./dashboard/SelectList";
 import AdminAPIInstance from "../../api/adminApi";
 import Loading from "../../components/Loading";
-import { getUnixTimestamp } from "../../utils/DateUtils";
 import moment from "moment";
 import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
 import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 import { setNewsletter } from "../../store/dataSlice";
+import { CustomEngagementChannelLegend } from "../../containers/shared/CustomEngagementChannelLegend";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const getItem = (
@@ -154,7 +154,7 @@ const AdminDashboard: FC = () => {
       })
     );
     const halfPie = document.querySelector(".half-pie svg");
-    halfPie?.setAttribute("viewBox", "65 120 130 180");
+    halfPie?.setAttribute("viewBox", "65 70 130 180");
 
     const fullPie = document.querySelector(".full-pie svg");
     fullPie?.setAttribute("viewBox", "70 5 130 200");
@@ -653,19 +653,8 @@ const AdminDashboard: FC = () => {
                   <Cell key={`cell-1`} fill={"#6C63FF"} />
                 </Pie>
                 <Legend
-                  content={
-                    <div>
-                      <div className="text-xl font-semibold">
-                        {sumCountByEmailAndBlog.email +
-                          sumCountByEmailAndBlog.blog}
-                      </div>
-                      <div className="text-sm font-normal">
-                        Total Engagement
-                      </div>
-                    </div>
-                  }
+                  content={<CustomEngagementChannelLegend />}
                   align="center"
-                  className="h-[0px]"
                 />
               </PieChart>
             </div>

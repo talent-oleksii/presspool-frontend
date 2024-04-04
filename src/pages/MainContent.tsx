@@ -2,14 +2,13 @@ import { FC, useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { MenuProps } from "antd";
 import {
   setUnauthenticated,
   selectAuth,
   setAuthenticated,
   setUserData,
 } from "../store/authSlice";
-import { setCampaign, setClicked, setCardList } from "../store/dataSlice";
+import { setCardList } from "../store/dataSlice";
 import CreateCampaign from "./dashboard/CreateCampaign";
 import Dashboard from "./dashboard";
 import Billing from "./billing";
