@@ -87,7 +87,9 @@ const Campaign: FC = () => {
         (prev, item) =>
           prev +
           Number(
-            item?.user_medium === "newsletter" && item?.duration > item?.count * 1.2 && item?.duration > 0
+            item?.user_medium === "newsletter" &&
+              item?.duration > item?.count * 1.2 &&
+              item?.duration > 0
               ? item?.unique_click
               : 0
           ),
@@ -99,8 +101,8 @@ const Campaign: FC = () => {
     return price === 0 || verifiedClicks(id) === 0
       ? 0
       : price / verifiedClicks(id) > 10
-        ? 10
-        : Number(price / verifiedClicks(id));
+      ? 10
+      : Number(price / verifiedClicks(id));
   };
 
   const handleOpenChange = () => {
@@ -131,22 +133,23 @@ const Campaign: FC = () => {
               </p>
               <p className="font-medium font-[Inter]">
                 <span
-                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${item.state === "draft"
+                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
+                    item.state === "draft"
                       ? "bg-[#dbdbdb] text-primary"
                       : item.state === "paused"
-                        ? "bg-[#fdbdbd]"
-                        : item.billed >= Number(item.price)
-                          ? "bg-white ring-2 ring-main"
-                          : "bg-main text-primary"
-                    }`}
+                      ? "bg-[#fdbdbd]"
+                      : Number(totalSpend) >= Number(item.price)
+                      ? "bg-white ring-2 ring-main"
+                      : "bg-main text-primary"
+                  }`}
                 >
                   {capitalize(
-                    item.billed >= Number(item.price) ? "Completed" : item.state
+                    Number(totalSpend) >= Number(item.price) ? "Completed" : item.state
                   )}
                 </span>
               </p>
               <p className="font-normal font-[Inter] text-[8px] -tracking-[.42px] w-full text-center">
-                {item.complete_date
+                {Number(totalSpend) >= Number(item.price)
                   ? new Date(Number(item.complete_date)).toLocaleDateString()
                   : ""}
               </p>
@@ -187,7 +190,9 @@ const Campaign: FC = () => {
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 AVG CPC
               </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">{`$${avgCPC.toFixed(2)}`}</p>
+              <p className="font-normal text-primary font-[Inter] text-xs">{`$${avgCPC.toFixed(
+                2
+              )}`}</p>
             </div>
             <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
