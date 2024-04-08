@@ -13,19 +13,21 @@ import {
 import moment from "moment-timezone";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
-
-import Card from "../../components/Card";
 import CampaignNewsletter from "../../containers/dashboard/CampaignNewsletter";
 import { CustomLineChartTooltip } from "../../containers/shared/CustomLineChartTooltip";
 import { Legend } from "recharts";
 import { useParams } from "react-router";
 import { CustomEngagementChannelLegend } from "../../containers/shared/CustomEngagementChannelLegend";
+import CampaignStatsCard from "../../containers/dashboard/CampaignStatsCard";
 
 const CampaignOverView: FC = () => {
   const { id } = useParams();
-  const { campaign: data } = useSelector(selectData);
+  const {
+    campaign: data,
+    clicked,
+    // selectedDateFilter,
+  } = useSelector(selectData);
   const [chartData, setChartData] = useState<Array<any>>([]);
-  const { clicked, selectedDateFilter } = useSelector(selectData);
 
   const getSum = (a: Array<any>) => {
     let total = 0;
@@ -35,7 +37,9 @@ const CampaignOverView: FC = () => {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
       verifiedClicks +=
-        (i.user_medium === "newsletter") && i.duration > i.count * 1.2 && i.duration > 0
+        i.user_medium === "newsletter" &&
+        i.duration > i.count * 1.2 &&
+        i.duration > 0
           ? Number(i.unique_click)
           : 0;
     }
@@ -69,6 +73,7 @@ const CampaignOverView: FC = () => {
         };
       })
     );
+
     const halfPie = document.querySelector(".half-pie svg");
     halfPie?.setAttribute("viewBox", "65 70 130 180");
 
@@ -87,7 +92,11 @@ const CampaignOverView: FC = () => {
     let sumBlog = 0;
 
     clicked.forEach((item) => {
-      if (item.user_medium === "newsletter") {
+      if (
+        item.user_medium === "newsletter" &&
+        item.duration > item.count * 1.2 &&
+        item.duration > 0
+      ) {
         sumEmail += Number(item.unique_click);
       } else if (item.user_medium === "referral") {
         sumBlog += Number(item.unique_click);
@@ -124,17 +133,6 @@ const CampaignOverView: FC = () => {
     return result.sort((a, b) => b.percentage - a.percentage);
   }, [clicked]);
 
-  const totalClicks = useMemo(
-    () => clicked.reduce((prev, item) => prev + Number(item?.count ?? 0), 0),
-    [clicked]
-  );
-
-  const uniqueClicks = useMemo(
-    () =>
-      clicked.reduce((prev, item) => prev + Number(item?.unique_click ?? 0), 0),
-    [clicked]
-  );
-
   const totalSpend = useMemo(
     () => data.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
     [data]
@@ -146,8 +144,9 @@ const CampaignOverView: FC = () => {
         (prev, item) =>
           prev +
           Number(
-            (
-              item?.user_medium === "newsletter") && item.duration > item.count * 1.2 && item.duration > 0
+            item?.user_medium === "newsletter" &&
+              item.duration > item.count * 1.2 &&
+              item.duration > 0
               ? item?.unique_click
               : 0
           ),
@@ -160,41 +159,16 @@ const CampaignOverView: FC = () => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-        ? 10
-        : totalSpend / verifiedClicks;
+      ? 10
+      : totalSpend / verifiedClicks;
 
   return (
     <div className="mt-3 h-full">
-      <div className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px]">
-        <Card
-          title={"Total Clicks"}
-          value={totalClicks}
-          percentageText={`0% from ${selectedDateFilter}`}
-        />
-        <Card
-          title={"Unique Clicks"}
-          value={uniqueClicks}
-          percentageText={`0% from ${selectedDateFilter}`}
-        />
-        <Card
-          title={"Verified Clicks"}
-          value={verifiedClicks}
-          percentageText={`0% from ${selectedDateFilter}`}
-        />
-        <Card
-          title={"Total Budget"}
-          value={`$${totalSpend}`}
-          percentageText={`0% from ${selectedDateFilter}`}
-        />
-        <Card
-          title={"AVG CPC"}
-          value={`$${avgCPC.toFixed(2)}`}
-          percentageText={`0% from ${selectedDateFilter}`}
-        />
-      </div>
+      <CampaignStatsCard />
       <div
-        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${
+          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+        } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline relative">
           <div>
@@ -224,8 +198,9 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+            className={`flex w-full ${
+              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+            } items-center justify-center mt-5`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>

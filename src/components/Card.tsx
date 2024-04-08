@@ -1,9 +1,9 @@
-import { FC, memo } from "react";
+import { FC, ReactNode, memo } from "react";
 
 interface ICard {
   title: string;
   value: string | number;
-  percentageText: string;
+  percentageText: ReactNode;
 }
 
 const Card: FC<ICard> = memo<ICard>(({ title, value, percentageText }) => {
@@ -15,14 +15,8 @@ const Card: FC<ICard> = memo<ICard>(({ title, value, percentageText }) => {
       <h2 className="text-[25px] leading-[25px] font-[Inter] font-semibold">
         {value}
       </h2>
-      <div className="flex gap-2">
-        <div className="bg-main rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center">
-          <span>+</span>
-        </div>
-        <p className="text-[#172935] text-[10px] font-semibold">
-          {percentageText}
-        </p>
-      </div>
+      {percentageText}
+      
     </div>
   );
 });

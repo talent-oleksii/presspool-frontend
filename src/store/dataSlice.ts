@@ -7,6 +7,7 @@ interface DataState {
   newsletter: Array<any>;
   isCampaignLoading: boolean;
   selectedDateFilter: string;
+  prevData: any;
 }
 
 const initialState: DataState = {
@@ -22,6 +23,14 @@ const initialState: DataState = {
   newsletter: [],
   isCampaignLoading: false,
   selectedDateFilter: "All Time",
+  prevData: {
+    totalSpend: 0,
+    avgCPC: 0,
+    verifiedClicks: 0,
+    totalBudget: 0,
+    uniqueClicks: 0,
+    totalClicks: 0,
+  },
 };
 
 const dataSlice = createSlice({
@@ -72,6 +81,9 @@ const dataSlice = createSlice({
       state.clicked = action.payload;
       localStorage.setItem("clicked", JSON.stringify(state.clicked));
     },
+    setPrevRangeData: (state, action) => {
+      state.prevData = action.payload;
+    },
     setNewsletter: (state, action) => {
       state.newsletter = action.payload;
     },
@@ -89,6 +101,7 @@ export const {
   setCampaignLoading,
   setSelectedDateFilter,
   setNewsletter,
+  setPrevRangeData,
 } = dataSlice.actions;
 export const selectData = (state: { data: DataState }) => state.data;
 export default dataSlice.reducer;

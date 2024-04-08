@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { Menu, MenuProps, Space } from "antd";
 import { CaretDownOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 import APIInstance from "../../api";
@@ -10,12 +10,14 @@ import {
   setCampaignLoading,
   setClicked,
   setNewsletter,
+  setPrevRangeData,
   setSelectedDateFilter,
 } from "../../store/dataSlice";
 import ByCampaignButton from "./ByCampaignButton";
 import { useNavigate, useParams } from "react-router";
 import moment from "moment";
 import { GetItem, MenuItem } from "../shared/GetItem";
+import { capitalize } from "lodash";
 
 interface IDateRange {
   startDate: Date | null;
@@ -26,6 +28,8 @@ const CampaignFilter: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
+  const [completionDate, setCompletionDate] = useState<string | null>(null);
+  const [campStats, setCampStats] = useState<any>({});
   const dispatch = useDispatch();
   const { email } = useSelector(selectAuth);
   const [selectedCampaigns, setSelectedCampaigns] = useState<Array<string>>(
@@ -170,6 +174,7 @@ const CampaignFilter: FC = () => {
       .then((res: Array<any>) => {
         dispatch(setClicked(res[0].data.clicked));
         dispatch(setCampaign({ campaign: res[0].data.data }));
+        dispatch(setPrevRangeData(res[0].data.prevData));
         dispatch(setNewsletter(res[1].data));
       })
       .finally(() => {
@@ -207,9 +212,30 @@ const CampaignFilter: FC = () => {
   };
 
   const handleOverviewClick = () => {
+    setCompletionDate(null);
     setSelectedCampaigns([]);
     navigate(`/campaign/all`);
   };
+
+  useEffect(() => {
+    if (selectedCampaigns.length > 0) {
+      APIInstance.get("/data/getCampStatByCampId", {
+        params: {
+          campaignId: selectedCampaigns[0],
+        },
+      }).then(({ data }) => {
+        setCampStats(data);
+        const { totalSpend, totalBudget, completeDate } = data;
+        if (totalSpend >= totalBudget) {
+          const date = moment(Number(completeDate));
+          const formattedDate = date.format("MM/DD/YYYY");
+          setCompletionDate(formattedDate);
+        } else {
+          setCompletionDate(null);
+        }
+      });
+    }
+  }, [selectedCampaigns]);
 
   return (
     <div className="flex justify-between items-center mt-4">
@@ -230,6 +256,30 @@ const CampaignFilter: FC = () => {
           setSelectedCampaigns={setSelectedCampaigns}
           selectedCampaigns={selectedCampaigns}
         />
+        {selectedCampaigns.length > 0 ? (
+          completionDate ? (
+            <button
+              className={`ms-2 inline-flex items-center justify-center text-primary px-4 py-[2px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 bg-white border border-solid border-main shadow-md`}
+            >
+              <span className="text-[12px] font-normal">Completed: </span>
+              <span className="text-[12px] font-light">{completionDate}</span>
+            </button>
+          ) : (
+            <p className="ms-2 font-medium font-[Inter] inline-flex">
+              <span
+                className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
+                  campStats.state === "draft"
+                    ? "bg-[#dbdbdb] text-primary"
+                    : campStats.state === "paused"
+                    ? "bg-[#fdbdbd]"
+                    : "bg-main text-primary"
+                }`}
+              >
+                {capitalize(campStats.state)}
+              </span>
+            </p>
+          )
+        ) : null}
       </div>
       <div className="flex gap-5">
         <div
