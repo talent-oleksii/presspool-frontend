@@ -33,7 +33,7 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         (prev, item) =>
           prev +
           Number(
-            (item?.user_medium === "newsletter" || item?.user_mdium === 'referral') &&
+            (item?.user_medium === "newsletter" || item?.user_medium === 'referral') &&
               item.duration > item.count * 1.5 &&
               item.duration > 0
               ? item?.unique_click
