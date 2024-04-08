@@ -87,8 +87,8 @@ const Campaign: FC = () => {
         (prev, item) =>
           prev +
           Number(
-            item?.user_medium === "newsletter" &&
-              item?.duration > item?.count * 1.2 &&
+            (item?.user_medium === "newsletter" || item?.user_medium === 'referral') &&
+              item?.duration > item?.count * 1.5 &&
               item?.duration > 0
               ? item?.unique_click
               : 0
@@ -101,8 +101,8 @@ const Campaign: FC = () => {
     return price === 0 || verifiedClicks(id) === 0
       ? 0
       : price / verifiedClicks(id) > 10
-      ? 10
-      : Number(price / verifiedClicks(id));
+        ? 10
+        : Number(price / verifiedClicks(id));
   };
 
   const handleOpenChange = () => {
@@ -133,15 +133,14 @@ const Campaign: FC = () => {
               </p>
               <p className="font-medium font-[Inter]">
                 <span
-                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
-                    item.state === "draft"
+                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${item.state === "draft"
                       ? "bg-[#dbdbdb] text-primary"
                       : item.state === "paused"
-                      ? "bg-[#fdbdbd]"
-                      : Number(totalSpend) >= Number(item.price)
-                      ? "bg-white ring-2 ring-main"
-                      : "bg-main text-primary"
-                  }`}
+                        ? "bg-[#fdbdbd]"
+                        : Number(totalSpend) >= Number(item.price)
+                          ? "bg-white ring-2 ring-main"
+                          : "bg-main text-primary"
+                    }`}
                 >
                   {capitalize(
                     Number(totalSpend) >= Number(item.price) ? "Completed" : item.state
