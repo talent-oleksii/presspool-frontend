@@ -123,17 +123,14 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         )}
       />
       <Card
-        title={"Total Budget"}
-        value={`$${totalSpend}`}
-        percentageText={calculateChangeDirection(
-          prevData.totalBudget,
-          totalSpend
-        )}
-      />
-      <Card
         title={"AVG CPC"}
         value={`$${avgCPC.toFixed(2)}`}
         percentageText={calculateChangeDirection(prevData.avgCPC, avgCPC)}
+      />
+      <Card
+        title={"Total Budget"}
+        value={`$${totalSpend}`}
+        percentageText={<div className="flex gap-2 h-[14px]"></div>}
       />
     </div>
   );
