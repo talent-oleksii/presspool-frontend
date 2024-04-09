@@ -6,7 +6,9 @@ const CustomLineChartTooltip: FC = ({ active, payload, label }: any) => {
     return (
       <div className="w-[129px] h-[83px] bg-[#EDECF2] p-2 flex flex-col justify-between rounded-[10px]">
         <p className="text-[10px] font-medium">
-          {moment(label, "MM/DD/YYYY").format("MMM DD")}
+          {moment(label, "h A", true).isValid()
+            ? label
+            : moment(label, "MM/DD/YYYY").format("MMM DD")}
         </p>
         <div className="w-full h-[1px] shrink-0 rounded-[10px] bg-[#A3A3A3]"></div>
         <div>

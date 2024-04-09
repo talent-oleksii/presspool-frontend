@@ -2,8 +2,6 @@ import { FC, useEffect, useState, useMemo, useRef, useCallback } from "react";
 import { CaretDownOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 import { Menu, MenuProps, Space } from "antd";
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   ResponsiveContainer,
@@ -12,9 +10,10 @@ import {
   PieChart,
   Legend,
   Tooltip,
+  Area,
+  AreaChart,
 } from "recharts";
 
-import Card from "../../components/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "../../store/authSlice";
 import SelectList from "./dashboard/SelectList";
@@ -97,9 +96,9 @@ const AdminDashboard: FC = () => {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
       verifiedClicks +=
-        (i.user_medium === "newsletter" || i.user_medium === 'referral') &&
-          i.duration > i.count * 1.5 &&
-          i.duration > 0
+        (i.user_medium === "newsletter" || i.user_medium === "referral") &&
+        i.duration > i.count * 1.5 &&
+        i.duration > 0
           ? Number(i.unique_click)
           : 0;
     }
@@ -138,31 +137,61 @@ const AdminDashboard: FC = () => {
 
   useEffect(() => {
     let grouped: any = {};
-    clicked.forEach((item) => {
-      const date = moment(Number(item.create_time));
-      const key = date.format("MM/DD/YYYY");
-      if (!grouped[key]) {
-        grouped[key] = [];
+    if (selectedDateFilter === "Last 24 Hours") {
+      for (let i = 23; i >= 0; i--) {
+        const hour = moment().subtract(i, "hours").format("h A");
+        grouped[hour] = [];
       }
-      grouped[key].push(item);
-    });
+      clicked.forEach((item) => {
+        const createTime = new Date(Number(item.create_time));
+        const hour = moment(createTime).format("h A");
+        grouped[hour].push(item);
+      });
 
-    const sortedKeys = Object.keys(grouped).sort(
-      (a, b) =>
-        moment(b, "MM/DD/YYYY").valueOf() - moment(a, "MM/DD/YYYY").valueOf()
-    );
+      const sortedKeys = Object.keys(grouped).sort((a, b) => {
+        const momentA = moment(a, "h A");
+        const momentB = moment(b, "h A");
+        return momentB.valueOf() - momentA.valueOf();
+      });
 
-    setChartData(
-      sortedKeys.map((item) => {
-        let { total, uniqueClicks, verifiedClicks } = getSum(grouped[item]);
-        return {
-          uniqueClicks,
-          total,
-          verifiedClicks,
-          date: item,
-        };
-      })
-    );
+      setChartData(
+        sortedKeys.map((item) => {
+          let { total, uniqueClicks, verifiedClicks } = getSum(grouped[item]);
+          return {
+            uniqueClicks,
+            total,
+            verifiedClicks,
+            date: item,
+          };
+        })
+      );
+    } else {
+      clicked.forEach((item) => {
+        const date = moment(Number(item.create_time));
+        const key = date.format("MM/DD/YYYY");
+        if (!grouped[key]) {
+          grouped[key] = [];
+        }
+        grouped[key].push(item);
+      });
+
+      const sortedKeys = Object.keys(grouped).sort(
+        (a, b) =>
+          moment(b, "MM/DD/YYYY").valueOf() - moment(a, "MM/DD/YYYY").valueOf()
+      );
+
+      setChartData(
+        sortedKeys.map((item) => {
+          let { total, uniqueClicks, verifiedClicks } = getSum(grouped[item]);
+          return {
+            uniqueClicks,
+            total,
+            verifiedClicks,
+            date: item,
+          };
+        })
+      );
+    }
     const halfPie = document.querySelector(".half-pie svg");
     halfPie?.setAttribute("viewBox", "65 70 130 180");
 
@@ -206,20 +235,6 @@ const AdminDashboard: FC = () => {
     return "#" + Math.random().toString(16).substr(-6);
   };
 
-  const totalClicks = useMemo(
-    () => clicked?.reduce((prev, item) => prev + Number(item?.count ?? 0), 0),
-    [clicked]
-  );
-
-  const uniqueClicks = useMemo(
-    () =>
-      clicked?.reduce(
-        (prev, item) => prev + Number(item?.unique_click ?? 0),
-        0
-      ),
-    [clicked]
-  );
-
   const totalSpend = useMemo(
     () => data?.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
     [data]
@@ -231,7 +246,8 @@ const AdminDashboard: FC = () => {
         (prev, item) =>
           prev +
           Number(
-            (item?.user_medium === "newsletter" || item?.user_medium === 'referral') &&
+            (item?.user_medium === "newsletter" ||
+              item?.user_medium === "referral") &&
               item.duration > item.count * 1.5 &&
               item.duration > 0
               ? item?.unique_click
@@ -246,8 +262,8 @@ const AdminDashboard: FC = () => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-        ? 10
-        : totalSpend / verifiedClicks;
+      ? 10
+      : totalSpend / verifiedClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -255,7 +271,7 @@ const AdminDashboard: FC = () => {
 
     clicked.forEach((item) => {
       if (
-        (item.user_medium === "newsletter" || item.uer_medium === 'referral') &&
+        (item.user_medium === "newsletter" || item.uer_medium === "referral") &&
         item.duration > item.count * 1.5 &&
         item.duration > 0
       ) {
@@ -380,9 +396,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
           },
         }),
         AdminAPIInstance.get("/dashboard/newsletter", {
@@ -390,9 +406,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
           },
         }),
       ])
@@ -438,22 +454,24 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
+                isOverview
                   ? "bg-white border border-solid border-main shadow-md"
                   : ""
-                } `}
+              } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${currentAM === 0 ||
-                    !accountManagers.find((value) => value.id === currentAM)
+                name={`${
+                  currentAM === 0 ||
+                  !accountManagers.find((value) => value.id === currentAM)
                     ? "By Account Manager"
                     : accountManagers.find((value) => value.id === currentAM)
-                      .name
-                  }`}
+                        .name
+                }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                 }}
@@ -462,11 +480,12 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${currentClient === 0 ||
-                  !clients.find((value) => value.id === currentClient)
+              name={`${
+                currentClient === 0 ||
+                !clients.find((value) => value.id === currentClient)
                   ? "By Company"
                   : clients.find((value) => value.id === currentClient).company
-                }`}
+              }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
               }}
@@ -474,11 +493,12 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${currentCampaign === 0 ||
-                  !campaigns.find((value) => value.id === currentCampaign)
+              name={`${
+                currentCampaign === 0 ||
+                !campaigns.find((value) => value.id === currentCampaign)
                   ? "By Campaign"
                   : campaigns.find((value) => value.id === currentCampaign).name
-                }`}
+              }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
               }}
@@ -521,8 +541,9 @@ const AdminDashboard: FC = () => {
         </div>
         <CampaignStatsCard rootClassName="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px] mt-4" />
         <div
-          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-            } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${
+            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline">
             <div>
@@ -548,37 +569,97 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-                } items-center justify-center mt-5`}
+              className={`flex w-full ${
+                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-5`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
-                  <LineChart
+                  <AreaChart
                     data={chartData}
-                    margin={{ left: 0, bottom: 0, right: 50 }}
+                    margin={{ left: 0, bottom: 0, right: 30 }}
                   >
-                    <Line
-                      type="linear"
+                    <defs>
+                      <linearGradient
+                        id="colorTotal"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#7FFBAE"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#7FFBAE"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="colorUniqueClicks"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#6C63FF"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#6C63FF"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                      <linearGradient
+                        id="colorVerifiedClicks"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#FDE006"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#FDE006"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="date" reversed />
+                    <YAxis />
+                    <Tooltip content={<CustomLineChartTooltip />} />
+                    <Area
+                      type="monotone"
                       dataKey="total"
                       stroke="#7FFBAE"
-                      strokeWidth={3}
+                      fillOpacity={1}
+                      fill="url(#colorTotal)"
                     />
-                    <Line
-                      type="linear"
+                    <Area
+                      type="monotone"
                       dataKey="uniqueClicks"
                       stroke="#6C63FF"
-                      strokeWidth={3}
+                      fillOpacity={1}
+                      fill="url(#colorUniqueClicks)"
                     />
-                    <Line
-                      type="linear"
+                    <Area
+                      type="monotone"
                       dataKey="verifiedClicks"
                       stroke="#FDE006"
-                      strokeWidth={2}
+                      fillOpacity={1}
+                      fill="url(#colorVerifiedClicks)"
                     />
-                    <XAxis dataKey="date" reversed />
-                    <YAxis strokeWidth={0} />
-                    <Tooltip content={<CustomLineChartTooltip />} />
-                  </LineChart>
+                  </AreaChart>
                 </ResponsiveContainer>
               ) : (
                 <p className="font-[Inter] mt-4 text-[10px]">
