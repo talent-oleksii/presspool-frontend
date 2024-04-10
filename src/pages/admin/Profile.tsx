@@ -70,6 +70,9 @@ const Profile: FC = () => {
     // create account for this account manager:
     const account = await StripeUtil.stripe.accounts.create({
       type: "standard",
+      metadata: {
+        work_email: adminEmail
+      }
     });
     const accountLink = await StripeUtil.stripe.accountLinks.create({
       account: account.id,
@@ -245,8 +248,8 @@ const Profile: FC = () => {
                       value={
                         item.assigned_users && item.assigned_users.length > 1
                           ? item.assigned_users
-                              .split(",")
-                              .map((value: string) => Number(value))
+                            .split(",")
+                            .map((value: string) => Number(value))
                           : []
                       }
                       onChange={(e) => {
