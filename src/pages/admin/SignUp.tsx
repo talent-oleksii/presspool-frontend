@@ -1,6 +1,5 @@
 import React, { FC, useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
 import { Dialog, Transition } from "@headlessui/react";
 import validator from "validator";
 
@@ -11,6 +10,7 @@ import {
   setAdminUserData,
 } from "../../store/authSlice";
 
+import CustomTooltip from "../../components/CustomTooltip";
 import AdminAPIInstance from "../../api/adminApi";
 import SignUpAvatar from "../../assets/image/signup-avatar.jpeg";
 import Mark from "../../assets/logo/logo.png";
@@ -54,7 +54,7 @@ const AdminSignUp: FC = () => {
     if (
       validator.isEmpty(formData.fullName) ||
       !validator.isEmail(formData.email) ||
-      !validator.isStrongPassword(formData.password) 
+      !validator.isStrongPassword(formData.password)
       || !isOurAffiliate(formData.email)
     )
       return;
@@ -188,7 +188,7 @@ const AdminSignUp: FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 justify-center items-center h-full bg-white w-full">
+      <div className="flex flex-1 justify-center items-center h-full bg-white w-full relative">
         <div className="w-full rounded-[10px] xl:max-w-[72%] px-[42px]">
           <div className="flex flex-col items-center justify-center">
             <svg
@@ -209,7 +209,7 @@ const AdminSignUp: FC = () => {
             <h2 className="font-[Inter] font-semibold text-[40px] mt-4 -tracking-[1.2px]">
               Welcome
             </h2>
-            <p className="font-[Inter] text-xs text-center -tracking-[.54px] font-medium text-[#797979] mt-1">
+            <p className="font-[Inter] text-base text-center -tracking-[.54px] font-medium text-[#797979] mt-1">
               Access the power of the Presspool Platform to deliver your
               solution <br /> directly in front of targeted, engaged readers.
             </p>
@@ -217,11 +217,10 @@ const AdminSignUp: FC = () => {
 
           <form className="text-left mt-[30px]" onSubmit={handleSubmit}>
             <label
-              className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.fullName)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
+              className={`font-[Inter] text-xs 2xl:text-[17px] font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName)
+                ? "text-[red]"
+                : "text-primary"
+                }`}
             >
               Full Name
               {formData.fullName.length > 0 &&
@@ -241,11 +240,10 @@ const AdminSignUp: FC = () => {
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[10px] px-4 py-2"
             />
             <label
-              className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${
-                check && !validator.isEmail(formData.email)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
+              className={`font-[Inter] flex items-center text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email)
+                ? "text-[red]"
+                : "text-primary"
+                }`}
             >
               Email Address
               {formData.email.length > 0 &&
@@ -255,6 +253,7 @@ const AdminSignUp: FC = () => {
                     *Input valid email address
                   </span>
                 )}
+              <CustomTooltip title="Please use your gopresspool.ai email." />
             </label>
             <input
               id="email"
@@ -266,11 +265,10 @@ const AdminSignUp: FC = () => {
               className="w-full border-[1px] bg-transparent border-[#797979] mt-2 mb-3 rounded-[10px] px-4 py-2"
             />
             <label
-              className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${
-                check && !validator.isStrongPassword(formData.password)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
+              className={`font-[Inter] text-md 2xl:text-[17px] font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password)
+                ? "text-[red]"
+                : "text-primary"
+                }`}
             >
               Password
               {formData.password.length > 0 &&
@@ -324,7 +322,7 @@ const AdminSignUp: FC = () => {
                 type="checkbox"
                 className="w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0"
               />
-              <span className="ms-2 font-[Inter] -tracking-[.544px] text-xs text-[#525252]">
+              <span className="ms-2 font-[Inter] -tracking-[.544px] text-[18.14px] text-[#525252]">
                 I agree to the{" "}
                 <a
                   target="_blank"
@@ -346,7 +344,7 @@ const AdminSignUp: FC = () => {
               </span>
             </div>
             <button
-              className="rounded-[10px] text-xs bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
+              className="rounded-[10px] text-[16.931px] bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
               type="submit"
               disabled={!formData.agreeTerm}
             >
@@ -360,6 +358,10 @@ const AdminSignUp: FC = () => {
                 Login
               </Link>
             </p>
+          </div>
+          <div className="absolute left-1/2 bottom-4 -translate-x-1/2">
+            <p className="text-xs -tracking-[.36px] font-[Inter]">Optimized for Desktop</p>
+            <p className="text-[10px] -tracking-[.3px] text-[#525252]">Switch to a larger screen for the full suite of features.</p>
           </div>
         </div>
       </div>

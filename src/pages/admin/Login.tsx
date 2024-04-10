@@ -164,7 +164,7 @@ const AdminLogin: FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-1 items-center justify-center px-[82px] bg-white h-full">
+      <div className="flex flex-1 items-center justify-center px-[82px] bg-white h-full relative">
         <div className="rounded-[10px] w-full xl:max-w-[72%] px-[42px]">
           <div className="flex flex-col items-center justify-center">
             <svg
@@ -185,7 +185,7 @@ const AdminLogin: FC = () => {
             <h2 className="font-[Inter] font-semibold text-[40px] -tracking-[1.2px] mt-[26px]">
               Welcome Back To Admin
             </h2>
-            <p className="font-[Inter] text-xs -tracking-[.48px] text-[#444545] mt-[10px]">
+            <p className="font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-[10px]">
               Enter your details to login
             </p>
           </div>
@@ -195,8 +195,9 @@ const AdminLogin: FC = () => {
             onSubmit={handleSubmit}
           >
             <div>
-              <label className="font-[Inter] text-xs block font-medium my-1 -tracking-[.508px]">
+              <label className="font-[Inter] text-[16.931px] block font-medium my-1 -tracking-[.508px]">
                 Email Address
+                <span className="text-[red]">*</span>
               </label>
               <input
                 id="email"
@@ -204,14 +205,15 @@ const AdminLogin: FC = () => {
                 type="email"
                 placeholder="Enter here..."
                 onChange={handleChange}
-                className="w-full border-secondry2 bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4 py-2"
+                className="w-full border-secondry2 bg-transparent border-[1px] mt-1 rounded-[10px] px-4 py-2"
               />
             </div>
             <div>
-              <label className="font-[Inter] block text-xs font-medium mt-[18px] -tracking-[.508px]">
+              <label className="font-[Inter] block text-[16.931px] font-medium mt-[18px] -tracking-[.508px]">
                 Password
+                <span className="text-[red]">*</span>
               </label>
-              <div className="flex items-center justify-center border-secondry2 bg-transparent border-[1px] mt-[12px] rounded-[10px] px-4">
+              <div className="flex items-center justify-center border-secondry2 bg-transparent border-[1px] mt-1 rounded-[10px] px-4">
                 <input
                   id="password"
                   name="password"
@@ -248,13 +250,13 @@ const AdminLogin: FC = () => {
             </div>
             <div className="w-full text-right">
               <div
-                className="font-[Inter] text-primary text-xs 2xl:text-[17px] mt-4 underline -tracking-[.504px]"
+                className="font-[Inter] text-primary text-[17px] mt-4 underline -tracking-[.504px]"
                 onClick={handleForgotPassword}
               >
                 Forgot Password?
               </div>
             </div>
-            <button className="rounded-[10px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 2xl:my-4 text-primary text-semibold mt-[32px]">
+            <button className="rounded-[10px] bg-[#7ffbae] w-full py-[10px] 2xl:py-[10px] my-2 text-[16.931px] 2xl:my-4 text-primary text-semibold mt-[32px]">
               Log In
             </button>
 
@@ -268,6 +270,11 @@ const AdminLogin: FC = () => {
               </Link>
             </p>
           </form>
+
+          <div className="absolute left-1/2 bottom-4 -translate-x-1/2">
+            <p className="text-xs -tracking-[.36px] font-[Inter]">Optimized for Desktop</p>
+            <p className="text-[10px] -tracking-[.3px] text-[#525252]">Switch to a larger screen for the full suite of features.</p>
+          </div>
         </div>
         <Transition.Root show={showDialog} as={Fragment}>
           <Dialog
