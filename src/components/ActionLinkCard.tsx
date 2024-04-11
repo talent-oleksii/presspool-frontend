@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Space } from "antd";
 import { ExportOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 interface IActionLinkCard {
   heading: string;
@@ -9,6 +10,7 @@ interface IActionLinkCard {
     image?: string;
     name: string;
     url: string;
+    isInternal?: boolean;
   }>;
 }
 
@@ -25,20 +27,33 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
       </p>
     </div>
     <div className="bg-white py-4 w-full rounded-b-[10px]">
-      {(links || []).map((link, index) => (
-        <a
-          key={index}
-          href={link.url}
-          className="flex font-[Inter] font-500 text-xs items-center px-4 py-2"
-          rel="noreferrer"
-          target="_blank"
-        >
-          <Space size="middle">
-            <ExportOutlined style={{ fontSize: "18px", paddingTop: "2px" }} />
-            {link.name}
-          </Space>
-        </a>
-      ))}
+      {(links || []).map((link, index) =>
+        link.isInternal ? (
+          <Link
+            key={index}
+            to={link.url}
+            className="flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2"
+          >
+            <Space size="middle">
+              <ExportOutlined style={{ fontSize: "18px", paddingTop: "2px" }} />
+              {link.name}
+            </Space>
+          </Link>
+        ) : (
+          <a
+            key={index}
+            href={link.url}
+            className="flex font-[Inter] font-500 text-xs items-center px-4 py-2"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <Space size="middle">
+              <ExportOutlined style={{ fontSize: "18px", paddingTop: "2px" }} />
+              {link.name}
+            </Space>
+          </a>
+        )
+      )}
     </div>
   </div>
 );

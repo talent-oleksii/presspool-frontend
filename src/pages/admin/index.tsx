@@ -38,6 +38,7 @@ import AdminClient from "./Client";
 import AdminClientCampaign from "./ClientCampaign";
 import InviteAccountManager from "./ui/InviteAccountManager";
 import TrainingHub from "./TrainingHub";
+import ActionLinkCard from "../../components/ActionLinkCard";
 
 const Admin: FC = () => {
   const location = useLocation();
@@ -212,6 +213,16 @@ const Admin: FC = () => {
 
     return "top-0";
   };
+
+  const links = [
+    {
+      name: "Presspool GPT",
+      url: "https://content.presspool.ai",
+    },
+    { name: "Presspool CRM", url: "https://sales.presspool.ai" },
+    { name: "Tracking Dashboard", url: "https://dash.presspool.ai" },
+    { name: "Training Hub", url: "/admin/training-hub" },
+  ];
 
   return (
     <div className="h-full w-full">
@@ -401,50 +412,11 @@ const Admin: FC = () => {
             </div>
           </div>
           <div className="relative mt-4 text-left">
-            <div className="bg-main px-[19px] py-[12px] rounded-t-[10px] w-full z-10">
-              <p className="text-primary text-xs font-semibold font-[Inter]">
-                Resources
-              </p>
-              <p className="text-primary font-[Inter] font-semibold text-xs 2xl:text-xs mt-[5px]">
-                We are always here for you
-              </p>
-            </div>
-            <div className="bg-white py-2 rounded-b-[10px] w-full z-0 top-[70px] shadow-md">
-              <a
-                href="https://content.presspool.ai"
-                className="flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <img src={LinkImage} alt="link" className="w-[17px] me-2" />
-                Presspool GPT
-              </a>
-              <a
-                href="https://sales.presspool.ai"
-                className="flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <img src={LinkImage} alt="link" className="w-[17px] me-2" />
-                Presspool CRM
-              </a>
-              <a
-                href="https://dash.presspool.ai"
-                className="flex font-[Inter] font-medium text-xs 2xl:text-xs items-center px-3 py-2"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <img src={LinkImage} alt="link" className="w-[17px] me-2" />
-                Tracking Dashboard
-              </a>
-              <Link
-                to="/admin/training-hub"
-                className="flex font-[Inter] font-medium text-xs 2xl:text-sm items-center px-3 py-2"
-              >
-                <img src={LinkImage} alt="link" className="w-[17px] me-2" />
-                Training Hub
-              </Link>
-            </div>
+            <ActionLinkCard
+              heading={"Resources"}
+              subHeading={"We are always here for you"}
+              links={links}
+            />
           </div>
         </div>
         <button
@@ -470,7 +442,7 @@ const Admin: FC = () => {
               <Route path="/client" element={<AdminDashboardClient />} />
               <Route path="/client/:id" element={<AdminClient />} />
               <Route
-                path="/client/:id/:campaignId"
+                path="/client/:id/campaign/:campaignId"
                 element={<AdminClientCampaign />}
               />
               <Route path="/member" element={<AdminMember />} />
