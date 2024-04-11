@@ -1,5 +1,5 @@
 import { FC, useState, useRef, useEffect } from "react";
-import { Select, Avatar } from "antd";
+import { Select, Avatar, Button } from "antd";
 import { useSelector } from "react-redux";
 
 import { selectAuth } from "../../store/authSlice";
@@ -12,6 +12,7 @@ import moment from "moment";
 const Profile: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
+  const [stripeLoading, setStripeLoading] = useState(false);
   const [image, setImage] = useState<any>(null);
   const { adminName, adminEmail, adminRole, adminCreateTime } =
     useSelector(selectAuth);
@@ -68,6 +69,7 @@ const Profile: FC = () => {
 
   const handleConnectPaymentMethod = async () => {
     // create account for this account manager:
+    setStripeLoading(true);
     const account = await StripeUtil.stripe.accounts.create({
       type: "standard",
       metadata: {
@@ -81,7 +83,8 @@ const Profile: FC = () => {
       type: "account_onboarding",
     });
 
-    window.open(accountLink.url);
+    setStripeLoading(false);
+    window.open(accountLink.url, "_self");
   };
 
   return (
@@ -141,32 +144,35 @@ const Profile: FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1">
-          <div className="flex flex-col mt-4 gap-1">
-            <p className="text-sm font-medium">Payment Account</p>
-            <button
-              className="w-[206px] p-2 rounded-[10px] shadow-md text-white -tracking-[.42px] font-medium text-sm bg-[#6c63ff] flex items-center"
-              onClick={handleConnectPaymentMethod}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="17"
-                height="17"
-                viewBox="0 0 17 17"
-                fill="none"
-                className="me-2"
+        {adminRole === "account_manager" &&
+          <div className="flex-1">
+            <div className="flex flex-col mt-4 gap-1">
+              <p className="text-sm font-medium">Payment Account</p>
+              <Button
+                className="w-[206px] p-2 rounded-[10px] shadow-md text-white -tracking-[.42px] font-medium text-sm bg-[#6c63ff] flex items-center"
+                onClick={handleConnectPaymentMethod}
+                loading={stripeLoading}
               >
-                <path
-                  d="M6 8.5H11M8.5 6V11M1 8.5C1 9.48491 1.19399 10.4602 1.5709 11.3701C1.94781 12.2801 2.50026 13.1069 3.1967 13.8033C3.89314 14.4997 4.71993 15.0522 5.62987 15.4291C6.53982 15.806 7.51509 16 8.5 16C9.48491 16 10.4602 15.806 11.3701 15.4291C12.2801 15.0522 13.1069 14.4997 13.8033 13.8033C14.4997 13.1069 15.0522 12.2801 15.4291 11.3701C15.806 10.4602 16 9.48491 16 8.5C16 6.51088 15.2098 4.60322 13.8033 3.1967C12.3968 1.79018 10.4891 1 8.5 1C6.51088 1 4.60322 1.79018 3.1967 3.1967C1.79018 4.60322 1 6.51088 1 8.5Z"
-                  stroke="white"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              Connect Payment Method
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="17"
+                  height="17"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                  className="me-2"
+                >
+                  <path
+                    d="M6 8.5H11M8.5 6V11M1 8.5C1 9.48491 1.19399 10.4602 1.5709 11.3701C1.94781 12.2801 2.50026 13.1069 3.1967 13.8033C3.89314 14.4997 4.71993 15.0522 5.62987 15.4291C6.53982 15.806 7.51509 16 8.5 16C9.48491 16 10.4602 15.806 11.3701 15.4291C12.2801 15.0522 13.1069 14.4997 13.8033 13.8033C14.4997 13.1069 15.0522 12.2801 15.4291 11.3701C15.806 10.4602 16 9.48491 16 8.5C16 6.51088 15.2098 4.60322 13.8033 3.1967C12.3968 1.79018 10.4891 1 8.5 1C6.51088 1 4.60322 1.79018 3.1967 3.1967C1.79018 4.60322 1 6.51088 1 8.5Z"
+                    stroke="white"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                Connect Payment Method
+              </Button>
+            </div>
           </div>
-        </div>
+        }
       </div>
       {adminRole === "super_admin" && (
         <div className="mt-6 p-5 bg-white rounded-[10px] shadow-md">
