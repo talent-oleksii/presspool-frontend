@@ -1,5 +1,5 @@
-import { Table, Avatar, DatePicker } from "antd";
-import { FC, useState, useEffect } from "react";
+import { Table, Avatar, DatePicker, Menu, MenuProps } from "antd";
+import { FC, useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import moment from "moment-timezone";
@@ -10,23 +10,33 @@ import Loading from "../../components/Loading";
 import { selectAuth } from "../../store/authSlice";
 import AssignAccountManager from "./ui/AssignAccountManager";
 import DialogUtils from "../../utils/DialogUtils";
+import { GetItem, MenuItem } from "../../containers/shared/GetItem";
+import { selectData } from "../../store/dataSlice";
+import { CaretDownOutlined } from "@ant-design/icons";
+import { capitalize } from "lodash";
 
 const { Column } = Table;
 
 const AdminClient: FC = () => {
   const { id } = useParams();
   const navigator = useNavigate();
+  const [searchStr, setSearchStr] = useState("");
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>({});
   const [campaignData, setCampaignData] = useState<Array<any>>([]);
   const [filteredData, setFilteredData] = useState<Array<any>>([]);
   const [accountManager, setAccountManager] = useState<any>();
-  const [currentTab, setCurrentTab] = useState("user");
+  const [currentTab, setCurrentTab] = useState("campaign");
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [range, setRange] = useState<any>([]);
   const [note, setNote] = useState("");
   const [fileData, setFileData] = useState<Array<any>>([]);
   const [searchKey, setSearchKey] = useState("");
+  const { selectedDateFilter } = useSelector(selectData);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openTime, setOpenTime] = useState<boolean>(false);
+  const [sort, setSort] = useState<string>("Joined Date");
+  const ref = useRef<any>(null);
 
   const { adminRole } = useSelector(selectAuth);
 
@@ -80,6 +90,22 @@ const AdminClient: FC = () => {
     );
   }, [campaignData, range, searchKey]);
 
+  const getItem = (
+    label: React.ReactNode,
+    key?: React.Key | null,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+    theme?: "light" | "dark"
+  ): MenuItem => {
+    return {
+      key,
+      icon,
+      children,
+      label,
+      theme,
+    } as MenuItem;
+  };
+
   const goBack = () => {
     navigator(-1);
   };
@@ -128,6 +154,70 @@ const AdminClient: FC = () => {
     document.body.removeChild(aElement);
   };
 
+  const handleOpenChange = () => {
+    setOpen(true);
+  };
+  const handleOpenChangeTime = () => {
+    setOpenTime(true);
+  };
+
+  const hide = () => {
+    setOpen(false);
+    setOpenTime(false);
+  };
+
+  const items: MenuItem[] = [GetItem("Joined Date", "Joined Date")];
+
+  const timeItems: MenuItem[] = [
+    getItem("All Time", "All Time"),
+    getItem("Last 24 Hours", "Last 24 Hours"),
+    getItem("Last 7 Days", "Last 7 Days"),
+    getItem("Last 4 Weeks", "Last 4 Weeks"),
+    getItem("Last 12 Months", "Last 12 Months"),
+    getItem("Month to Date", "Month to Date"),
+    getItem("Quarter to Date", "Quarter to Date"),
+    getItem("Year to Date", "Year to Date"),
+  ];
+
+  const onClick: MenuProps["onClick"] = (e) => {
+    setSort(e.key);
+    hide();
+  };
+
+  const onClickTime: MenuProps["onClick"] = (e) => {
+    setSort(e.key);
+    hide();
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        hide();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const totalBudget = useMemo(
+    () =>
+      campaignData
+        .map((item) => Number(item.price))
+        .reduce((acc, current) => acc + current, 0),
+    [campaignData]
+  );
+
+  const totalBilled = useMemo(
+    () =>
+      campaignData
+        .map((item) => Number(item.billed))
+        .reduce((acc, current) => acc + current, 0),
+    [campaignData]
+  );
+
   return (
     <div>
       {loading && <Loading />}
@@ -156,7 +246,7 @@ const AdminClient: FC = () => {
             >
               <path d="M683.154-460H200v-40h483.154L451.461-731.692 480-760l280 280-280 280-28.539-28.308L683.154-460Z" />
             </svg>
-            <span>{currentTab === "user" ? "Details" : "Campaign"}</span>
+            <span>{currentTab === "user" ? "Details" : "Campaigns"}</span>
           </h2>
           {/* <p className='text-secondry1 text-xs font-[Inter] mt-1'>One-stop shop to manage all clients</p> */}
           <div className="mt-4 flex justify-between items-center border-b-[1px] border-[#bcbcbc] py-4">
@@ -169,6 +259,11 @@ const AdminClient: FC = () => {
                 <p className="font-[Inter] text-lg text-secondry1 -tracking-[.54px]">
                   {userData.company}
                 </p>
+                <p className="text-[#a3a3a3] text-xs font-medium -tracking-[.48px]">{`Date Joined: ${moment(
+                  Number(userData.create_time)
+                )
+                  .format("DD MMM, yyyy")
+                  .toString()}`}</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -202,9 +297,7 @@ const AdminClient: FC = () => {
                   </svg>
                   Total Budget
                 </div>
-                <p className="text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0">{`$${campaignData
-                  .map((item) => Number(item.spent))
-                  .reduce((acc, current) => acc + current, 0)}`}</p>
+                <p className="text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0">{`$${totalBudget}`}</p>
               </div>
               <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[240px]">
                 <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
@@ -219,63 +312,64 @@ const AdminClient: FC = () => {
                   </svg>
                   Total Billed
                 </div>
-                <p className="text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0">{`$${campaignData
-                  .map((item) => Number(item.billed))
-                  .reduce((acc, current) => acc + current, 0)}`}</p>
+                <p className="text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0">{`$${totalBilled}`}</p>
+              </div>
+              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[240px]">
+                <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="20"
+                    viewBox="0 -960 960 960"
+                    width="20"
+                    className="me-2"
+                  >
+                    <path d="M264.615-120Q237-120 218.5-138.5 200-157 200-184.615v-590.77Q200-803 218.5-821.5 237-840 264.615-840H580l180 180v475.385Q760-157 741.5-138.5 723-120 695.385-120h-430.77Zm209.231-110h40v-40h60q8.5 0 14.25-5.75t5.75-14.25v-120q0-8.5-5.75-14.25t-14.25-5.75h-140v-80h160v-40h-80v-40h-40v40h-60q-8.5 0-14.25 5.75t-5.75 14.25v120q0 8.5 5.75 14.25t14.25 5.75h140v80h-160v40h80v40Zm89.308-430h140l-140-140v140Z" />
+                  </svg>
+                  Unbilled Revenue
+                </div>
+                <p className="text-[25px] font-[Inter] text-error font-semibold -tracking-[.75px] mt-2 mb-0">{`$${
+                  totalBudget - totalBilled
+                }`}</p>
               </div>
             </div>
           </div>
           <div className="my-4 flex items-center justify-between">
-            <div>
+            <div className="group inline-flex min-w-[170px] relative me-4">
               <button
-                className={`font-[Inter] text-xs rounded-[10px] px-[30px] py-[10px] font-semibold ${
-                  currentTab === "user"
-                    ? "bg-main"
-                    : "bg-transparent ring-[1px] ring-[#7f8182]"
-                }`}
-                onClick={() => setCurrentTab("user")}
-              >
-                Client Details
-              </button>
-              <button
-                className={`font-[Inter] text-xs rounded-[10px] px-[30px] py-[10px] ms-6 font-semibold ${
+                className={`inline-flex items-center justify-center text-primary text-[14px] px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
                   currentTab === "campaign"
-                    ? "bg-main"
-                    : "bg-transparent ring-[1px] ring-[#7f8182]"
+                    ? "bg-white border border-solid border-main shadow-md font-semibold"
+                    : "font-normal"
                 }`}
                 onClick={() => setCurrentTab("campaign")}
               >
                 Campaigns
               </button>
+              <button
+                className={`inline-flex font-[Inter] text-[14px]  items-center gap-4 justify-between text-primary flex px-4 py-[10px] rounded-[10px] ${
+                  currentTab === "user"
+                    ? "bg-white border border-solid border-main shadow-md font-semibold"
+                    : "font-normal"
+                }`}
+                onClick={() => setCurrentTab("user")}
+              >
+                Client Details
+              </button>
             </div>
-            <p className="text-[#a3a3a3] text-xs font-medium -tracking-[.48px]">{`Date Joined: ${moment(
-              Number(userData.create_time)
-            )
-              .format("DD MMM, yyyy")
-              .toString()}`}</p>
           </div>
           {currentTab === "user" && (
             <div>
-              {/* <p className='font-[Inter] text-xs font-medium -tracking-[.51px]'>Client Details</p> */}
               <div className="mt-4 rounded-[10px] bg-white px-[23px] py-[28px] ">
-                <div className="grid grid-cols-4 gap-16 border-b-[1px] border-[#bcbcbc]">
+                <div className="grid grid-cols-4 gap-16 border-b-[1px] border-[#bcbcbc] pb-5">
                   <div className="col-span-3">
-                    {/* <h2 className='font-[Inter] text-lg -tracking-[.6px] font-medium mb-4'>Company Information</h2> */}
                     <p className="font-[Inter] text-lg -tracking-[.6px] font-medium mb-4">
                       Company Users
                     </p>
-                    {/* 
-                  <p className='mt-4 text-xs font-[Inter] -tracking-[.48px] font-medium'>Company Name</p>
-                  <p className='mt-2 text-lg italic -tracking-[.54px] text-[#7f8182] font-medium bg-[#fbfbfb] rounded-[10px] px-4 py-2 border-[1px] border-[rgba(127, 129, 130, 0.13)]'>{userData.company}</p> */}
                   </div>
                   <div className="col-span-1">
-                    <h2 className="font-[Inter] text-lg -tracking-[.6px] font-medium mb-4">
-                      Payment Methods
-                    </h2>
-                    {/* <p className='text-lg font-[Inter] -tracking-[.48px] font-medium'>Visa Card</p> */}
                     {adminRole === "super_admin" && (
                       <div>
-                        <p className="text-lg font-[Inter] font-medium -tracking-[.6px] mt-4">
+                        <p className="text-lg font-[Inter] font-medium -tracking-[.6px]">
                           Assign Account Manager(s)
                         </p>
                         {accountManager && (
@@ -322,62 +416,58 @@ const AdminClient: FC = () => {
                   <p className="font-[Inter] text-lg -tracking-[.6px] font-medium mb-4 mt-4">
                     Company Files
                   </p>
-                  <Table className="file-table" dataSource={fileData}>
-                    <Column
-                      title="Name"
-                      key="name"
-                      className="!text-xs !text-secondry1"
-                      render={(_: any, record: any) => (
-                        <>
-                          <span className="!text-xs !font-normal !text-secondry2">
-                            {record.name}
-                          </span>
-                        </>
-                      )}
-                    />
-                    <Column
-                      title="Campaign Name"
-                      key="campaign name"
-                      className="!text-xs !text-secondry1"
-                      render={(_: any, record: any) => (
-                        <>
-                          <span className="!text-xs !font-normal !text-secondry2">
-                            {record.campaignName}
-                          </span>
-                        </>
-                      )}
-                    />
-                    <Column
-                      title="Date Added"
-                      key="date"
-                      className="!text-xs !text-secondry1"
-                      render={(_: any, record: any) => (
-                        <>
-                          <span className="!text-xs !font-normal !text-secondry2">
-                            {record.date}
-                          </span>
-                        </>
-                      )}
-                    />
-                    <Column
-                      title={" "}
-                      key="action"
-                      render={(_: any, record: any) => (
-                        <>
-                          <button
-                            className="text-xs font-bold -tracking-[.45px] text-secondry2"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleDownload(record.fullUrl, record.name);
-                            }}
-                          >
-                            VIEW
-                          </button>
-                          {/* <button className='text-xs font-bold -tracking-[.45px] text-[#7f8182] ms-2'>DELETE</button> */}
-                        </>
-                      )}
-                    />
-                  </Table>
+                  <div className="border-b-[1px] border-[#bcbcbc] py-4">
+            <Table className="file-table" dataSource={fileData}>
+              <Column
+                title="Name"
+                key="name"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.name}</span>
+                  </>
+                )}
+              />
+              <Column
+                title="Campaign Name"
+                key="campaign name"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.campaignName}</span>
+                  </>
+                )}
+              />
+              <Column
+                title="Date Added"
+                key="date"
+                className="!text-xs !text-secondry1"
+                render={(_: any, record: any) => (
+                  <>
+                    <span className="!text-xs !font-normal !text-secondry2">{record.date}</span>
+                  </>
+                )}
+              />
+              <Column
+                title={" "}
+                key="action"
+                render={(_: any, record: any) => (
+                  <>
+                    <button
+                      className="text-xs font-bold -tracking-[.45px] text-secondry2"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDownload(record.fullUrl, record.name);
+                      }}
+                    >
+                      VIEW
+                    </button>
+                    {/* <button className='text-xs font-bold -tracking-[.45px] text-[#7f8182] ms-2'>DELETE</button> */}
+                  </>
+                )}
+              />
+            </Table>
+          </div>
                 </div>
               </div>
               <AssignAccountManager
@@ -387,111 +477,188 @@ const AdminClient: FC = () => {
                 afterAdd={(data: any) => setAccountManager(data)}
                 onClose={(show: boolean) => setShowAssignModal(show)}
               />
-              <div className="mt-3 rounded-[10px] bg-white p-4">
-                <p className="font-[Inter] text-lg font-medium -tracking-[.6px] text-primary">
-                  Notes
-                </p>
-                <textarea
-                  value={note}
-                  className="bg-[#fbfbfb] border-[1px] border-[#7f8182] rounded-[10px] min-h-[140px] w-full mt-4"
-                  onChange={(e) => setNote(e.target.value)}
-                />
-                <div className="w-full text-right mt-2">
-                  <button
-                    className="bg-main px-5 py-2 font-semibold text-xs font-[Inter] rounded-[10px]"
-                    onClick={handleSaveNote}
-                  >
-                    Save
-                  </button>
-                </div>
-              </div>
             </div>
           )}
           {currentTab === "campaign" && (
-            <div className="rounded-[10px] bg-white px-[23px] py-[28px] ">
-              {/* <p className='font-[Inter] text-xs font-medium -tracking-[.51px]'>Campaign Details</p> */}
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="flex items-center px-4 py-2 border-[#7f8182] border-[1px] rounded-[10px]">
+            <div className="rounded-[10px] bg-white px-[16px] py-[16px] ">
+              <div className="flex justify-between items-center w-full gap-5">
+                <div className="flex gap-5">
+                  <div className="flex w-[342px] border-[2px] rounded-[10px] border-main items-center px-4 py-2 bg-white">
                     <svg
+                      xmlns="http://www.w3.org/2000/svg"
                       width="21"
                       height="20"
+                      className="me-4"
                       viewBox="0 0 21 20"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M12.0016 1.07199C12.9542 1.62201 13.7832 2.36255 14.4368 3.24735C15.0903 4.13216 15.5544 5.14222 15.8 6.21444C16.0456 7.28666 16.0675 8.39801 15.8643 9.47908C15.6611 10.5601 15.2372 11.5877 14.619 12.4976L19.5637 17.4412C19.839 17.7125 19.9989 18.0795 20.0102 18.4659C20.0216 18.8522 19.8833 19.228 19.6244 19.5149C19.3655 19.8018 19.0058 19.9777 18.6203 20.006C18.2349 20.0342 17.8534 19.9126 17.5554 19.6665L17.4414 19.5635L12.4977 14.6188C11.3149 15.4222 9.93848 15.894 8.51156 15.9851C7.08464 16.0761 5.65938 15.7832 4.38408 15.1366C3.10878 14.4901 2.03003 13.5136 1.26007 12.3088C0.490105 11.104 0.0570647 9.71489 0.00600086 8.28598L0 8.00094L0.0050008 7.7159C0.0542013 6.33646 0.459431 4.99321 1.18131 3.8167C1.90318 2.64019 2.91715 1.67044 4.12465 1.00171C5.33216 0.332977 6.69213 -0.0119965 8.07239 0.00031853C9.45265 0.0126336 10.8063 0.381819 12.0016 1.07199Z"
                         fill="#7F8182"
                       />
-                      <circle cx="8.00781" cy="8.00391" r="6" fill="#F5F5F5" />
+                      <circle cx="8.00586" cy="8.00488" r="6" fill="#F5F5F5" />
                     </svg>
-
                     <input
-                      className="focus:ring-0 focus:outline-0 border-0 text-xs p-0 ms-2"
+                      className="me-2 font-[Inter] flex-1 border-0 text-sm text-primary focus:ring-0 p-0 focus:border-secondry2"
                       placeholder="Search by Campaign Name"
-                      value={searchKey}
-                      onChange={(e) => setSearchKey(e.target.value)}
+                      value={searchStr}
+                      onChange={(e) => setSearchStr(e.target.value)}
                     />
                   </div>
+                  <div
+                    ref={ref}
+                    className="group inline-flex flex-col min-w-[100px] relative"
+                  >
+                    <button
+                      onMouseEnter={handleOpenChange}
+                      className={`font-[Inter] text-[14px] font-normal items-center justify-center text-primary justify-between flex px-4 py-2 gap-4 rounded-[10px] bg-white ring-2 ring-main shadow-md focus:ring-main`}
+                    >
+                      {sort}
+                      <svg
+                        width="18"
+                        height="12"
+                        viewBox="0 0 18 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <line
+                          y1="1.75"
+                          x2="18"
+                          y2="1.75"
+                          stroke="#505050"
+                          strokeWidth="2.5"
+                        />
+                        <line
+                          x1="2"
+                          y1="5"
+                          x2="16"
+                          y2="5"
+                          stroke="#505050"
+                          strokeWidth="2"
+                        />
+                        <line
+                          x1="7"
+                          y1="11.5"
+                          x2="11"
+                          y2="11.5"
+                          stroke="#505050"
+                        />
+                        <line
+                          x1="4"
+                          y1="8.25"
+                          x2="14"
+                          y2="8.25"
+                          stroke="#505050"
+                          strokeWidth="1.5"
+                        />
+                      </svg>
+                    </button>
+                    {open && (
+                      <Menu
+                        selectedKeys={[sort]}
+                        onClick={onClick}
+                        items={items}
+                        className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9] !focus:ring-main"
+                      />
+                    )}
+                  </div>
                 </div>
-                <DatePicker.RangePicker
-                  className="font-[Inter] rounded-[10px] py-[10px] border-secondry2 w-[270px] col-span-full"
-                  onChange={(e) => setRange(e)}
-                />
+                <div className="flex">
+                  <div
+                    ref={ref}
+                    className="group inline-flex flex-col min-w-[100px] relative"
+                  >
+                    <button
+                      onMouseEnter={handleOpenChangeTime}
+                      className={`font-[Inter] text-[14px] font-semibold items-center justify-center text-primary justify-between flex px-4 py-[10px] gap-4 rounded-[10px] bg-white ring-1 ring-main shadow-md`}
+                    >
+                      {selectedDateFilter}
+                      <CaretDownOutlined />
+                    </button>
+                    {openTime && (
+                      <Menu
+                        selectedKeys={[selectedDateFilter]}
+                        onClick={onClickTime}
+                        items={timeItems}
+                        className="w-[300px] absolute top-[calc(100%+5px)] !shadow-md rounded-[10px] text-left z-[9]"
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-8">
+              <div className="mt-5 grid grid-cols-2 gap-8">
                 {filteredData.map((item) => (
                   <div className="col-span-1" key={item.id}>
-                    <p className="font-[Inter] text-[13px] font-semibold -tracking-[.39px]">{`Launch Date: ${
-                      item.state === "active"
-                        ? moment(Number(item.create_time)).format(
-                            "DD MMM, yyyy"
-                          )
-                        : "Draft"
-                    }`}</p>
-                    <div className="rounded-[10px] bg-[#f5f5f5] w-full px-[20px] py-[16px] mt-2">
-                      <div className="flex items-center justify-between">
-                        <div className="">
+                    <div className="rounded-[10px] bg-[#f5f5f5] w-full px-[20px] py-[16px]">
+                      <p className="font-[Inter] text-[16px] font-semibold -tracking-[.39px]">
+                        {" "}
+                        {item.name}
+                      </p>
+                      <div className="mt-4 flex items-center justify-between">
+                        <div className="text-center">
                           <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">
-                            Tracking No.
+                            Date Created
                           </p>
-                          <p className="mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-secondry1">{`#${item.id}`}</p>
+                          <p className="mt-2 text-[14px] font-[Inter] font-medium -tracking-[.39px]">{`${moment(
+                            Number(item.create_time)
+                          ).format("MM/DD/yyyy")}`}</p>
                         </div>
-                        <div className="">
+                        <div className="text-center">
                           <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">
-                            Compaign Name
+                            Budget Cap
                           </p>
-                          <p className="mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-secondry1">{`${item.name}`}</p>
+                          <p className="mt-2 text-[14px] font-[Inter] font-medium text-secondry1">{`$${Number(
+                            item.price
+                          )}`}</p>
                         </div>
-                        <div className="">
-                          <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">
-                            Budget/
-                            <span className="text-xs -tracking-[.36px]">
-                              week
-                            </span>
-                          </p>
-                          <p className="mt-2 text-lg -tracking-[.54px] font-[Inter] font-semibold text-secondry1">{`$${
-                            Number(item.price) / 4
-                          }`}</p>
-                        </div>
-                        <div className="">
+                        <div className="text-center">
                           <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">
                             Status
                           </p>
-                          <p
-                            className={`mt-2 text-xs rounded-[10px] -tracking-[.54px] text-center font-[Inter] font-semibold text-secondry1 ${
-                              item.state === "active"
-                                ? "bg-main"
-                                : "bg-[#dbdbdb]"
-                            }`}
-                          >{`${
-                            item.state === "active" ? "Active" : "Draft"
-                          }`}</p>
+                          {item.complete_date ? (
+                            <button
+                              className={`ms-2 inline-flex items-center justify-center text-primary px-4 py-[2px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 bg-white border border-solid border-main shadow-md`}
+                            >
+                              <span className="text-[12px] font-normal">
+                                Completed:{" "}
+                              </span>
+                              <span className="text-[12px] font-light">
+                                {moment(Number(item.complete_date)).format(
+                                  "MM/DD/YYYY"
+                                )}
+                              </span>
+                            </button>
+                          ) : (
+                            <p className="font-medium font-[Inter] inline-flex">
+                              <span
+                                className={`rounded-[10px] text-xs px-[12px] mt-2 py-[4px] font-normal ${
+                                  item.state === "draft"
+                                    ? "bg-[#dbdbdb] text-primary"
+                                    : item.state === "paused"
+                                    ? "bg-[#fdbdbd]"
+                                    : "bg-main text-primary"
+                                }`}
+                              >
+                                {capitalize(item.state)}
+                              </span>
+                            </p>
+                          )}
                         </div>
+                        {/* <div className="">
+                          <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">
+                            Date Submitted
+                          </p>
+                          <p className="mt-2 text-[14px] font-[Inter] font-medium text-secondry1">
+                            {item.start_date
+                              ? `${moment(Number(item.start_date)).format(
+                                  "MM/DD/yyyy"
+                                )}`
+                              : "NA"}
+                          </p>
+                        </div> */}
                       </div>
                       <Link
-                        to={`/admin/client/${id}/${item.id}`}
+                        to={`/admin/client/${id}/campaign/${item.id}`}
                         className="block flex items-center justify-center w-full bg-[#7ffbae] py-[10px] mt-4 rounded-[10px] font-semibold text-[15px] font-[Inter]"
                       >
                         View Campaign
