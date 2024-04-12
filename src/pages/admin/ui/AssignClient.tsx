@@ -1,6 +1,6 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Avatar, Checkbox, CheckboxProps, Select } from "antd";
+import { Avatar, Checkbox } from "antd";
 
 import AdminAPIInstance from "../../../api/adminApi";
 
@@ -10,60 +10,59 @@ import { getPlaceHolder } from "../../../utils/commonUtils";
 
 interface typeAssignAccountManager {
   show: boolean;
-  company: string;
+  name: string;
   userId: string;
   afterAdd: Function;
   onClose: Function;
-  assignedAdmins: Array<any>;
+  assignedClients: Array<any>;
 }
 
-const AssignAccountManager: FC<typeAssignAccountManager> = ({
+const AssignClient: FC<typeAssignAccountManager> = ({
   show,
-  company,
+  name,
   onClose,
   userId,
   afterAdd,
-  assignedAdmins,
+  assignedClients,
 }: typeAssignAccountManager) => {
   const [loading, setLoading] = useState(false);
-  const [manager, setManager] = useState<number[]>([]);
-  const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
+  const [selectedClients, setSelectedClients] = useState<number[]>([]);
+  const [clients, setClients] = useState<Array<any>>([]);
   const [searchStr, setSearchStr] = useState<string>("");
 
   useEffect(() => {
-    setManager([...assignedAdmins.map((item) => item.id)]);
-  }, [assignedAdmins, show]);
+    setSelectedClients([...assignedClients.map((item) => item.id)]);
+  }, [assignedClients, show]);
 
   useEffect(() => {
     setLoading(true);
-    AdminAPIInstance.get("/user/account-manager")
+    AdminAPIInstance.get("/dashboard/client", {
+      params: { searchStr: "" },
+    })
       .then((data) => {
-        setAccountManagers(data.data);
+        setClients(data.data);
       })
       .finally(() => setLoading(false));
   }, []);
 
   const handleSubmit = () => {
-    if (manager.length <= 0) return;
+    if (selectedClients.length <= 0) return;
     setLoading(true);
-    AdminAPIInstance.post("/user/account-manager", {
+    AdminAPIInstance.post("/dashboard/client", {
       userId,
-      assignedIds: manager,
-      removedIds: assignedAdmins
-        .filter((admin) => !manager.includes(admin.id))
-        .map((admin) => admin.id),
+      assignedIds: selectedClients,
     })
-      .then((data) => {
-        if (afterAdd) afterAdd(data.data);
+      .then(() => {
+        if (afterAdd) afterAdd();
       })
       .finally(() => setLoading(false));
   };
 
   const onChange = (id: number) => {
-    if (manager.includes(id)) {
-      setManager(manager.filter((x) => x !== id));
+    if (selectedClients.includes(id)) {
+      setSelectedClients(selectedClients.filter((x) => x !== id));
     } else {
-      setManager([...manager, id]);
+      setSelectedClients([...selectedClients, id]);
     }
   };
 
@@ -111,83 +110,68 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({
                 <div className="flex flex-col gap-7 mt-9 w-full">
                   <div className="flex flex-col gap-3">
                     <p className="text-xs md:text-base font-[Inter] -tracking-[.48px] font-medium">
-                      Company Name
+                      Account Manager Name
                     </p>
                     <div className="rounded-[10px] border border-solid border-[#7f8182] px-5 py-3 text-[#7f8182] text-xs md:text-lg font-medium -tracking-[.5px]">
-                      {company}
+                      {name}
                     </div>
                   </div>
                   <div className="flex flex-col">
                     <p className="text-xs md:text-base font-[Inter] -tracking-[.48px] font-medium mb-3">
-                      Assigned Members
+                      Assigned Clients
                     </p>
                     <input
-                      placeholder="Search members and assign from the dropdown..."
+                      placeholder="Search clients and assign from the dropdown..."
                       className="rounded-[10px] w-full border border-solid border-[#7f8182] px-5 py-3 text-[#7f8182] text-[16px] font-medium -tracking-[.5px]"
                       onChange={(e) => setSearchStr(e.target.value)}
                     />
                     <div className="flex flex-col max-h-[285px] overflow-y-auto">
                       {(searchStr
-                        ? accountManagers.filter((x) =>
+                        ? clients.filter((x) =>
                             x.name
                               .toLowerCase()
                               .includes(searchStr.toLowerCase())
                           )
-                        : accountManagers
-                      ).map((am, index) => (
+                        : clients
+                      ).map((client, index) => (
                         <div
                           key={index}
                           className="flex items-center gap-5 px-5 py-3 [&:not(:last-child)]:border-b border-solid border-[#D9D9D9]"
                         >
-                          {/* <span className="rounded-full w-14 h-14 bg-red-500">
-                            {getPlaceHolder(am?.name)}
-                          </span> */}
                           <Avatar
-                            src={am?.avatar}
+                            src={client?.avatar}
                             className="bg-[#7f8182]"
                             size={40}
                           >
-                            {!am?.avatar && getPlaceHolder(am?.name)}
+                            {!client?.avatar && getPlaceHolder(client?.name)}
                           </Avatar>
                           <div className="flex flex-col gap-1.5">
                             {/* <span className="text-[15px] color-[#43474A] font-[Inter] -tracking-[.45px] font-medium">
                               EnlightnAI
                             </span> */}
                             <span className="text-[12px] color-[#767676] font-[Inter] -tracking-[.36px] font-normal">
-                              {am?.name}
+                              {client?.name}
                             </span>
                             <span className="text-[12px] color-[#767676] font-[Inter] -tracking-[.36px] font-normal">
-                              {am?.email}
+                              {client?.email}
                             </span>
                           </div>
                           <Checkbox
                             className="custom-checkbox ml-auto"
-                            checked={!!manager.includes(am.id)}
-                            onChange={() => onChange(am.id)}
+                            checked={!!selectedClients.includes(client.id)}
+                            onChange={() => onChange(client.id)}
                           ></Checkbox>
                         </div>
                       ))}
                     </div>
-
-                    {/* <Select
-                    className="select-account-manager w-full mt-1"
-                    mode="multiple"
-                    allowClear
-                    value={manager}
-                    onChange={(e) => setManager(e)}
-                    options={accountManagers.map((item: any) => ({
-                      value: item.id,
-                      label: item.name,
-                    }))}
-                  /> */}
                   </div>
                 </div>
                 <button
                   className="mt-4 text-xs font-semibold py-3 text-primary bg-main w-full rounded-[10px] disabled:bg-[gray]"
                   onClick={handleSubmit}
-                  disabled={!manager || manager.length <= 0}
+                  disabled={!selectedClients || selectedClients.length <= 0}
                 >
-                  Assign
+                  Update
                 </button>
               </Dialog.Panel>
             </Transition.Child>
@@ -198,4 +182,4 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({
   );
 };
 
-export default AssignAccountManager;
+export default AssignClient;
