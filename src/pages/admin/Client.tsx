@@ -25,7 +25,7 @@ const AdminClient: FC = () => {
   const [userData, setUserData] = useState<any>({});
   const [campaignData, setCampaignData] = useState<Array<any>>([]);
   const [filteredData, setFilteredData] = useState<Array<any>>([]);
-  const [accountManager, setAccountManager] = useState<any>();
+  const [accountManager, setAccountManager] = useState<Array<any>>([]);
   const [currentTab, setCurrentTab] = useState("campaign");
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [range, setRange] = useState<any>([]);
@@ -122,25 +122,13 @@ const AdminClient: FC = () => {
     }
   };
 
-  const handleRemove = () => {
+  const handleRemove = (id: number) => {
     AdminAPIInstance.put("/user/account-manager", {
       userId: userData.id,
-      manager: accountManager.id,
+      manager: id,
     })
       .then((data) => {
-        setAccountManager(undefined);
-      })
-      .finally(() => setLoading(false));
-  };
-
-  const handleSaveNote = () => {
-    setLoading(true);
-    AdminAPIInstance.put("/client", {
-      id: userData.id,
-      note,
-    })
-      .then(() => {
-        DialogUtils.show("success", "", "Successfully Updated!");
+        setAccountManager([]);
       })
       .finally(() => setLoading(false));
   };
@@ -372,14 +360,17 @@ const AdminClient: FC = () => {
                         <p className="text-lg font-[Inter] font-medium -tracking-[.6px]">
                           Assign Account Manager(s)
                         </p>
-                        {accountManager && (
-                          <div className="rounded-[10px] bg-[#fbfbfb] border-[1px] border-[#7f8183]/[.13] my-2 px-4 py-2 flex items-center justify-between">
+                        {accountManager.map((am, index) => (
+                          <div
+                            key={index}
+                            className="rounded-[10px] bg-[#fbfbfb] border-[1px] border-[#7f8183]/[.13] my-2 px-4 py-2 flex items-center justify-between"
+                          >
                             <p className="text-secondry1 font-[Inter] -tracking-[.5px] font-medium text-xs">
-                              {accountManager.name}
+                              {am?.name}
                             </p>
                             <button
                               className="text-xs font-[Inter] text-white px-3 py-1 rounded-[10px] bg-[#e3392e] flex items-center justify-center"
-                              onClick={handleRemove}
+                              onClick={() => handleRemove(am.id)}
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -400,7 +391,7 @@ const AdminClient: FC = () => {
                               Remove
                             </button>
                           </div>
-                        )}
+                        ))}
                         <button
                           className="mt-4 px-6 py-2 rounded-[10px] text-white font-[Inter] text-xs font-semibold bg-black disabled:bg-[#a3a3a3]"
                           disabled={userData.accountManager}
@@ -417,57 +408,63 @@ const AdminClient: FC = () => {
                     Company Files
                   </p>
                   <div className="border-b-[1px] border-[#bcbcbc] py-4">
-            <Table className="file-table" dataSource={fileData}>
-              <Column
-                title="Name"
-                key="name"
-                className="!text-xs !text-secondry1"
-                render={(_: any, record: any) => (
-                  <>
-                    <span className="!text-xs !font-normal !text-secondry2">{record.name}</span>
-                  </>
-                )}
-              />
-              <Column
-                title="Campaign Name"
-                key="campaign name"
-                className="!text-xs !text-secondry1"
-                render={(_: any, record: any) => (
-                  <>
-                    <span className="!text-xs !font-normal !text-secondry2">{record.campaignName}</span>
-                  </>
-                )}
-              />
-              <Column
-                title="Date Added"
-                key="date"
-                className="!text-xs !text-secondry1"
-                render={(_: any, record: any) => (
-                  <>
-                    <span className="!text-xs !font-normal !text-secondry2">{record.date}</span>
-                  </>
-                )}
-              />
-              <Column
-                title={" "}
-                key="action"
-                render={(_: any, record: any) => (
-                  <>
-                    <button
-                      className="text-xs font-bold -tracking-[.45px] text-secondry2"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDownload(record.fullUrl, record.name);
-                      }}
-                    >
-                      VIEW
-                    </button>
-                    {/* <button className='text-xs font-bold -tracking-[.45px] text-[#7f8182] ms-2'>DELETE</button> */}
-                  </>
-                )}
-              />
-            </Table>
-          </div>
+                    <Table className="file-table" dataSource={fileData}>
+                      <Column
+                        title="Name"
+                        key="name"
+                        className="!text-xs !text-secondry1"
+                        render={(_: any, record: any) => (
+                          <>
+                            <span className="!text-xs !font-normal !text-secondry2">
+                              {record.name}
+                            </span>
+                          </>
+                        )}
+                      />
+                      <Column
+                        title="Campaign Name"
+                        key="campaign name"
+                        className="!text-xs !text-secondry1"
+                        render={(_: any, record: any) => (
+                          <>
+                            <span className="!text-xs !font-normal !text-secondry2">
+                              {record.campaignName}
+                            </span>
+                          </>
+                        )}
+                      />
+                      <Column
+                        title="Date Added"
+                        key="date"
+                        className="!text-xs !text-secondry1"
+                        render={(_: any, record: any) => (
+                          <>
+                            <span className="!text-xs !font-normal !text-secondry2">
+                              {record.date}
+                            </span>
+                          </>
+                        )}
+                      />
+                      <Column
+                        title={" "}
+                        key="action"
+                        render={(_: any, record: any) => (
+                          <>
+                            <button
+                              className="text-xs font-bold -tracking-[.45px] text-secondry2"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleDownload(record.fullUrl, record.name);
+                              }}
+                            >
+                              VIEW
+                            </button>
+                            {/* <button className='text-xs font-bold -tracking-[.45px] text-[#7f8182] ms-2'>DELETE</button> */}
+                          </>
+                        )}
+                      />
+                    </Table>
+                  </div>
                 </div>
               </div>
               <AssignAccountManager

@@ -3,10 +3,11 @@ import Loading from "../../../components/Loading";
 import AdminAPIInstance from "../../../api/adminApi";
 import { Avatar, Menu, MenuProps } from "antd";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GetItem, MenuItem } from "../../../containers/shared/GetItem";
 
 const AdminDashboardClient: FC = () => {
+  const { accountManagerId } = useParams();
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
   const [data, setData] = useState<Array<any>>([]);
@@ -17,13 +18,15 @@ const AdminDashboardClient: FC = () => {
 
   useEffect(() => {
     setLoading(true);
-    AdminAPIInstance.get("/dashboard/client", { params: { searchStr: "" } })
+    AdminAPIInstance.get("/dashboard/client", {
+      params: { searchStr: "", accountManagerId },
+    })
       .then((data) => {
         setData(data.data);
         console.log("data:", data.data);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [accountManagerId]);
 
   useEffect(() => {
     setShowData(
@@ -32,7 +35,6 @@ const AdminDashboardClient: FC = () => {
           item.name.includes(searchStr) || item.company.includes(searchStr)
       )
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, searchStr]);
 
   const getPlaceHolder = (fullName: string) => {
@@ -58,6 +60,11 @@ const AdminDashboardClient: FC = () => {
     [data]
   );
 
+  const draftCampaignCount = useMemo(
+    () => data.reduce((prev, item) => prev + Number(item?.draft_count ?? 0), 0),
+    [data]
+  );
+
   const totalSpend = useMemo(
     () =>
       data.reduce((prev, item) => prev + Number(item?.total_budget ?? 0), 0),
@@ -69,8 +76,11 @@ const AdminDashboardClient: FC = () => {
     [data]
   );
 
-  // backend should be corrected.
-  const completedCampaignCount = 0;
+  const completedCampaignCount = useMemo(
+    () =>
+      data.reduce((prev, item) => prev + Number(item?.completed_count ?? 0), 0),
+    [data]
+  );
 
   const handleOpenChange = () => {
     setOpen(true);
@@ -114,7 +124,7 @@ const AdminDashboardClient: FC = () => {
                 Total Clients
               </p>
               <p className="text-black text-[25px] mt-2 -tracking-[.75px] font-semibold ms-2">
-                {showData.length}
+                {data?.length}
               </p>
             </div>
             <div className="col-span-1 rounded-[10px] pt-2 px-2 pb-2 bg-white">
@@ -135,10 +145,10 @@ const AdminDashboardClient: FC = () => {
             </div>
             <div className="col-span-1 rounded-[10px] pt-2 px-2 pb-2 bg-white">
               <p className="text-[#7F8182] -tracking-[.42px] font-medium text-sm flex items-center">
-                Active Campaigns
+                Draft Campaigns
               </p>
               <p className="text-black text-[25px] mt-2 -tracking-[.75px] font-semibold ms-2">
-                {totalCampaignCount - activeCampaignCount}
+                {draftCampaignCount}
               </p>
             </div>
             <div className="col-span-1 rounded-[10px] pt-2 px-2 pb-2 bg-white">
@@ -290,7 +300,7 @@ const AdminDashboardClient: FC = () => {
                         Active Campaigns
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">
-                        {item?.active_campaign_count ?? 0}
+                        {item?.active_count ?? 0}
                       </p>
                     </div>
                     <div className="flex flex-col items-center w-full">
@@ -298,7 +308,7 @@ const AdminDashboardClient: FC = () => {
                         Draft Campaigns
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">
-                        {item?.draft_campaign_count ?? 0}
+                        {item?.draft_count ?? 0}
                       </p>
                     </div>
                     <div className="flex flex-col items-center w-full">
@@ -306,7 +316,7 @@ const AdminDashboardClient: FC = () => {
                         Completed Campaigns
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">
-                        {item?.completed_campaign_count ?? 0}
+                        {item?.completed_count ?? 0}
                       </p>
                     </div>
                     <div className="flex flex-col items-center w-full">
