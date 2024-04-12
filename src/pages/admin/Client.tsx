@@ -1,4 +1,4 @@
-import { Table, Avatar, DatePicker, Menu, MenuProps } from "antd";
+import { Table, Avatar, Menu, MenuProps } from "antd";
 import { FC, useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -9,7 +9,6 @@ import AdminAPIInstance from "../../api/adminApi";
 import Loading from "../../components/Loading";
 import { selectAuth } from "../../store/authSlice";
 import AssignAccountManager from "./ui/AssignAccountManager";
-import DialogUtils from "../../utils/DialogUtils";
 import { GetItem, MenuItem } from "../../containers/shared/GetItem";
 import { selectData } from "../../store/dataSlice";
 import { CaretDownOutlined } from "@ant-design/icons";
@@ -20,7 +19,6 @@ const { Column } = Table;
 const AdminClient: FC = () => {
   const { id } = useParams();
   const navigator = useNavigate();
-  const [searchStr, setSearchStr] = useState("");
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState<any>({});
   const [campaignData, setCampaignData] = useState<Array<any>>([]);
@@ -127,8 +125,8 @@ const AdminClient: FC = () => {
       userId: userData.id,
       manager: id,
     })
-      .then((data) => {
-        setAccountManager([]);
+      .then((res) => {
+        setAccountManager(res.data);
       })
       .finally(() => setLoading(false));
   };
@@ -193,7 +191,7 @@ const AdminClient: FC = () => {
   const totalBudget = useMemo(
     () =>
       campaignData
-        .map((item) => Number(item.price))
+        .map((item) => (item.state !== "draft" ? Number(item.price) : 0))
         .reduce((acc, current) => acc + current, 0),
     [campaignData]
   );
@@ -348,13 +346,13 @@ const AdminClient: FC = () => {
           {currentTab === "user" && (
             <div>
               <div className="mt-4 rounded-[10px] bg-white px-[23px] py-[28px] ">
-                <div className="grid grid-cols-4 gap-16 border-b-[1px] border-[#bcbcbc] pb-5">
+                <div className="grid grid-cols-5 gap-16 border-b-[1px] border-[#bcbcbc] pb-5">
                   <div className="col-span-3">
                     <p className="font-[Inter] text-lg -tracking-[.6px] font-medium mb-4">
                       Company Users
                     </p>
                   </div>
-                  <div className="col-span-1">
+                  <div className="col-span-2">
                     {adminRole === "super_admin" && (
                       <div>
                         <p className="text-lg font-[Inter] font-medium -tracking-[.6px]">
@@ -393,7 +391,7 @@ const AdminClient: FC = () => {
                           </div>
                         ))}
                         <button
-                          className="mt-4 px-6 py-2 rounded-[10px] text-white font-[Inter] text-xs font-semibold bg-black disabled:bg-[#a3a3a3]"
+                          className="mt-4 px-6 py-2 rounded-[10px] text-white font-[Inter] text-xs font-semibold bg-secondry3 disabled:bg-[#a3a3a3]"
                           disabled={userData.accountManager}
                           onClick={() => setShowAssignModal(true)}
                         >
@@ -403,11 +401,11 @@ const AdminClient: FC = () => {
                     )}
                   </div>
                 </div>
-                <div className="border-b-[1px] border-[#bcbcbc] py-4">
+                <div className="py-4">
                   <p className="font-[Inter] text-lg -tracking-[.6px] font-medium mb-4 mt-4">
                     Company Files
                   </p>
-                  <div className="border-b-[1px] border-[#bcbcbc] py-4">
+                  <div className="py-4">
                     <Table className="file-table" dataSource={fileData}>
                       <Column
                         title="Name"
@@ -468,6 +466,7 @@ const AdminClient: FC = () => {
                 </div>
               </div>
               <AssignAccountManager
+                assignedAdmins={accountManager}
                 show={showAssignModal}
                 company={userData.company}
                 userId={userData.id}
@@ -498,8 +497,8 @@ const AdminClient: FC = () => {
                     <input
                       className="me-2 font-[Inter] flex-1 border-0 text-sm text-primary focus:ring-0 p-0 focus:border-secondry2"
                       placeholder="Search by Campaign Name"
-                      value={searchStr}
-                      onChange={(e) => setSearchStr(e.target.value)}
+                      value={searchKey}
+                      onChange={(e) => setSearchKey(e.target.value)}
                     />
                   </div>
                   <div
@@ -596,9 +595,13 @@ const AdminClient: FC = () => {
                           <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">
                             Date Created
                           </p>
-                          <p className="mt-2 text-[14px] font-[Inter] font-medium -tracking-[.39px]">{`${moment(
-                            Number(item.create_time)
-                          ).format("MM/DD/yyyy")}`}</p>
+                          <p className="mt-2 text-[14px] font-[Inter] font-medium -tracking-[.39px]">
+                            {item.state !== "draft"
+                              ? `${moment(Number(item.create_time)).format(
+                                  "MM/DD/yyyy"
+                                )}`
+                              : "NA"}
+                          </p>
                         </div>
                         <div className="text-center">
                           <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">

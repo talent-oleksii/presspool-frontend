@@ -107,6 +107,15 @@ const AdminMember: FC = () => {
     [accountManagers]
   );
 
+  const clientCount = useMemo(
+    () =>
+      accountManagers.reduce(
+        (prev, item) => prev + Number(item?.client_count ?? 0),
+        0
+      ),
+    [accountManagers]
+  );
+
   return (
     <div className="min-h-full w-full flex">
       <div className="text-left flex-1">
@@ -120,7 +129,7 @@ const AdminMember: FC = () => {
                 Total Clients
               </p>
               <p className="text-black text-[25px] mt-2 -tracking-[.75px] font-semibold ms-2">
-                {accountManagers.length}
+                {clientCount}
               </p>
             </div>
             <div className="col-span-1 rounded-[10px] pt-2 px-2 pb-2 bg-white">
