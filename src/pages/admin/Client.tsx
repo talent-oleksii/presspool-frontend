@@ -1,5 +1,5 @@
 import { Table, Avatar, Menu, MenuProps } from "antd";
-import { FC, useState, useEffect, useRef, useMemo } from "react";
+import { FC, useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import moment from "moment-timezone";
@@ -13,6 +13,7 @@ import { GetItem, MenuItem } from "../../containers/shared/GetItem";
 import { selectData } from "../../store/dataSlice";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { capitalize } from "lodash";
+import APIInstance from "../../api";
 
 const { Column } = Table;
 
@@ -24,6 +25,7 @@ const AdminClient: FC = () => {
   const [campaignData, setCampaignData] = useState<Array<any>>([]);
   const [filteredData, setFilteredData] = useState<Array<any>>([]);
   const [accountManager, setAccountManager] = useState<Array<any>>([]);
+  const [teamData, setTeamData] = useState<Array<any>>([]);
   const [currentTab, setCurrentTab] = useState("campaign");
   const [showAssignModal, setShowAssignModal] = useState(false);
   const [range, setRange] = useState<any>([]);
@@ -34,9 +36,19 @@ const AdminClient: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [openTime, setOpenTime] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("Joined Date");
+  const [cardList, setCardList] = useState<Array<any>>([]);
   const ref = useRef<any>(null);
 
   const { adminRole } = useSelector(selectAuth);
+
+  const loadSavedCards = useCallback(async (email: string) => {
+    if (email) {
+      const response = await APIInstance.get("stripe/card", {
+        params: { email },
+      });
+      setCardList(response.data);
+    }
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -46,9 +58,11 @@ const AdminClient: FC = () => {
         setNote(data.data.userData.note || "");
         setCampaignData(data.data.campaignData);
         setAccountManager(data.data.assignedAdmins);
+        setTeamData(data.data.teamData);
+        loadSavedCards(data.data?.userData?.email);
       })
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, loadSavedCards]);
 
   useEffect(() => {
     // set campaign data
@@ -204,6 +218,8 @@ const AdminClient: FC = () => {
     [campaignData]
   );
 
+  console.log(cardList);
+
   return (
     <div>
       {loading && <Loading />}
@@ -352,7 +368,7 @@ const AdminClient: FC = () => {
                       <p className="font-[Inter] text-lg -tracking-[.6px] font-medium">
                         Company Users
                       </p>
-                      <Table className="file-table" dataSource={fileData}>
+                      <Table className="file-table" dataSource={teamData}>
                         <Column
                           title="Name"
                           key="name"
@@ -360,7 +376,7 @@ const AdminClient: FC = () => {
                           render={(_: any, record: any) => (
                             <>
                               <span className="!text-xs !font-normal !text-secondry2">
-                                {record.name}
+                                {record.name ?? "NA"}
                               </span>
                             </>
                           )}
@@ -372,7 +388,7 @@ const AdminClient: FC = () => {
                           render={(_: any, record: any) => (
                             <>
                               <span className="!text-xs !font-normal !text-secondry2">
-                                {record.campaignName}
+                                {record.manager}
                               </span>
                             </>
                           )}
@@ -384,7 +400,9 @@ const AdminClient: FC = () => {
                           render={(_: any, record: any) => (
                             <>
                               <span className="!text-xs !font-normal !text-secondry2">
-                                {record.date}
+                                {moment(Number(record.create_time)).format(
+                                  "MM/DD/yyyy"
+                                )}
                               </span>
                             </>
                           )}
@@ -396,18 +414,25 @@ const AdminClient: FC = () => {
                       <p className="font-[Inter] text-lg -tracking-[.6px] font-medium">
                         Payment Methods
                       </p>
-                      <div className="flex items-center self-start gap-3 border border-solid border-[#rgba(127, 129, 130, 0.13)] bg-[#FBFBFB] rounded-[10px] py-3 px-5 min-w-[270px]">
-                        <img
-                          src=""
-                          alt="VISA"
-                          width={47}
-                          height={29}
-                          className="rounded-sm"
-                        />
-                        <span className="text-base text-black font-[Inter] -tracking-[.48px] font-medium">
-                          **** **** **** 1458
-                        </span>
-                      </div>
+                      {cardList.map((item, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center self-start gap-3 border border-solid border-[#rgba(127, 129, 130, 0.13)] bg-[#FBFBFB] rounded-[10px] py-3 px-5 min-w-[270px]"
+                        >
+                          {/* <img
+                            src=""
+                            alt="VISA"
+                            width={47}
+                            height={29}
+                            className="rounded-sm"
+                          /> */}
+                          <span className="text-base text-black font-[Inter] -tracking-[.48px] font-medium">
+                            {`${item.brand.toUpperCase()} **** **** **** ${
+                              item.last4
+                            }`}
+                          </span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="col-span-2">

@@ -259,7 +259,7 @@ const AdminMember: FC = () => {
               <div className="w-full">
                 {(searchKey
                   ? accountManagers.filter((item) =>
-                      item.name.includes(searchKey)
+                      item.name.toLowerCase().includes(searchKey.toLowerCase())
                     )
                   : accountManagers
                 ).map((item: any, index) => (
