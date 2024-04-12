@@ -45,7 +45,8 @@ const AdminDashboardClient: FC = () => {
     setShowData(
       data.filter(
         (item) =>
-          item.name.includes(searchStr) || item.company.includes(searchStr)
+          item.name.toLowerCase().includes(searchStr.toLowerCase()) ||
+          item.company.toLowerCase().includes(searchStr.toLowerCase())
       )
     );
   }, [data, searchStr]);
@@ -297,7 +298,9 @@ const AdminDashboardClient: FC = () => {
                           <p className="text-[#a3a3a3] text-xs font-[Inter] -tracking-[.36px]">
                             {item.name}
                           </p>
-                          <p className="font-[Inter] -tracking-[.3px] text-xs text-[#a3a3a3]">{`ID: ${item.email}`}</p>
+                          <p className="font-[Inter] -tracking-[.3px] text-xs text-[#a3a3a3]">
+                            {item.email}
+                          </p>
                         </div>
                       </div>
                     </div>

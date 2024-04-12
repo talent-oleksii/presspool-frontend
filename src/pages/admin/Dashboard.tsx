@@ -545,7 +545,7 @@ const AdminDashboard: FC = () => {
             !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
           } rounded-[10px] bg-white shadow-md`}
         >
-          <div className="flex justify-between items-baseline">
+          <div className="flex justify-between items-baseline relative">
             <div>
               <h2 className="font-[Inter] text-base font-semibold">
                 All Campaigns
@@ -554,7 +554,7 @@ const AdminDashboard: FC = () => {
                 Let’s see how your campaigns are performing
               </p>
             </div>
-            <div>
+            <div className="absolute right-6">
               <div className="mt-[20px]">
                 <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs font-semibold mb-2">
                   <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-main"></span>
@@ -563,6 +563,10 @@ const AdminDashboard: FC = () => {
                 <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
                   <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
                   Unique Clicks
+                </p>
+                <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
+                  <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#FDE006]"></span>
+                  Verified Clicks
                 </p>
               </div>
             </div>

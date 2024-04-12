@@ -23,7 +23,12 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
   );
 
   const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
+    () =>
+      data.reduce(
+        (prev, item) =>
+          prev + (item.state === "active" ? Number(item?.price ?? 0) : 0),
+        0
+      ),
     [data]
   );
 
@@ -33,7 +38,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         (prev, item) =>
           prev +
           Number(
-            (item?.user_medium === "newsletter" || item?.user_medium === 'referral') &&
+            (item?.user_medium === "newsletter" ||
+              item?.user_medium === "referral") &&
               item.duration > item.count * 1.5 &&
               item.duration > 0
               ? item?.unique_click
@@ -48,8 +54,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-        ? 10
-        : totalSpend / verifiedClicks;
+      ? 10
+      : totalSpend / verifiedClicks;
 
   const calculateChangeDirection = (oldValue: number, newValue: number) => {
     const difference = newValue - oldValue;
@@ -68,8 +74,9 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       <div className="flex gap-2">
         {selectedDateFilter !== "All Time" ? (
           <div
-            className={`${changeDirection === "decrease" ? "bg-error" : "bg-main"
-              } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
+            className={`${
+              changeDirection === "decrease" ? "bg-error" : "bg-main"
+            } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
           >
             {changeDirection === "decrease" ? (
               <span className="text-[white]">-</span>
@@ -81,8 +88,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         <p className="text-[#172935] text-[10px] font-semibold">
           {selectedDateFilter !== "All Time"
             ? `${Math.abs(percentageDifference).toFixed(
-              2
-            )}% from ${selectedDateFilter}`
+                2
+              )}% from ${selectedDateFilter}`
             : "All Time"}
         </p>
       </div>
