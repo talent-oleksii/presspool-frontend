@@ -14,3 +14,20 @@
     }
   }
 }
+
+.custom-checkbox{
+  .ant-checkbox-inner{
+    width: 24px;
+    height: 24px;
+
+  }
+  .ant-checkbox-checked{
+    .ant-checkbox-inner{
+      background-color: #7FFBAE !important;
+      border-color: #7FFBAE !important;
+      &:after{
+        border-color: #000 !important;
+      }
+    }
+  }
+}

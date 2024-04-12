@@ -1,32 +1,45 @@
-import { FC, useEffect, useState, useMemo, useRef } from "react";
+import { FC, useEffect, useState, useMemo, useRef, useCallback } from "react";
 import Loading from "../../../components/Loading";
 import AdminAPIInstance from "../../../api/adminApi";
 import { Avatar, Menu, MenuProps } from "antd";
 import moment from "moment";
 import { Link, useParams } from "react-router-dom";
 import { GetItem, MenuItem } from "../../../containers/shared/GetItem";
+import AssignClient from "../ui/AssignClient";
 
 const AdminDashboardClient: FC = () => {
   const { accountManagerId } = useParams();
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
+  const [accountManager, setAccountManager] = useState<any>({});
   const [data, setData] = useState<Array<any>>([]);
   const [showData, setShowData] = useState<Array<any>>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("Joined Date");
+  const [showAssignModal, setShowAssignModal] = useState(false);
   const ref = useRef<any>(null);
 
-  useEffect(() => {
+  const loadClients = useCallback(() => {
     setLoading(true);
     AdminAPIInstance.get("/dashboard/client", {
       params: { searchStr: "", accountManagerId },
     })
       .then((data) => {
         setData(data.data);
-        console.log("data:", data.data);
       })
       .finally(() => setLoading(false));
   }, [accountManagerId]);
+
+  useEffect(() => {
+    loadClients();
+    if (accountManagerId) {
+      AdminAPIInstance.get("/user/account-manager-detail", {
+        params: { id: accountManagerId },
+      }).then((data) => {
+        setAccountManager(data.data);
+      });
+    }
+  }, [accountManagerId, loadClients]);
 
   useEffect(() => {
     setShowData(
@@ -172,7 +185,20 @@ const AdminDashboardClient: FC = () => {
               <p className="text-[#57d386] text-[25px] mt-2 -tracking-[.75px] font-semibold">{`$${totalBilled}`}</p>
             </div>
           </div>
-          <div className="flex items-center w-full mt-[24px] gap-5">
+          {accountManagerId && (
+            <div className="flex items-center w-full gap-5 mt-[24px]">
+              <h2 className="font-[Inter] font-semibold -tracking-[.6px] text-[20px]">
+                Assigned Clients
+              </h2>
+              <button
+                className="px-6 py-2 rounded-[10px] text-white font-[Inter] text-xs font-semibold bg-primary disabled:bg-[#a3a3a3]"
+                onClick={() => setShowAssignModal(true)}
+              >
+                + Assign Clients
+              </button>
+            </div>
+          )}
+          <div className="flex items-center w-full gap-5 mt-[24px]">
             <div className="flex w-[342px] border-[2px] rounded-[10px] border-main items-center px-4 py-2 bg-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -434,6 +460,14 @@ const AdminDashboardClient: FC = () => {
           </div>
         </div>
       </div>
+      <AssignClient
+        show={showAssignModal}
+        name={accountManager?.name}
+        userId={accountManagerId ?? ""}
+        afterAdd={loadClients}
+        onClose={(show: boolean) => setShowAssignModal(show)}
+        assignedClients={data}
+      />
     </div>
   );
 };

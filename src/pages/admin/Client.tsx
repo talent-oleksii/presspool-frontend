@@ -347,10 +347,68 @@ const AdminClient: FC = () => {
             <div>
               <div className="mt-4 rounded-[10px] bg-white px-[23px] py-[28px] ">
                 <div className="grid grid-cols-5 gap-16 border-b-[1px] border-[#bcbcbc] pb-5">
-                  <div className="col-span-3">
-                    <p className="font-[Inter] text-lg -tracking-[.6px] font-medium mb-4">
-                      Company Users
-                    </p>
+                  <div className="col-span-3 flex flex-col gap-11">
+                    <div className="flex flex-col gap-4">
+                      <p className="font-[Inter] text-lg -tracking-[.6px] font-medium">
+                        Company Users
+                      </p>
+                      <Table className="file-table" dataSource={fileData}>
+                        <Column
+                          title="Name"
+                          key="name"
+                          className="!text-xs !text-[#7F8182]"
+                          render={(_: any, record: any) => (
+                            <>
+                              <span className="!text-xs !font-normal !text-secondry2">
+                                {record.name}
+                              </span>
+                            </>
+                          )}
+                        />
+                        <Column
+                          title="Email"
+                          key="campaign name"
+                          className="!text-xs !text-[#7F8182]"
+                          render={(_: any, record: any) => (
+                            <>
+                              <span className="!text-xs !font-normal !text-secondry2">
+                                {record.campaignName}
+                              </span>
+                            </>
+                          )}
+                        />
+                        <Column
+                          title="Date Added"
+                          key="date"
+                          className="!text-xs !text-[#7F8182]"
+                          render={(_: any, record: any) => (
+                            <>
+                              <span className="!text-xs !font-normal !text-secondry2">
+                                {record.date}
+                              </span>
+                            </>
+                          )}
+                        />
+                      </Table>
+                    </div>
+                    {/* Payment */}
+                    <div className="flex flex-col gap-4">
+                      <p className="font-[Inter] text-lg -tracking-[.6px] font-medium">
+                        Payment Methods
+                      </p>
+                      <div className="flex items-center self-start gap-3 border border-solid border-[#rgba(127, 129, 130, 0.13)] bg-[#FBFBFB] rounded-[10px] py-3 px-5 min-w-[270px]">
+                        <img
+                          src=""
+                          alt="VISA"
+                          width={47}
+                          height={29}
+                          className="rounded-sm"
+                        />
+                        <span className="text-base text-black font-[Inter] -tracking-[.48px] font-medium">
+                          **** **** **** 1458
+                        </span>
+                      </div>
+                    </div>
                   </div>
                   <div className="col-span-2">
                     {adminRole === "super_admin" && (
@@ -363,7 +421,7 @@ const AdminClient: FC = () => {
                             key={index}
                             className="rounded-[10px] bg-[#fbfbfb] border-[1px] border-[#7f8183]/[.13] my-2 px-4 py-2 flex items-center justify-between"
                           >
-                            <p className="text-secondry1 font-[Inter] -tracking-[.5px] font-medium text-xs">
+                            <p className="text-[#7F8182] font-[Inter] -tracking-[.5px] font-medium text-xs">
                               {am?.name}
                             </p>
                             <button
@@ -410,7 +468,7 @@ const AdminClient: FC = () => {
                       <Column
                         title="Name"
                         key="name"
-                        className="!text-xs !text-secondry1"
+                        className="!text-xs !text-[#7F8182]"
                         render={(_: any, record: any) => (
                           <>
                             <span className="!text-xs !font-normal !text-secondry2">
@@ -422,7 +480,7 @@ const AdminClient: FC = () => {
                       <Column
                         title="Campaign Name"
                         key="campaign name"
-                        className="!text-xs !text-secondry1"
+                        className="!text-xs !text-[#7F8182]"
                         render={(_: any, record: any) => (
                           <>
                             <span className="!text-xs !font-normal !text-secondry2">
@@ -434,7 +492,7 @@ const AdminClient: FC = () => {
                       <Column
                         title="Date Added"
                         key="date"
-                        className="!text-xs !text-secondry1"
+                        className="!text-xs !text-[#7F8182]"
                         render={(_: any, record: any) => (
                           <>
                             <span className="!text-xs !font-normal !text-secondry2">
@@ -607,7 +665,7 @@ const AdminClient: FC = () => {
                           <p className="text-xs font-semibold -tracking-[.48px] font-[Inter] text-[#a3a3a3]">
                             Budget Cap
                           </p>
-                          <p className="mt-2 text-[14px] font-[Inter] font-medium text-secondry1">{`$${Number(
+                          <p className="mt-2 text-[14px] font-[Inter] font-medium text-secondary">{`$${Number(
                             item.price
                           )}`}</p>
                         </div>
