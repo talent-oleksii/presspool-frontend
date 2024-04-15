@@ -300,7 +300,7 @@ const AdminLogin: FC = () => {
                       <div className="mt-3 text-center sm:mt-5">
                         <Dialog.Title
                           as="h3"
-                          className="text-xs font-semibold leading-6 text-gray-900"
+                          className="text-lg font-semibold leading-6 text-gray-900"
                         >
                           Log In Failed!
                         </Dialog.Title>
