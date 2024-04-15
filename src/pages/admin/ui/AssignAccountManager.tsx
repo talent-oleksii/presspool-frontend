@@ -7,6 +7,7 @@ import AdminAPIInstance from "../../../api/adminApi";
 import "./AssignAccountManager.scss";
 import Loading from "../../../components/Loading";
 import { getPlaceHolder } from "../../../utils/commonUtils";
+import DialogUtils from "../../../utils/DialogUtils";
 
 interface typeAssignAccountManager {
   show: boolean;
@@ -54,16 +55,18 @@ const AssignAccountManager: FC<typeAssignAccountManager> = ({
         .map((admin) => admin.id),
     })
       .then((data) => {
+        onClose(false);
         if (afterAdd) afterAdd(data.data);
+        DialogUtils.show("success", "", "Account manager assigned");
       })
       .finally(() => setLoading(false));
   };
 
   const onChange = (id: number) => {
     if (manager.includes(id)) {
-      setManager(manager.filter((x) => x !== id));
+      setManager([]);
     } else {
-      setManager([...manager, id]);
+      setManager([id]);
     }
   };
 
