@@ -336,8 +336,8 @@ const AdminClientCampaign: FC = () => {
                 {!campaign?.avatar && getPlaceHolder(campaign?.client_name)}
               </Avatar>
               <div className="ms-2 py-[20px]">
-                <p className="font-[Inter] text-lg text-secondry1 -tracking-[.54px]">
-                  {campaign?.company}
+                <p className="font-[Inter] text-base text-medium text-secondry1 -tracking-[.54px]">
+                  {campaign?.campaign_name}
                 </p>
               </div>
             </div>

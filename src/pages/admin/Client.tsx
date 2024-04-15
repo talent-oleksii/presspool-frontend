@@ -269,8 +269,8 @@ const AdminClient: FC = () => {
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] min-w-[240px]">
-                <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
+              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] min-w-[160px]">
+                <div className="flex items-center font-[Inter] text-base font-medium -tracking-[.48px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20"
@@ -286,8 +286,8 @@ const AdminClient: FC = () => {
                   {campaignData.length}
                 </p>
               </div>
-              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[240px]">
-                <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
+              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]">
+                <div className="flex items-center font-[Inter] text-base font-medium -tracking-[.48px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20"
@@ -301,8 +301,8 @@ const AdminClient: FC = () => {
                 </div>
                 <p className="text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0">{`$${totalBudget}`}</p>
               </div>
-              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[240px]">
-                <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
+              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]">
+                <div className="flex items-center font-[Inter] text-base font-medium -tracking-[.48px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20"
@@ -316,8 +316,8 @@ const AdminClient: FC = () => {
                 </div>
                 <p className="text-[25px] font-[Inter] text-main font-semibold -tracking-[.75px] mt-2 mb-0">{`$${totalBilled}`}</p>
               </div>
-              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[240px]">
-                <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
+              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]">
+                <div className="flex items-center font-[Inter] text-base font-medium -tracking-[.48px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="20"
