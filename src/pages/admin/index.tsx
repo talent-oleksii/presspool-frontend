@@ -34,7 +34,7 @@ import InviteAccountManager from "./ui/InviteAccountManager";
 import TrainingHub from "./TrainingHub";
 import ActionLinkCard from "../../components/ActionLinkCard";
 import SupportIcon from "../../icons/Support";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { LogoutOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import GridIcon from "../../icons/Grid";
 import AccountInfoIcon from "../../icons/AccountInfo";
 
@@ -198,7 +198,7 @@ const Admin: FC = () => {
               )}
               {adminRole === "account_manager" && (
                 <button
-                  className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-main rounded-[10px] my-4 text-primary ${
+                  className={`text-xs font-[Inter] flex items-center font-semibold text-left py-[18px] px-[12px] w-full bg-main rounded-[10px] text-primary ${
                     location.pathname.indexOf("new") > -1
                       ? "ring-black ring-[1px]"
                       : "ring-0"
@@ -224,7 +224,7 @@ const Admin: FC = () => {
               />
               <NavLink
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-500 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -237,7 +237,7 @@ const Admin: FC = () => {
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-500 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -251,7 +251,7 @@ const Admin: FC = () => {
               {adminRole === "super_admin" && (
                 <NavLink
                   className={({ isActive }) =>
-                    ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                    ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-500 flex items-center text-primary hover:bg-white ${
                       isActive ? "bg-white shadow-md" : ""
                     }`
                   }
@@ -265,7 +265,7 @@ const Admin: FC = () => {
               )}
               <NavLink
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-500 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -278,7 +278,7 @@ const Admin: FC = () => {
               </NavLink>
               <NavLink
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-500 flex items-center text-primary hover:bg-white ${
                     isActive ? "bg-white shadow-md" : ""
                   }`
                 }
@@ -302,14 +302,10 @@ const Admin: FC = () => {
             className="font-[Inter] font-medium text-xs flex items-center"
             onClick={() => handleLogout()}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 -960 960 960"
-              className="w-[26px] h-[22px] me-2 -ms-1"
-            >
-              <path d="M224.615-160Q197-160 178.5-178.5 160-197 160-224.615v-510.77Q160-763 178.5-781.5 197-800 224.615-800h256.154v40H224.615q-9.23 0-16.923 7.692Q200-744.615 200-735.385v510.77q0 9.23 7.692 16.923Q215.385-200 224.615-200h256.154v40H224.615Zm433.846-178.461-28.077-28.77L723.154-460H367.692v-40h355.462l-92.77-92.769 28.077-28.77L800-480 658.461-338.461Z" />
-            </svg>
-            Log Out
+            <Space size="middle">
+              <LogoutOutlined style={{ fontSize: "22px", paddingTop: "4px" }} />
+              Log Out
+            </Space>
           </button>
         </div>
         {loading && <Loading />}

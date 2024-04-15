@@ -318,7 +318,7 @@ const AdminDashboardClient: FC = () => {
 
                     <div className="flex flex-col items-center w-full">
                       <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                        Total Campaigns
+                        Total Camps
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">
                         {item?.campaign_count ?? 0}
@@ -326,7 +326,7 @@ const AdminDashboardClient: FC = () => {
                     </div>
                     <div className="flex flex-col items-center w-full">
                       <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                        Active Campaigns
+                        Active Camps
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">
                         {item?.active_count ?? 0}
@@ -334,7 +334,7 @@ const AdminDashboardClient: FC = () => {
                     </div>
                     <div className="flex flex-col items-center w-full">
                       <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                        Draft Campaigns
+                        Draft Camps
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">
                         {item?.draft_count ?? 0}
@@ -342,7 +342,7 @@ const AdminDashboardClient: FC = () => {
                     </div>
                     <div className="flex flex-col items-center w-full">
                       <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                        Completed Campaigns
+                        Completed Camps
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">
                         {item?.completed_count ?? 0}
@@ -353,6 +353,14 @@ const AdminDashboardClient: FC = () => {
                         Total Budget
                       </p>
                       <p className="font-normal text-primary font-[Inter] text-xs">{`$${item?.total_budget}`}</p>
+                    </div>
+                    <div className="flex flex-col items-center w-full">
+                      <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
+                        Account Manager
+                      </p>
+                      <p className="font-normal text-primary font-[Inter] text-xs">
+                        {item?.account_managers ?? "N/A"}
+                      </p>
                     </div>
                     <div className="flex flex-col items-center w-full">
                       <Link

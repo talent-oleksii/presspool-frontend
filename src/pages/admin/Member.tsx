@@ -107,15 +107,6 @@ const AdminMember: FC = () => {
     [accountManagers]
   );
 
-  const clientCount = useMemo(
-    () =>
-      accountManagers.reduce(
-        (prev, item) => prev + Number(item?.client_count ?? 0),
-        0
-      ),
-    [accountManagers]
-  );
-
   return (
     <div className="min-h-full w-full flex">
       <div className="text-left flex-1">
@@ -126,10 +117,10 @@ const AdminMember: FC = () => {
           <div className="flex items-center grid grid-cols-7 gap-2">
             <div className="col-span-1 rounded-[10px] pt-2 px-2 pb-2 bg-white">
               <p className="text-[#7F8182] -tracking-[.42px] font-medium text-sm flex items-center">
-                Total Clients
+                Total AMs
               </p>
               <p className="text-black text-[25px] mt-2 -tracking-[.75px] font-semibold ms-2">
-                {clientCount}
+                {accountManagers.length}
               </p>
             </div>
             <div className="col-span-1 rounded-[10px] pt-2 px-2 pb-2 bg-white">
@@ -337,14 +328,6 @@ const AdminMember: FC = () => {
                         </p>
                         <p className="font-normal text-secondry1 font-[Inter] text-xs">{`$${
                           item?.billed ?? 0
-                        }`}</p>
-                      </div>
-                      <div className="flex flex-col items-center w-full">
-                        <p className="font-medium font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry3">
-                          Total Commission
-                        </p>
-                        <p className="font-normal text-secondry1 font-[Inter] text-xs">{`$${
-                          Number(item?.billed ?? 0) * 0.1
                         }`}</p>
                       </div>
                       <div className="flex flex-col items-center w-full">
