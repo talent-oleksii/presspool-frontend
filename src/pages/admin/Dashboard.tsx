@@ -575,7 +575,7 @@ const AdminDashboard: FC = () => {
             <div
               className={`flex w-full ${
                 !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-5`}
+              } items-center justify-center mt-12`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
