@@ -12,32 +12,32 @@ import EmailVerifier from "./pages/EmailVerifier";
 import AdminRoute from "./pages/admin/Route";
 
 const App: FC = () => {
-  const [zoom, setZoom] = useState(1.5);
+  // const [zoom, setZoom] = useState(1.5);
 
-  const calculateZoom = (width: number) => {
-    const maxZoom = 2,
-      minZoom = 1,
-      maxWidth = 3840;
-    const zoomPerPixel = 2 / maxWidth;
-    const calculatedZoom = zoomPerPixel * width;
-    setZoom(
-      calculatedZoom < minZoom
-        ? minZoom
-        : calculatedZoom > maxZoom
-        ? maxZoom
-        : calculatedZoom
-    );
-  };
-  const handleResize = () => {
-    const innerWidth = window.innerWidth;
-    calculateZoom(innerWidth);
-  };
-  useEffect(() => {
-    const innerWidth = window.innerWidth;
-    calculateZoom(innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  });
+  // const calculateZoom = (width: number) => {
+  //   const maxZoom = 2,
+  //     minZoom = 1,
+  //     maxWidth = 3840;
+  //   const zoomPerPixel = 2 / maxWidth;
+  //   const calculatedZoom = zoomPerPixel * width;
+  //   setZoom(
+  //     calculatedZoom < minZoom
+  //       ? minZoom
+  //       : calculatedZoom > maxZoom
+  //         ? maxZoom
+  //         : calculatedZoom
+  //   );
+  // };
+  // const handleResize = () => {
+  //   const innerWidth = window.innerWidth;
+  //   calculateZoom(innerWidth);
+  // };
+  // useEffect(() => {
+  //   const innerWidth = window.innerWidth;
+  //   calculateZoom(innerWidth);
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // });
 
   return (
     <ConfigProvider
@@ -62,7 +62,7 @@ const App: FC = () => {
     >
       <div
         className="w-full h-full App flex justify-center bg-[#EDECF2]"
-        style={{ zoom }}
+      // style={{ zoom }}
       >
         <div className="w-full h-full">
           <Routes>
