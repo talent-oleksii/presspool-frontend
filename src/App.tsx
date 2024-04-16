@@ -10,6 +10,7 @@ import MainContent from "./pages/MainContent";
 import URLRedirector from "./pages/URLRedirector";
 import EmailVerifier from "./pages/EmailVerifier";
 import AdminRoute from "./pages/admin/Route";
+import CreatorRoute from "./pages/creator/Route";
 
 const App: FC = () => {
   // const [zoom, setZoom] = useState(1.5);
@@ -72,6 +73,7 @@ const App: FC = () => {
             <Route path="/cul/:id" element={<URLRedirector />} />
             <Route path="/verify/:token" element={<EmailVerifier />} />
             <Route path="/admin/*" element={<AdminRoute />} />
+            <Route path="/creator/*" element={<CreatorRoute />} />
             <Route path="/*" element={<MainContent />} />
           </Routes>
         </div>
