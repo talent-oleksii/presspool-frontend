@@ -19,6 +19,7 @@ import { Legend } from "recharts";
 import { useParams } from "react-router";
 import { CustomEngagementChannelLegend } from "../../containers/shared/CustomEngagementChannelLegend";
 import CampaignStatsCard from "../../containers/dashboard/CampaignStatsCard";
+import CustomTooltip from "../../components/CustomTooltip";
 
 const CampaignOverView: FC = () => {
   const { id } = useParams();
@@ -304,8 +305,21 @@ const CampaignOverView: FC = () => {
         <div
           className={`my-3 p-5 min-h-[225px] rounded-[10px] bg-white shadow-md`}
         >
-          <h2 className="font-[Inter] text-base font-semibold">
+          <h2 className="font-[Inter] text-base font-semibold flex">
             Engagement by Channel
+            <CustomTooltip
+              title={
+                <>
+                  <span>
+                    Newsletter means the clicks came directly via email
+                  </span>
+                  <br />
+                  <span>
+                    Referral means the clicks came directly via website/blog
+                  </span>
+                </>
+              }
+            />
           </h2>
           <div className="flex justify-between flex w-full items-center mt-5">
             <div className="flex flex-col justify-between gap-5 pl-8">
