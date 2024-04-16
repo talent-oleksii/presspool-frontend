@@ -39,8 +39,8 @@ const CampaignOverView: FC = () => {
       uniqueClicks += Number(i.unique_click ?? 0);
       verifiedClicks +=
         (i.user_medium === "newsletter" || i.user_medium === "referrral") &&
-        i.duration > i.count * 1.5 &&
-        i.duration > 0
+          i.duration > i.count * 1.5 &&
+          i.duration > 0
           ? Number(i.unique_click)
           : 0;
     }
@@ -191,16 +191,15 @@ const CampaignOverView: FC = () => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-      ? 10
-      : totalSpend / verifiedClicks;
+        ? 10
+        : totalSpend / verifiedClicks;
 
   return (
     <div className="mt-3 h-full">
       <CampaignStatsCard />
       <div
-        className={`my-3 p-5 ${
-          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-        } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline relative">
           <div>
@@ -230,9 +229,8 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${
-              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-            } items-center justify-center mt-12`}
+            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-12`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
@@ -305,16 +303,16 @@ const CampaignOverView: FC = () => {
         <div
           className={`my-3 p-5 min-h-[225px] rounded-[10px] bg-white shadow-md`}
         >
-          <h2 className="font-[Inter] text-base font-semibold flex">
+          <h2 className="font-[Inter] text-base font-semibold flex items-center">
             Engagement by Channel
             <CustomTooltip
               title={
                 <>
-                  <span>
+                  <span className="font-normal">
                     Newsletter means the clicks came directly via email
                   </span>
                   <br />
-                  <span>
+                  <span className="font-normal">
                     Referral means the clicks came directly via website/blog
                   </span>
                 </>

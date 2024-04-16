@@ -32,6 +32,7 @@ import {
 } from "../../store/dataSlice";
 import { CustomEngagementChannelLegend } from "../../containers/shared/CustomEngagementChannelLegend";
 import CampaignStatsCard from "../../containers/dashboard/CampaignStatsCard";
+import CustomTooltip from "../../components/CustomTooltip";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const getItem = (
@@ -97,8 +98,8 @@ const AdminDashboard: FC = () => {
       uniqueClicks += Number(i.unique_click ?? 0);
       verifiedClicks +=
         (i.user_medium === "newsletter" || i.user_medium === "referral") &&
-        i.duration > i.count * 1.5 &&
-        i.duration > 0
+          i.duration > i.count * 1.5 &&
+          i.duration > 0
           ? Number(i.unique_click)
           : 0;
     }
@@ -262,8 +263,8 @@ const AdminDashboard: FC = () => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-      ? 10
-      : totalSpend / verifiedClicks;
+        ? 10
+        : totalSpend / verifiedClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -396,9 +397,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
         AdminAPIInstance.get("/dashboard/newsletter", {
@@ -406,9 +407,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
       ])
@@ -454,24 +455,22 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
-                isOverview
-                  ? "bg-white border border-solid border-main shadow-md"
-                  : ""
-              } `}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
+                ? "bg-white border border-solid border-main shadow-md"
+                : ""
+                } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${
-                  currentAM === 0 ||
+                name={`${currentAM === 0 ||
                   !accountManagers.find((value) => value.id === currentAM)
-                    ? "By Account Manager"
-                    : accountManagers.find((value) => value.id === currentAM)
-                        .name
-                }`}
+                  ? "By Account Manager"
+                  : accountManagers.find((value) => value.id === currentAM)
+                    .name
+                  }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                 }}
@@ -480,12 +479,11 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${
-                currentClient === 0 ||
+              name={`${currentClient === 0 ||
                 !clients.find((value) => value.id === currentClient)
-                  ? "By Company"
-                  : clients.find((value) => value.id === currentClient).company
-              }`}
+                ? "By Company"
+                : clients.find((value) => value.id === currentClient).company
+                }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
               }}
@@ -493,12 +491,11 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${
-                currentCampaign === 0 ||
+              name={`${currentCampaign === 0 ||
                 !campaigns.find((value) => value.id === currentCampaign)
-                  ? "By Campaign"
-                  : campaigns.find((value) => value.id === currentCampaign).name
-              }`}
+                ? "By Campaign"
+                : campaigns.find((value) => value.id === currentCampaign).name
+                }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
               }}
@@ -541,9 +538,8 @@ const AdminDashboard: FC = () => {
         </div>
         <CampaignStatsCard rootClassName="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px] mt-4" />
         <div
-          className={`my-3 p-5 ${
-            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+            } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline relative">
             <div>
@@ -573,9 +569,8 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${
-                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-12`}
+              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+                } items-center justify-center mt-12`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
@@ -678,8 +673,21 @@ const AdminDashboard: FC = () => {
           <div
             className={`my-3 p-5 min-h-[225px] rounded-[10px] bg-white shadow-md`}
           >
-            <h2 className="font-[Inter] text-base font-semibold">
+            <h2 className="font-[Inter] text-base font-semibold flex items-center">
               Engagement by Channel
+              <CustomTooltip
+                title={
+                  <>
+                    <span className="font-normal">
+                      Newsletter means the clicks came directly via email
+                    </span>
+                    <br />
+                    <span className="font-normal">
+                      Referral means the clicks came directly via website/blog
+                    </span>
+                  </>
+                }
+              />
             </h2>
             <div className="flex justify-between flex w-full items-center mt-5">
               <div className="flex flex-col justify-between gap-5 pl-8">
