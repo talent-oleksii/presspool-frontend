@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Route, Routes } from "react-router";
 import { ConfigProvider } from "antd";
 import "./App.css";
