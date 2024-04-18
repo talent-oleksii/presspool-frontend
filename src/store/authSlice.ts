@@ -24,6 +24,11 @@ interface AuthState {
   adminId: string;
   adminLink: string;
   adminCreateTime: number;
+
+  //state for creator.
+  isCreatorAuthenticated: boolean;
+  creatorToken: string;
+  creatorData: any;
 }
 
 const initialState: AuthState = {
@@ -46,7 +51,10 @@ const initialState: AuthState = {
   adminRole: localStorage.getItem("adminRole") || "",
   adminId: localStorage.getItem("adminId") || "",
   adminLink: localStorage.getItem("adminLink") || "",
-  adminCreateTime: 0
+  adminCreateTime: 0,
+  isCreatorAuthenticated: false,
+  creatorToken: localStorage.getItem("creatorToken") || "",
+  creatorData: {},
 };
 
 const authSlice = createSlice({
@@ -106,12 +114,18 @@ const authSlice = createSlice({
       state.adminRole = action.payload.role;
       state.adminId = action.payload.id;
       state.adminLink = action.payload.link;
-      state.adminCreateTime = action.payload.adminCreateTime
+      state.adminCreateTime = action.payload.adminCreateTime;
       localStorage.setItem("adminName", action.payload.userName);
       localStorage.setItem("adminEmail", action.payload.email);
       localStorage.setItem("adminRole", action.payload.role);
       localStorage.setItem("adminId", action.payload.id);
       localStorage.setItem("adminLink", action.payload.link);
+    },
+    setCreatorData: (state, action) => {
+      state.isCreatorAuthenticated = true;
+      state.creatorToken = action.payload.token;
+      state.creatorData = action.payload;
+      localStorage.setItem("creatorToken", action.payload.token);
     },
   },
 });
@@ -127,6 +141,8 @@ export const {
   setAdminAuthenticated,
   setAdminToken,
   setAdminUserData,
+  // For creator
+  setCreatorData,
 } = authSlice.actions;
 export const selectAuth = (state: { auth: AuthState }) => state.auth;
 export default authSlice.reducer;
