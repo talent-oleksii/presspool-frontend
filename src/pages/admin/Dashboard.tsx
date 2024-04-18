@@ -59,11 +59,14 @@ interface IDateRange {
 const AdminDashboard: FC = () => {
   const { adminName, adminRole, adminId } = useSelector(selectAuth);
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
   const dispatch = useDispatch();
   const [accountManagers, setAccountManagers] = useState<Array<any>>([]);
   const [clients, setClients] = useState<Array<any>>([]);
   const [campaigns, setCampaigns] = useState<Array<any>>([]);
-  const [currentAM, setCurrentAM] = useState<any>(0);
+  const [currentAM, setCurrentAM] = useState<any>(
+    adminRole === "account_manager" ? adminId : 0
+  );
   const [currentClient, setCurrentClient] = useState<any>(0);
   const [currentCampaign, setCurrentCampaign] = useState<any>(0);
   const [chartData, setChartData] = useState<Array<any>>([]);
@@ -98,8 +101,8 @@ const AdminDashboard: FC = () => {
       uniqueClicks += Number(i.unique_click ?? 0);
       verifiedClicks +=
         (i.user_medium === "newsletter" || i.user_medium === "referral") &&
-          i.duration > i.count * 1.5 &&
-          i.duration > 0
+        i.duration > i.count * 1.5 &&
+        i.duration > 0
           ? Number(i.unique_click)
           : 0;
     }
@@ -107,20 +110,12 @@ const AdminDashboard: FC = () => {
   };
 
   useEffect(() => {
-    // if (!location.pathname.includes('/overview') && !location.pathname.includes('/campaign') && !location.pathname.includes('/client'))
-    //   navigator('/admin/dashboard/overview');
     setLoading(true);
     Promise.all([AdminAPIInstance.get("/user/account-manager")])
       .then((results: Array<any>) => {
         setAccountManagers(results[0].data);
       })
       .finally(() => setLoading(false));
-
-    if (adminRole === "account_manager") {
-      setCurrentAM(adminId);
-    }
-    onOverViewClicked();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -263,8 +258,8 @@ const AdminDashboard: FC = () => {
     totalSpend === 0 || verifiedClicks === 0
       ? 0
       : totalSpend / verifiedClicks > 10
-        ? 10
-        : totalSpend / verifiedClicks;
+      ? 10
+      : totalSpend / verifiedClicks;
 
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
@@ -388,7 +383,11 @@ const AdminDashboard: FC = () => {
 
   const callAPI = useCallback(
     (am: any, client: any, campaign: any) => {
-      setLoading(true);
+      setDataLoading(true);
+      dispatch(setNewsletter([]));
+      dispatch(setClickedData([]));
+      dispatch(setCampaign({ campaign: [] }));
+      dispatch(setPrevRangeData({}));
       Promise.all([
         AdminAPIInstance.get("/dashboard/overview", {
           params: {
@@ -397,9 +396,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
           },
         }),
         AdminAPIInstance.get("/dashboard/newsletter", {
@@ -407,9 +406,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
           },
         }),
       ])
@@ -421,7 +420,7 @@ const AdminDashboard: FC = () => {
           dispatch(setCampaign({ campaign: res[0].data.campaign }));
           dispatch(setPrevRangeData(res[0].data.prevData));
         })
-        .finally(() => setLoading(false));
+        .finally(() => setDataLoading(false));
     },
     [dateRange.endDate, dateRange.startDate, dispatch]
   );
@@ -433,16 +432,25 @@ const AdminDashboard: FC = () => {
   }, [currentCampaign, currentClient, currentAM, adminRole]);
 
   useEffect(() => {
-    callAPI(
-      currentAM ? currentAM : 0,
-      currentClient ? currentClient : 0,
-      currentCampaign ? currentCampaign : 0
-    );
-  }, [currentAM, currentClient, currentCampaign, dateRange, callAPI]);
+    if (adminRole) {
+      callAPI(
+        currentAM ? currentAM : 0,
+        currentClient ? currentClient : 0,
+        currentCampaign ? currentCampaign : 0
+      );
+    }
+  }, [
+    currentAM,
+    currentClient,
+    currentCampaign,
+    dateRange,
+    callAPI,
+    adminRole,
+  ]);
 
   return (
     <div className="w-full flex relative">
-      {loading && <Loading />}
+      {loading || dataLoading ? <Loading /> : null}
       <div className="text-left flex-1">
         <div className="flex items-center justify-between">
           <div>
@@ -455,22 +463,24 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
-                ? "bg-white border border-solid border-main shadow-md"
-                : ""
-                } `}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
+                isOverview
+                  ? "bg-white border border-solid border-main shadow-md"
+                  : ""
+              } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${currentAM === 0 ||
+                name={`${
+                  currentAM === 0 ||
                   !accountManagers.find((value) => value.id === currentAM)
-                  ? "By Account Manager"
-                  : accountManagers.find((value) => value.id === currentAM)
-                    .name
-                  }`}
+                    ? "By Account Manager"
+                    : accountManagers.find((value) => value.id === currentAM)
+                        .name
+                }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                 }}
@@ -479,11 +489,12 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${currentClient === 0 ||
+              name={`${
+                currentClient === 0 ||
                 !clients.find((value) => value.id === currentClient)
-                ? "By Company"
-                : clients.find((value) => value.id === currentClient).company
-                }`}
+                  ? "By Company"
+                  : clients.find((value) => value.id === currentClient).company
+              }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
               }}
@@ -491,11 +502,12 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${currentCampaign === 0 ||
+              name={`${
+                currentCampaign === 0 ||
                 !campaigns.find((value) => value.id === currentCampaign)
-                ? "By Campaign"
-                : campaigns.find((value) => value.id === currentCampaign).name
-                }`}
+                  ? "By Campaign"
+                  : campaigns.find((value) => value.id === currentCampaign).name
+              }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
               }}
@@ -538,8 +550,9 @@ const AdminDashboard: FC = () => {
         </div>
         <CampaignStatsCard rootClassName="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px] mt-4" />
         <div
-          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-            } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${
+            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline relative">
             <div>
@@ -569,8 +582,9 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-                } items-center justify-center mt-12`}
+              className={`flex w-full ${
+                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-12`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
