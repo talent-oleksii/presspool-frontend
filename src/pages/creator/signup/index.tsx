@@ -2,72 +2,54 @@ import React, { FC, useState, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Dialog, Transition } from "@headlessui/react";
 import validator from "validator";
-import SignUpAvatar from "../../assets/image/maskgroup.png";
-import Mark from "../../assets/logo/logo.png";
-import Loading from "../../components/Loading";
-import DialogUtils from "../../utils/DialogUtils";
-import CreatorAPIInstance from "../../api/creatorAPIInstance";
-
-interface ISignupFormData {
-  fullName: string;
-  newsletter: string | null;
-  email: string | null;
-  password: string;
-  agreeTerm: boolean;
-}
+import SignUpAvatar from "../../../assets/image/maskgroup.png";
+import Mark from "../../../assets/logo/logo.png";
+import Loading from "../../../components/Loading";
+import DialogUtils from "../../../utils/DialogUtils";
+import CreatorAPIInstance from "../../../api/creatorAPIInstance";
+import SignupForm from "./SignupForm";
+import FormProviderWrapper from "../../../components/FormProviderWrapper";
+import { ICommonFormOptions } from "../../../interfaces/common.interface";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { defaultCreatorSignupFormData } from "../../../constants/defaultValues/creator.default.values";
+import { useForm } from "react-hook-form";
+import { creatorSignupSchema } from "../../../validators/creator.validator";
+import { useDispatch } from "react-redux";
+import { setCreatorData } from "../../../store/authSlice";
 
 const SignUp: FC = () => {
-  const [check, setCheck] = useState(false);
+  const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState<ISignupFormData>({
-    fullName: "",
-    newsletter: "",
-    email: "",
-    password: "",
-    agreeTerm: false,
-  });
-  const [passwordType, setPasswordType] = useState("password");
-
   const navigator = useNavigate();
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
+  const options: ICommonFormOptions = Object.freeze({
+    mode: "all",
+    reValidateMode: "onSubmit",
+    resetOptions: {
+      keepDirtyValues: true,
+      keepErrors: true,
+    },
+  });
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    setCheck(true);
-    if (
-      validator.isEmpty(formData.fullName) ||
-      !validator.isEmail(formData.email || "") ||
-      validator.isEmail(formData.newsletter || "") ||
-      !validator.isStrongPassword(formData.password)
-    )
-      return;
+  const creatorSignupMethods = useForm({
+    ...options,
+    defaultValues: defaultCreatorSignupFormData,
+    resolver: yupResolver(creatorSignupSchema),
+  });
 
+  const handleSubmit = () => {
     setLoading(true);
-    CreatorAPIInstance.post("auth/signup", {
-      ...formData,
-    })
-      .then((data) => {
-        const ret = data.data;
-        console.log(ret);
+    const values = creatorSignupMethods.getValues();
+    CreatorAPIInstance.post("auth/signup", values)
+      .then(({ data }) => {
+        dispatch(setCreatorData(data));
+        navigator("/creator");
       })
       .catch((err) => {
         DialogUtils.show("error", "", err.response.data.message);
       })
       .finally(() => setLoading(false));
-  };
-
-  const handleShowPassword: React.MouseEventHandler<HTMLButtonElement> = (
-    e
-  ) => {
-    e.preventDefault();
-    setPasswordType(passwordType === "password" ? "text" : "password");
   };
 
   return (
@@ -184,171 +166,13 @@ const SignUp: FC = () => {
               targeted, engaged readers.
             </p>
           </div>
-          <form
-            autoComplete="off"
-            className="text-left mt-9 md:mt-[30px]"
+          <FormProviderWrapper
+            methods={creatorSignupMethods}
             onSubmit={handleSubmit}
           >
-            <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.fullName)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
-            >
-              Full Name
-              {formData.fullName.length > 0 &&
-                validator.isEmpty(formData.fullName) && (
-                  <span className="ms-1 text-[red] text-xs">
-                    *Input your full name
-                  </span>
-                )}
-            </label>
-            <input
-              id="fullName"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              placeholder="Enter here..."
-              type="text"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2"
-            />
-            <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.newsletter || "")
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
-            >
-              Publication / Newsletter Name
-              {formData.newsletter &&
-                formData.newsletter.length > 0 &&
-                validator.isEmpty(formData.newsletter) && (
-                  <span className="ms-1 text-[red] text-xs">*</span>
-                )}
-            </label>
-            <input
-              id="newsletter"
-              name="newsletter"
-              value={formData.newsletter || ""}
-              onChange={handleChange}
-              placeholder="Enter here..."
-              type="text"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
-            />
-            <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && !validator.isEmail(formData.email || "")
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
-            >
-              Email Address
-              {formData.email &&
-                formData.email.length > 0 &&
-                !validator.isEmail(formData.email) && (
-                  <span className="ms-1 text-[red] text-xs">
-                    *Input valid email address
-                  </span>
-                )}
-            </label>
-            <input
-              id="email"
-              name="email"
-              value={formData.email || ""}
-              onChange={handleChange}
-              placeholder="Enter here..."
-              type="email"
-              className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb]"
-            />
-            <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && !validator.isStrongPassword(formData.password)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
-            >
-              Password
-              {formData.password.length > 0 &&
-                !validator.isStrongPassword(formData.password) && (
-                  <span className="ms-1 text-[red] text-xs">
-                    * Your password is not secure
-                  </span>
-                )}
-            </label>
-            <div className="w-full border-[1px] bg-transparent border-[#797979] rounded-[10px] px-4 flex md:mt-2 xsm:mt-0.5">
-              <input
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Enter here..."
-                type={passwordType}
-                className="flex-1 rounded-[10px] border-none bg-transparent px-0 md:py-3 xsm:py2 focus:ring-0 focus:border-none"
-              />
-              <button onClick={handleShowPassword}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="21"
-                  viewBox="0 0 30 21"
-                  fill="none"
-                >
-                  <path
-                    d="M12.3915 10.2433C12.3915 11.0273 12.7029 11.7792 13.2573 12.3336C13.8117 12.888 14.5636 13.1995 15.3477 13.1995C16.1317 13.1995 16.8836 12.888 17.438 12.3336C17.9924 11.7792 18.3038 11.0273 18.3038 10.2433C18.3038 9.45926 17.9924 8.70735 17.438 8.15295C16.8836 7.59856 16.1317 7.28711 15.3477 7.28711C14.5636 7.28711 13.8117 7.59856 13.2573 8.15295C12.7029 8.70735 12.3915 9.45926 12.3915 10.2433Z"
-                    stroke="#525252"
-                    strokeWidth="2.17682"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M28.6505 10.2435C25.1031 16.1559 20.6688 19.1121 15.3477 19.1121C10.0266 19.1121 5.59234 16.1559 2.04492 10.2435C5.59234 4.33118 10.0266 1.375 15.3477 1.375C20.6688 1.375 25.1031 4.33118 28.6505 10.2435Z"
-                    stroke="#525252"
-                    strokeWidth="2.17682"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </button>
-            </div>
-            <div className="mt-5 md:mt-4 flex items-center">
-              <input
-                checked={formData.agreeTerm}
-                onChange={(e) =>
-                  setFormData({ ...formData, agreeTerm: e.target.checked })
-                }
-                type="checkbox"
-                className="w-4 h-4 text-main bg-gray-100 rounded border-[1px] border-black focus:ring-0"
-              />
-              <span className="ms-2 font-[Inter] -tracking-[.544px] text-base text-[#525252]">
-                I agree to the{" "}
-                <a
-                  target="_blank"
-                  href="https://www.presspool.ai/terms"
-                  rel="noreferrer"
-                  className="text-primary underline"
-                >
-                  Terms
-                </a>{" "}
-                and{" "}
-                <a
-                  className="text-primary underline"
-                  target="_blank"
-                  href="https://www.presspool.ai/privacy-policy"
-                  rel="noreferrer"
-                >
-                  Privacy Policy
-                </a>
-              </span>
-            </div>
-            <button
-              className="rounded-[10px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
-              type="submit"
-              disabled={!formData.agreeTerm}
-            >
-              Sign Up
-            </button>
-          </form>
+            <SignupForm />
+          </FormProviderWrapper>
+
           <div className="flex items-center justify-center mt-7">
             <p className="text-base text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
               Already have an account?{" "}
