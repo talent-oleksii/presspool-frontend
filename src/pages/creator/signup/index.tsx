@@ -44,7 +44,7 @@ const SignUp: FC = () => {
     CreatorAPIInstance.post("auth/signup", values)
       .then(({ data }) => {
         dispatch(setCreatorData(data));
-        navigator("/creator");
+        navigator("/creator/dashboard");
       })
       .catch((err) => {
         DialogUtils.show("error", "", err.response.data.message);

@@ -43,7 +43,7 @@ const Login: FC = () => {
     CreatorAPIInstance.post("auth/login", values)
       .then(({ data }) => {
         dispatch(setCreatorData(data));
-        navigator("/creator");
+        navigator("/creator/dashboard");
       })
       .catch((err) => {
         setShowDialog(true);
