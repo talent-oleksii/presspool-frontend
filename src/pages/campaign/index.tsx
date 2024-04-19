@@ -5,7 +5,7 @@ import { Collapse, Menu, MenuProps } from "antd";
 import { Link } from "react-router-dom";
 import { capitalize } from "lodash";
 import { selectAuth } from "../../store/authSlice";
-import { selectData, setCampaign } from "../../store/dataSlice";
+import { selectData, setCampaign, setClicked } from "../../store/dataSlice";
 import APIInstance from "../../api";
 import Loading from "../../components/Loading";
 import DialogUtils from "../../utils/DialogUtils";
@@ -13,15 +13,15 @@ import DialogUtils from "../../utils/DialogUtils";
 import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
 import { DownOutlined } from "@ant-design/icons";
 import { GetItem, MenuItem } from "../../containers/shared/GetItem";
+import { getVerifiedClick } from "../../utils/commonUtils";
 
 const Campaign: FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchStr, setSearchStr] = useState("");
   const [open, setOpen] = useState<boolean>(false);
   const { company, email } = useSelector(selectAuth);
-  const { campaign: fullCampaign } = useSelector(selectData);
+  const { campaign: fullCampaign, clicked } = useSelector(selectData);
   const [campaign, setCampaigns] = useState<Array<any>>([]);
-  const [clicked, setClicked] = useState<Array<any>>([]);
   const [sort, setSort] = useState<string>("Newest to Oldest");
   const ref = useRef<any>(null);
 
@@ -35,7 +35,7 @@ const Campaign: FC = () => {
         params: { email: email },
       });
       dispatch(setCampaign({ campaign: data }));
-      setClicked(clicked);
+      dispatch(setClicked(clicked));
     }
   }, [dispatch, email]);
 
@@ -83,26 +83,15 @@ const Campaign: FC = () => {
   const verifiedClicks = (campaignId: number) => {
     return clicked
       .filter((x) => x.campaign_id === campaignId)
-      .reduce(
-        (prev, item) =>
-          prev +
-          Number(
-            (item?.user_medium === "newsletter" || item?.user_medium === 'referral') &&
-              item?.duration > item?.count * 1.5 &&
-              item?.duration > 0
-              ? item?.unique_click
-              : 0
-          ),
-        0
-      );
+      .reduce((prev, item) => prev + getVerifiedClick(item), 0);
   };
 
   const getAvgCPC = (price: number, id: number) => {
     return price === 0 || verifiedClicks(id) === 0
       ? 0
       : price / verifiedClicks(id) > 10
-        ? 10
-        : Number(price / verifiedClicks(id));
+      ? 10
+      : Number(price / verifiedClicks(id));
   };
 
   const handleOpenChange = () => {
@@ -133,17 +122,20 @@ const Campaign: FC = () => {
               </p>
               <p className="font-medium font-[Inter]">
                 <span
-                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${item.state === "draft"
+                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
+                    item.state === "draft"
                       ? "bg-[#dbdbdb] text-primary"
                       : item.state === "paused"
-                        ? "bg-[#fdbdbd]"
-                        : Number(totalSpend) >= Number(item.price)
-                          ? "bg-white ring-2 ring-main"
-                          : "bg-main text-primary"
-                    }`}
+                      ? "bg-[#fdbdbd]"
+                      : Number(totalSpend) >= Number(item.price)
+                      ? "bg-white ring-2 ring-main"
+                      : "bg-main text-primary"
+                  }`}
                 >
                   {capitalize(
-                    Number(totalSpend) >= Number(item.price) ? "Completed" : item.state
+                    Number(totalSpend) >= Number(item.price)
+                      ? "Completed"
+                      : item.state
                   )}
                 </span>
               </p>

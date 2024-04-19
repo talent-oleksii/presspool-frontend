@@ -31,6 +31,9 @@ const InviteNewClient: FC<typeInviteNewClient> = ({
         DialogUtils.show("success", "", "Invitation Emails are sent!");
         if (onClose) onClose();
       })
+      .catch(() => {
+        DialogUtils.show("error", "", "Failed to send invitation");
+      })
       .finally(() => setLoading(false));
   };
 

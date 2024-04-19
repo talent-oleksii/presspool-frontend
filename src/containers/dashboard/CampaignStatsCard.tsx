@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
+import React from "react";
 import Card from "../../components/Card";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
+import useAnalytics from "../../hooks/useAnalytics";
 
 const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
   const { rootClassName } = props;
@@ -11,51 +12,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
     prevData,
     campaign: data,
   } = useSelector(selectData);
-  const totalClicks = useMemo(
-    () => clicked.reduce((prev, item) => prev + Number(item?.count ?? 0), 0),
-    [clicked]
-  );
-
-  const uniqueClicks = useMemo(
-    () =>
-      clicked.reduce((prev, item) => prev + Number(item?.unique_click ?? 0), 0),
-    [clicked]
-  );
-
-  const totalSpend = useMemo(
-    () =>
-      data.reduce(
-        (prev, item) =>
-          prev + (item.state === "active" ? Number(item?.price ?? 0) : 0),
-        0
-      ),
-    [data]
-  );
-
-  const verifiedClicks = useMemo(
-    () =>
-      clicked.reduce(
-        (prev, item) =>
-          prev +
-          Number(
-            (item?.user_medium === "newsletter" ||
-              item?.user_medium === "referral") &&
-              item.duration > item.count * 1.5 &&
-              item.duration > 0
-              ? item?.unique_click
-              : 0
-          ),
-        0
-      ),
-    [clicked]
-  );
-
-  const avgCPC =
-    totalSpend === 0 || verifiedClicks === 0
-      ? 0
-      : totalSpend / verifiedClicks > 10
-      ? 10
-      : totalSpend / verifiedClicks;
+  const { totalClicks, uniqueClicks, totalBudget, verifiedClicks, avgCPC } =
+    useAnalytics(clicked, data);
 
   const calculateChangeDirection = (oldValue: number, newValue: number) => {
     const difference = newValue - oldValue;
@@ -135,7 +93,7 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       />
       <Card
         title={"Total Budget"}
-        value={`$${totalSpend}`}
+        value={`$${totalBudget}`}
         percentageText={<div className="flex gap-2 h-[14px]"></div>}
       />
     </div>

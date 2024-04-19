@@ -33,6 +33,8 @@ import {
 import { CustomEngagementChannelLegend } from "../../containers/shared/CustomEngagementChannelLegend";
 import CampaignStatsCard from "../../containers/dashboard/CampaignStatsCard";
 import CustomTooltip from "../../components/CustomTooltip";
+import useAnalytics from "../../hooks/useAnalytics";
+import { getVerifiedClick } from "../../utils/commonUtils";
 
 type MenuItem = Required<MenuProps>["items"][number];
 const getItem = (
@@ -80,6 +82,8 @@ const AdminDashboard: FC = () => {
     endDate: null,
   });
 
+  const { avgCPC } = useAnalytics(clicked, data);
+
   const ref = useRef<any>(null);
   const items: MenuItem[] = [
     getItem("All Time", "All Time"),
@@ -99,12 +103,7 @@ const AdminDashboard: FC = () => {
     for (const i of a) {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
-      verifiedClicks +=
-        (i.user_medium === "newsletter" || i.user_medium === "referral") &&
-        i.duration > i.count * 1.5 &&
-        i.duration > 0
-          ? Number(i.unique_click)
-          : 0;
+      verifiedClicks += getVerifiedClick(i);
     }
     return { total, uniqueClicks, verifiedClicks };
   };
@@ -231,46 +230,12 @@ const AdminDashboard: FC = () => {
     return "#" + Math.random().toString(16).substr(-6);
   };
 
-  const totalSpend = useMemo(
-    () => data?.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
-    [data]
-  );
-
-  const verifiedClicks = useMemo(
-    () =>
-      clicked.reduce(
-        (prev, item) =>
-          prev +
-          Number(
-            (item?.user_medium === "newsletter" ||
-              item?.user_medium === "referral") &&
-              item.duration > item.count * 1.5 &&
-              item.duration > 0
-              ? item?.unique_click
-              : 0
-          ),
-        0
-      ),
-    [clicked]
-  );
-
-  const avgCPC =
-    totalSpend === 0 || verifiedClicks === 0
-      ? 0
-      : totalSpend / verifiedClicks > 10
-      ? 10
-      : totalSpend / verifiedClicks;
-
   const sumCountByEmailAndBlog = useMemo(() => {
     let sumEmail = 0;
     let sumBlog = 0;
 
     clicked.forEach((item) => {
-      if (
-        (item.user_medium === "newsletter" || item.uer_medium === "referral") &&
-        item.duration > item.count * 1.5 &&
-        item.duration > 0
-      ) {
+      if (getVerifiedClick(item)) {
         sumEmail += Number(item.unique_click);
       } else if (item.user_medium === "referral") {
         sumBlog += Number(item.unique_click);

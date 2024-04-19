@@ -8,6 +8,7 @@ import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionCon
 import { capitalize } from "lodash";
 import SampleLogo from "../../assets/logo/logo_with_name.png";
 import ALogoImage from "../../assets/icon/alogo.png";
+import { getVerifiedClick } from "../../utils/commonUtils";
 
 const AdminClientCampaign: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -53,19 +54,7 @@ const AdminClientCampaign: FC = () => {
   const verifiedClicks = (campaignId: number) => {
     return clicked
       .filter((x) => x.campaign_id === campaignId)
-      .reduce(
-        (prev, item) =>
-          prev +
-          Number(
-            (item?.user_medium === "newsletter" ||
-              item?.user_medium === "referral") &&
-              item?.duration > item?.count * 1.5 &&
-              item?.duration > 0
-              ? item?.unique_click
-              : 0
-          ),
-        0
-      );
+      .reduce((prev, item) => prev + getVerifiedClick(item), 0);
   };
 
   const getAvgCPC = (price: number, id: number) => {
