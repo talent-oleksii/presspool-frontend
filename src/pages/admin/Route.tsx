@@ -30,6 +30,15 @@ const ProtectedRouteWithLayout = () => {
   );
 };
 
+const AdminBaseRouteRedirection = () => {
+  const isAuthenticated = new AdminAuth().isAuthenticated();
+  return isAuthenticated ? (
+    <Navigate to={"/admin/dashboard"} />
+  ) : (
+    <Navigate to={`/admin/login`} />
+  );
+};
+
 const AdminRoute = () => {
   return (
     <Routes>
@@ -56,6 +65,7 @@ const AdminRoute = () => {
         <Route path="/profile" element={<AdminProfile />} />
         <Route path="/training-hub" element={<TrainingHub />} />
       </Route>
+      <Route path="/" element={<AdminBaseRouteRedirection />} />
     </Routes>
   );
 };
