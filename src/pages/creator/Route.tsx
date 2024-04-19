@@ -14,7 +14,7 @@ const GuestCreatorRoutes = () => {
 
 const ProtectedRouteWithoutLayout = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
-  return isAuthenticated ? <Outlet /> : <Navigate to={`/admin/login`} />;
+  return isAuthenticated ? <Outlet /> : <Navigate to={`/creator/login`} />;
 };
 
 const ProtectedRouteWithLayout = () => {
@@ -24,7 +24,7 @@ const ProtectedRouteWithLayout = () => {
       <Outlet />
     </CreatorLayout>
   ) : (
-    <Navigate to={`/admin/login`} />
+    <Navigate to={`/creator/login`} />
   );
 };
 
