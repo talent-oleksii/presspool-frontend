@@ -28,6 +28,15 @@ const ProtectedRouteWithLayout = () => {
   );
 };
 
+const CreatorBaseRouteRedirection = () => {
+  const isAuthenticated = new CreatorAuth().isAuthenticated();
+  return isAuthenticated ? (
+    <Navigate to={"/creator/dashboard"} />
+  ) : (
+    <Navigate to={`/creator/login`} />
+  );
+};
+
 const CreatorRoute = () => {
   return (
     <Routes>
@@ -42,6 +51,7 @@ const CreatorRoute = () => {
       <Route element={<ProtectedRouteWithLayout />}>
         <Route path="/dashboard/*" element={<CreatorDashboard />} />
       </Route>
+      <Route path="/" element={<CreatorBaseRouteRedirection />} />
     </Routes>
   );
 };
