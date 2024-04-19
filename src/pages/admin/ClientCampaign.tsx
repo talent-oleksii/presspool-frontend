@@ -61,8 +61,8 @@ const AdminClientCampaign: FC = () => {
     return price === 0 || verifiedClicks(id) === 0
       ? 0
       : price / verifiedClicks(id) > 10
-      ? 10
-      : Number(price / verifiedClicks(id));
+        ? 10
+        : Number(price / verifiedClicks(id));
   };
 
   const panelStyle: React.CSSProperties = {
@@ -89,15 +89,14 @@ const AdminClientCampaign: FC = () => {
               </p>
               <p className="font-medium font-[Inter]">
                 <span
-                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${
-                    item.state === "draft"
+                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${item.state === "draft"
                       ? "bg-[#dbdbdb] text-primary"
                       : item.state === "paused"
-                      ? "bg-[#fdbdbd]"
-                      : Number(totalSpend) >= Number(item.price)
-                      ? "bg-white ring-2 ring-main"
-                      : "bg-main text-primary"
-                  }`}
+                        ? "bg-[#fdbdbd]"
+                        : Number(totalSpend) >= Number(item.price)
+                          ? "bg-white ring-2 ring-main"
+                          : "bg-main text-primary"
+                    }`}
                 >
                   {capitalize(
                     Number(totalSpend) >= Number(item.price)
@@ -162,9 +161,8 @@ const AdminClientCampaign: FC = () => {
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Budget Remaining
               </p>
-              <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${
-                Number(item.price) - Number(totalSpend)
-              }`}</p>
+              <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${Number(item.price) - Number(totalSpend)
+                }`}</p>
             </div>
           </div>
         ),
@@ -181,7 +179,7 @@ const AdminClientCampaign: FC = () => {
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                   Description
                 </p>
-                <p className="text-primary font-[Inter] font-normal text-xs">
+                <p className="text-primary font-[Inter] font-normal text-xs whitespace-pre">
                   {item.body}
                 </p>
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
@@ -555,9 +553,8 @@ const AdminClientCampaign: FC = () => {
 
                 <div className="bg-white z-10 w-full rounded-[10px] flex flex-col h-full">
                   <div
-                    className={`${
-                      campaign?.headline ? "py-4" : "py-2"
-                    } px-4 flex`}
+                    className={`${campaign?.headline ? "py-4" : "py-2"
+                      } px-4 flex`}
                   >
                     <div className="text-left w-full">
                       <h2 className="w-full text-left font-semibold font-[Inter] text-primary text-base break-words leading-4">
