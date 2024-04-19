@@ -38,7 +38,7 @@ import { LogoutOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import GridIcon from "../../icons/Grid";
 import AccountInfoIcon from "../../icons/AccountInfo";
 
-const Admin: FC = () => {
+const Admin = (props: React.PropsWithChildren) => {
   const location = useLocation();
   const navigator = useNavigate();
   const dispatch = useDispatch();
@@ -82,8 +82,8 @@ const Admin: FC = () => {
   const { adminLink } = useSelector(selectAuth);
 
   const handleLogout = () => {
-    dispatch(setAdminAuthenticated({ state: false }));
-    navigator("/admin");
+    localStorage.clear();
+    navigator("/admin/login");
   };
 
   const feedbackItems: MenuProps["items"] = [
@@ -310,27 +310,7 @@ const Admin: FC = () => {
         </div>
         {loading && <Loading />}
         <div className="col-span-4 pt-1 md:pt-2.5 pb-4 md:pr-8 md:pl-2 overflow-y-auto bg-[#EDECF2]">
-          {!loading && (
-            <Routes>
-              <Route path="/dashboard/*" element={<AdminDashboard />} />
-              <Route path="/client" element={<AdminDashboardClient />} />
-              <Route
-                path="/:accountManagerId/client"
-                element={<AdminDashboardClient />}
-              />
-              <Route path="/client/:id" element={<AdminClient />} />
-              <Route
-                path="/client/:id/campaign/:campaignId"
-                element={<AdminClientCampaign />}
-              />
-              <Route path="/member" element={<AdminMember />} />
-              <Route path="/campaign" element={<AdminCampaign />} />
-              <Route path="/billing" element={<AdminBilling />} />
-              <Route path="/support" element={<AdminSupport />} />
-              <Route path="/profile" element={<AdminProfile />} />
-              <Route path="/training-hub" element={<TrainingHub />} />
-            </Routes>
-          )}
+          {!loading && props?.children}
         </div>
       </div>
     </div>

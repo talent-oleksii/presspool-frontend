@@ -5,6 +5,12 @@ export interface IToken {
   exp: number;
 }
 
+export interface ICommonAuthUtility {
+  exp: number;
+  iat: number;
+  email: string;
+}
+
 export interface ICommonFormOptions {
   mode: "all" | "onSubmit" | "onBlur" | "onChange" | "onTouched";
   reValidateMode: "onSubmit" | "onBlur" | "onChange";
