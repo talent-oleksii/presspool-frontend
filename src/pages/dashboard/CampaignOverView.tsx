@@ -20,6 +20,8 @@ import { useParams } from "react-router";
 import { CustomEngagementChannelLegend } from "../../containers/shared/CustomEngagementChannelLegend";
 import CampaignStatsCard from "../../containers/dashboard/CampaignStatsCard";
 import CustomTooltip from "../../components/CustomTooltip";
+import { getVerifiedClick } from "../../utils/commonUtils";
+import useAnalytics from "../../hooks/useAnalytics";
 
 const CampaignOverView: FC = () => {
   const { id } = useParams();
@@ -30,6 +32,8 @@ const CampaignOverView: FC = () => {
   } = useSelector(selectData);
   const [chartData, setChartData] = useState<Array<any>>([]);
 
+  const { avgCPC } = useAnalytics(clicked, data);
+
   const getSum = (a: Array<any>) => {
     let total = 0;
     let uniqueClicks = 0;
@@ -37,12 +41,7 @@ const CampaignOverView: FC = () => {
     for (const i of a) {
       total += Number(i.count);
       uniqueClicks += Number(i.unique_click ?? 0);
-      verifiedClicks +=
-        (i.user_medium === "newsletter" || i.user_medium === "referrral") &&
-          i.duration > i.count * 1.5 &&
-          i.duration > 0
-          ? Number(i.unique_click)
-          : 0;
+      verifiedClicks += getVerifiedClick(i);
     }
     return { total, uniqueClicks, verifiedClicks };
   };
@@ -123,11 +122,7 @@ const CampaignOverView: FC = () => {
     let sumBlog = 0;
 
     clicked.forEach((item) => {
-      if (
-        (item.user_medium === "newsletter" || item.usr_medium === "referral") &&
-        item.duration > item.count * 1.5 &&
-        item.duration > 0
-      ) {
+      if (getVerifiedClick(item)) {
         sumEmail += Number(item.unique_click);
       } else if (item.user_medium === "referral") {
         sumBlog += Number(item.unique_click);
@@ -164,42 +159,13 @@ const CampaignOverView: FC = () => {
     return result.sort((a, b) => b.percentage - a.percentage);
   }, [clicked]);
 
-  const totalSpend = useMemo(
-    () => data.reduce((prev, item) => prev + Number(item?.price ?? 0), 0),
-    [data]
-  );
-
-  const verifiedClicks = useMemo(
-    () =>
-      clicked.reduce(
-        (prev, item) =>
-          prev +
-          Number(
-            (item?.user_medium === "newsletter" ||
-              item?.user_medium === "referral") &&
-              item.duration > item.count * 1.5 &&
-              item.duration > 0
-              ? item?.unique_click
-              : 0
-          ),
-        0
-      ),
-    [clicked]
-  );
-
-  const avgCPC =
-    totalSpend === 0 || verifiedClicks === 0
-      ? 0
-      : totalSpend / verifiedClicks > 10
-        ? 10
-        : totalSpend / verifiedClicks;
-
   return (
     <div className="mt-3 h-full">
       <CampaignStatsCard />
       <div
-        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${
+          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+        } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline relative">
           <div>
@@ -229,8 +195,9 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-12`}
+            className={`flex w-full ${
+              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+            } items-center justify-center mt-12`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
