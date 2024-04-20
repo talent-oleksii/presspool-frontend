@@ -90,12 +90,12 @@ const AdminClientCampaign: FC = () => {
               <p className="font-medium font-[Inter]">
                 <span
                   className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal ${item.state === "draft"
-                      ? "bg-[#dbdbdb] text-primary"
-                      : item.state === "paused"
-                        ? "bg-[#fdbdbd]"
-                        : Number(totalSpend) >= Number(item.price)
-                          ? "bg-white ring-2 ring-main"
-                          : "bg-main text-primary"
+                    ? "bg-[#dbdbdb] text-primary"
+                    : item.state === "paused"
+                      ? "bg-[#fdbdbd]"
+                      : Number(totalSpend) >= Number(item.price)
+                        ? "bg-white ring-2 ring-main"
+                        : "bg-main text-primary"
                     }`}
                 >
                   {capitalize(
@@ -179,7 +179,7 @@ const AdminClientCampaign: FC = () => {
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                   Description
                 </p>
-                <p className="text-primary font-[Inter] font-normal text-xs whitespace-pre">
+                <p className="text-primary font-[Inter] font-normal text-xs whitespace-pre-wrap">
                   {item.body}
                 </p>
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
