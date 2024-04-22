@@ -110,7 +110,8 @@ const Campaign: FC = () => {
   const getItems = (item: any, panelStyle: any) => {
     const totalVerifiedClick = verifiedClicks(item.id);
     const avgCPC = getAvgCPC(item.price, item.id);
-    const totalSpend = (totalVerifiedClick * avgCPC).toFixed(2);
+    // const totalSpend = (totalVerifiedClick * avgCPC).toFixed(2);
+    const totalSpend = Number(item.billed);
     return [
       {
         key: "1",
