@@ -43,28 +43,28 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
       </div>
       {data.length
         ? data.map((item, index) => (
-            <div
-              key={index}
-              className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center"
-            >
-              <div className="text-primary font-bold text-sm">
-                {item.name ? item.name : "N/A"}
-              </div>
-              <div className="text-primary font-medium text-sm text-center">
-                {item.total_clicks}
-              </div>
-              <div className="text-primary font-medium text-sm text-center">
-                {item.unique_clicks}
-              </div>
-              <div className="text-primary font-medium text-sm text-center">
-                {item.verified_clicks}
-              </div>
-              <div className="text-primary font-medium text-sm text-center">
-                ${(avgCPC * item.verified_clicks)?.toFixed(2)}
-              </div>
-              {/* <div></div> */}
+          <div
+            key={index}
+            className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center"
+          >
+            <div className="text-primary font-bold text-sm">
+              {item.name.includes('.') ? <a href={`https://${item.name}`} target="_blank" rel="noreferrer" className="text-[red]/[.74]">{item.name}</a> : <p>{item.name}</p>}
             </div>
-          ))
+            <div className="text-primary font-medium text-sm text-center">
+              {item.total_clicks}
+            </div>
+            <div className="text-primary font-medium text-sm text-center">
+              {item.unique_clicks}
+            </div>
+            <div className="text-primary font-medium text-sm text-center">
+              {item.verified_clicks}
+            </div>
+            <div className="text-primary font-medium text-sm text-center">
+              ${(avgCPC * item.verified_clicks)?.toFixed(2)}
+            </div>
+            {/* <div></div> */}
+          </div>
+        ))
         : null}
       {newsletter.length === 0 ? (
         <p className="font-[Inter] mt-4 text-[10px] text-center">
