@@ -48,7 +48,8 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
             className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center"
           >
             <div className="text-primary font-bold text-sm">
-              {item.name.includes('.') ? <a href={`https://${item.name}`} target="_blank" rel="noreferrer" className="text-[red]/[.74]">{item.name}</a> : <p>{item.name}</p>}
+              {/* {item.name.includes('.') ? <a href={`https://${item.name}`} target="_blank" rel="noreferrer" className="text-[red]/[.74]">{item.name}</a> : <p>{item.name}</p>} */}
+              {item.name}
             </div>
             <div className="text-primary font-medium text-sm text-center">
               {item.total_clicks}
