@@ -15,17 +15,9 @@ import {
 import { useCallback, useEffect } from "react";
 import APIInstance from "../../api";
 import { ICampaignDetail } from "../../interfaces/campaign.interface";
+import { ICommonFormOptions } from "../../interfaces/common.interface";
 
-interface ICommonOptions {
-  mode: "all" | "onSubmit" | "onBlur" | "onChange" | "onTouched";
-  reValidateMode: "onSubmit" | "onBlur" | "onChange";
-  resetOptions: {
-    keepDirtyValues?: boolean | undefined;
-    keepErrors?: boolean | undefined;
-  };
-}
-
-const options: ICommonOptions = Object.freeze({
+const options: ICommonFormOptions = Object.freeze({
   mode: "all",
   reValidateMode: "onSubmit",
   resetOptions: {
