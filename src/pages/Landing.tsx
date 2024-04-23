@@ -63,7 +63,10 @@ const Landing: FC = () => {
                 <p className="mb-0 mt-[9px]">I'm a Company</p>
                 {/* <p className='mb-0 -mt-1'>Company</p> */}
               </Link>
-              <button className="flex flex-col font-semibold -tracking-[.42px] text-primary py-[15px] text-sm 2xl:text-sm items-center justify-center  bg-white rounded-[10px] shadow-md w-[250px]">
+              <Link
+                className="flex flex-col font-semibold -tracking-[.42px] text-primary py-[15px] text-sm 2xl:text-sm items-center justify-center  bg-white rounded-[10px] shadow-md w-[250px]"
+                to="creator"
+              >
                 <img
                   alt="creator"
                   src={Creator}
@@ -71,7 +74,7 @@ const Landing: FC = () => {
                 />
                 <p className="mb-0 mt-[9px]">I'm a Creator</p>
                 {/* <p className='mb-0 -mt-1'>Creator</p> */}
-              </button>
+              </Link>
             </>
           ) : (
             <>
