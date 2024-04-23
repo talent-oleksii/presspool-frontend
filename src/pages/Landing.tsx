@@ -107,11 +107,10 @@ const Landing: FC = () => {
         <div className="">
           <div className="flex justify-center items-center mt-[15px]">
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 0
-                  ? "text-primary border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 0
+                ? "text-primary border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(0)}
             >
               <svg
@@ -133,11 +132,10 @@ const Landing: FC = () => {
               Easy Campaign Creation
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 1
-                  ? "text-primary border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 1
+                ? "text-primary border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(1)}
             >
               <svg
@@ -159,11 +157,10 @@ const Landing: FC = () => {
               Transparent Analytics
             </button>
             <button
-              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${
-                current === 2
-                  ? "text-primary border-main"
-                  : "text-[#525252] border-[#EDECF2]"
-              }`}
+              className={`font-semibold text-lg justify-center px-12 py-2 min-w-[145px] -tracking-[.54px] rounded-[10px] items-center flex flex-col hover:border-main border-b-[1px] ${current === 2
+                ? "text-primary border-main"
+                : "text-[#525252] border-[#EDECF2]"
+                }`}
               onClick={() => setCurrent(2)}
             >
               <svg
@@ -199,21 +196,21 @@ const Landing: FC = () => {
                 <img
                   src={Precise}
                   alt="..."
-                  className="!w-[70%] max-w-[870px] rounded-[10px]"
+                  className="max-w-[900px] rounded-[10px]"
                 />
               </div>
               <div>
                 <img
                   src={Launch}
                   alt="..."
-                  className="!w-[70%] max-w-[870px] rounded-[10px]"
+                  className="max-w-[1083px] rounded-[10px]"
                 />
               </div>
               <div>
                 <img
                   src={Seamless}
                   alt="..."
-                  className="!w-[70%] max-w-[870px] rounded-[10px]"
+                  className="max-w-[900px] rounded-[10px]"
                 />
               </div>
             </Carousel>
