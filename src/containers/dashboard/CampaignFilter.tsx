@@ -1,37 +1,36 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Menu, MenuProps, Space } from "antd";
 import { CaretDownOutlined, CloudDownloadOutlined } from "@ant-design/icons";
 import APIInstance from "../../api";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "../../store/authSlice";
-import {
-  selectData,
-  setCampaign,
-  setCampaignLoading,
-  setClicked,
-  setNewsletter,
-  setPrevRangeData,
-  setSelectedDateFilter,
-} from "../../store/dataSlice";
+import { selectData, setSelectedDateFilter } from "../../store/dataSlice";
 import ByCampaignButton from "./ByCampaignButton";
 import { useNavigate, useParams } from "react-router";
 import moment from "moment";
 import { GetItem, MenuItem } from "../shared/GetItem";
 import { capitalize } from "lodash";
+import { IDateRange } from "../../interfaces/common.interface";
+import CreatorAPIInstance from "../../api/creatorAPIInstance";
 
-interface IDateRange {
-  startDate: Date | null;
-  endDate: Date | null;
+interface ICampaignFilter {
+  loadCampaignData: (
+    dateRange: IDateRange,
+    email: string,
+    selectedCampaigns: string[]
+  ) => void;
 }
 
-const CampaignFilter: FC = () => {
+const CampaignFilter: FC<ICampaignFilter> = ({ loadCampaignData }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   const [completionDate, setCompletionDate] = useState<string | null>(null);
   const [campStats, setCampStats] = useState<any>({});
   const dispatch = useDispatch();
-  const { email } = useSelector(selectAuth);
+  const { email, isCreatorAuthenticated, creatorData } =
+    useSelector(selectAuth);
+  const identifier = isCreatorAuthenticated ? creatorData.id : email;
   const [selectedCampaigns, setSelectedCampaigns] = useState<Array<string>>(
     id !== "all" ? (id ? id?.split(",") : []) : []
   );
@@ -45,12 +44,20 @@ const CampaignFilter: FC = () => {
   const ref = useRef<any>(null);
 
   useEffect(() => {
-    APIInstance.get("/data/campaign_list", { params: { email } }).then(
-      (data) => {
+    if (isCreatorAuthenticated) {
+      CreatorAPIInstance.get("getCampaignList", {
+        params: { creatorId: identifier },
+      }).then((data) => {
         setCampaignList(data.data);
-      }
-    );
-  }, [email]);
+      });
+    } else {
+      APIInstance.get("/data/campaign_list", {
+        params: { email: identifier },
+      }).then((data) => {
+        setCampaignList(data.data);
+      });
+    }
+  }, [identifier, isCreatorAuthenticated]);
 
   const handleOpenChange = () => {
     setOpen(true);
@@ -142,45 +149,15 @@ const CampaignFilter: FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(setCampaignLoading(true));
-    Promise.all([
-      APIInstance.get("data/campaign", {
-        params: {
-          email,
-          ...(dateRange.endDate &&
-            dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
-          ...(selectedCampaigns.length > 0 && {
-            campaignIds: selectedCampaigns,
-          }),
-        },
-      }),
-      APIInstance.get("/data/newsletter", {
-        params: {
-          email,
-          ...(dateRange.endDate &&
-            dateRange.startDate && {
-              from: dateRange.startDate,
-              to: dateRange.endDate,
-            }),
-          ...(selectedCampaigns.length > 0 && {
-            campaignIds: selectedCampaigns,
-          }),
-        },
-      }),
-    ])
-      .then((res: Array<any>) => {
-        dispatch(setClicked(res[0].data.clicked));
-        dispatch(setCampaign({ campaign: res[0].data.data }));
-        dispatch(setPrevRangeData(res[0].data.prevData));
-        dispatch(setNewsletter(res[1].data));
-      })
-      .finally(() => {
-        dispatch(setCampaignLoading(false));
-      });
-  }, [dateRange, dispatch, email, selectedCampaigns, selectedDateFilter]);
+    loadCampaignData(dateRange, identifier, selectedCampaigns);
+  }, [
+    dateRange,
+    identifier,
+    loadCampaignData,
+    selectedCampaigns,
+    selectedDateFilter,
+    isCreatorAuthenticated,
+  ]);
 
   const handleDownloadCSV = () => {
     var csv =

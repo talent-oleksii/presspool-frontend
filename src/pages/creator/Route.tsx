@@ -9,7 +9,7 @@ import CreatorDashboard from "./dashboard";
 
 const GuestCreatorRoutes = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
-  return !isAuthenticated ? <Outlet /> : <Navigate to={"/creator/dashboard"} />;
+  return !isAuthenticated ? <Outlet /> : <Navigate to={"/creator/reporting"} />;
 };
 
 const ProtectedRouteWithoutLayout = () => {
@@ -31,7 +31,7 @@ const ProtectedRouteWithLayout = () => {
 const CreatorBaseRouteRedirection = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
   return isAuthenticated ? (
-    <Navigate to={"/creator/dashboard"} />
+    <Navigate to={"/creator/reporting"} />
   ) : (
     <Navigate to={`/creator/login`} />
   );
@@ -49,7 +49,7 @@ const CreatorRoute = () => {
         <Route path="/*" element={<Creator />} />
       </Route>
       <Route element={<ProtectedRouteWithLayout />}>
-        <Route path="/dashboard/*" element={<CreatorDashboard />} />
+        <Route path="/reporting/:id" element={<CreatorDashboard />} />
       </Route>
       <Route path="/" element={<CreatorBaseRouteRedirection />} />
     </Routes>

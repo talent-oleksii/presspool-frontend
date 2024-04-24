@@ -52,9 +52,12 @@ const initialState: AuthState = {
   adminId: localStorage.getItem("adminId") || "",
   adminLink: localStorage.getItem("adminLink") || "",
   adminCreateTime: 0,
-  isCreatorAuthenticated: false,
+  isCreatorAuthenticated:
+    localStorage.getItem("isCreatorAuthenticated") === "true",
   creatorToken: localStorage.getItem("creatorToken") || "",
-  creatorData: {},
+  creatorData: localStorage.getItem("creatorData")
+    ? JSON.parse(localStorage.getItem("creatorData") ?? "")
+    : "",
 };
 
 const authSlice = createSlice({
@@ -126,6 +129,11 @@ const authSlice = createSlice({
       state.creatorToken = action.payload.token;
       state.creatorData = action.payload;
       localStorage.setItem("creatorToken", action.payload.token);
+      localStorage.setItem("creatorData", JSON.stringify(action.payload));
+      localStorage.setItem(
+        "isCreatorAuthenticated",
+        action.payload.state ? "true" : "false"
+      );
     },
   },
 });
