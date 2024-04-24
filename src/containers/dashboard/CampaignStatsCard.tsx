@@ -3,6 +3,7 @@ import Card from "../../components/Card";
 import { useSelector } from "react-redux";
 import { selectData } from "../../store/dataSlice";
 import useAnalytics from "../../hooks/useAnalytics";
+import { selectAuth } from "../../store/authSlice";
 
 const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
   const { rootClassName } = props;
@@ -12,6 +13,7 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
     prevData,
     campaign: data,
   } = useSelector(selectData);
+  const { isCreatorAuthenticated, creatorData } = useSelector(selectAuth);
   const { totalClicks, uniqueClicks, totalBudget, verifiedClicks, avgCPC } =
     useAnalytics(clicked, data);
 
@@ -59,7 +61,9 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       className={
         rootClassName
           ? rootClassName
-          : `rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px]`
+          : `rounded-[10px] grid ${
+              isCreatorAuthenticated ? "grid-cols-4" : "grid-cols-5"
+            } gap-3 min-h-[90px]`
       }
     >
       <Card
@@ -70,14 +74,16 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
           totalClicks
         )}
       />
-      <Card
-        title={"Unique Clicks"}
-        value={uniqueClicks}
-        percentageText={calculateChangeDirection(
-          prevData.uniqueClicks,
-          uniqueClicks
-        )}
-      />
+      {!isCreatorAuthenticated ? (
+        <Card
+          title={"Unique Clicks"}
+          value={uniqueClicks}
+          percentageText={calculateChangeDirection(
+            prevData.uniqueClicks,
+            uniqueClicks
+          )}
+        />
+      ) : null}
       <Card
         title={"Verified Clicks"}
         value={verifiedClicks}
@@ -86,16 +92,36 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
           verifiedClicks
         )}
       />
-      <Card
-        title={"AVG CPC"}
-        value={`$${avgCPC.toFixed(2)}`}
-        percentageText={calculateChangeDirection(prevData.avgCPC, avgCPC)}
-      />
-      <Card
-        title={"Total Budget"}
-        value={`$${totalBudget}`}
-        percentageText={<div className="flex gap-2 h-[14px]"></div>}
-      />
+      {isCreatorAuthenticated ? (
+        <>
+          <Card
+            title={"Total Charged"}
+            value={`$${(creatorData?.cpc ?? 0 * verifiedClicks).toFixed(2)}`}
+            percentageText={calculateChangeDirection(
+              creatorData?.cpc ?? 0 * prevData.verifiedClicks,
+              creatorData?.cpc ?? 0 * verifiedClicks
+            )}
+          />
+          <Card
+            title={"Total Paid Out"}
+            value={`$${0}`}
+            percentageText={<div className="flex gap-2 h-[14px]"></div>}
+          />
+        </>
+      ) : (
+        <>
+          <Card
+            title={"AVG CPC"}
+            value={`$${avgCPC.toFixed(2)}`}
+            percentageText={calculateChangeDirection(prevData.avgCPC, avgCPC)}
+          />
+          <Card
+            title={"Total Budget"}
+            value={`$${totalBudget}`}
+            percentageText={<div className="flex gap-2 h-[14px]"></div>}
+          />
+        </>
+      )}
     </div>
   );
 };

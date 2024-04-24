@@ -1,20 +1,79 @@
-import { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { selectAuth } from "../../store/authSlice";
-import { selectData } from "../../store/dataSlice";
+import {
+  selectData,
+  setCampaign,
+  setCampaignLoading,
+  setClicked,
+  setNewsletter,
+  setPrevRangeData,
+} from "../../store/dataSlice";
 import CampaignOverView from "./CampaignOverView";
 import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../utils/TransitionConstants";
 import CampaignFilter from "../../containers/dashboard/CampaignFilter";
 import Loading from "../../components/Loading";
+import APIInstance from "../../api";
+import { IDateRange } from "../../interfaces/common.interface";
 
 const Dashboard: FC = () => {
+  const dispatch = useDispatch();
   const [isFirstLoad, setIsFirstLoad] = useState(true);
   const { name } = useSelector(selectAuth);
   const { isCampaignLoading } = useSelector(selectData);
   useEffect(() => {
     setIsFirstLoad(false);
   }, []);
+
+  const loadCampaignData = useCallback(
+    (
+      dateRange: IDateRange,
+      identifier: string,
+      selectedCampaigns: string[]
+    ) => {
+      dispatch(setCampaignLoading(true));
+      Promise.all([
+        APIInstance.get("data/campaign", {
+          params: {
+            email: identifier,
+            ...(dateRange.endDate &&
+              dateRange.startDate && {
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
+            ...(selectedCampaigns.length > 0 && {
+              campaignIds: selectedCampaigns,
+            }),
+          },
+        }),
+        APIInstance.get("/data/newsletter", {
+          params: {
+            email: identifier,
+            ...(dateRange.endDate &&
+              dateRange.startDate && {
+                from: dateRange.startDate,
+                to: dateRange.endDate,
+              }),
+            ...(selectedCampaigns.length > 0 && {
+              campaignIds: selectedCampaigns,
+            }),
+          },
+        }),
+      ])
+        .then((res: Array<any>) => {
+          dispatch(setClicked(res[0].data.clicked));
+          dispatch(setCampaign({ campaign: res[0].data.data }));
+          dispatch(setPrevRangeData(res[0].data.prevData));
+          dispatch(setNewsletter(res[1].data));
+        })
+        .finally(() => {
+          dispatch(setCampaignLoading(false));
+        });
+    },
+    [dispatch]
+  );
+
   return (
     <div className="text-left relative pt-1.5 h-full flex flex-col">
       <h1 className="font-semibold font-[Inter] text-[18px] md:text-xl -tracking-[.6px]">
@@ -36,7 +95,7 @@ const Dashboard: FC = () => {
         variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
       >
         <div className="flex-1">
-          <CampaignFilter />
+          <CampaignFilter loadCampaignData={loadCampaignData} />
           {!isCampaignLoading && <CampaignOverView />}
           {/* ) : id === "news" ? (
             <NewsLetterDetail />

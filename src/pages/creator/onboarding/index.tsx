@@ -41,9 +41,6 @@ const Onboarding: FC = () => {
     const stepOneValues = stepOneMethods.getValues();
     const stepTwoValues = stepTwoMethods.getValues();
     const stepThreeValues = stepThreeMethods.getValues();
-    console.log(stepOneValues);
-    console.log(stepTwoValues);
-    console.log(stepThreeValues);
     setLoading(true);
     CreatorAPIInstance.post("updatePreferences", {
       ...stepOneValues,
@@ -52,7 +49,7 @@ const Onboarding: FC = () => {
       creatorId,
     })
       .then(() => {
-        navigator("/creator/dashboard");
+        navigator("/creator/reporting");
       })
       .finally(() => setLoading(false));
   };

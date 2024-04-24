@@ -19,3 +19,8 @@ export interface ICommonFormOptions {
     keepErrors?: boolean | undefined;
   };
 }
+
+export interface IDateRange {
+  startDate: Date | null;
+  endDate: Date | null;
+}
