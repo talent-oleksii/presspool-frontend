@@ -67,6 +67,10 @@ const authSlice = createSlice({
     setAuthenticated: (state) => {
       state.isAuthenticated = true;
       localStorage.setItem("isAuthenticated", "true");
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("creatorToken");
+      state.isAdminAuthenticated = false;
+      state.isCreatorAuthenticated = false;
     },
     setUnauthenticated: (state) => {
       state.isAuthenticated = false;
@@ -101,6 +105,8 @@ const authSlice = createSlice({
 
     // For admin
     setAdminAuthenticated: (state, action) => {
+      state.isAuthenticated = false;
+      state.isCreatorAuthenticated = false;
       state.isAdminAuthenticated = action.payload.state;
       localStorage.setItem(
         "isAdminAuthenticated",
@@ -110,6 +116,8 @@ const authSlice = createSlice({
     setAdminToken: (state, action) => {
       state.adminToken = action.payload.token;
       localStorage.setItem("adminToken", action.payload.token);
+      localStorage.removeItem("token");
+      localStorage.removeItem("creatorToken");
     },
     setAdminUserData: (state, action) => {
       state.adminName = action.payload.userName;
@@ -126,8 +134,12 @@ const authSlice = createSlice({
     },
     setCreatorData: (state, action) => {
       state.isCreatorAuthenticated = true;
+      state.isAuthenticated = false;
+      state.isAdminAuthenticated = false;
       state.creatorToken = action.payload.token;
       state.creatorData = action.payload;
+      localStorage.removeItem("token");
+      localStorage.removeItem("adminToken");
       localStorage.setItem("creatorToken", action.payload.token);
       localStorage.setItem("creatorData", JSON.stringify(action.payload));
       localStorage.setItem(
