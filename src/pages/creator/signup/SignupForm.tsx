@@ -112,7 +112,7 @@ const SignupForm: FC = () => {
               />
             )}
           />
-          <button onClick={handleShowPassword}>
+          <button type="button" onClick={handleShowPassword}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
