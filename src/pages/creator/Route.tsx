@@ -43,9 +43,9 @@ const CreatorRoute = () => {
       <Route element={<GuestCreatorRoutes />}>
         <Route path="/login" element={<CreatorLogin />} />
         <Route path="/signup" element={<CreatorSignUp />} />
+        <Route path="/:creatorId/onboarding" element={<Onboarding />} />
       </Route>
       <Route element={<ProtectedRouteWithoutLayout />}>
-        <Route path="/:creatorId/onboarding" element={<Onboarding />} />
         <Route path="/*" element={<Creator />} />
       </Route>
       <Route element={<ProtectedRouteWithLayout />}>
