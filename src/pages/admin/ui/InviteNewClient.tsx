@@ -28,7 +28,7 @@ const InviteNewClient: FC<typeInviteNewClient> = ({
       emails,
     })
       .then(() => {
-        DialogUtils.show("success", "", "Invitation Emails are sent!");
+        DialogUtils.show("success", "", "Invitation sent!");
         if (onClose) onClose();
       })
       .catch(() => {
