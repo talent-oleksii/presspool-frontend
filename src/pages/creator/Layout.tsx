@@ -53,7 +53,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
               <div>
                 <div className="flex flex-col gap-3.5 items-center justify-center">
                   <NavLink
-                    to="/creator/campaign"
+                    to="/creator/dashboard"
                     className={({ isActive }) =>
                       ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                         isActive ? "bg-white shadow-md" : ""
@@ -79,7 +79,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
                     </Space>
                   </NavLink>
                   <NavLink
-                    to="/creator/billing"
+                    to="/creator/profile"
                     className={({ isActive }) =>
                       ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                         isActive ? "bg-white shadow-md" : ""
@@ -88,20 +88,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
                   >
                     <Space size="middle">
                       <AccountInfoIcon />
-                      Billing
-                    </Space>
-                  </NavLink>
-                  <NavLink
-                    to="/creator/support"
-                    className={({ isActive }) =>
-                      ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
-                        isActive ? "bg-white shadow-md" : ""
-                      }`
-                    }
-                  >
-                    <Space size="middle">
-                      <SupportIcon />
-                      Support
+                      Profile
                     </Space>
                   </NavLink>
                 </div>
