@@ -11,7 +11,7 @@ const CreatorDashboard = () => {
   useEffect(() => {
     setIsFirstLoad(false);
   }, []);
-  const [selectedTab, setSelectedTab] = useState("readyToPublish");
+  const [selectedTab, setSelectedTab] = useState("new");
 
   const handleTabClick = (tab: string) => {
     setSelectedTab(tab);

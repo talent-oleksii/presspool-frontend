@@ -52,7 +52,8 @@ const Onboarding: FC = () => {
       ...stepTwoValues,
       ...stepThreeValues,
       creatorId,
-    }).then(() => {
+    }).then(({ data }) => {
+      dispatch(setCreatorData({ ...data, token }));
       navigator("/creator/dashboard");
     });
   };
