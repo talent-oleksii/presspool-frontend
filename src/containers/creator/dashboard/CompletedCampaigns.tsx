@@ -1,45 +1,28 @@
-import { useSelector } from "react-redux";
-import { selectData, setCampaign, setClicked } from "../../../store/dataSlice";
-import { getVerifiedClick } from "../../../utils/commonUtils";
 import { useCallback, useEffect, useRef, useState } from "react";
-import APIInstance from "../../../api";
-import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { selectAuth } from "../../../store/authSlice";
-import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../../utils/TransitionConstants";
-import { Collapse, Menu, MenuProps } from "antd";
+import { Avatar, Collapse, Menu, MenuProps } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { GetItem, MenuItem } from "../../shared/GetItem";
+import CreatorAPIInstance from "../../../api/creatorAPIInstance";
+import { capitalize } from "lodash";
+import { getPlaceHolder } from "../../../utils/commonUtils";
+import Loading from "../../../components/Loading";
 
 const CompletedCampaigns = () => {
-  const { email } = useSelector(selectAuth);
-  const { campaign: fullCampaign, clicked } = useSelector(selectData);
   const [campaign, setCampaigns] = useState<Array<any>>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [searchStr, setSearchStr] = useState("");
   const [open, setOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("Newest to Oldest");
   const ref = useRef<any>(null);
 
-  const dispatch = useDispatch();
-
   const loadCampaigns = useCallback(async () => {
-    if (email) {
-      const {
-        data: { data, clicked },
-      } = await APIInstance.get("data/campaign", {
-        params: { email: email },
-      });
-      dispatch(setCampaign({ campaign: data }));
-      dispatch(setClicked(clicked));
-    }
-  }, [dispatch, email]);
-
-  useEffect(() => {
-    const campaignData = fullCampaign.filter((item) => {
-      return item.name.indexOf(searchStr) > -1;
+    setLoading(true);
+    const { data } = await CreatorAPIInstance.get("getCompletedCampaigns", {
+      params: { creatorId: 5 },
     });
-    setCampaigns(campaignData);
-  }, [searchStr, fullCampaign]);
+    setCampaigns(data);
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     loadCampaigns();
@@ -72,38 +55,35 @@ const CompletedCampaigns = () => {
     GetItem("Oldest to Newest", "Oldest to Newest"),
   ];
 
-  const verifiedClicks = (campaignId: number) => {
-    return clicked
-      .filter((x) => x.campaign_id === campaignId)
-      .reduce((prev, item) => prev + getVerifiedClick(item), 0);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        hide();
+      }
+    };
 
-  const getAvgCPC = (price: number, id: number) => {
-    return price === 0 || verifiedClicks(id) === 0
-      ? 0
-      : price / verifiedClicks(id) > 10
-      ? 10
-      : Number(price / verifiedClicks(id));
-  };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const getItems = (item: any, panelStyle: any) => {
-    const totalVerifiedClick = verifiedClicks(item.id);
-    const avgCPC = getAvgCPC(item.price, item.id);
-    // const totalSpend = (totalVerifiedClick * avgCPC).toFixed(2);
-    const totalSpend = Number(item.billed);
     return [
       {
         key: "1",
         label: (
           <div className="flex pl-[24px] pr-[72px] py-[20px] justify-evenly items-center text-left w-full relative">
             <div className="flex flex-row items-center w-full gap-2 pr-8">
-              <img
-                className="w-20 min-h-[80px] object-cover rounded-[50px]"
-                alt="market"
-                src={item.image}
-              />
-              <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-center">
-                {item.name}
+              <Avatar
+                src={item?.team_avatar}
+                className={`${item?.team_avatar ? "" : "bg-[#7f8182]"}`}
+                size={42}
+              >
+                {!item?.team_avatar && getPlaceHolder(item.company)}
+              </Avatar>
+              <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-left">
+                {item?.name}
               </p>
             </div>
             <div className="flex flex-col items-center w-full">
@@ -111,7 +91,7 @@ const CompletedCampaigns = () => {
                 Publish Date
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
-                {new Date(Number(item.create_time)).toLocaleDateString()}
+                {new Date(Number(item.start_date)).toLocaleDateString()}
               </p>
             </div>
             <div className="flex flex-col items-center w-full">
@@ -119,7 +99,7 @@ const CompletedCampaigns = () => {
                 verified Clicks
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
-                {item.click_count}
+                {item?.verified_clicks}
               </p>
             </div>
             <div className="flex flex-col items-center w-full">
@@ -127,7 +107,7 @@ const CompletedCampaigns = () => {
                 CPC
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
-                {item.unique_clicks}
+                {item?.cpc}
               </p>
             </div>
             <div className="flex flex-col items-center w-full">
@@ -135,177 +115,80 @@ const CompletedCampaigns = () => {
                 Campaign Budget
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
-                {totalVerifiedClick}
+                {Number(item?.average_unique_click) * Number(item?.cpc)}
               </p>
             </div>
             <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Campaign Revenue
               </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">{`$${avgCPC.toFixed(
-                2
-              )}`}</p>
+              <p className="font-normal text-primary font-[Inter] text-xs">
+                ${Number(item?.verified_clicks) * Number(item?.cpc)}
+              </p>
             </div>
             <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Amount Paid
               </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">{`$${totalSpend}`}</p>
+              <p className="font-normal text-primary font-[Inter] text-xs">
+                ${0}
+              </p>
             </div>
             <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Status
               </p>
-              <p className="font-normal font-[Inter] text-xs text-[#FF4D42]">{`$${Number(
-                item.price
-              )}`}</p>
+              <p className="font-normal font-[Inter]">
+                <span
+                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal bg-[#FFA29C] text-primary`}
+                >
+                  Completed
+                </span>
+              </p>
             </div>
           </div>
         ),
         children: (
           <div className="bg-white py-3">
-            <div className="grid grid-cols-[1fr_1000px] gap-7">
-              <div className="w-full flex flex-col items-start justify-center">
+            <div className="grid grid-cols-[1fr_700px] gap-7">
+              <div className="w-full flex flex-col items-start justify-start">
                 <img
-                  className="w-3/2 min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
+                  className="min-w-[350px] w-3/2 min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
                   alt="market"
                   src={item.image}
                 />
-                {/* <div className="flex items-end justify-between w-full">
-                  <div className="w-auto">
-                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                      Target Audience
-                    </p>
-                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
-                      <button className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs">
-                        {capitalize(item.demographic)}
-                      </button>
-                    </p>
-                  </div>
-                </div> */}
-                {/* <div className="flex items-end justify-between w-full">
-                  <div className="w-auto">
-                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                      Target Industrie(s)
-                    </p>
-                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
-                      {(item.audience || []).map(
-                        (aud: string, index: number) => (
-                          <button
-                            key={index}
-                            className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs"
-                          >
-                            {aud}
-                          </button>
-                        )
-                      )}
-                    </p>
-                  </div>
-                </div> */}
-                {/* {item.position && (
-                  <div className="flex items-end justify-between w-full">
-                    <div className="w-auto">
-                      <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                        Target Demographic(s)
-                      </p>
-                      <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
-                        {(item.position || []).map(
-                          (pos: string, index: number) => (
-                            <button
-                              key={index}
-                              className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
-                            >
-                              {pos}
-                            </button>
-                          )
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                )} */}
-                {/* <div className="flex items-end justify-between w-full">
-                  <div className="w-auto">
-                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                      Target Region(s)
-                    </p>
-                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
-                      {(item.region || []).map((reg: string, index: number) => (
-                        <button
-                          key={index}
-                          className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
-                        >
-                          {reg}
-                        </button>
-                      ))}
-                    </p>
-                  </div>
-                </div> */}
               </div>
               <div className="w-full flex flex-col items-start justify-center">
                 <div className="flex flex-col h-full w-full ">
-                  <p className="text-primary font-[Inter] text-sm font-semibold font-normal">
+                  <p className="text-primary font-[Inter] text-sm font-normal font-normal mb-2">
                     Headline
                   </p>
-                  <h2 className="font-[Inter] text-primary font-normal text-xs -tracking-[.42px]">
+                  <h2 className="font-[Inter] text-primary font-semibold text-lg -tracking-[.42px]">
                     {item.headline}
                   </h2>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-normal mb-2">
                     Description
                   </p>
-                  <p className="text-primary font-[Inter] font-normal text-xs whitespace-pre-wrap">
+                  <p className="text-primary font-[Inter] font-medium text-sm whitespace-pre-wrap">
                     {item.body}
                   </p>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-normal mb-2">
                     Landing Page Link
                   </p>
                   <p className="text-[#6C63FF] font-[Inter] font-medium text-xs">
                     {item.page_url}
                   </p>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-normal mb-2">
                     Audience Tags
                   </p>
                   <div className="flex justify-between">
                     <h2 className="font-[Inter] text-primary font-normal text-sm -tracking-[.42px] mt-[5px]">
-                      {item.headline}
+                      {capitalize(item.demographic)}
                     </h2>
-                    <button
-                      className="font-[Inter] w-3/2 text-[white] bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
-                      // onClick={() => handleDeleteConfirm(item.id)}
-                    >
+                    <button className="font-[Inter] w-3/2 text-[white] bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs">
                       Give Feedback
                     </button>
                   </div>
-                  {/* <img
-                    className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
-                    alt="market"
-                    src={item.image}
-                  /> */}
-                  {/* <div className="mt-[16px] flex items-center justify-end">
-                    {item.state === "active" && (
-                      <Link
-                        to={`/raise-budget/${item.id}`}
-                        className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
-                      >
-                        Raise Budget
-                      </Link>
-                    )}
-                    {item.state !== "active" && (
-                      <>
-                        <button
-                          className="font-[Inter] text-primary text-[red] px-4 py-2 me-2 text-xs 2xl:text-xs"
-                          onClick={() => handleDeleteConfirm(item.id)}
-                        >
-                          Delete
-                        </button>
-                        <Link
-                          to={`/edit/${item.id}`}
-                          className="bg-black px-4 py-2 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
-                        >
-                          Edit Campaign
-                        </Link>
-                      </>
-                    )}
-                  </div> */}
                 </div>
               </div>
             </div>
@@ -319,7 +202,7 @@ const CompletedCampaigns = () => {
   return (
     <div className="mt-3 h-full">
       <div className="text-left relative pt-1.5">
-        {/* {loading && <Loading />} */}
+        {loading && <Loading />}
         <div className="flex items-center w-full mt-[24px] gap-5">
           <div className="flex w-[342px] border-[2px] rounded-[10px] border-main items-center px-4 py-2 bg-white">
             <svg
@@ -395,13 +278,7 @@ const CompletedCampaigns = () => {
             )}
           </div>
         </div>
-
-        <motion.div
-          className="mt-4 rounded-[10px] h-full"
-          initial="hidden"
-          animate="show"
-          variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
-        >
+        <div className="mt-4 rounded-[10px] h-full">
           {campaign.map((item) => (
             <Collapse
               key={item.id}
@@ -413,7 +290,7 @@ const CompletedCampaigns = () => {
               items={getItems(item, panelStyle)}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );
