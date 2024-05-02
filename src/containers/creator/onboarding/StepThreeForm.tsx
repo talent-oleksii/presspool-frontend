@@ -77,12 +77,12 @@ const StepThreeForm: FC<{ audience: string }> = (props) => {
   return (
     <div className="max-w-[570px] m-auto flex flex-col gap-8">
       {/* Page Title  */}
-      <div className="flex flex-col gap-6 items-center">
+      <div className="flex flex-col items-center">
         <img src={Mark} alt="mark" className="w-8" />
-        <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal">
+        <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
           Almost there...
         </span>
-        <span className="text-[#7F8182] text-[18px] font-normal -tracking-[0.54px]">
+        <span className="text-[#7F8182] text-[18px] font-normal -tracking-[0.54px] mt-2">
           Let’s dive a bit deeper into your audience.
         </span>
       </div>
@@ -93,7 +93,7 @@ const StepThreeForm: FC<{ audience: string }> = (props) => {
             className={`flex flex-col font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
           >
             Please add specific industry tags that represent your audience base*
-            <span className="text-[#7F8182]">
+            <span className="text-[#7F8182] mb-1">
               (ex. AI, Cybersecurity, Health, Fintech etc)
             </span>
           </label>
@@ -192,9 +192,8 @@ const StepThreeForm: FC<{ audience: string }> = (props) => {
               <input
                 {...field}
                 type="text"
-                className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
-                  !!errors[field.name] ? "border-[#ff0000]" : ""
-                }`}
+                className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
               />
             )}
           />
@@ -211,9 +210,8 @@ const StepThreeForm: FC<{ audience: string }> = (props) => {
             </span>
           </label>
           <div
-            className={`pl-2 pr-4 border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative ${
-              !!errors["cpc"] ? "border-[#ff0000]" : ""
-            }`}
+            className={`pl-2 pr-4 border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative ${!!errors["cpc"] ? "border-[#ff0000]" : ""
+              }`}
           >
             <span className="text-sm font-medium pr-1">$</span>
             <Controller

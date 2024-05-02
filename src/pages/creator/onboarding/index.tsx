@@ -95,30 +95,32 @@ const Onboarding: FC = () => {
         <div className="w-full h-full flex flex-col items-center font-[inter] bg-white">
           <div className="px-32 py-14 w-full">
             {/* Back */}
-            <div
-              role="button"
-              className="flex items-center gap-2.5 mb-10 self-start"
-              onClick={handleBack}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="32"
-                height="20"
-                viewBox="0 0 32 20"
-                fill="none"
+            {activeStep !== 0 &&
+              <div
+                role="button"
+                className="flex items-center gap-2.5 mb-10 self-start"
+                onClick={handleBack}
               >
-                <path
-                  d="M31 10L1 10M1 10L9.57143 19M1 10L9.57143 0.999999"
-                  stroke="black"
-                  stroke-width="1.8"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <span className="text-black text-[18px] -tracking-[.0.54px] font-medium">
-                Back
-              </span>
-            </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="20"
+                  viewBox="0 0 32 20"
+                  fill="none"
+                >
+                  <path
+                    d="M31 10L1 10M1 10L9.57143 19M1 10L9.57143 0.999999"
+                    stroke="black"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="text-black text-[18px] -tracking-[.0.54px] font-medium">
+                  Back
+                </span>
+              </div>
+            }
 
             {/* First Step  */}
 
