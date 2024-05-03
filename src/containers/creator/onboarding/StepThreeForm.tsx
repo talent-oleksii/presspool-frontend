@@ -82,7 +82,7 @@ const StepThreeForm: FC<{ audience: string }> = (props) => {
         <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
           Almost there...
         </span>
-        <span className="text-[#7F8182] text-[18px] font-normal -tracking-[0.54px] mt-2">
+        <span className="text-[18px] font-normal -tracking-[0.54px] mt-2">
           Let’s dive a bit deeper into your audience.
         </span>
       </div>
@@ -126,7 +126,7 @@ const StepThreeForm: FC<{ audience: string }> = (props) => {
               className={`flex flex-col font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
             >
               Please add the executive positions for your audience?
-              <span className="text-[#7F8182]">(ex. CMO, CEO, CTO, etc)</span>
+              <span className="text-[#7F8182]">(B2B examples: CMO, CTO, etc) (B2C examples: High net worth, female, etc.)</span>
             </label>
             <Controller
               name="position"

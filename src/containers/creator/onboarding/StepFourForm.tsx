@@ -6,12 +6,12 @@ const StepFourForm: FC<{ handleFinalSubmit: () => void }> = (props) => {
   return (
     <div className="max-w-[570px] m-auto flex flex-col gap-8">
       {/* Page Title  */}
-      <div className="flex flex-col gap-6 items-center">
+      <div className="flex flex-col items-center">
         <img src={Mark} alt="mark" className="w-8" />
-        <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal">
+        <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
           Terms & Conditions
         </span>
-        <span className="text-[#7F8182] text-[18px] font-normal -tracking-[0.54px]">
+        <span className="text-[18px] font-normal -tracking-[0.54px] mt-2">
           Please review and accept the terms of our platform to complete your
           sign up process.
         </span>
