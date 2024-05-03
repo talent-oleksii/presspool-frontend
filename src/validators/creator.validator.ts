@@ -15,8 +15,8 @@ export const creatorSignupSchema = yup.object().shape({
   website_url: yup
     .string()
     .required("Enter website url")
-    .url("Invalid website url format")
-    .matches(/^https:\/\//, "URL must start with https://"),
+    .matches(/^https:\/\//, "URL must start with https://")
+    .url("Invalid website url format"),
   email: yup
     .string()
     .required("Enter email address")

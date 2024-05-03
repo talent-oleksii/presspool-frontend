@@ -29,15 +29,17 @@ const StepThreeForm: FC = () => {
           Does your audience consist of more consumers or professionals?*
         </span>
         <div
-          className={`cursor-pointer flex items-center justify-between gap-4 border border-solid border-[#7F8182] rounded-[10px] py-3 px-5 ${CampaignTargetType.CUSTOMER === audience ? "bg-black" : ""
-            }`}
+          className={`cursor-pointer flex items-center justify-between gap-4 border border-solid border-[#7F8182] rounded-[10px] py-3 px-5 ${
+            CampaignTargetType.CUSTOMER === audience ? "bg-black" : ""
+          }`}
           onClick={() => handleAudienceChange(CampaignTargetType.CUSTOMER)}
         >
           <span
-            className={`text-[24px] ${CampaignTargetType.CUSTOMER === audience
-              ? "text-white"
-              : "text-black"
-              } font-semibold -tracking-[0.72px]`}
+            className={`text-[24px] ${
+              CampaignTargetType.CUSTOMER === audience
+                ? "text-white"
+                : "text-black"
+            } font-semibold -tracking-[0.72px]`}
           >
             Consumers
           </span>
@@ -60,15 +62,17 @@ const StepThreeForm: FC = () => {
           </span>
         </div>
         <div
-          className={`cursor-pointer flex items-center justify-between gap-4 border border-solid border-[#7F8182] rounded-[10px] py-3 px-5 ${CampaignTargetType.PROFESSIONAL === audience ? "bg-black" : ""
-            }`}
+          className={`cursor-pointer flex items-center justify-between gap-4 border border-solid border-[#7F8182] rounded-[10px] py-3 px-5 ${
+            CampaignTargetType.PROFESSIONAL === audience ? "bg-black" : ""
+          }`}
           onClick={() => handleAudienceChange(CampaignTargetType.PROFESSIONAL)}
         >
           <span
-            className={`text-[24px] ${CampaignTargetType.PROFESSIONAL === audience
-              ? "text-white"
-              : "text-black"
-              } font-semibold -tracking-[0.72px]`}
+            className={`text-[24px] ${
+              CampaignTargetType.PROFESSIONAL === audience
+                ? "text-white"
+                : "text-black"
+            } font-semibold -tracking-[0.72px]`}
           >
             Professionals
           </span>
@@ -91,13 +95,15 @@ const StepThreeForm: FC = () => {
           </span>
         </div>
         <div
-          className={`cursor-pointer flex items-center justify-between gap-4 border border-solid border-[#7F8182] rounded-[10px] py-3 px-5 ${CampaignTargetType.BOTH === audience ? "bg-black" : ""
-            }`}
+          className={`cursor-pointer flex items-center justify-between gap-4 border border-solid border-[#7F8182] rounded-[10px] py-3 px-5 ${
+            CampaignTargetType.BOTH === audience ? "bg-black" : ""
+          }`}
           onClick={() => handleAudienceChange(CampaignTargetType.BOTH)}
         >
           <span
-            className={`text-[24px] ${CampaignTargetType.BOTH === audience ? "text-white" : "text-black"
-              } font-semibold -tracking-[0.72px]`}
+            className={`text-[24px] ${
+              CampaignTargetType.BOTH === audience ? "text-white" : "text-black"
+            } font-semibold -tracking-[0.72px]`}
           >
             Both (Our audience is about 50/50)
           </span>

@@ -192,8 +192,9 @@ const StepFourForm: FC<{ audience: string }> = (props) => {
               <input
                 {...field}
                 type="text"
-                className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${!!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
+                  !!errors[field.name] ? "border-[#ff0000]" : ""
+                }`}
               />
             )}
           />
@@ -210,8 +211,9 @@ const StepFourForm: FC<{ audience: string }> = (props) => {
             </span>
           </label>
           <div
-            className={`pl-2 pr-4 border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative ${!!errors["cpc"] ? "border-[#ff0000]" : ""
-              }`}
+            className={`pl-2 pr-4 border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative ${
+              !!errors["cpc"] ? "border-[#ff0000]" : ""
+            }`}
           >
             <span className="text-sm font-medium pr-1">$</span>
             <Controller
