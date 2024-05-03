@@ -8,6 +8,7 @@ export const defaultCreatorLoginFormData = {
 export const defaultCreatorSignupFormData = {
   fullName: "",
   newsletter: "",
+  website_url: "",
   email: "",
   password: "",
   agreeTerm: false,

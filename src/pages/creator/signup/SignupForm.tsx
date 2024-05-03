@@ -67,6 +67,30 @@ const SignupForm: FC = () => {
         <label
           className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
         >
+          Website URL <abbr className="text-red-600">*</abbr>
+        </label>
+        <Controller
+          name="website_url"
+          control={control}
+          render={({ field }) => (
+            <input
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              value={field.value}
+              type="text"
+              placeholder="Enter here..."
+              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${
+                !!errors[field.name] ? "!border-[#ff0000]" : ""
+              }`}
+            />
+          )}
+        />
+        <ErrorMessage message={errors["website_url"]?.message} />
+      </div>
+      <div className="mt-2 md:mt-4">
+        <label
+          className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
+        >
           Email Address <abbr className="text-red-600">*</abbr>
         </label>
         <Controller
