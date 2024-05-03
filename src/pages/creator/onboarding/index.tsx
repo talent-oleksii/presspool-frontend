@@ -12,6 +12,7 @@ import { setCreatorData } from "../../../store/authSlice";
 import { useDispatch } from "react-redux";
 import DialogUtils from "../../../utils/DialogUtils";
 import Loading from "../../../components/Loading";
+import FinalStepForm from "../../../containers/creator/onboarding/FinalStepForm";
 
 const Onboarding: FC = () => {
   const { creatorId } = useParams();
@@ -22,7 +23,7 @@ const Onboarding: FC = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const { stepOneMethods, stepTwoMethods, stepThreeMethods } =
+  const { stepOneMethods, stepTwoMethods, stepThreeMethods, stepFourMethods } =
     useUpsertOnboarding();
 
   const handleStepOneSubmit = () => {
@@ -37,6 +38,10 @@ const Onboarding: FC = () => {
     setActiveStep(3);
   };
 
+  const handleStepFourSubmit = () => {
+    setActiveStep(4);
+  };
+
   const handleBack = () => {
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
@@ -47,18 +52,27 @@ const Onboarding: FC = () => {
     const stepOneValues = stepOneMethods.getValues();
     const stepTwoValues = stepTwoMethods.getValues();
     const stepThreeValues = stepThreeMethods.getValues();
-    CreatorAPIInstance.post("updatePreferences", {
-      ...stepOneValues,
-      ...stepTwoValues,
-      ...stepThreeValues,
-      creatorId,
-    }).then(({ data }) => {
+    const stepFourValues = stepFourMethods.getValues();
+    const formData = new FormData();
+    formData.append("creatorId", creatorId ?? "");
+    formData.append("subscriber_proof", stepTwoValues.image);
+    Promise.all([
+      CreatorAPIInstance.post("updatePreferences", {
+        ...stepOneValues,
+        ...stepThreeValues,
+        ...stepFourValues,
+        subscribers: stepTwoValues.subscribers,
+        creatorId,
+      }),
+      CreatorAPIInstance.put("updateSubscribeProof", formData),
+    ]).then((res) => {
+      const data = res[0]?.data;
       dispatch(setCreatorData({ ...data, token }));
       navigator("/creator/dashboard");
     });
   };
 
-  const { audience } = stepTwoMethods.getValues();
+  const { audience } = stepThreeMethods.getValues();
 
   useEffect(() => {
     if (token && creatorId) {
@@ -95,7 +109,7 @@ const Onboarding: FC = () => {
         <div className="w-full h-full flex flex-col items-center font-[inter] bg-white">
           <div className="px-32 py-14 w-full">
             {/* Back */}
-            {activeStep !== 0 &&
+            {activeStep !== 0 && (
               <div
                 role="button"
                 className="flex items-center gap-2.5 mb-10 self-start"
@@ -120,7 +134,7 @@ const Onboarding: FC = () => {
                   Back
                 </span>
               </div>
-            }
+            )}
 
             {/* First Step  */}
 
@@ -149,13 +163,23 @@ const Onboarding: FC = () => {
                 methods={stepThreeMethods}
                 onSubmit={handleStepThreeSubmit}
               >
-                <StepThreeForm audience={audience} />
+                <StepThreeForm />
+              </FormProviderWrapper>
+            </div>
+
+            {/* Fourth Step */}
+            <div className={`${activeStep === 3 ? "" : "hidden"}`}>
+              <FormProviderWrapper
+                methods={stepFourMethods}
+                onSubmit={handleStepFourSubmit}
+              >
+                <StepFourForm audience={audience} />
               </FormProviderWrapper>
             </div>
 
             {/* Fourth Step  */}
-            {activeStep === 3 ? (
-              <StepFourForm handleFinalSubmit={handleFinalSubmit} />
+            {activeStep === 4 ? (
+              <FinalStepForm handleFinalSubmit={handleFinalSubmit} />
             ) : null}
           </div>
         </div>

@@ -2,11 +2,13 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ICommonFormOptions } from "../../interfaces/common.interface";
 import {
+  onboardingFormFourFormData,
   onboardingFormOneFormData,
   onboardingFormThreeFormData,
   onboardingFormTwoFormData,
 } from "../../constants/defaultValues/creator.default.values";
 import {
+  onboardingFormFourFormSchema,
   onboardingFormOneFormSchema,
   onboardingFormThreeFormSchema,
   onboardingFormTwoFormSchema,
@@ -27,17 +29,24 @@ export const useUpsertOnboarding = () => {
     defaultValues: onboardingFormOneFormData,
     resolver: yupResolver(onboardingFormOneFormSchema),
   });
+
   const stepTwoMethods = useForm({
     ...options,
     defaultValues: onboardingFormTwoFormData,
     resolver: yupResolver(onboardingFormTwoFormSchema),
   });
 
-  const { audience } = stepTwoMethods.getValues();
   const stepThreeMethods = useForm({
     ...options,
     defaultValues: onboardingFormThreeFormData,
     resolver: yupResolver(onboardingFormThreeFormSchema),
+  });
+
+  const { audience } = stepThreeMethods.getValues();
+  const stepFourMethods = useForm({
+    ...options,
+    defaultValues: onboardingFormFourFormData,
+    resolver: yupResolver(onboardingFormFourFormSchema),
     context: {
       audience,
     },
@@ -47,5 +56,6 @@ export const useUpsertOnboarding = () => {
     stepOneMethods,
     stepTwoMethods,
     stepThreeMethods,
+    stepFourMethods,
   };
 };
