@@ -37,10 +37,19 @@ export const onboardingFormOneFormSchema = yup.object().shape({
 });
 
 export const onboardingFormTwoFormSchema = yup.object().shape({
-  audience: yup.string().required("Select audience"),
+  subscribers: yup
+    .number()
+    .positive("subscribers must be greater then 0")
+    .typeError("subscribers click must be a number")
+    .required("Enter subscribers"),
+  image: yup.mixed().required("Please select an image file"),
 });
 
 export const onboardingFormThreeFormSchema = yup.object().shape({
+  audience: yup.string().required("Select audience"),
+});
+
+export const onboardingFormFourFormSchema = yup.object().shape({
   industry: yup
     .array()
     .of(yup.string())

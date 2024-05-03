@@ -19,10 +19,15 @@ export const onboardingFormOneFormData = {
 };
 
 export const onboardingFormTwoFormData = {
-  audience: "consumer",
+  subscribers: 0,
+  image: undefined as any,
 };
 
 export const onboardingFormThreeFormData = {
+  audience: "consumer",
+};
+
+export const onboardingFormFourFormData = {
   industry: [],
   position: [],
   geography: [],
