@@ -31,9 +31,8 @@ const SignupForm: FC = () => {
               value={field.value}
               type="text"
               placeholder="Enter here..."
-              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 ${
-                !!errors[field.name] ? "!border-[#ff0000]" : ""
-              }`}
+              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 ${!!errors[field.name] ? "!border-[#ff0000]" : ""
+                }`}
             />
           )}
         />
@@ -55,9 +54,8 @@ const SignupForm: FC = () => {
               value={field.value}
               type="text"
               placeholder="Enter here..."
-              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${
-                !!errors[field.name] ? "!border-[#ff0000]" : ""
-              }`}
+              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${!!errors[field.name] ? "!border-[#ff0000]" : ""
+                }`}
             />
           )}
         />
@@ -67,7 +65,7 @@ const SignupForm: FC = () => {
         <label
           className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
         >
-          Website URL <abbr className="text-red-600">*</abbr>
+          Publication / Newsletter Website <abbr className="text-red-600">*</abbr>
         </label>
         <Controller
           name="website_url"
@@ -79,9 +77,8 @@ const SignupForm: FC = () => {
               value={field.value}
               type="text"
               placeholder="Enter here..."
-              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${
-                !!errors[field.name] ? "!border-[#ff0000]" : ""
-              }`}
+              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${!!errors[field.name] ? "!border-[#ff0000]" : ""
+                }`}
             />
           )}
         />
@@ -103,9 +100,8 @@ const SignupForm: FC = () => {
               value={field.value}
               type="text"
               placeholder="Enter here..."
-              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${
-                !!errors[field.name] ? "!border-[#ff0000]" : ""
-              }`}
+              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${!!errors[field.name] ? "!border-[#ff0000]" : ""
+                }`}
             />
           )}
         />
@@ -118,9 +114,8 @@ const SignupForm: FC = () => {
           Password <abbr className="text-red-600">*</abbr>
         </label>
         <div
-          className={`flex items-center justify-center border-secondry2 bg-transparent border-[1px] mt-3 md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 ${
-            !!errors["password"] ? "!border-[#ff0000]" : ""
-          }`}
+          className={`flex items-center justify-center border-secondry2 bg-transparent border-[1px] mt-3 md:mt-2 xsm:mt-0.5 rounded-[10px] px-4 ${!!errors["password"] ? "!border-[#ff0000]" : ""
+            }`}
         >
           <Controller
             name="password"
