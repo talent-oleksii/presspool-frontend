@@ -1,12 +1,38 @@
-import { Menu, MenuProps } from "antd";
-import { useRef, useState } from "react";
+import { Avatar, Menu, MenuProps } from "antd";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GetItem, MenuItem } from "../../shared/GetItem";
+import CreatorAPIInstance from "../../../api/creatorAPIInstance";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../../store/authSlice";
+import Loading from "../../../components/Loading";
+import { getPlaceHolder } from "../../../utils/commonUtils";
+import ReviewCampaignRequest from "../models/ReviewCampaignRequest";
+import moment from "moment";
 
 const NewCampaignRequests = () => {
+  const { creatorData } = useSelector(selectAuth);
+  const { id } = creatorData;
+  const [campaign, setCampaigns] = useState<Array<any>>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [searchStr, setSearchStr] = useState("");
   const [open, setOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("Newest to Oldest");
+  const [showReviewModel, setShowReviewModel] = useState(false);
+  const [selectedCampaign, setSelectedCampaign] = useState<any>({});
   const ref = useRef<any>(null);
+
+  const loadCampaigns = useCallback(async () => {
+    setLoading(true);
+    const { data } = await CreatorAPIInstance.get("getNewRequests", {
+      params: { creatorId: id },
+    });
+    setCampaigns(data);
+    setLoading(false);
+  }, [id]);
+
+  useEffect(() => {
+    loadCampaigns();
+  }, [loadCampaigns]);
 
   const handleOpenChange = () => {
     setOpen(true);
@@ -26,8 +52,27 @@ const NewCampaignRequests = () => {
     GetItem("Oldest to Newest", "Oldest to Newest"),
   ];
 
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        hide();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleReviewClick = (item: any) => {
+    setSelectedCampaign(item);
+    setShowReviewModel(true);
+  };
+
   return (
     <div className="mt-3 h-full">
+      {loading && <Loading />}
       <div className="text-left relative pt-1.5">
         <div className="flex items-center w-full mt-[24px] gap-5">
           <div className="flex w-[342px] border-[2px] rounded-[10px] border-main items-center px-4 py-2 bg-white">
@@ -105,6 +150,82 @@ const NewCampaignRequests = () => {
           </div>
         </div>
       </div>
+      <div className="mt-3 h-full">
+        <div className={`rounded-[10px] grid grid-cols-3 gap-3`}>
+          {campaign.map((item, index) => (
+            <div
+              key={index}
+              className="card rounded-[10px] bg-white shadow-md min-h-[289px] p-3"
+            >
+              <div className="flex flex-col w-[250px] max-w-[250px] gap-2 shrink-0 mb-[10px]">
+                <div className="flex items-center">
+                  <Avatar
+                    src={item?.team_avatar}
+                    className={`border border-solid border-secondry3 ${
+                      item?.team_avatar ? "" : "bg-[#7f8182]"
+                    }`}
+                    size={48}
+                  >
+                    {!item?.team_avatar && getPlaceHolder(item.company)}
+                  </Avatar>
+                  <div className="ms-2">
+                    <p className="text-primary text-[15px] font-[Inter] -tracking-[.36px]">
+                      {item.name}
+                    </p>
+                    <p className="text-secondry1 text-[8px] font-[Inter] -tracking-[.36px]">
+                      {item.url}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div className="w-full flex flex-col items-start justify-center mt-5 mb-[10px]">
+                <div className="flex flex-col h-full w-full ">
+                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                    Headline
+                  </p>
+                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                    {item.headline}
+                  </h2>
+                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                    CPC Bid
+                  </p>
+                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                    ${item.cpc}
+                  </h2>
+                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                    Estimated Payout
+                  </p>
+                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                    ${Number(item?.average_unique_click) * Number(item?.cpc)}
+                  </h2>
+                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                    Accept By
+                  </p>
+                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                    {moment(Number(item.create_time))
+                      .add(10, "days")
+                      .format("MMMM Do")}
+                  </h2>
+                </div>
+              </div>
+              <div className="w-full flex justify-center">
+                <button
+                  className="font-[Inter] w-3/2 text-[white] bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
+                  onClick={() => handleReviewClick(item)}
+                >
+                  Review
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <ReviewCampaignRequest
+        show={showReviewModel}
+        onClose={() => setShowReviewModel(false)}
+        item={selectedCampaign}
+      />
     </div>
   );
 };
