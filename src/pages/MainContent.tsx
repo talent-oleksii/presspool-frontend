@@ -33,6 +33,8 @@ import Feedback from "../containers/layout/Feedback";
 import Mark from "../assets/logo/logo.png";
 import QuickGuide from "./QuickGuide";
 
+import RequestNewsletter from "./RequestNewsletter";
+
 const MainContent: FC = () => {
   const location = useLocation();
   const navigator = useNavigate();
@@ -40,6 +42,7 @@ const MainContent: FC = () => {
   const [loading, setLoading] = useState(false);
   const { email, email_verified } = useSelector(selectAuth);
   const [showAddTeamModal, setShowAddTeamModal] = useState(false);
+  const [showRequestModal, setShowRequestModal] = useState(false);
 
   //auth check
   useEffect(() => {
@@ -65,7 +68,7 @@ const MainContent: FC = () => {
                 Number(data.data["email_verified"]) === 0 ? "false" : "true",
               avatar: data.data["avatar"],
               createTime: ret[0]["createdTime"],
-              domain : ret[0]["fields"]["Domain"],
+              domain: ret[0]["fields"]["Domain"],
             })
           );
 
@@ -131,6 +134,10 @@ const MainContent: FC = () => {
     return <div>Your email is not verified yet, please verify your email</div>;
   }
 
+  const openNewsletterRequestModal = () => {
+    setShowRequestModal(true);
+  };
+
   const links = [
     {
       name: "Slack Support",
@@ -138,6 +145,7 @@ const MainContent: FC = () => {
     },
     { name: "Blog", url: "https://blog.presspool.ai" },
     { name: "Quick Guide", url: "https://go.presspool.ai/guide" },
+    { name: "Newsletter Request", action: openNewsletterRequestModal, url: '' }
   ];
 
   return (
@@ -158,11 +166,10 @@ const MainContent: FC = () => {
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <Link
                 to="/new"
-                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[10px] text-primary ${
-                  location.pathname.indexOf("new") > -1
-                    ? "ring-black ring-[2px]"
-                    : "ring-0"
-                }`}
+                className={`text-xs font-[Inter] flex shadow-md items-center font-semibold text-left pl-4 py-4 pr-4 w-full bg-main rounded-[10px] text-primary ${location.pathname.indexOf("new") > -1
+                  ? "ring-black ring-[2px]"
+                  : "ring-0"
+                  }`}
               >
                 <Space size="middle">
                   <PlusCircleOutlined
@@ -173,11 +180,10 @@ const MainContent: FC = () => {
               </Link>
               <NavLink
                 to="/campaign/all"
-                className={` w-full text-left font-[Inter] rounded-[10px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
-                  location.pathname.startsWith("/campaign/")
-                    ? "bg-white shadow-md"
-                    : ""
-                }`}
+                className={` w-full text-left font-[Inter] rounded-[10px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${location.pathname.startsWith("/campaign/")
+                  ? "bg-white shadow-md"
+                  : ""
+                  }`}
               >
                 <Space size="middle">
                   <GridIcon />
@@ -187,8 +193,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/detail"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
-                    isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -200,8 +205,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
-                    isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -213,8 +217,7 @@ const MainContent: FC = () => {
               <NavLink
                 to="/support"
                 className={({ isActive }) =>
-                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
-                    isActive ? "bg-white shadow-md" : ""
+                  ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${isActive ? "bg-white shadow-md" : ""
                   }`
                 }
               >
@@ -285,6 +288,14 @@ const MainContent: FC = () => {
         show={showAddTeamModal}
         setShow={() => setShowAddTeamModal(false)}
       />
+
+      {
+        showRequestModal &&
+        <RequestNewsletter
+          show={showRequestModal}
+          setShow={() => setShowRequestModal(false)}
+        />
+      }
     </div>
   );
 };

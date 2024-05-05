@@ -11,6 +11,7 @@ interface IActionLinkCard {
     name: string;
     url: string;
     isInternal?: boolean;
+    action?: Function;
   }>;
 }
 
@@ -27,8 +28,22 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
       </p>
     </div>
     <div className="bg-white py-4 w-full rounded-b-[10px]">
-      {(links || []).map((link, index) =>
-        link.isInternal ? (
+      {(links || []).map((link, index) => {
+        if (link.action) {
+          return (
+            <button
+              key={index}
+              className="flex font-[Inter] font-normal text-xs 2xl:text-sm items-center px-4 py-2 w-full"
+              onClick={() => link.action ? link.action() : () => { }}
+            >
+              <Space size="middle">
+                <ExportOutlined style={{ fontSize: "18px", paddingTop: "2px" }} />
+                {link.name}
+              </Space>
+            </button>
+          );
+        }
+        return link.isInternal ? (
           <Link
             key={index}
             to={link.url}
@@ -53,6 +68,7 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
             </Space>
           </a>
         )
+      }
       )}
     </div>
   </div>
