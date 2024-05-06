@@ -7,8 +7,12 @@ import { GetItem, MenuItem } from "../../shared/GetItem";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
 import { getPlaceHolder } from "../../../utils/commonUtils";
 import Loading from "../../../components/Loading";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../../store/authSlice";
 
 const ReadyToPublishCampaigns = () => {
+  const { creatorData } = useSelector(selectAuth);
+  const { id } = creatorData;
   const [campaign, setCampaigns] = useState<Array<any>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [searchStr, setSearchStr] = useState("");
@@ -19,11 +23,11 @@ const ReadyToPublishCampaigns = () => {
   const loadCampaigns = useCallback(async () => {
     setLoading(true);
     const { data } = await CreatorAPIInstance.get("getReadyToPublish", {
-      params: { creatorId: 5 },
+      params: { creatorId: id },
     });
     setCampaigns(data);
     setLoading(false);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     loadCampaigns();

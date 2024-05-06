@@ -8,8 +8,12 @@ import CreatorAPIInstance from "../../../api/creatorAPIInstance";
 import { capitalize } from "lodash";
 import { getPlaceHolder } from "../../../utils/commonUtils";
 import Loading from "../../../components/Loading";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../../store/authSlice";
 
 const ActiveCampaigns = () => {
+  const { creatorData } = useSelector(selectAuth);
+  const { id } = creatorData;
   const [campaign, setCampaigns] = useState<Array<any>>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [searchStr, setSearchStr] = useState("");
@@ -20,11 +24,11 @@ const ActiveCampaigns = () => {
   const loadCampaigns = useCallback(async () => {
     setLoading(true);
     const { data } = await CreatorAPIInstance.get("getActiveCampaigns", {
-      params: { creatorId: 5 },
+      params: { creatorId: id },
     });
     setCampaigns(data);
     setLoading(false);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     loadCampaigns();
