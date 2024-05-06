@@ -87,7 +87,7 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
 
   const verifiedClicks = clicked.reduce((prev, item) => prev + ((item?.user_medium === 'newsletter' || item?.user_medium === 'referral') && item.duration > item.count * 3 && item.duration > 0) ? Number(item?.unique_click) : 0, 0);
   const avgCPC =
-    data.price === 0 || verifiedClicks === 0 ? 0 : data.price / verifiedClicks > 10 ? 10 : data.price / verifiedClicks;
+    data.price === 0 || verifiedClicks === 0 ? 0 : data.price / verifiedClicks > 11 ? 11 : data.price / verifiedClicks;
 
 
   return (

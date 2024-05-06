@@ -31,9 +31,9 @@ const useAnalytics = (clicked: any[], data: any[]) => {
   const avgCPC =
     totalBudget === 0 || verifiedClicks === 0
       ? 0
-      : totalBudget / verifiedClicks > 10
-      ? 10
-      : totalBudget / verifiedClicks;
+      : totalBudget / verifiedClicks > 11
+        ? 11
+        : totalBudget / verifiedClicks;
 
   const totalSpend = (verifiedClicks * avgCPC).toFixed(2);
 
