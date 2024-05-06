@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import useQuery from "../../../hooks/useQuery";
 import { useNavigate, useParams } from "react-router";
-import StepOneForm from "../../../containers/creator/onboarding/StepOneForm";
+// import StepOneForm from "../../../containers/creator/onboarding/StepOneForm";
 import StepTwoForm from "../../../containers/creator/onboarding/StepTwoForm";
 import StepThreeForm from "../../../containers/creator/onboarding/StepThreeForm";
 import StepFourForm from "../../../containers/creator/onboarding/StepFourForm";
@@ -23,7 +23,7 @@ const Onboarding: FC = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const { stepOneMethods, stepTwoMethods, stepThreeMethods, stepFourMethods } =
+  const { stepTwoMethods, stepThreeMethods, stepFourMethods } =
     useUpsertOnboarding();
 
   const handleStepOneSubmit = () => {
@@ -38,10 +38,6 @@ const Onboarding: FC = () => {
     setActiveStep(3);
   };
 
-  const handleStepFourSubmit = () => {
-    setActiveStep(4);
-  };
-
   const handleBack = () => {
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
@@ -49,7 +45,6 @@ const Onboarding: FC = () => {
   };
 
   const handleFinalSubmit = () => {
-    const stepOneValues = stepOneMethods.getValues();
     const stepTwoValues = stepTwoMethods.getValues();
     const stepThreeValues = stepThreeMethods.getValues();
     const stepFourValues = stepFourMethods.getValues();
@@ -58,7 +53,6 @@ const Onboarding: FC = () => {
     formData.append("subscriber_proof", stepTwoValues.image);
     Promise.all([
       CreatorAPIInstance.post("updatePreferences", {
-        ...stepOneValues,
         ...stepThreeValues,
         ...stepFourValues,
         subscribers: stepTwoValues.subscribers,
@@ -138,47 +132,47 @@ const Onboarding: FC = () => {
 
             {/* First Step  */}
 
-            <div className={`${activeStep === 0 ? "" : "hidden"}`}>
+            {/* <div className={`${activeStep === 0 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepOneMethods}
                 onSubmit={handleStepOneSubmit}
               >
                 <StepOneForm />
               </FormProviderWrapper>
-            </div>
+            </div> */}
 
             {/* Second Step */}
-            <div className={`${activeStep === 1 ? "" : "hidden"}`}>
+            <div className={`${activeStep === 0 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepTwoMethods}
-                onSubmit={handleStepTwoSubmit}
+                onSubmit={handleStepOneSubmit}
               >
                 <StepTwoForm />
               </FormProviderWrapper>
             </div>
 
             {/* Third Step */}
-            <div className={`${activeStep === 2 ? "" : "hidden"}`}>
+            <div className={`${activeStep === 1 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepThreeMethods}
-                onSubmit={handleStepThreeSubmit}
+                onSubmit={handleStepTwoSubmit}
               >
                 <StepThreeForm />
               </FormProviderWrapper>
             </div>
 
             {/* Fourth Step */}
-            <div className={`${activeStep === 3 ? "" : "hidden"}`}>
+            <div className={`${activeStep === 2 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepFourMethods}
-                onSubmit={handleStepFourSubmit}
+                onSubmit={handleStepThreeSubmit}
               >
                 <StepFourForm audience={audience} />
               </FormProviderWrapper>
             </div>
 
             {/* Fourth Step  */}
-            {activeStep === 4 ? (
+            {activeStep === 3 ? (
               <FinalStepForm handleFinalSubmit={handleFinalSubmit} />
             ) : null}
           </div>
