@@ -37,12 +37,34 @@ const deleteCard = async (customerId: string, paymentId: string) => {
   });
 };
 
+const isCustomerExist = async (email: string) => {
+  const existingCustomers = await stripe.customers.list({
+    email,
+  });
+  return existingCustomers.data.length > 0;
+};
+
+const isAccountLinked = async (email: string) => {
+  let isConnected = false;
+  const accounts = await stripe.accounts.list({ limit: 1000 });
+    for (const account of accounts.data) {
+      console.log('email:', account.metadata?.work_email);
+      if (account.metadata?.work_email === email) {
+        isConnected = account.charges_enabled;
+        break;
+      }
+    }
+  return isConnected;
+};
+
 const StripeUtil = {
   stripe,
   stripePromise,
   getCustomerId,
   attachCardToCustomer,
   deleteCard,
+  isCustomerExist,
+  isAccountLinked
 };
 
 export default StripeUtil;

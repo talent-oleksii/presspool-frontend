@@ -48,6 +48,7 @@
     "react-select": "^5.8.0",
     "react-tooltip": "^5.22.0",
     "recharts": "^2.9.3",
+    "rsuite": "^5.60.1",
     "sass": "^1.69.5",
     "scss": "^0.2.4",
     "stripe": "^14.3.0",
