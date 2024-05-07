@@ -8,8 +8,11 @@ import Loading from "../../../components/Loading";
 import { getPlaceHolder } from "../../../utils/commonUtils";
 import ReviewCampaignRequest from "../models/ReviewCampaignRequest";
 import moment from "moment";
+import useQuery from "../../../hooks/useQuery";
+import ScheduleCampaign from "../models/ScheduleCampaign";
 
 const NewCampaignRequests = () => {
+  const { campaignId } = useQuery();
   const { creatorData } = useSelector(selectAuth);
   const { id } = creatorData;
   const [campaign, setCampaigns] = useState<Array<any>>([]);
@@ -18,6 +21,7 @@ const NewCampaignRequests = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("Newest to Oldest");
   const [showReviewModel, setShowReviewModel] = useState(false);
+  const [showScheduleModel, setShowScheduleModel] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState<any>({});
   const ref = useRef<any>(null);
 
@@ -69,6 +73,16 @@ const NewCampaignRequests = () => {
     setSelectedCampaign(item);
     setShowReviewModel(true);
   };
+
+  useEffect(() => {
+    if (campaignId && !loading) {
+      const selectedCampaign = campaign.find((x) => x.id == campaignId);
+      if (selectedCampaign) {
+        setSelectedCampaign(selectedCampaign);
+        setShowReviewModel(true);
+      }
+    }
+  }, [campaign, campaignId, loading]);
 
   return (
     <div className="mt-3 h-full">
@@ -225,6 +239,13 @@ const NewCampaignRequests = () => {
         show={showReviewModel}
         onClose={() => setShowReviewModel(false)}
         item={selectedCampaign}
+        setShowScheduleModel={setShowScheduleModel}
+      />
+      <ScheduleCampaign
+        show={showScheduleModel}
+        onClose={() => setShowScheduleModel(false)}
+        item={selectedCampaign}
+        loadCampaigns={loadCampaigns}
       />
     </div>
   );

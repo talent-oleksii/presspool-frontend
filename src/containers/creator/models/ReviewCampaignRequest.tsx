@@ -3,19 +3,51 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Avatar } from "antd";
 import { getPlaceHolder } from "../../../utils/commonUtils";
 import { capitalize } from "lodash";
+import StripeUtil from "../../../utils/stripe";
+import { useSelector } from "react-redux";
+import { selectAuth } from "../../../store/authSlice";
+import Loading from "../../../components/Loading";
 
 interface typeInviteAccountManager {
   show: boolean;
   onClose: Function;
   item: any;
+  setShowScheduleModel: Function;
 }
 
 const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
   show,
   onClose,
   item,
+  setShowScheduleModel,
 }: typeInviteAccountManager) => {
-  const [emails, setEmails] = useState("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const { creatorData } = useSelector(selectAuth);
+  const { email } = creatorData;
+
+  const handleAccept = async () => {
+    setLoading(true);
+    const isAccountLinked = await StripeUtil.isAccountLinked(email);
+    if (!isAccountLinked) {
+      const account = await StripeUtil.stripe.accounts.create({
+        type: "standard",
+        metadata: {
+          work_email: email,
+        },
+      });
+      const accountLink = await StripeUtil.stripe.accountLinks.create({
+        account: account.id,
+        refresh_url: `http://localhost:3000/creator/dashboard?campaignId=${item.id}`,
+        return_url: `http://localhost:3000/creator/dashboard?campaignId=${item.id}`,
+        type: "account_onboarding",
+      });
+      window.open(accountLink.url, "_self");
+    } else {
+      onClose();
+      setShowScheduleModel(true);
+      setLoading(false);
+    }
+  };
 
   return (
     <Transition.Root show={show} as={Fragment}>
@@ -34,6 +66,7 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
               <Dialog.Panel
                 className={`relative bg-white rounded-[10px] text-left flex flex-col shadow-xl border-[1px] border-black p-3 max-w-[500px]`}
               >
+                {loading && <Loading />}
                 <div className="flex shrink-0 justify-between mb-[12px]">
                   <div className="flex items-center">
                     <Avatar
@@ -94,6 +127,32 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
                     <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
                       {item?.page_url}
                     </h2>
+                    <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                      Hero Image
+                    </p>
+                    <div className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                      <img
+                        src={item?.image}
+                        alt="sample logo"
+                        className="h-[59px] w-[82px] object-cover rounded-[10px]"
+                      />
+                    </div>
+                    <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                      Additional Assets
+                    </p>
+                    <div className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2 flex gap-[10px]">
+                      {item?.additional_files
+                        ? item.additional_files
+                            ?.split(",")
+                            .map((url: string) => (
+                              <img
+                                src={url}
+                                alt="sample logo"
+                                className="h-[59px] w-[82px] object-cover rounded-[10px]"
+                              />
+                            ))
+                        : null}
+                    </div>
                   </div>
                 </div>
                 <hr />
@@ -194,10 +253,16 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
                   </div>
                 </div>
                 <div className="w-full flex justify-center">
-                  <button className="font-[Inter] w-3/2 text-primary bg-main rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs">
+                  <button
+                    className="font-[Inter] w-3/2 text-primary bg-main rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
+                    onClick={handleAccept}
+                  >
                     Accept
                   </button>
-                  <button className="font-[Inter] w-3/2 text-[white] bg-error rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs">
+                  <button
+                    className="font-[Inter] w-3/2 text-[white] bg-error rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
+                    onClick={() => onClose()}
+                  >
                     Deny
                   </button>
                 </div>
