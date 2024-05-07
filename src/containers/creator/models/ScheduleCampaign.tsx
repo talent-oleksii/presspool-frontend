@@ -23,7 +23,6 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState<any>(null);
   const [isReviewClicked, setIsReviewClicked] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState(false);
   const [error, setError] = useState("");
 
   const handleChange = (value: any) => {
@@ -162,7 +161,7 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
                     </div>
                     <div className="w-full flex justify-center mt-9">
                       <button
-                        className="font-[Inter] w-3/2 text-primary bg-main rounded-[6px] px-[20px] py-3 me-2 text-xs 2xl:text-xs"
+                        className="font-[Inter] w-3/2 text-primary font-semibold bg-main rounded-[6px] px-[20px] py-3 me-2 text-xs 2xl:text-xs"
                         onClick={handleReviewClick}
                       >
                         Review

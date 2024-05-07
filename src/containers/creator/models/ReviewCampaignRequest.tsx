@@ -13,6 +13,7 @@ interface typeInviteAccountManager {
   onClose: Function;
   item: any;
   setShowScheduleModel: Function;
+  setShowFeedbackModel: Function;
 }
 
 const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
@@ -20,6 +21,7 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
   onClose,
   item,
   setShowScheduleModel,
+  setShowFeedbackModel
 }: typeInviteAccountManager) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { creatorData } = useSelector(selectAuth);
@@ -48,6 +50,11 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
       setLoading(false);
     }
   };
+
+  const handleDeny = () => {
+    onClose();
+    setShowFeedbackModel(true);
+  }
 
   return (
     <Transition.Root show={show} as={Fragment}>
@@ -254,14 +261,14 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
                 </div>
                 <div className="w-full flex justify-center">
                   <button
-                    className="font-[Inter] w-3/2 text-primary bg-main rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
+                    className="font-[Inter] w-3/2 text-primary font-semibold bg-main rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
                     onClick={handleAccept}
                   >
                     Accept
                   </button>
                   <button
                     className="font-[Inter] w-3/2 text-[white] bg-error rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
-                    onClick={() => onClose()}
+                    onClick={handleDeny}
                   >
                     Deny
                   </button>
