@@ -10,6 +10,7 @@ import ReviewCampaignRequest from "../models/ReviewCampaignRequest";
 import moment from "moment";
 import useQuery from "../../../hooks/useQuery";
 import ScheduleCampaign from "../models/ScheduleCampaign";
+import RejectCampaignFeedback from "../models/RejectCampaignFeedback";
 
 const NewCampaignRequests = () => {
   const { campaignId } = useQuery();
@@ -22,6 +23,7 @@ const NewCampaignRequests = () => {
   const [sort, setSort] = useState<string>("Newest to Oldest");
   const [showReviewModel, setShowReviewModel] = useState(false);
   const [showScheduleModel, setShowScheduleModel] = useState(false);
+  const [showFeedbackModel, setShowFeedbackModel] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState<any>({});
   const ref = useRef<any>(null);
 
@@ -240,10 +242,17 @@ const NewCampaignRequests = () => {
         onClose={() => setShowReviewModel(false)}
         item={selectedCampaign}
         setShowScheduleModel={setShowScheduleModel}
+        setShowFeedbackModel={setShowFeedbackModel}
       />
       <ScheduleCampaign
         show={showScheduleModel}
         onClose={() => setShowScheduleModel(false)}
+        item={selectedCampaign}
+        loadCampaigns={loadCampaigns}
+      />
+      <RejectCampaignFeedback
+        show={showFeedbackModel}
+        onClose={() => setShowFeedbackModel(false)}
         item={selectedCampaign}
         loadCampaigns={loadCampaigns}
       />
