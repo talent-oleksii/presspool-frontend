@@ -60,8 +60,8 @@ const AdminClientCampaign: FC = () => {
   const getAvgCPC = (price: number, id: number) => {
     return price === 0 || verifiedClicks(id) === 0
       ? 0
-      : price / verifiedClicks(id) > 10
-        ? 10
+      : price / verifiedClicks(id) > 11
+        ? 11
         : Number(price / verifiedClicks(id));
   };
 

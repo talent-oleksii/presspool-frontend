@@ -65,11 +65,10 @@ const StepTwoForm: FC = () => {
               render={({ field }) => (
                 <input
                   {...field}
-                  type="text"
+                  type="number"
                   placeholder="Input exact current subscriber count here"
-                  className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
-                    !!errors[field.name] ? "border-[#ff0000]" : ""
-                  }`}
+                  className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                    }`}
                 />
               )}
             />
@@ -107,7 +106,7 @@ const StepTwoForm: FC = () => {
               onClick={() => {
                 if (fileInputRef.current) fileInputRef.current.click();
               }}
-              className="px-3 py-2 h-[90px] w-full border border-solid border-[#7F8182] rounded-[10px] cursor-pointer items-center flex justify-evenly p-[20px] gap-3"
+              className="px-3 py-2 h-[90px] w-full border border-solid border-[#7F8182] rounded-[10px] cursor-pointer items-center flex justify-evenly p-[20px] gap-3 mb-2"
             >
               <PlusCircleOutlined style={{ fontSize: "22px" }} />
               <span className="text-left">

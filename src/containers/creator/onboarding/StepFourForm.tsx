@@ -194,10 +194,9 @@ const StepFourForm: FC<{ audience: string }> = (props) => {
             render={({ field }) => (
               <input
                 {...field}
-                type="text"
-                className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
-                  !!errors[field.name] ? "border-[#ff0000]" : ""
-                }`}
+                type="number"
+                className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${!!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
               />
             )}
           />
@@ -214,9 +213,8 @@ const StepFourForm: FC<{ audience: string }> = (props) => {
             </span>
           </label>
           <div
-            className={`pl-2 pr-4 border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative ${
-              !!errors["cpc"] ? "border-[#ff0000]" : ""
-            }`}
+            className={`pl-2 pr-4 border-[1px] rounded-[10px] border-black w-full flex justify-between items-center relative ${!!errors["cpc"] ? "border-[#ff0000]" : ""
+              }`}
           >
             <span className="text-sm font-medium pr-1">$</span>
             <Controller
@@ -225,7 +223,10 @@ const StepFourForm: FC<{ audience: string }> = (props) => {
               render={({ field }) => (
                 <input
                   {...field}
-                  type="text"
+                  type="number"
+                  max={4}
+                  min={0.1}
+                  step={0.1}
                   className={`border-0 focus:border-0 focus:ring-0 focus-visible:outline-0 focus-visible:border-0 flex-1 font-medium text-sm 2xl:text-md px-0`}
                 />
               )}
