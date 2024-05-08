@@ -72,7 +72,7 @@ const Landing: FC = () => {
                   src={Creator}
                   className="w-[40px] h-[36.269px]"
                 />
-                <p className="mb-0 mt-[9px]">I'm a Creator</p>
+                <p className="mb-0 mt-[9px]">I'm a Publisher</p>
                 {/* <p className='mb-0 -mt-1'>Creator</p> */}
               </Link>
             </>
