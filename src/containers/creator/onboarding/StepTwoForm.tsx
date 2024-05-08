@@ -4,7 +4,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { CheckCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import ErrorMessage from "../../../components/ErrorMessage";
 
-const StepTwoForm: FC = () => {
+const StepTwoForm: FC<{ showHeader?: boolean }> = ({showHeader}) => {
   const {
     control,
     watch,
@@ -39,7 +39,7 @@ const StepTwoForm: FC = () => {
   return (
     <div className="max-w-[570px] m-auto flex flex-col gap-8">
       {/* Page Title  */}
-      <div className="flex flex-col items-center">
+      {showHeader ? <div className="flex flex-col items-center">
         <img src={Mark} alt="mark" className="w-8" />
         <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
           Welcome to Presspool! Let’s get your account set up
@@ -47,7 +47,7 @@ const StepTwoForm: FC = () => {
         <span className="text-[18px] font-normal -tracking-[0.54px] mt-2">
           First off, let’s dive in to your current audience size
         </span>
-      </div>
+      </div>: null}
       {/* Page Content */}
       <div className="flex flex-col gap-5">
         <div

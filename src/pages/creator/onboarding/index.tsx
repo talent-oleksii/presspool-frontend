@@ -147,7 +147,7 @@ const Onboarding: FC = () => {
                 methods={stepTwoMethods}
                 onSubmit={handleStepOneSubmit}
               >
-                <StepTwoForm />
+                <StepTwoForm showHeader />
               </FormProviderWrapper>
             </div>
 
@@ -157,7 +157,7 @@ const Onboarding: FC = () => {
                 methods={stepThreeMethods}
                 onSubmit={handleStepTwoSubmit}
               >
-                <StepThreeForm />
+                <StepThreeForm showHeader />
               </FormProviderWrapper>
             </div>
 
@@ -167,7 +167,7 @@ const Onboarding: FC = () => {
                 methods={stepFourMethods}
                 onSubmit={handleStepThreeSubmit}
               >
-                <StepFourForm audience={audience} />
+                <StepFourForm audience={audience} showHeader />
               </FormProviderWrapper>
             </div>
 
