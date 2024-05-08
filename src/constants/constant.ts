@@ -22,3 +22,9 @@ export const AudienceSize = {
   BIG : "big",
   GROWING : "growing",
 }
+
+export const OnboardingTabs = {
+  AUDIENCESIZE: "audienceSize",
+  AUDIENCE: "audience",
+  TARGETTING: "targetting",
+};

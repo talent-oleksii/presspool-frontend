@@ -6,6 +6,7 @@ import CreatorAuth from "../../utils/creatorauth.utils";
 import CreatorLayout from "./Layout";
 import CreatorDashboard from "./dashboard";
 import CreatorReporting from "./reporting";
+import CreatorProfile from "./profile";
 
 const GuestCreatorRoutes = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
@@ -48,7 +49,7 @@ const CreatorRoute = () => {
       <Route element={<ProtectedRouteWithLayout />}>
         <Route path="/reporting/:id" element={<CreatorReporting />} />
         <Route path="/dashboard" element={<CreatorDashboard />} />
-        <Route path="/profile" element={<></>} />
+        <Route path="/profile" element={<CreatorProfile />} />
       </Route>
       <Route path="/" element={<CreatorBaseRouteRedirection />} />
     </Routes>

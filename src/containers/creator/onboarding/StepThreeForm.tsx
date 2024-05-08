@@ -3,7 +3,7 @@ import Mark from "../../../../src/assets/logo/logo.png";
 import { useFormContext } from "react-hook-form";
 import { CampaignTargetType } from "../../../constants/constant";
 
-const StepThreeForm: FC = () => {
+const StepThreeForm: FC<{ showHeader?: boolean }> = ({ showHeader }) => {
   const { setValue, watch } = useFormContext();
 
   const handleAudienceChange = (target: string) => {
@@ -14,15 +14,17 @@ const StepThreeForm: FC = () => {
   return (
     <div className="max-w-[570px] m-auto flex flex-col gap-8">
       {/* Page Title  */}
-      <div className="flex flex-col items-center">
-        <img src={Mark} alt="mark" className="w-8" />
-        <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
-          Step two, let’s dive deeper...
-        </span>
-        <span className="text-[18px] font-normal -tracking-[0.54px] mt-2">
-          Let’s dive a bit deeper into your audience.
-        </span>
-      </div>
+      {showHeader ? (
+        <div className="flex flex-col items-center">
+          <img src={Mark} alt="mark" className="w-8" />
+          <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
+            Step two, let’s dive deeper...
+          </span>
+          <span className="text-[18px] font-normal -tracking-[0.54px] mt-2">
+            Let’s dive a bit deeper into your audience.
+          </span>
+        </div>
+      ) : null}
       {/* Page Content */}
       <div className="flex flex-col gap-5">
         <span className="text-base font-medium -tracking-[0.48px] self-start text-[#7F8182]">
