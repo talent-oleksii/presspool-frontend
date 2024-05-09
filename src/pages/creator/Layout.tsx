@@ -21,7 +21,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigator("/creator/login");
+    navigator("/publishers/login");
   };
 
   const links = [
@@ -53,7 +53,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
               <div>
                 <div className="flex flex-col gap-3.5 items-center justify-center">
                   <NavLink
-                    to="/creator/dashboard"
+                    to="/publishers/dashboard"
                     className={({ isActive }) =>
                       ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                         isActive ? "bg-white shadow-md" : ""
@@ -66,9 +66,9 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
                     </Space>
                   </NavLink>
                   <NavLink
-                    to="/creator/reporting/all"
+                    to="/publishers/reporting/all"
                     className={` w-full text-left font-[Inter] rounded-[10px] text-xs  pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
-                      location.pathname.startsWith("/creator/reporting/")
+                      location.pathname.startsWith("/publishers/reporting/")
                         ? "bg-white shadow-md"
                         : ""
                     }`}
@@ -79,7 +79,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
                     </Space>
                   </NavLink>
                   <NavLink
-                    to="/creator/profile"
+                    to="/publishers/profile"
                     className={({ isActive }) =>
                       ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-400 flex items-center text-primary hover:bg-white ${
                         isActive ? "bg-white shadow-md" : ""

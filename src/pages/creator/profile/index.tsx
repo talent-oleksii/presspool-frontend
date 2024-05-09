@@ -117,8 +117,8 @@ const CreatorProfile: FC = () => {
     });
     const accountLink = await StripeUtil.stripe.accountLinks.create({
       account: account.id,
-      refresh_url: "https://go.presspool.ai/creator/profile",
-      return_url: "https://go.presspool.ai/creator/profile",
+      refresh_url: "https://go.presspool.ai/publishers/profile",
+      return_url: "https://go.presspool.ai/publishers/profile",
       type: "account_onboarding",
     });
 

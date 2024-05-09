@@ -73,7 +73,7 @@ const App: FC = () => {
             <Route path="/cul/:id" element={<URLRedirector />} />
             <Route path="/verify/:token" element={<EmailVerifier />} />
             <Route path="/admin/*" element={<AdminRoute />} />
-            <Route path="/creator/*" element={<CreatorRoute />} />
+            <Route path="/publishers/*" element={<CreatorRoute />} />
             <Route path="/*" element={<MainContent />} />
           </Routes>
         </div>

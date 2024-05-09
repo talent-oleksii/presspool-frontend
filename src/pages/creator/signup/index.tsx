@@ -44,7 +44,7 @@ const SignUp: FC = () => {
     CreatorAPIInstance.post("auth/signup", values)
       .then(({ data }) => {
         dispatch(setCreatorData(data));
-        navigator("/creator/dashboard");
+        navigator("/publishers/dashboard");
       })
       .catch((err) => {
         DialogUtils.show("error", "", err.response.data.message);
@@ -176,7 +176,7 @@ const SignUp: FC = () => {
           <div className="flex items-center justify-center mt-7 pb-7">
             <p className="text-base text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
               Already have an account?{" "}
-              <Link to="/creator/login" className="text-primary underline">
+              <Link to="/publishers/login" className="text-primary underline">
                 Login
               </Link>
             </p>

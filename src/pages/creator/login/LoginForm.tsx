@@ -106,7 +106,7 @@ const LoginForm: FC = () => {
         Don't have an account?
         <Link
           className="block text-center text-primary ms-1 underline"
-          to="/creator/signup"
+          to="/publishers/signup"
         >
           Sign Up
         </Link>

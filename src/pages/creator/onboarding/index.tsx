@@ -62,7 +62,7 @@ const Onboarding: FC = () => {
     ]).then((res) => {
       const data = res[0]?.data;
       dispatch(setCreatorData({ ...data, token }));
-      navigator("/creator/dashboard");
+      navigator("/publishers/dashboard");
     });
   };
 

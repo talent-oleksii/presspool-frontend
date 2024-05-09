@@ -65,7 +65,7 @@ const Landing: FC = () => {
               </Link>
               <Link
                 className="flex flex-col font-semibold -tracking-[.42px] text-primary py-[15px] text-sm 2xl:text-sm items-center justify-center  bg-white rounded-[10px] shadow-md w-[250px]"
-                to="creator"
+                to="publishers"
               >
                 <img
                   alt="creator"

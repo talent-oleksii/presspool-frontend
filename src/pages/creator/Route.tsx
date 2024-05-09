@@ -10,12 +10,12 @@ import CreatorProfile from "./profile";
 
 const GuestCreatorRoutes = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
-  return !isAuthenticated ? <Outlet /> : <Navigate to={"/creator/dashboard"} />;
+  return !isAuthenticated ? <Outlet /> : <Navigate to={"/publishers/dashboard"} />;
 };
 //For future use
 // const ProtectedRouteWithoutLayout = () => {
 //   const isAuthenticated = new CreatorAuth().isAuthenticated();
-//   return isAuthenticated ? <Outlet /> : <Navigate to={`/creator/login`} />;
+//   return isAuthenticated ? <Outlet /> : <Navigate to={`/publishers/login`} />;
 // };
 
 const ProtectedRouteWithLayout = () => {
@@ -25,16 +25,16 @@ const ProtectedRouteWithLayout = () => {
       <Outlet />
     </CreatorLayout>
   ) : (
-    <Navigate to={`/creator/login`} />
+    <Navigate to={`/publishers/login`} />
   );
 };
 
 const CreatorBaseRouteRedirection = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
   return isAuthenticated ? (
-    <Navigate to={"/creator/dashboard"} />
+    <Navigate to={"/publishers/dashboard"} />
   ) : (
-    <Navigate to={`/creator/login`} />
+    <Navigate to={`/publishers/login`} />
   );
 };
 

@@ -39,8 +39,8 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
       });
       const accountLink = await StripeUtil.stripe.accountLinks.create({
         account: account.id,
-        refresh_url: `https://go.presspool.ai/creator/dashboard?campaignId=${item.id}`,
-        return_url: `https://go.presspool.ai/creator/dashboard?campaignId=${item.id}`,
+        refresh_url: `https://go.presspool.ai/publishers/dashboard?campaignId=${item.id}`,
+        return_url: `https://go.presspool.ai/publishers/dashboard?campaignId=${item.id}`,
         type: "account_onboarding",
       });
       window.open(accountLink.url, "_self");
