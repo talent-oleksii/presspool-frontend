@@ -53,7 +53,7 @@ const SignUp: FC = () => {
   };
 
   return (
-    <div className="flex h-auto md:h-full xsm:min-h-full relative items-center justify-center w-full md:bg-white xsm:pt-8 xsm:bg-[#EDECF2]">
+    <div className="flex h-auto md:h-full xsm:min-h-full max-h-full overflow-y-hidden relative items-center justify-center w-full md:bg-white xsm:pt-8 xsm:bg-[#EDECF2]">
       {loading && <Loading />}
       <div className="min-w-[400px] h-full bg-[#edecf2] px-[40px] py-[60px] hidden md:flex flex-col justify-between border-r-[1px] border-black">
         <div>
@@ -132,14 +132,14 @@ const SignUp: FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex xsm:flex-col flex-1 justify-center items-center md:h-full xsm:min-h-full  md:bg-white w-full">
+      <div className="flex xsm:flex-col flex-1 justify-center items-center md:h-full xsm:min-h-full max-h-full overflow-y-scroll  md:bg-white w-full">
         <div className="flex items-center gap-1.5 md:hidden">
           <img src={Mark} alt="mark" className="w-[30px]" />
           <h3 className="font-[Inter] text-primary text-[22px] font-medium -tracking-[1.02px]">
             presspool.ai
           </h3>
         </div>
-        <div className="w-full xsm:min-h-full rounded-t-[10px] xsm:mt-16 xsm:pt-7 xsm:pb-48 md:rounded-[10px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
+        <div className="w-full xsm:min-h-full max-h-full pt-[48px] pb-[48px] rounded-t-[10px] xsm:mt-16 xsm:pt-7 xsm:pb-48 md:rounded-[10px] xl:max-w-[72%] px-4 md:px-[42px] xsm:bg-white">
           <div className="flex flex-col items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +173,7 @@ const SignUp: FC = () => {
             <SignupForm />
           </FormProviderWrapper>
 
-          <div className="flex items-center justify-center mt-7">
+          <div className="flex items-center justify-center mt-7 pb-7">
             <p className="text-base text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
               Already have an account?{" "}
               <Link to="/creator/login" className="text-primary underline">
