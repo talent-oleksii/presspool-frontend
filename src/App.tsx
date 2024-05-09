@@ -13,7 +13,6 @@ import AdminRoute from "./pages/admin/Route";
 import CreatorRoute from "./pages/creator/Route";
 
 const App: FC = () => {
-  
   // const [zoom, setZoom] = useState(1.5);
 
   // const calculateZoom = (width: number) => {
