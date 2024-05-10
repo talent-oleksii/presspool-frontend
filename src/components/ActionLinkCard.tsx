@@ -33,7 +33,7 @@ const ActionLinkCard: FC<IActionLinkCard> = ({
           return (
             <button
               key={index}
-              className="flex font-[Inter] font-normal text-xs 2xl:text-sm items-center px-4 py-2 w-full"
+              className="flex font-[Inter] font-normal text-xs items-center px-4 py-2 w-full"
               onClick={() => link.action ? link.action() : () => { }}
             >
               <Space size="middle">
