@@ -10,7 +10,7 @@ export const creatorLoginSchema = yup.object().shape({
 });
 
 export const creatorSignupSchema = yup.object().shape({
-  fullName: yup.string().required("Enter fullName"),
+  fullName: yup.string().required("Enter Full Name"),
   newsletter: yup.string().required("Enter Publication / Newsletter Name"),
   website_url: yup
     .string()

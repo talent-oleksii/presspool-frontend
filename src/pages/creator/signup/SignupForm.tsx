@@ -31,14 +31,14 @@ const SignupForm: FC = () => {
               value={field.value}
               type="text"
               placeholder="Enter here..."
-              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 ${!!errors[field.name] ? "!border-[#ff0000]" : ""
+              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-1 xsm:mt-0.5 xsm:mb-1 rounded-[10px] px-4 md:py-3 xsm:py-2 md:py-2 ${!!errors[field.name] ? "!border-[#ff0000]" : ""
                 }`}
             />
           )}
         />
         <ErrorMessage message={errors["fullName"]?.message} />
       </div>
-      <div className="mt-2 md:mt-4">
+      <div className="mt-1 md:mt-2">
         <label
           className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
         >
@@ -54,14 +54,14 @@ const SignupForm: FC = () => {
               value={field.value}
               type="text"
               placeholder="Enter here..."
-              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-2 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2 disabled:bg-[#fbfbfb] ${!!errors[field.name] ? "!border-[#ff0000]" : ""
+              className={`w-full border-[1px] bg-transparent border-[#797979] md:mt-1 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py-2 md:py-2 disabled:bg-[#fbfbfb] ${!!errors[field.name] ? "!border-[#ff0000]" : ""
                 }`}
             />
           )}
         />
         <ErrorMessage message={errors["newsletter"]?.message} />
       </div>
-      <div className="mt-2 md:mt-4">
+      <div className="mt-1 md:mt-2">
         <label
           className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
         >
@@ -84,7 +84,7 @@ const SignupForm: FC = () => {
         />
         <ErrorMessage message={errors["website_url"]?.message} />
       </div>
-      <div className="mt-2 md:mt-4">
+      <div className="mt-1 md:mt-2">
         <label
           className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
         >
@@ -107,7 +107,7 @@ const SignupForm: FC = () => {
         />
         <ErrorMessage message={errors["email"]?.message} />
       </div>
-      <div className="mt-2 md:mt-4">
+      <div className="mt-1 md:mt-2">
         <label
           className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px]`}
         >
@@ -158,7 +158,7 @@ const SignupForm: FC = () => {
         </div>
         <ErrorMessage message={errors["password"]?.message} />
       </div>
-      <div className="mt-5 md:mt-4 flex items-center">
+      <div className="mt-2 md:mt-3 flex items-center">
         <Controller
           name="agreeTerm"
           control={control}
@@ -192,7 +192,7 @@ const SignupForm: FC = () => {
         </span>
       </div>
       <button
-        className="rounded-[10px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-6 text-primary font-semibold disabled:bg-[gray]"
+        className="rounded-[10px] text-base bg-main w-full py-[10px] 2xl:py-[15px] mt-4 text-primary font-semibold disabled:bg-[gray]"
         type="submit"
         disabled={!isValid}
       >

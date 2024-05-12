@@ -173,7 +173,7 @@ const SignUp: FC = () => {
             <SignupForm />
           </FormProviderWrapper>
 
-          <div className="flex items-center justify-center mt-7 pb-7">
+          <div className="flex items-center justify-center mt-4 pb-4">
             <p className="text-base text-center w-full font-[Inter] text-[#525252] -tracking-[.574px]">
               Already have an account?{" "}
               <Link to="/publishers/login" className="text-primary underline">
