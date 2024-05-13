@@ -30,7 +30,7 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
   const handleAccept = async () => {
     setLoading(true);
     const isAccountLinked = await StripeUtil.isAccountLinked(email);
-    if (!isAccountLinked) {
+    if (isAccountLinked) {
       const account = await StripeUtil.stripe.accounts.create({
         type: "standard",
         metadata: {
@@ -71,7 +71,7 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel
-                className={`relative bg-white rounded-[10px] text-left flex flex-col shadow-xl border-[1px] border-black p-3 max-w-[500px]`}
+                className={`relative bg-white rounded-[10px] text-left flex flex-col shadow-xl border-[1px] border-black p-3 min-w-[500px] max-w-[500px]`}
               >
                 {loading && <Loading />}
                 <div className="flex shrink-0 justify-between mb-[12px]">
