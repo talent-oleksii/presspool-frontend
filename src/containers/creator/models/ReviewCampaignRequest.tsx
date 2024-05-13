@@ -30,7 +30,7 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
   const handleAccept = async () => {
     setLoading(true);
     const isAccountLinked = await StripeUtil.isAccountLinked(email);
-    if (isAccountLinked) {
+    if (!isAccountLinked) {
       const account = await StripeUtil.stripe.accounts.create({
         type: "standard",
         metadata: {
