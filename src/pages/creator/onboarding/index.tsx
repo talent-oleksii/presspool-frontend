@@ -24,7 +24,7 @@ const Onboarding: FC = () => {
   const dispatch = useDispatch();
 
   const { stepTwoMethods, stepThreeMethods, stepFourMethods } =
-    useUpsertOnboarding();
+    useUpsertOnboarding(Number(creatorId));
 
   const handleStepOneSubmit = () => {
     setActiveStep(1);
@@ -45,6 +45,7 @@ const Onboarding: FC = () => {
   };
 
   const handleFinalSubmit = () => {
+    setLoading(true);
     const stepTwoValues = stepTwoMethods.getValues();
     const stepThreeValues = stepThreeMethods.getValues();
     const stepFourValues = stepFourMethods.getValues();
@@ -63,7 +64,7 @@ const Onboarding: FC = () => {
       const data = res[0]?.data;
       dispatch(setCreatorData({ ...data, token }));
       navigator("/publishers/dashboard");
-    });
+    }).finally(()=> setLoading(false));
   };
 
   const { audience } = stepThreeMethods.getValues();
