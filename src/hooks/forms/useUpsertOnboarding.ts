@@ -15,6 +15,7 @@ import {
 } from "../../validators/creator.validator";
 import { useCallback, useEffect } from "react";
 import CreatorAPIInstance from "../../api/creatorAPIInstance";
+import { CampaignTargetType } from "../../constants/constant";
 
 const options: ICommonFormOptions = Object.freeze({
   mode: "all",
@@ -61,7 +62,7 @@ export const useUpsertOnboarding = (id?: number) => {
         image: data.proof_image,
       });
       stepThreeMethods.reset({
-        audience: data.audience,
+        audience: data.audience ?? CampaignTargetType.CUSTOMER,
       });
       stepFourMethods.reset({
         industry: data.industry,
