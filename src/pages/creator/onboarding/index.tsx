@@ -60,11 +60,13 @@ const Onboarding: FC = () => {
         creatorId,
       }),
       CreatorAPIInstance.put("updateSubscribeProof", formData),
-    ]).then((res) => {
-      const data = res[0]?.data;
-      dispatch(setCreatorData({ ...data, token }));
-      navigator("/publishers/dashboard");
-    }).finally(()=> setLoading(false));
+    ])
+      .then((res) => {
+        const data = res[0]?.data;
+        dispatch(setCreatorData({ ...data, token }));
+        navigator("/publishers/dashboard");
+      })
+      .finally(() => setLoading(false));
   };
 
   const { audience } = stepThreeMethods.getValues();
@@ -168,7 +170,10 @@ const Onboarding: FC = () => {
                 methods={stepFourMethods}
                 onSubmit={handleStepThreeSubmit}
               >
-                <StepFourForm audience={audience} showHeader />
+                <StepFourForm
+                  audience={audience}
+                  showHeader
+                />
               </FormProviderWrapper>
             </div>
 

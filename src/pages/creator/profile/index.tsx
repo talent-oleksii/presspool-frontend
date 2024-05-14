@@ -384,7 +384,7 @@ const CreatorProfile: FC = () => {
                     methods={stepTwoMethods}
                     onSubmit={handleStepOneSubmit}
                   >
-                    <StepTwoForm />
+                    <StepTwoForm buttonText="Save Changes"/>
                   </FormProviderWrapper>
                 </div>
 
@@ -398,7 +398,7 @@ const CreatorProfile: FC = () => {
                     methods={stepThreeMethods}
                     onSubmit={handleStepTwoSubmit}
                   >
-                    <StepThreeForm />
+                    <StepThreeForm buttonText="Save Changes"/>
                   </FormProviderWrapper>
                 </div>
 
@@ -412,7 +412,7 @@ const CreatorProfile: FC = () => {
                     methods={stepFourMethods}
                     onSubmit={handleStepThreeSubmit}
                   >
-                    <StepFourForm audience={audience} />
+                    <StepFourForm audience={audience} buttonText="Save Changes"/>
                   </FormProviderWrapper>
                 </div>
               </div>

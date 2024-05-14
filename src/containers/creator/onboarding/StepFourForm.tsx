@@ -21,9 +21,11 @@ const customStyles = (isError: boolean) => ({
   }),
 });
 
-const StepFourForm: FC<{ audience: string; showHeader?: boolean }> = (
-  props
-) => {
+const StepFourForm: FC<{
+  audience: string;
+  showHeader?: boolean;
+  buttonText?: string;
+}> = (props) => {
   const [audiences, setAudiences] = useState<any>([]);
   const [regions, setRegions] = useState();
   const [positions, setPositions] = useState();
@@ -243,7 +245,7 @@ const StepFourForm: FC<{ audience: string; showHeader?: boolean }> = (
       </div>
       {/* Continue Button  */}
       <button className="rounded-[6px] bg-main w-full h-[52px] text-base font-semibold">
-        Continue
+        {props.buttonText ? props.buttonText : "Continue"}
       </button>
     </div>
   );

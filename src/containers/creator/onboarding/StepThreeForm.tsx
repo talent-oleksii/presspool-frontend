@@ -3,7 +3,10 @@ import Mark from "../../../../src/assets/logo/logo.png";
 import { useFormContext } from "react-hook-form";
 import { CampaignTargetType } from "../../../constants/constant";
 
-const StepThreeForm: FC<{ showHeader?: boolean }> = ({ showHeader }) => {
+const StepThreeForm: FC<{ showHeader?: boolean; buttonText?: string }> = ({
+  showHeader,
+  buttonText,
+}) => {
   const { setValue, watch } = useFormContext();
 
   const handleAudienceChange = (target: string) => {
@@ -131,7 +134,7 @@ const StepThreeForm: FC<{ showHeader?: boolean }> = ({ showHeader }) => {
       </div>
       {/* Continue Button  */}
       <button className="rounded-[6px] bg-main w-full h-[52px] text-base font-semibold">
-        Continue
+        {buttonText ? buttonText : "Continue"}
       </button>
     </div>
   );
