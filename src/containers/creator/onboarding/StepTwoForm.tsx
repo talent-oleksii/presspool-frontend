@@ -4,7 +4,10 @@ import { Controller, useFormContext } from "react-hook-form";
 import { CheckCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import ErrorMessage from "../../../components/ErrorMessage";
 
-const StepTwoForm: FC<{ showHeader?: boolean }> = ({showHeader}) => {
+const StepTwoForm: FC<{ showHeader?: boolean; buttonText?: string }> = ({
+  showHeader,
+  buttonText,
+}) => {
   const {
     control,
     watch,
@@ -39,15 +42,17 @@ const StepTwoForm: FC<{ showHeader?: boolean }> = ({showHeader}) => {
   return (
     <div className="max-w-[570px] m-auto flex flex-col gap-8">
       {/* Page Title  */}
-      {showHeader ? <div className="flex flex-col items-center">
-        <img src={Mark} alt="mark" className="w-8" />
-        <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
-          Welcome to Presspool! Let’s get your account set up
-        </span>
-        <span className="text-[18px] font-normal -tracking-[0.54px] mt-2">
-          First off, let’s dive in to your current audience size
-        </span>
-      </div>: null}
+      {showHeader ? (
+        <div className="flex flex-col items-center">
+          <img src={Mark} alt="mark" className="w-8" />
+          <span className="text-black text-[30px] -tracking-[0.9px] font-bold leading-normal mt-6">
+            Welcome to Presspool! Let’s get your account set up
+          </span>
+          <span className="text-[18px] font-normal -tracking-[0.54px] mt-2">
+            First off, let’s dive in to your current audience size
+          </span>
+        </div>
+      ) : null}
       {/* Page Content */}
       <div className="flex flex-col gap-5">
         <div
@@ -67,8 +72,9 @@ const StepTwoForm: FC<{ showHeader?: boolean }> = ({showHeader}) => {
                   {...field}
                   type="number"
                   placeholder="Input exact current subscriber count here"
-                  className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${!!errors[field.name] ? "border-[#ff0000]" : ""
-                    }`}
+                  className={`px-3 py-2 rounded-[10px] w-full border font-medium text-sm font-[Inter] border-secondry2 focus:border-main focus:ring-0 ${
+                    !!errors[field.name] ? "border-[#ff0000]" : ""
+                  }`}
                 />
               )}
             />
@@ -165,7 +171,7 @@ const StepTwoForm: FC<{ showHeader?: boolean }> = ({showHeader}) => {
       </div>
       {/* Continue Button  */}
       <button className="rounded-[6px] bg-main w-full h-[52px] text-base font-semibold">
-        Continue
+        {buttonText ? buttonText : "Continue"}
       </button>
     </div>
   );
