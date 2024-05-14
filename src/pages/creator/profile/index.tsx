@@ -73,27 +73,27 @@ const CreatorProfile: FC = () => {
     e
   ) => {
     if (e.target.files) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setCompanyImage(reader.result);
-        };
-        reader.readAsDataURL(file);
-        const formData = new FormData();
-        formData.append("creatorId", id);
-        formData.append("team_avatar", file);
-        CreatorAPIInstance.put("updateAvatar", formData)
-          .then((data) => {
-            // here comes the data, you can use it.
-            //   dispatch(setAvatar({ avatar: data.data.avatar }));
-            DialogUtils.show(
-              "success",
-              "",
-              "Your newsletter logo successfully updated!"
-            );
-          })
-          .finally(() => setLoading(false));
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCompanyImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+      const formData = new FormData();
+      formData.append("creatorId", id);
+      formData.append("team_avatar", file);
+      CreatorAPIInstance.put("updateAvatar", formData)
+        .then((data) => {
+          // here comes the data, you can use it.
+          //   dispatch(setAvatar({ avatar: data.data.avatar }));
+          DialogUtils.show(
+            "success",
+            "",
+            "Your newsletter logo successfully updated!"
+          );
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -141,33 +141,41 @@ const CreatorProfile: FC = () => {
   const { stepTwoMethods, stepThreeMethods, stepFourMethods } =
     useUpsertOnboarding(id);
 
-  const handleStepOneSubmit = () => {
+  const handleStepOneSubmit = async () => {
+    setLoading(true);
     const stepTwoValues = stepTwoMethods.getValues();
-    CreatorAPIInstance.post("updateAudienceSize", {
-      subscribers: stepTwoValues.subscribers,
-      creatorId: id,
-    }).then(({ data }) => {
-      dispatch(setCreatorData({ ...data, token }));
-    });
     if (stepTwoValues.image && typeof stepTwoValues.image !== "string") {
       const formData = new FormData();
       formData.append("creatorId", id ?? "");
       formData.append("subscriber_proof", stepTwoValues.image);
-      CreatorAPIInstance.put("updateSubscribeProof", formData);
+      await CreatorAPIInstance.put("updateSubscribeProof", formData);
     }
+
+    CreatorAPIInstance.post("updateAudienceSize", {
+      subscribers: stepTwoValues.subscribers,
+      creatorId: id,
+    })
+      .then(({ data }) => {
+        dispatch(setCreatorData({ ...data, token }));
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleStepTwoSubmit = () => {
+    setLoading(true);
     const stepThreeValues = stepThreeMethods.getValues();
     CreatorAPIInstance.post("updateAudience", {
       audience: stepThreeValues.audience,
       creatorId: id,
-    }).then(({ data }) => {
-      dispatch(setCreatorData({ ...data, token }));
-    });
+    })
+      .then(({ data }) => {
+        dispatch(setCreatorData({ ...data, token }));
+      })
+      .finally(() => setLoading(false));
   };
 
   const handleStepThreeSubmit = () => {
+    setLoading(true);
     const stepFourValues = stepFourMethods.getValues();
     CreatorAPIInstance.post("updateTargeting", {
       industry: stepFourValues.industry,
@@ -176,9 +184,11 @@ const CreatorProfile: FC = () => {
       averageUniqueClick: stepFourValues.averageUniqueClick,
       cpc: stepFourValues.cpc,
       creatorId: id,
-    }).then(({ data }) => {
-      dispatch(setCreatorData({ ...data, token }));
-    });
+    })
+      .then(({ data }) => {
+        dispatch(setCreatorData({ ...data, token }));
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -384,7 +394,7 @@ const CreatorProfile: FC = () => {
                     methods={stepTwoMethods}
                     onSubmit={handleStepOneSubmit}
                   >
-                    <StepTwoForm buttonText="Save Changes"/>
+                    <StepTwoForm buttonText="Save Changes" />
                   </FormProviderWrapper>
                 </div>
 
@@ -398,7 +408,7 @@ const CreatorProfile: FC = () => {
                     methods={stepThreeMethods}
                     onSubmit={handleStepTwoSubmit}
                   >
-                    <StepThreeForm buttonText="Save Changes"/>
+                    <StepThreeForm buttonText="Save Changes" />
                   </FormProviderWrapper>
                 </div>
 
@@ -412,7 +422,10 @@ const CreatorProfile: FC = () => {
                     methods={stepFourMethods}
                     onSubmit={handleStepThreeSubmit}
                   >
-                    <StepFourForm audience={audience} buttonText="Save Changes"/>
+                    <StepFourForm
+                      audience={audience}
+                      buttonText="Save Changes"
+                    />
                   </FormProviderWrapper>
                 </div>
               </div>

@@ -10,13 +10,16 @@ import CreatorProfile from "./profile";
 
 const GuestCreatorRoutes = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
-  return !isAuthenticated ? <Outlet /> : <Navigate to={"/publishers/dashboard"} />;
+  return !isAuthenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate to={"/publishers/dashboard"} />
+  );
 };
-//For future use
-// const ProtectedRouteWithoutLayout = () => {
-//   const isAuthenticated = new CreatorAuth().isAuthenticated();
-//   return isAuthenticated ? <Outlet /> : <Navigate to={`/publishers/login`} />;
-// };
+const ProtectedRouteWithoutLayout = () => {
+  const isAuthenticated = new CreatorAuth().isAuthenticated();
+  return isAuthenticated ? <Outlet /> : <Navigate to={`/publishers/login`} />;
+};
 
 const ProtectedRouteWithLayout = () => {
   const isAuthenticated = new CreatorAuth().isAuthenticated();
@@ -41,10 +44,12 @@ const CreatorBaseRouteRedirection = () => {
 const CreatorRoute = () => {
   return (
     <Routes>
-      <Route path="/:creatorId/onboarding" element={<Onboarding />} />
       <Route element={<GuestCreatorRoutes />}>
         <Route path="/login" element={<CreatorLogin />} />
         <Route path="/signup" element={<CreatorSignUp />} />
+      </Route>
+      <Route element={<ProtectedRouteWithoutLayout />}>
+        <Route path="/:creatorId/onboarding" element={<Onboarding />} />
       </Route>
       <Route element={<ProtectedRouteWithLayout />}>
         <Route path="/reporting/:id" element={<CreatorReporting />} />

@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import useQuery from "../../../hooks/useQuery";
 import { useNavigate, useParams } from "react-router";
 // import StepOneForm from "../../../containers/creator/onboarding/StepOneForm";
 import StepTwoForm from "../../../containers/creator/onboarding/StepTwoForm";
@@ -8,15 +7,15 @@ import StepFourForm from "../../../containers/creator/onboarding/StepFourForm";
 import { useUpsertOnboarding } from "../../../hooks/forms/useUpsertOnboarding";
 import FormProviderWrapper from "../../../components/FormProviderWrapper";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
-import { setCreatorData } from "../../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { selectAuth, setCreatorData } from "../../../store/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import DialogUtils from "../../../utils/DialogUtils";
 import Loading from "../../../components/Loading";
 import FinalStepForm from "../../../containers/creator/onboarding/FinalStepForm";
 
 const Onboarding: FC = () => {
   const { creatorId } = useParams();
-  const { token } = useQuery();
+  const { creatorData } = useSelector(selectAuth);
   const [loading, setLoading] = useState(false);
   const [isInvalidLink, setIsInvalidLink] = useState(false);
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -63,7 +62,7 @@ const Onboarding: FC = () => {
     ])
       .then((res) => {
         const data = res[0]?.data;
-        dispatch(setCreatorData({ ...data, token }));
+        dispatch(setCreatorData({ ...creatorData, ...data }));
         navigator("/publishers/dashboard");
       })
       .finally(() => setLoading(false));
@@ -72,32 +71,24 @@ const Onboarding: FC = () => {
   const { audience } = stepThreeMethods.getValues();
 
   useEffect(() => {
-    if (token && creatorId) {
+    if (creatorId) {
       setLoading(true);
       CreatorAPIInstance.get("getCreatorDetail", {
         params: { creatorId },
       })
-        .then(({ data }) => {
-          dispatch(setCreatorData({ ...data, token }));
-        })
+        // .then(({ data }) => {
+        //   dispatch(setCreatorData({ ...data }));
+        // })
         .catch(() => {
           setIsInvalidLink(true);
-          DialogUtils.show(
-            "error",
-            "Alert",
-            "Oops! It seems like the link you're trying to access is invalid"
-          );
+          DialogUtils.show("error", "Alert", "Invalid publishers detail");
         })
         .finally(() => setLoading(false));
     } else {
       setIsInvalidLink(true);
-      DialogUtils.show(
-        "error",
-        "Alert",
-        "Oops! It seems like the link you're trying to access is invalid"
-      );
+      DialogUtils.show("error", "Alert", "Invalid publishers detail");
     }
-  }, [token, creatorId, dispatch]);
+  }, [creatorId, dispatch]);
 
   return (
     <>
@@ -170,10 +161,7 @@ const Onboarding: FC = () => {
                 methods={stepFourMethods}
                 onSubmit={handleStepThreeSubmit}
               >
-                <StepFourForm
-                  audience={audience}
-                  showHeader
-                />
+                <StepFourForm audience={audience} showHeader />
               </FormProviderWrapper>
             </div>
 
