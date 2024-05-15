@@ -161,9 +161,8 @@ const SignUp: FC = () => {
               Welcome!
             </h2>
             <p className="font-[Inter] text-base -tracking-[.48px] text-[#444545] mt-3 md:mt-[10px]">
-              Access the power of the Presspool Platform to deliver your
-              solution <br className="xsm:hidden" /> directly in front of
-              targeted, engaged readers.
+              Access the power of the Presspool Platform to access 
+              <br className="xsm:hidden" />tailored, best-fit, quality brand sponsors.
             </p>
           </div>
           <FormProviderWrapper
