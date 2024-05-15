@@ -55,7 +55,7 @@ const ClientSignUp: FC = () => {
     if (
       validator.isEmpty(formData.fullName) ||
       !validator.isEmail(formData.email || "") ||
-      validator.isEmail(formData.company || "") ||
+      validator.isEmpty(formData.company?.trim() || "") ||
       !validator.isStrongPassword(formData.password)
     )
       return;
@@ -241,7 +241,7 @@ const ClientSignUp: FC = () => {
             />
             <label
               className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.company || "")
+                check && validator.isEmpty(formData.company?.trim() || "")
                   ? "text-[red]"
                   : "text-primary"
               }`}

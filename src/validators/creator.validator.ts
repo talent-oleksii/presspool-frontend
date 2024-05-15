@@ -3,25 +3,27 @@ import { CampaignTargetType } from "../constants/constant";
 
 export const creatorLoginSchema = yup.object().shape({
   email: yup
-    .string()
+    .string().trim()
     .required("Enter email address")
     .email("Invalid email address"),
   password: yup.string().required("Enter password"),
 });
 
 export const creatorSignupSchema = yup.object().shape({
-  fullName: yup.string().required("Enter Full Name"),
+  fullName: yup.string().trim().required("Enter Full Name"),
   newsletter: yup.string().required("Enter Publication / Newsletter Name"),
   website_url: yup
     .string()
+    .trim()
     .required("Enter website url")
     .matches(/^https:\/\//, "URL must start with https://")
     .url("Invalid website url format"),
   email: yup
     .string()
+    .trim()
     .required("Enter email address")
     .email("Invalid email address"),
-  password: yup.string().required("Enter password"),
+  password: yup.string().trim().required("Enter password"),
   agreeTerm: yup
     .boolean()
     .test(
@@ -33,7 +35,7 @@ export const creatorSignupSchema = yup.object().shape({
 });
 
 export const onboardingFormOneFormSchema = yup.object().shape({
-  audienceSize: yup.string().required("Select audience size"),
+  audienceSize: yup.string().trim().required("Select audience size"),
 });
 
 export const onboardingFormTwoFormSchema = yup.object().shape({
@@ -46,7 +48,7 @@ export const onboardingFormTwoFormSchema = yup.object().shape({
 });
 
 export const onboardingFormThreeFormSchema = yup.object().shape({
-  audience: yup.string().required("Select audience"),
+  audience: yup.string().trim().required("Select audience"),
 });
 
 export const onboardingFormFourFormSchema = yup.object().shape({

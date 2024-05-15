@@ -3,7 +3,9 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
 import ErrorMessage from "../../../components/ErrorMessage";
 
-const LoginForm: FC = () => {
+const LoginForm: FC<{ showForgotPasswordPopup: () => void }> = ({
+  showForgotPasswordPopup,
+}) => {
   const [passwordType, setPasswordType] = useState("password");
   const {
     control,
@@ -91,7 +93,11 @@ const LoginForm: FC = () => {
         <ErrorMessage message={errors["password"]?.message} />
       </div>
       <div className="w-full text-right">
-        <div className="font-[Inter] text-primary text-base mt-4 underline -tracking-[.504px] cursor-pointer">
+        <div
+          onClick={showForgotPasswordPopup}
+          role="button"
+          className="font-[Inter] text-primary text-base mt-4 underline -tracking-[.504px] cursor-pointer"
+        >
           Forgot Password?
         </div>
       </div>
