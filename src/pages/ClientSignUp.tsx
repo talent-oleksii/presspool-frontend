@@ -69,6 +69,7 @@ const ClientSignUp: FC = () => {
         const ret = data.data;
         dispatch(setAuthenticated());
         dispatch(setToken({ token: ret.token }));
+        navigator(`/campaign/all`);
         setShowDialog(true);
       })
       .catch((err) => {
@@ -216,11 +217,10 @@ const ClientSignUp: FC = () => {
             onSubmit={handleSubmit}
           >
             <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.fullName)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.fullName)
+                ? "text-[red]"
+                : "text-primary"
+                }`}
             >
               Full Name
               {formData.fullName.length > 0 &&
@@ -240,11 +240,10 @@ const ClientSignUp: FC = () => {
               className="w-full border-[1px] bg-transparent border-[#797979] md:mt-2 md:mb-3 xsm:mt-0.5 xsm:mb-2 rounded-[10px] px-4 md:py-3 xsm:py2 md:py-2"
             />
             <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && validator.isEmpty(formData.company?.trim() || "")
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${check && validator.isEmpty(formData.company?.trim() || "")
+                ? "text-[red]"
+                : "text-primary"
+                }`}
             >
               Company Name
               {formData.company &&
@@ -266,11 +265,10 @@ const ClientSignUp: FC = () => {
               disabled={isCompanyDisabled}
             />
             <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && !validator.isEmail(formData.email || "")
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${check && !validator.isEmail(formData.email || "")
+                ? "text-[red]"
+                : "text-primary"
+                }`}
             >
               Email Address
               {formData.email &&
@@ -292,11 +290,10 @@ const ClientSignUp: FC = () => {
               disabled={!!(token && formData.email)}
             />
             <label
-              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${
-                check && !validator.isStrongPassword(formData.password)
-                  ? "text-[red]"
-                  : "text-primary"
-              }`}
+              className={`font-[Inter] text-[14px] md:text-base 2xl:text-base font-medium -tracking-[.5px] ${check && !validator.isStrongPassword(formData.password)
+                ? "text-[red]"
+                : "text-primary"
+                }`}
             >
               Password
               {formData.password.length > 0 &&
