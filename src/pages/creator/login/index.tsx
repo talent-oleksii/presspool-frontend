@@ -15,10 +15,12 @@ import { defaultCreatorLoginFormData } from "../../../constants/defaultValues/cr
 import { yupResolver } from "@hookform/resolvers/yup";
 import { creatorLoginSchema } from "../../../validators/creator.validator";
 import { ICommonFormOptions } from "../../../interfaces/common.interface";
+import ForgotPassword from "./ForgotPassword";
 
 const Login: FC = () => {
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigator = useNavigate();
 
@@ -164,12 +166,13 @@ const Login: FC = () => {
               Enter your details to login
             </p>
           </div>
-
           <FormProviderWrapper
             methods={creatorLoginMethods}
             onSubmit={handleSubmit}
           >
-            <LoginForm />
+            <LoginForm
+              showForgotPasswordPopup={() => setShowForgotPassword(true)}
+            />
           </FormProviderWrapper>
         </div>
         <Transition.Root show={showDialog} as={Fragment}>
@@ -220,6 +223,10 @@ const Login: FC = () => {
             </div>
           </Dialog>
         </Transition.Root>
+        <ForgotPassword
+          show={showForgotPassword}
+          setShow={(show: boolean) => setShowForgotPassword(show)}
+        />
       </div>
     </div>
   );
