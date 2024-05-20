@@ -21,7 +21,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigator("/publishers/login");
+    navigator("/");
   };
 
   const links = [
