@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { selectAuth } from "../../../store/authSlice";
 import Loading from "../../../components/Loading";
 
-interface typeReviewCampaignRequest {
+interface typeReviewPublicationRequest {
   show: boolean;
   onClose: Function;
   item: any;
@@ -16,13 +16,13 @@ interface typeReviewCampaignRequest {
   setShowFeedbackModel: Function;
 }
 
-const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
+const ReviewPublicationRequest: FC<typeReviewPublicationRequest> = ({
   show,
   onClose,
   item,
   setShowScheduleModel,
   setShowFeedbackModel,
-}: typeReviewCampaignRequest) => {
+}: typeReviewPublicationRequest) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { creatorData } = useSelector(selectAuth);
   const { email } = creatorData;
@@ -282,4 +282,4 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
   );
 };
 
-export default ReviewCampaignRequest;
+export default ReviewPublicationRequest;

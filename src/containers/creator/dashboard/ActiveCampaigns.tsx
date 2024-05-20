@@ -83,7 +83,9 @@ const ActiveCampaigns = () => {
             <div className="flex flex-row items-center w-full gap-2 pr-8">
               <Avatar
                 src={item?.team_avatar}
-                className={`${item?.team_avatar ? "" : "bg-[#7f8182]"}`}
+                className={`${
+                  item?.team_avatar ? "" : "bg-[#7f8182] !w-[52px]"
+                }`}
                 size={42}
               >
                 {!item?.team_avatar && getPlaceHolder(item.company)}

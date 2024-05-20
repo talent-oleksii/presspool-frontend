@@ -235,6 +235,21 @@ const Admin = (props: React.PropsWithChildren) => {
                   Dashboard
                 </Space>
               </NavLink>
+              {adminRole === "super_admin" && (
+                <NavLink
+                  className={({ isActive }) =>
+                    ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-500 flex items-center text-primary hover:bg-white ${
+                      isActive ? "bg-white shadow-md" : ""
+                    }`
+                  }
+                  to="/admin/publishers"
+                >
+                  <Space size="middle">
+                    <img alt="Team" src={TeamImage} className="w-[16px]" />
+                    Publishers
+                  </Space>
+                </NavLink>
+              )}
               <NavLink
                 className={({ isActive }) =>
                   ` w-full text-left font-[Inter] rounded-[10px] text-xs pl-4 py-3 pr-4 font-500 flex items-center text-primary hover:bg-white ${
