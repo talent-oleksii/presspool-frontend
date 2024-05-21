@@ -171,64 +171,68 @@ const NewCampaignRequests = () => {
           {campaign.map((item, index) => (
             <div
               key={index}
-              className="card rounded-[10px] bg-white shadow-md min-h-[289px] p-3"
+              className="card rounded-[10px] bg-white shadow-md min-h-[183px] p-3"
             >
-              <div className="flex flex-col w-[250px] max-w-[250px] gap-2 shrink-0 mb-[10px]">
+              <div className="flex flex-row gap-2 shrink-0 justify-between">
                 <div className="flex items-center">
                   <Avatar
                     src={item?.team_avatar}
                     className={`border border-solid border-secondry3 ${
                       item?.team_avatar ? "" : "bg-[#7f8182]"
                     }`}
-                    size={48}
+                    size={66}
                   >
                     {!item?.team_avatar && getPlaceHolder(item.company)}
                   </Avatar>
                   <div className="ms-2">
-                    <p className="text-primary text-[15px] font-[Inter] -tracking-[.36px]">
+                    <p className="text-primary text-[15px] font-medium font-[Inter] -tracking-[.36px]">
                       {item.name}
                     </p>
-                    <p className="text-secondry1 text-[8px] font-[Inter] -tracking-[.36px]">
+                    <p className="text-[#6C63FF] text-[10px] font-light font-[Inter] -tracking-[.36px] underline">
                       {item.url}
                     </p>
                   </div>
                 </div>
+                <p className="font-normal text-[10px] text-secondry1">
+                  Received on:{" "}
+                  {moment(Number(item.create_time)).format("MM/DD/yyyy")}
+                </p>
               </div>
-              <hr />
-              <div className="w-full flex flex-col items-start justify-center mt-5 mb-[10px]">
-                <div className="flex flex-col h-full w-full ">
-                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
-                    Headline
-                  </p>
-                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
-                    {item.headline}
-                  </h2>
-                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+              <p className="text-center font-medium text-primary text-[14px]">
+                {item?.headline}
+              </p>
+              <div className="grid grid-cols-3 gap-3 my-4">
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
                     CPC Bid
                   </p>
-                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
                     ${item.cpc}
-                  </h2>
-                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                  </p>
+                </div>
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
                     Estimated Payout
                   </p>
-                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
                     ${Number(item?.average_unique_click) * Number(item?.cpc)}
-                  </h2>
-                  <p className="text-[#A3A3A3] font-[Inter] text-[10px] font-medium">
+                  </p>
+                </div>
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
                     Accept By
                   </p>
-                  <h2 className="font-[Inter] text-primary font-medium text-[10px] -tracking-[.42px] mb-2">
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
                     {moment(Number(item.create_time))
                       .add(10, "days")
-                      .format("MMMM Do")}
-                  </h2>
+                      .format("MM/DD/yyyy")}
+                  </p>
                 </div>
               </div>
               <div className="w-full flex justify-center">
                 <button
-                  className="font-[Inter] w-3/2 text-[white] bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
                   onClick={() => handleReviewClick(item)}
+                  className="font-[Inter] w-3/2 text-[white] bg-black font-semibold rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
                 >
                   Review
                 </button>
