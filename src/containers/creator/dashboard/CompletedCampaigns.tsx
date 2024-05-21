@@ -8,6 +8,7 @@ import { getPlaceHolder } from "../../../utils/commonUtils";
 import Loading from "../../../components/Loading";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../../store/authSlice";
+import { ConversionGoal } from "../../../constants/constant";
 
 const CompletedCampaigns = () => {
   const { creatorData } = useSelector(selectAuth);
@@ -77,122 +78,204 @@ const CompletedCampaigns = () => {
       {
         key: "1",
         label: (
-          <div className="flex pl-[24px] pr-[72px] py-[20px] justify-evenly items-center text-left w-full relative">
-            <div className="flex flex-row items-center w-full gap-2 pr-8">
-              <Avatar
-                src={item?.team_avatar}
-                className={`${item?.team_avatar ? "" : "bg-[#7f8182]"}`}
-                size={42}
-              >
-                {!item?.team_avatar && getPlaceHolder(item.company)}
-              </Avatar>
-              <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-left">
+          <div className="flex flex-col w-full pl-[24px] pr-[72px] py-[20px] gap-3">
+            <div className="flex items-center w-full gap-3">
+              <p className="font-normal font-[Inter]">
+                <span
+                  className={`bg-white ring-2 ring-main rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal`}
+                >
+                  Completed :{" "}
+                  {new Date(Number(item.complete_date)).toLocaleDateString()}
+                </span>
+              </p>
+              <p className="font-semibold font-[Inter] text-sm -tracking-[.42px] text-left">
                 {item?.name}
               </p>
             </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] text-secondry1 -tracking-[.3px]">
-                Publish Date
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {new Date(Number(item.start_date)).toLocaleDateString()}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                verified Clicks
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {item?.verified_clicks}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                CPC
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {item?.cpc}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Campaign Budget
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {Number(item?.average_unique_click) * Number(item?.cpc)}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Campaign Revenue
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                ${Number(item?.verified_clicks) * Number(item?.cpc)}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Amount Paid
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                ${0}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Status
-              </p>
-              <p className="font-normal font-[Inter]">
-                <span
-                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal bg-[#FFA29C] text-primary`}
+            <div className="flex w-full justify-between">
+              <div className="grid grid-cols-6 gap-3">
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                    Start Date
+                  </p>
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                    {new Date(Number(item.start_date)).toLocaleDateString()}
+                  </p>
+                </div>
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                    Verified Clicks
+                  </p>
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                    {item?.verified_clicks}
+                  </p>
+                </div>
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                    CPC
+                  </p>
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                    ${item?.cpc}
+                  </p>
+                </div>
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                    Campaign Budget
+                  </p>
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                    ${Number(item?.average_unique_click) * Number(item?.cpc)}
+                  </p>
+                </div>
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                    Campaign Revenue
+                  </p>
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                    ${Number(item?.verified_clicks) * Number(item?.cpc)}
+                  </p>
+                </div>
+                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                    Amount Paid
+                  </p>
+                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                    ${0}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-row gap-2 pr-8">
+                <Avatar
+                  src={item?.team_avatar}
+                  className={`${item?.team_avatar ? "" : "bg-[#7f8182]"}`}
+                  size={66}
                 >
-                  Completed
-                </span>
-              </p>
+                  {!item?.team_avatar && getPlaceHolder(item.company)}
+                </Avatar>
+                <div className="text-left ms-2 flex flex-col justify-center">
+                  <p className="font-medium font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-left">
+                    {item?.company}
+                  </p>
+                  <p className="font-light font-[Inter] text-[10px] min-w-[150px] -tracking-[.42px] w-full text-left">
+                    {item?.url}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         ),
         children: (
-          <div className="bg-white py-3">
-            <div className="grid grid-cols-[1fr_700px] gap-7">
-              <div className="w-full flex flex-col items-start justify-start">
-                <img
-                  className="min-w-[350px] w-3/2 min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
-                  alt="market"
-                  src={item.image}
-                />
+          <div className="bg-white py-6">
+            <div className="grid grid-cols-[1fr_400px] gap-7">
+              <div className="w-full flex flex-col items-start justify-center">
+                <p className="text-primary font-[Inter] text-sm font-semibold font-normal">
+                  Headline
+                </p>
+                <h2 className="font-[Inter] text-primary font-normal text-sm -tracking-[.42px]">
+                  {item.headline}
+                </h2>
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  Body
+                </p>
+                <p className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap">
+                  {item.body}
+                </p>
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  Landing Page Preview
+                </p>
+                <p className="text-[#6C63FF] font-[Inter] font-medium text-sm">
+                  {item.page_url}
+                </p>
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  CTA Text
+                </p>
+                <p className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap">
+                  {item.cta}
+                </p>
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                  Conversion Goal
+                </p>
+                <p className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap">
+                  {item?.conversion
+                    ? ConversionGoal[item?.conversion as never]
+                    : "N/A"}
+                </p>
+                <div className="flex items-end justify-between w-full">
+                  <div className="w-auto">
+                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                      Target Audience
+                    </p>
+                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1">
+                      <button className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs">
+                        {capitalize(item.demographic)}
+                      </button>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-end justify-between w-full">
+                  <div className="w-auto">
+                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                      Target Industrie(s)
+                    </p>
+                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
+                      {(item.audience || []).map(
+                        (aud: string, index: number) => (
+                          <button
+                            key={index}
+                            className="bg-black px-2 py-1 rounded text-white font-medium font-[Inter] text-xs 2xl:text-xs"
+                          >
+                            {aud}
+                          </button>
+                        )
+                      )}
+                    </p>
+                  </div>
+                </div>
+                {item.position && (
+                  <div className="flex items-end justify-between w-full">
+                    <div className="w-auto">
+                      <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                        Target Demographic(s)
+                      </p>
+                      <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
+                        {(item.position || []).map(
+                          (pos: string, index: number) => (
+                            <button
+                              key={index}
+                              className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                            >
+                              {pos}
+                            </button>
+                          )
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                <div className="flex items-end justify-between w-full">
+                  <div className="w-auto">
+                    <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
+                      Target Region(s)
+                    </p>
+                    <p className="text-primary font-[Inter] font-medium text-base -tracking-[.47px] flex gap-1 flex-wrap">
+                      {(item.region || []).map((reg: string, index: number) => (
+                        <button
+                          key={index}
+                          className="bg-black px-2 py-1 rounded text-white font-semibold font-[Inter] text-xs 2xl:text-xs"
+                        >
+                          {reg}
+                        </button>
+                      ))}
+                    </p>
+                  </div>
+                </div>
               </div>
               <div className="w-full flex flex-col items-start justify-center">
-                <div className="flex flex-col h-full w-full ">
-                  <p className="text-primary font-[Inter] text-sm font-normal font-normal mb-2">
-                    Headline
-                  </p>
-                  <h2 className="font-[Inter] text-primary font-semibold text-lg -tracking-[.42px]">
-                    {item.headline}
-                  </h2>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-normal mb-2">
-                    Description
-                  </p>
-                  <p className="text-primary font-[Inter] font-medium text-sm whitespace-pre-wrap">
-                    {item.body}
-                  </p>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-normal mb-2">
-                    Landing Page Link
-                  </p>
-                  <p className="text-[#6C63FF] font-[Inter] font-medium text-xs">
-                    {item.page_url}
-                  </p>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-normal mb-2">
-                    Audience Tags
-                  </p>
-                  <div className="flex justify-between">
-                    <h2 className="font-[Inter] text-primary font-normal text-sm -tracking-[.42px] mt-[5px]">
-                      {capitalize(item.demographic)}
-                    </h2>
-                    <button className="font-[Inter] w-3/2 text-[white] bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs">
-                      Give Feedback
-                    </button>
-                  </div>
+                <div className="flex flex-col h-full w-full justify-between">
+                  <img
+                    className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
+                    alt="market"
+                    src={item.image}
+                  />
                 </div>
               </div>
             </div>
@@ -203,6 +286,7 @@ const CompletedCampaigns = () => {
       },
     ];
   };
+
   return (
     <div className="mt-3 h-full">
       <div className="text-left relative pt-1.5">
