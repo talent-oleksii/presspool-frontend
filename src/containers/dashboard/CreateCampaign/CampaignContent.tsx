@@ -411,7 +411,7 @@ const CampaignContent: FC = () => {
               </div>
               <div className="pb-3 px-4 flex flex-col items-center justify-between flex-1">
                 <div className="text-left w-full">
-                  <p className="w-full text-left font-[Inter] font-normal text-primary text-xs break-all whitespace-pre-wrap">
+                  <p className="w-full text-left font-[Inter] font-normal text-primary text-xs whitespace-pre-wrap" style={{ wordBreak: 'break-word' }}>
                     {watch("body")}
                   </p>
                 </div>

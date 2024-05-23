@@ -176,7 +176,7 @@ const CompletedCampaigns = () => {
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                   Body
                 </p>
-                <p className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap">
+                <p className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap" style={{ wordBreak: 'break-word' }}>
                   {item.body}
                 </p>
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
