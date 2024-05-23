@@ -1,5 +1,3 @@
-import { AudienceSize } from "../constant";
-
 export const defaultCreatorLoginFormData = {
   email: "",
   password: "",
@@ -15,22 +13,23 @@ export const defaultCreatorSignupFormData = {
 };
 
 export const onboardingFormOneFormData = {
-  audienceSize: AudienceSize.GROWING,
-};
-
-export const onboardingFormTwoFormData = {
   subscribers: 0,
   image: undefined as any,
 };
 
-export const onboardingFormThreeFormData = {
+export const onboardingFormTwoFormData = {
   audience: "consumer",
 };
 
-export const onboardingFormFourFormData = {
+export const onboardingFormThreeFormData = {
   industry: [],
   position: [],
   geography: [],
   averageUniqueClick: 0,
   cpc: 0,
+};
+
+export const onboardingFormFourFormData = {
+  avatar: undefined as any,
+  teamAvatar: undefined as any,
 };

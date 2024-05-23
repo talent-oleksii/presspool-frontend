@@ -1,9 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-// import StepOneForm from "../../../containers/creator/onboarding/StepOneForm";
+import StepOneForm from "../../../containers/creator/onboarding/StepOneForm";
 import StepTwoForm from "../../../containers/creator/onboarding/StepTwoForm";
 import StepThreeForm from "../../../containers/creator/onboarding/StepThreeForm";
-import StepFourForm from "../../../containers/creator/onboarding/StepFourForm";
 import { useUpsertOnboarding } from "../../../hooks/forms/useUpsertOnboarding";
 import FormProviderWrapper from "../../../components/FormProviderWrapper";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
@@ -12,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DialogUtils from "../../../utils/DialogUtils";
 import Loading from "../../../components/Loading";
 import FinalStepForm from "../../../containers/creator/onboarding/FinalStepForm";
+import StepFourForm from "../../../containers/creator/onboarding/StepFourForm";
 
 const Onboarding: FC = () => {
   const { creatorId } = useParams();
@@ -22,7 +22,7 @@ const Onboarding: FC = () => {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const { stepTwoMethods, stepThreeMethods, stepFourMethods } =
+  const { stepOneMethods, stepTwoMethods, stepThreeMethods, stepFourMethods } =
     useUpsertOnboarding(Number(creatorId));
 
   const handleStepOneSubmit = () => {
@@ -37,6 +37,10 @@ const Onboarding: FC = () => {
     setActiveStep(3);
   };
 
+  const handleStepFourSubmit = () => {
+    setActiveStep(4);
+  };
+
   const handleBack = () => {
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
@@ -45,21 +49,43 @@ const Onboarding: FC = () => {
 
   const handleFinalSubmit = () => {
     setLoading(true);
+    const stepOneValues = stepOneMethods.getValues();
     const stepTwoValues = stepTwoMethods.getValues();
     const stepThreeValues = stepThreeMethods.getValues();
     const stepFourValues = stepFourMethods.getValues();
+    console.log(stepFourValues);
     const formData = new FormData();
     formData.append("creatorId", creatorId ?? "");
-    formData.append("subscriber_proof", stepTwoValues.image);
-    Promise.all([
+    formData.append("subscriber_proof", stepOneValues.image);
+    const avatarFormData = new FormData();
+    avatarFormData.append("creatorId", creatorId ?? "");
+    if (typeof stepFourValues.avatar !== "string")
+      avatarFormData.append("avatar", stepFourValues.avatar);
+    if (typeof stepFourValues.teamAvatar !== "string") {
+      avatarFormData.append("team_avatar", stepFourValues.teamAvatar);
+    }
+
+    const promises = [
       CreatorAPIInstance.post("updatePreferences", {
+        ...stepTwoValues,
         ...stepThreeValues,
-        ...stepFourValues,
-        subscribers: stepTwoValues.subscribers,
+        subscribers: stepOneValues.subscribers,
         creatorId,
       }),
-      CreatorAPIInstance.put("updateSubscribeProof", formData),
-    ])
+    ];
+
+    if (typeof stepOneValues.image !== "string") {
+      promises.push(CreatorAPIInstance.put("updateSubscribeProof", formData));
+    }
+
+    if (
+      typeof stepFourValues.avatar !== "string" ||
+      typeof stepFourValues.teamAvatar !== "string"
+    ) {
+      promises.push(CreatorAPIInstance.put("updateAvatar", avatarFormData));
+    }
+
+    Promise.all(promises)
       .then((res) => {
         const data = res[0]?.data;
         dispatch(setCreatorData({ ...creatorData, ...data }));
@@ -68,7 +94,7 @@ const Onboarding: FC = () => {
       .finally(() => setLoading(false));
   };
 
-  const { audience } = stepThreeMethods.getValues();
+  const { audience } = stepTwoMethods.getValues();
 
   useEffect(() => {
     if (creatorId) {
@@ -126,47 +152,47 @@ const Onboarding: FC = () => {
 
             {/* First Step  */}
 
-            {/* <div className={`${activeStep === 0 ? "" : "hidden"}`}>
+            <div className={`${activeStep === 0 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepOneMethods}
                 onSubmit={handleStepOneSubmit}
               >
-                <StepOneForm />
+                <StepOneForm showHeader />
               </FormProviderWrapper>
-            </div> */}
+            </div>
 
             {/* Second Step */}
-            <div className={`${activeStep === 0 ? "" : "hidden"}`}>
+            <div className={`${activeStep === 1 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepTwoMethods}
-                onSubmit={handleStepOneSubmit}
+                onSubmit={handleStepTwoSubmit}
               >
                 <StepTwoForm showHeader />
               </FormProviderWrapper>
             </div>
 
             {/* Third Step */}
-            <div className={`${activeStep === 1 ? "" : "hidden"}`}>
+            <div className={`${activeStep === 2 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepThreeMethods}
-                onSubmit={handleStepTwoSubmit}
+                onSubmit={handleStepThreeSubmit}
               >
-                <StepThreeForm showHeader />
+                <StepThreeForm audience={audience} showHeader />
               </FormProviderWrapper>
             </div>
 
             {/* Fourth Step */}
-            <div className={`${activeStep === 2 ? "" : "hidden"}`}>
+            <div className={`${activeStep === 3 ? "" : "hidden"}`}>
               <FormProviderWrapper
                 methods={stepFourMethods}
-                onSubmit={handleStepThreeSubmit}
+                onSubmit={handleStepFourSubmit}
               >
-                <StepFourForm audience={audience} showHeader />
+                <StepFourForm />
               </FormProviderWrapper>
             </div>
 
             {/* Fourth Step  */}
-            {activeStep === 3 ? (
+            {activeStep === 4 ? (
               <FinalStepForm handleFinalSubmit={handleFinalSubmit} />
             ) : null}
           </div>
