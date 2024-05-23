@@ -39,40 +39,44 @@ export const useUpsertOnboarding = (id?: number) => {
     resolver: yupResolver(onboardingFormTwoFormSchema),
   });
 
+  const { audience } = stepTwoMethods.getValues();
   const stepThreeMethods = useForm({
     ...options,
     defaultValues: onboardingFormThreeFormData,
     resolver: yupResolver(onboardingFormThreeFormSchema),
-  });
-
-  const { audience } = stepThreeMethods.getValues();
-  const stepFourMethods = useForm({
-    ...options,
-    defaultValues: onboardingFormFourFormData,
-    resolver: yupResolver(onboardingFormFourFormSchema),
     context: {
       audience,
     },
   });
 
+  const stepFourMethods = useForm({
+    ...options,
+    defaultValues: onboardingFormFourFormData,
+    resolver: yupResolver(onboardingFormFourFormSchema),
+  });
+
   const setFormValues = useCallback(
     (data: any) => {
-      stepTwoMethods.reset({
+      stepOneMethods.reset({
         subscribers: data.total_subscribers,
         image: data.proof_image,
       });
-      stepThreeMethods.reset({
+      stepTwoMethods.reset({
         audience: data.audience ?? CampaignTargetType.CUSTOMER,
       });
-      stepFourMethods.reset({
+      stepThreeMethods.reset({
         industry: data.industry,
         position: data.position,
         geography: data.geography,
         averageUniqueClick: data.average_unique_click,
         cpc: data.cpc,
       });
+      stepFourMethods.reset({
+        avatar: data.avatar,
+        teamAvatar: data.team_avatar,
+      });
     },
-    [stepTwoMethods, stepThreeMethods, stepFourMethods]
+    [stepOneMethods, stepTwoMethods, stepThreeMethods, stepFourMethods]
   );
 
   useEffect(() => {
