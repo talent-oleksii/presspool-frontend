@@ -69,7 +69,7 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
       <p className="font-[Inter] text-primary mb-4 text-left font-semibold w-full text-base">
         Engagement by Newsletter
       </p>
-      <div className="text-secondry1 font-medium text-sm rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-end justify-center">
+      <div className="text-secondry1 font-medium text-sm rounded-[10px] grid grid-cols-4 gap-3 min-h-[60px] items-end justify-center">
         <div>
           Name
         </div>
@@ -84,7 +84,7 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
             </svg>
           </button>
         </div>
-        <div className="text-center">
+        {/* <div className="text-center">
           Unique Clicks
           <button className="ms-2" onClick={() => changeDirection('unique')}>
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="12" viewBox="0 0 18 12" fill="none">
@@ -94,7 +94,7 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
               <line x1="4" y1="8.25" x2="14" y2="8.25" stroke="#505050" strokeWidth="1.5" />
             </svg>
           </button>
-        </div>
+        </div> */}
         <div className="text-center">
           Verified Clicks
           <button className="ms-2" onClick={() => changeDirection('verified')}>
@@ -123,7 +123,7 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
         ? data.map((item, index) => (
           <div
             key={index}
-            className="rounded-[10px] grid grid-cols-5 gap-3 min-h-[60px] items-center justify-center"
+            className="rounded-[10px] grid grid-cols-4 gap-3 min-h-[60px] items-center justify-center"
           >
             <div className="text-primary font-bold text-sm">
               {/* {item.name.includes('.') ? <a href={`https://${item.name}`} target="_blank" rel="noreferrer" className="text-[red]/[.74]">{item.name}</a> : <p>{item.name}</p>} */}
@@ -136,11 +136,11 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
             <div className="text-primary font-medium text-sm text-center">
               {item.unique_clicks}
             </div>
-            <div className="text-primary font-medium text-sm text-center">
+            {/* <div className="text-primary font-medium text-sm text-center">
               {item.verified_clicks}
-            </div>
+            </div> */}
             <div className="text-primary font-medium text-sm text-center">
-              ${(avgCPC * item.verified_clicks)?.toFixed(2)}
+              ${(avgCPC * item.unique_clicks)?.toFixed(2)}
             </div>
             {/* <div></div> */}
           </div>

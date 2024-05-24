@@ -34,9 +34,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       <div className="flex gap-2">
         {selectedDateFilter !== "All Time" ? (
           <div
-            className={`${
-              changeDirection === "decrease" ? "bg-error" : "bg-main"
-            } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
+            className={`${changeDirection === "decrease" ? "bg-error" : "bg-main"
+              } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
           >
             {changeDirection === "decrease" ? (
               <span className="text-[white]">-</span>
@@ -48,8 +47,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         <p className="text-[#172935] text-[10px] font-semibold">
           {selectedDateFilter !== "All Time"
             ? `${Math.abs(percentageDifference).toFixed(
-                2
-              )}% from ${selectedDateFilter}`
+              2
+            )}% from ${selectedDateFilter}`
             : "All Time"}
         </p>
       </div>
@@ -61,9 +60,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       className={
         rootClassName
           ? rootClassName
-          : `rounded-[10px] grid ${
-              isCreatorAuthenticated ? "grid-cols-4" : "grid-cols-5"
-            } gap-3 min-h-[90px]`
+          : `rounded-[10px] grid ${isCreatorAuthenticated ? "grid-cols-4" : "grid-cols-4"
+          } gap-3 min-h-[90px]`
       }
     >
       <Card
@@ -74,7 +72,7 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
           totalClicks
         )}
       />
-      {!isCreatorAuthenticated ? (
+      {/* {!isCreatorAuthenticated ? (
         <Card
           title={"Unique Clicks"}
           value={uniqueClicks}
@@ -83,23 +81,23 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
             uniqueClicks
           )}
         />
-      ) : null}
+      ) : null} */}
       <Card
         title={"Verified Clicks"}
-        value={verifiedClicks}
+        value={uniqueClicks}
         percentageText={calculateChangeDirection(
-          prevData.verifiedClicks,
-          verifiedClicks
+          prevData.uniqueClicks,
+          uniqueClicks
         )}
       />
       {isCreatorAuthenticated ? (
         <>
           <Card
             title={"Total Charged"}
-            value={`$${(creatorData?.cpc ?? 0 * verifiedClicks).toFixed(2)}`}
+            value={`$${(creatorData?.cpc ?? 0 * uniqueClicks).toFixed(2)}`}
             percentageText={calculateChangeDirection(
-              creatorData?.cpc ?? 0 * prevData.verifiedClicks,
-              creatorData?.cpc ?? 0 * verifiedClicks
+              creatorData?.cpc ?? 0 * prevData.uniqueClicks,
+              creatorData?.cpc ?? 0 * uniqueClicks
             )}
           />
           <Card

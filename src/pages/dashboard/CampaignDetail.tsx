@@ -85,7 +85,8 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
     return Math.round(Number(click) * 100 / sumClick);
   };
 
-  const verifiedClicks = clicked.reduce((prev, item) => prev + ((item?.user_medium === 'newsletter' || item?.user_medium === 'referral') && item.duration > item.count * 3 && item.duration > 0) ? Number(item?.unique_click) : 0, 0);
+  // const verifiedClicks = clicked.reduce((prev, item) => prev + ((item?.user_medium === 'newsletter' || item?.user_medium === 'referral') && item.duration > item.count * 3 && item.duration > 0) ? Number(item?.unique_click) : 0, 0);
+  const verifiedClicks = data.unique_clicks;
   const avgCPC =
     data.price === 0 || verifiedClicks === 0 ? 0 : data.price / verifiedClicks > 11 ? 11 : data.price / verifiedClicks;
 
@@ -100,14 +101,14 @@ const CampaignDetail: FC<typeCampaignDetail> = ({ id }: typeCampaignDetail) => {
             value={data?.click_count ?? 0}
             percentageText={`200% from last 7 days`}
           />
-          <Card
+          {/* <Card
             title={"Unique Clicks"}
             value={data?.unique_clicks ?? 0}
             percentageText={`200% from last 7 days`}
-          />
+          /> */}
           <Card
             title={"Verified Clicks"}
-            value={verifiedClicks}
+            value={data?.unique_clicks ?? 0}
             percentageText={`200% from last 7 days`}
           />
           <Card
