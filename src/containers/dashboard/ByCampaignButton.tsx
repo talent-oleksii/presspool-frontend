@@ -40,7 +40,7 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
       : [itemId.toString()];
 
     setSelectedCampaigns(campaignIds);
-    navigate(campaignIds.length ? `/campaign/${campaignIds.join(',')}` : `/campaign/all`);
+    navigate(campaignIds.length ? `/publishers/reporting/${campaignIds.join(',')}` : `/publishers/reporting/all`);
     if (campaignIds.length === 0) {
       hide();
     }
