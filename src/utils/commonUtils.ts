@@ -20,4 +20,39 @@ const getVerifiedClick = (item: any) => {
   );
 };
 
-export { getPlaceHolder, getVerifiedClick };
+// Function to convert JSON to CSV
+const jsonToCSV = (jsonData: any[]) => {
+  const csvRows: string[] = [];
+  const headers = Object.keys(jsonData[0]);
+  csvRows.push(headers.join(","));
+
+  for (const row of jsonData) {
+    const values = headers.map((header) => {
+      let value = row[header];
+      if (Array.isArray(value)) {
+        value = value.map((val: string) => val.replace(/"/g, '""')).join(",");
+      } else if (typeof value === "object" && value !== null) {
+        value = JSON.stringify(value);
+      }
+      const escaped = ("" + value).replace(/"/g, '""');
+      return `"${escaped}"`;
+    });
+    csvRows.push(values.join(","));
+  }
+
+  return csvRows.join("\n");
+};
+// Function to download CSV file
+const downloadCSVFile = (csv: any, filename: any) => {
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.setAttribute("hidden", "");
+  a.setAttribute("href", url);
+  a.setAttribute("download", filename);
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+};
+
+export { getPlaceHolder, getVerifiedClick, jsonToCSV, downloadCSVFile };
