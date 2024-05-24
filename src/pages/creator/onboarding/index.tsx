@@ -53,7 +53,6 @@ const Onboarding: FC = () => {
     const stepTwoValues = stepTwoMethods.getValues();
     const stepThreeValues = stepThreeMethods.getValues();
     const stepFourValues = stepFourMethods.getValues();
-    console.log(stepFourValues);
     const formData = new FormData();
     formData.append("creatorId", creatorId ?? "");
     formData.append("subscriber_proof", stepOneValues.image);

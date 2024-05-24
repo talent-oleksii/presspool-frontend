@@ -1,5 +1,6 @@
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Feedback from "../../containers/layout/Feedback";
+import Notification from "../../containers/layout/Notification";
 
 import Logo from "../../assets/logo/logo.png";
 import Mark from "../../assets/logo/logo.png";
@@ -45,7 +46,10 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
               <img src={Logo} className="h-5" alt="logo" />
             </Link>
           </div>
-          <Feedback />
+          <div className="flex gap-3">
+            <Notification />
+            <Feedback />
+          </div>
         </div>
       </div>
       <div className="flex xsm:flex-col md:grid md:grid-cols-[206px_repeat(4,1fr)] gap-4 h-full md:h-calc-vh xsm:px-9 xsm:py-8">

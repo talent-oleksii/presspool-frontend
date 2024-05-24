@@ -191,7 +191,7 @@ const CampaignFilter: FC<ICampaignFilter> = ({ loadCampaignData }) => {
   const handleOverviewClick = () => {
     setCompletionDate(null);
     setSelectedCampaigns([]);
-    navigate(`/campaign/all`);
+    navigate(`/publishers/reporting/all`);
   };
 
   useEffect(() => {
