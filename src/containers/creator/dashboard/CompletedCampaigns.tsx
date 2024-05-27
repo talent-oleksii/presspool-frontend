@@ -107,7 +107,7 @@ const CompletedCampaigns = () => {
                     Verified Clicks
                   </p>
                   <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                    {item?.verified_clicks}
+                    {item?.unique_clicks ?? 0}
                   </p>
                 </div>
                 <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">

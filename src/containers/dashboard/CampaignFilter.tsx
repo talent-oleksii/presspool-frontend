@@ -17,7 +17,7 @@ interface ICampaignFilter {
   loadCampaignData: (
     dateRange: IDateRange,
     email: string,
-    selectedCampaigns: string[]
+    selectedCampaigns: string[],
   ) => void;
 }
 
@@ -191,7 +191,7 @@ const CampaignFilter: FC<ICampaignFilter> = ({ loadCampaignData }) => {
   const handleOverviewClick = () => {
     setCompletionDate(null);
     setSelectedCampaigns([]);
-    navigate(`/publishers/reporting/all`);
+    navigate(isCreatorAuthenticated ? `/publishers/reporting/all` : "/campaign/all");
   };
 
   useEffect(() => {
@@ -232,6 +232,7 @@ const CampaignFilter: FC<ICampaignFilter> = ({ loadCampaignData }) => {
           items={campaignList}
           setSelectedCampaigns={setSelectedCampaigns}
           selectedCampaigns={selectedCampaigns}
+          isCreator={isCreatorAuthenticated}
         />
         {selectedCampaigns.length > 0 ? (
           completionDate ? (
