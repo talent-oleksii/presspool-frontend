@@ -14,8 +14,10 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
     campaign: data,
   } = useSelector(selectData);
   const { isCreatorAuthenticated, creatorData } = useSelector(selectAuth);
-  const { totalClicks, uniqueClicks, totalBudget, verifiedClicks, avgCPC } =
-    useAnalytics(clicked, data);
+  const { totalClicks, uniqueClicks, totalBudget, avgCPC } = useAnalytics(
+    clicked,
+    data
+  );
 
   const calculateChangeDirection = (oldValue: number, newValue: number) => {
     const difference = newValue - oldValue;
@@ -34,8 +36,9 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       <div className="flex gap-2">
         {selectedDateFilter !== "All Time" ? (
           <div
-            className={`${changeDirection === "decrease" ? "bg-error" : "bg-main"
-              } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
+            className={`${
+              changeDirection === "decrease" ? "bg-error" : "bg-main"
+            } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
           >
             {changeDirection === "decrease" ? (
               <span className="text-[white]">-</span>
@@ -47,8 +50,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         <p className="text-[#172935] text-[10px] font-semibold">
           {selectedDateFilter !== "All Time"
             ? `${Math.abs(percentageDifference).toFixed(
-              2
-            )}% from ${selectedDateFilter}`
+                2
+              )}% from ${selectedDateFilter}`
             : "All Time"}
         </p>
       </div>
@@ -94,8 +97,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       {isCreatorAuthenticated ? (
         <>
           <Card
-            title={"Total Charged"}
-            value={`$${(creatorData?.cpc ?? 0 * uniqueClicks).toFixed(2)}`}
+            title={"Revenue Earned"}
+            value={`$${(creatorData?.cpc * Number(uniqueClicks)).toFixed(2)}`}
             percentageText={calculateChangeDirection(
               creatorData?.cpc ?? 0 * prevData.uniqueClicks,
               creatorData?.cpc ?? 0 * uniqueClicks
