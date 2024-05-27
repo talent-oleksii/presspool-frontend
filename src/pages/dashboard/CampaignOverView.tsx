@@ -184,12 +184,12 @@ const CampaignOverView: FC = () => {
               </p>
               <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
                 <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
-                Unique Clicks
-              </p>
-              <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
-                <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#FDE006]"></span>
                 Verified Clicks
               </p>
+              {/* <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
+                <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#FDE006]"></span>
+                Verified Clicks
+              </p> */}
             </div>
           </div>
         </div>
@@ -220,7 +220,7 @@ const CampaignOverView: FC = () => {
                       <stop offset="5%" stopColor="#6C63FF" stopOpacity={0.8} />
                       <stop offset="95%" stopColor="#6C63FF" stopOpacity={0} />
                     </linearGradient>
-                    <linearGradient
+                    {/* <linearGradient
                       id="colorVerifiedClicks"
                       x1="0"
                       y1="0"
@@ -229,7 +229,7 @@ const CampaignOverView: FC = () => {
                     >
                       <stop offset="5%" stopColor="#FDE006" stopOpacity={0.8} />
                       <stop offset="95%" stopColor="#FDE006" stopOpacity={0} />
-                    </linearGradient>
+                    </linearGradient> */}
                   </defs>
                   <XAxis dataKey="date" reversed />
                   <YAxis />
@@ -248,13 +248,13 @@ const CampaignOverView: FC = () => {
                     fillOpacity={1}
                     fill="url(#colorUniqueClicks)"
                   />
-                  <Area
+                  {/* <Area
                     type="monotone"
                     dataKey="verifiedClicks"
                     stroke="#FDE006"
                     fillOpacity={1}
                     fill="url(#colorVerifiedClicks)"
-                  />
+                  /> */}
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
