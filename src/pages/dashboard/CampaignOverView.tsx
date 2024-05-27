@@ -236,7 +236,7 @@ const CampaignOverView: FC = () => {
                   <Area
                     type="monotone"
                     dataKey="uniqueClicks"
-                    stroke="#6C63FF"
+                    stroke="#FDE006"
                     fillOpacity={1}
                     fill="url(#colorUniqueClicks)"
                   />
