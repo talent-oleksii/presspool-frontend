@@ -34,9 +34,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
       <div className="flex gap-2">
         {selectedDateFilter !== "All Time" ? (
           <div
-            className={`${
-              changeDirection === "decrease" ? "bg-error" : "bg-main"
-            } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
+            className={`${changeDirection === "decrease" ? "bg-error" : "bg-main"
+              } rounded-[10px] w-[14px] h-[14px] font-[Inter] leading-[12px] text-[10px] font-medium text-primary text-center`}
           >
             {changeDirection === "decrease" ? (
               <span className="text-[white]">-</span>
@@ -48,8 +47,8 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         <p className="text-[#172935] text-[10px] font-semibold">
           {selectedDateFilter !== "All Time"
             ? `${Math.abs(percentageDifference).toFixed(
-                2
-              )}% from ${selectedDateFilter}`
+              2
+            )}% from ${selectedDateFilter}`
             : "All Time"}
         </p>
       </div>

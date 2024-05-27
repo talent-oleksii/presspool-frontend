@@ -161,20 +161,20 @@ const Campaign: FC = () => {
                 {item.click_count}
               </p>
             </div>
-            <div className="flex flex-col items-center w-full">
+            {/* <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Unique Clicks
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
                 {item.unique_clicks}
               </p>
-            </div>
+            </div> */}
             <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Verified Clicks
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
-                {totalVerifiedClick}
+                {item.unique_clicks}
               </p>
             </div>
             <div className="flex flex-col items-center w-full">

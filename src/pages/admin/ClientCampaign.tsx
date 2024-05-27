@@ -127,20 +127,20 @@ const AdminClientCampaign: FC = () => {
                 {item.click_count}
               </p>
             </div>
-            <div className="flex flex-col items-center w-full">
+            {/* <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Unique Clicks
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
                 {item.unique_clicks}
               </p>
-            </div>
+            </div> */}
             <div className="flex flex-col items-center w-full">
               <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
                 Verified Clicks
               </p>
               <p className="font-normal text-primary font-[Inter] text-xs">
-                {totalVerifiedClick}
+                {item.unique_clicks}
               </p>
             </div>
             <div className="flex flex-col items-center w-full">
@@ -385,7 +385,7 @@ const AdminClientCampaign: FC = () => {
                   {campaign?.click_count}
                 </p>
               </div>
-              <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]">
+              {/* <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]">
                 <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -425,7 +425,7 @@ const AdminClientCampaign: FC = () => {
                 <p className="text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0">
                   {campaign?.unique_clicks}
                 </p>
-              </div>
+              </div> */}
               <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]">
                 <div className="flex items-center font-[Inter] text-xs font-medium -tracking-[.48px]">
                   <svg
@@ -464,7 +464,8 @@ const AdminClientCampaign: FC = () => {
                   Verified Clicks
                 </div>
                 <p className="text-[25px] font-[Inter] text-[#7ffbae] font-semibold -tracking-[.75px] mt-2 mb-0">
-                  {campaign?.id ? verifiedClicks(campaign.id) : 0}
+                  {/* {campaign?.id ? verifiedClicks(campaign.id) : 0} */}
+                  {campaign?.unique_clicks}
                 </p>
               </div>
               <div className="bg-white rounded-[10px] px-[20px] pt-[12px] pb-[7px] min-w-[160px]">

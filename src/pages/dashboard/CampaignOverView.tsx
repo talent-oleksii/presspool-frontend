@@ -163,9 +163,8 @@ const CampaignOverView: FC = () => {
     <div className="mt-3 h-full">
       <CampaignStatsCard />
       <div
-        className={`my-3 p-5 ${
-          !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-        } rounded-[10px] bg-white shadow-md`}
+        className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+          } rounded-[10px] bg-white shadow-md`}
       >
         <div className="flex justify-between items-baseline relative">
           <div>
@@ -182,8 +181,12 @@ const CampaignOverView: FC = () => {
                 <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-main"></span>
                 Total Clicks
               </p>
-              <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
+              {/* <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
                 <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
+                Unique Clicks
+              </p> */}
+              <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
+                <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#FDE006]"></span>
                 Verified Clicks
               </p>
               {/* <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
@@ -195,9 +198,8 @@ const CampaignOverView: FC = () => {
         </div>
         <div className="flex justify-between">
           <div
-            className={`flex w-full ${
-              !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-            } items-center justify-center mt-12`}
+            className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+              } items-center justify-center mt-12`}
           >
             {chartData.length > 0 ? (
               <ResponsiveContainer height={350}>
@@ -210,7 +212,7 @@ const CampaignOverView: FC = () => {
                       <stop offset="5%" stopColor="#7FFBAE" stopOpacity={0.8} />
                       <stop offset="95%" stopColor="#7FFBAE" stopOpacity={0} />
                     </linearGradient>
-                    <linearGradient
+                    {/* <linearGradient
                       id="colorUniqueClicks"
                       x1="0"
                       y1="0"
@@ -241,7 +243,7 @@ const CampaignOverView: FC = () => {
                     fillOpacity={1}
                     fill="url(#colorTotal)"
                   />
-                  <Area
+                  {/* <Area
                     type="monotone"
                     dataKey="uniqueClicks"
                     stroke="#6C63FF"
@@ -250,7 +252,7 @@ const CampaignOverView: FC = () => {
                   />
                   {/* <Area
                     type="monotone"
-                    dataKey="verifiedClicks"
+                    dataKey="uniqueClicks"
                     stroke="#FDE006"
                     fillOpacity={1}
                     fill="url(#colorVerifiedClicks)"
