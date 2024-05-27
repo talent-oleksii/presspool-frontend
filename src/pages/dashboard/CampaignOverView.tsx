@@ -212,18 +212,8 @@ const CampaignOverView: FC = () => {
                       <stop offset="5%" stopColor="#7FFBAE" stopOpacity={0.8} />
                       <stop offset="95%" stopColor="#7FFBAE" stopOpacity={0} />
                     </linearGradient>
-                    {/* <linearGradient
+                    <linearGradient
                       id="colorUniqueClicks"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="5%" stopColor="#6C63FF" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="#6C63FF" stopOpacity={0} />
-                    </linearGradient>
-                    {/* <linearGradient
-                      id="colorVerifiedClicks"
                       x1="0"
                       y1="0"
                       x2="0"
@@ -231,7 +221,7 @@ const CampaignOverView: FC = () => {
                     >
                       <stop offset="5%" stopColor="#FDE006" stopOpacity={0.8} />
                       <stop offset="95%" stopColor="#FDE006" stopOpacity={0} />
-                    </linearGradient> */}
+                    </linearGradient>
                   </defs>
                   <XAxis dataKey="date" reversed />
                   <YAxis />
@@ -243,20 +233,13 @@ const CampaignOverView: FC = () => {
                     fillOpacity={1}
                     fill="url(#colorTotal)"
                   />
-                  {/* <Area
+                  <Area
                     type="monotone"
                     dataKey="uniqueClicks"
                     stroke="#6C63FF"
                     fillOpacity={1}
                     fill="url(#colorUniqueClicks)"
                   />
-                  {/* <Area
-                    type="monotone"
-                    dataKey="uniqueClicks"
-                    stroke="#FDE006"
-                    fillOpacity={1}
-                    fill="url(#colorVerifiedClicks)"
-                  /> */}
                 </AreaChart>
               </ResponsiveContainer>
             ) : (
