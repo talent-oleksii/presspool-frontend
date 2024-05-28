@@ -160,7 +160,7 @@ const ReadyToPublishCampaigns = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-row gap-2 pr-8">
+              <div className="flex flex-row gap-2">
                 <Avatar
                   src={item?.team_avatar}
                   className={`${item?.team_avatar ? "" : "bg-[#7f8182]"}`}
@@ -193,7 +193,10 @@ const ReadyToPublishCampaigns = () => {
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
                   Body
                 </p>
-                <p className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap" style={{ wordBreak: 'break-word' }}>
+                <p
+                  className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap"
+                  style={{ wordBreak: "break-word" }}
+                >
                   {item.body}
                 </p>
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
@@ -314,8 +317,8 @@ const ReadyToPublishCampaigns = () => {
   return (
     <div className="mt-3 h-full">
       <div className="text-left relative pt-1.5">
-        {loading && <Loading />}
-        <div className="flex items-center w-full mt-[24px] gap-5">
+        <div className="top-35vh relative">{loading && <Loading />}</div>
+        <div className="flex items-center w-full gap-5">
           <div className="flex w-[342px] border-[2px] rounded-[10px] border-main items-center px-4 py-2 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -397,7 +400,12 @@ const ReadyToPublishCampaigns = () => {
           animate="show"
           variants={MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS()}
         >
-          {campaign.map((item) => (
+          {(searchStr
+            ? campaign.filter((x) =>
+                x.name.toLowerCase().includes(searchStr.toLowerCase())
+              )
+            : campaign
+          ).map((item) => (
             <Collapse
               key={item.id}
               collapsible="header"
