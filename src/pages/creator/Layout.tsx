@@ -28,7 +28,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
   const links = [
     {
       name: "Join Slack",
-      url: "https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q",
+      url: "https://join.slack.com/t/publishersupport/shared_invite/zt-2jlz48zu9-GEwvDXYk6IR57u1afRtNFQ",
     },
     { name: "Training Hub", url: "https://blog.presspool.ai" },
   ];
