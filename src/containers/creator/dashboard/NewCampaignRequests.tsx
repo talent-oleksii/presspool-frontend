@@ -88,9 +88,10 @@ const NewCampaignRequests = () => {
 
   return (
     <div className="mt-3 h-full">
-      {loading && <Loading />}
+      <div className="top-35vh relative">{loading && <Loading />}</div>
+
       <div className="text-left relative pt-1.5">
-        <div className="flex items-center w-full mt-[24px] gap-5">
+        <div className="flex items-center w-full gap-5">
           <div className="flex w-[342px] border-[2px] rounded-[10px] border-main items-center px-4 py-2 bg-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -168,7 +169,12 @@ const NewCampaignRequests = () => {
       </div>
       <div className="mt-3 h-full">
         <div className={`rounded-[10px] grid grid-cols-3 gap-3`}>
-          {campaign.map((item, index) => (
+          {(searchStr
+            ? campaign.filter((x) =>
+                x.name.toLowerCase().includes(searchStr.toLowerCase())
+              )
+            : campaign
+          ).map((item, index) => (
             <div
               key={index}
               className="card rounded-[10px] bg-white shadow-md min-h-[183px] p-3"
