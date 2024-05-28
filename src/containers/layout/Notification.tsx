@@ -5,7 +5,9 @@ import { ReactComponent as DownloadIcon } from "../../assets/icon/download_campa
 import CreatorAPIInstance from "../../api/creatorAPIInstance";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../store/authSlice";
-import { downloadCSVFile, jsonToCSV } from "../../utils/commonUtils";
+// @ts-ignore
+import html2pdf from "html2pdf.js";
+import { capitalize } from "lodash";
 const Notification: React.FC = () => {
   const { creatorData } = useSelector(selectAuth);
   const { id } = creatorData;
@@ -51,11 +53,86 @@ const Notification: React.FC = () => {
         params: { id: campaignId },
       });
       if (Array.isArray(data) && data.length > 0) {
-        const csv = jsonToCSV(data);
-        downloadCSVFile(
-          csv,
-          `${company ? `${company}'s_` : ""}campaign_${campaignId}.csv`
-        );
+        const [item] = data;
+        const htmlContent = `
+          <html>
+          <head>
+            <title>abc</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+              }
+              h1 {
+                color: #000000;
+              }
+              p {
+                color: #000000;
+                line-height: 1;
+                padding-bottom: 15px;
+              }
+            </style>
+          </head>
+          <body style="height: 100%">
+          <div style="padding: 20px; text-align: center;">
+            <div style="background: #fffdfd; padding: 20px; border-radius: 10px; text-align: left;display: flex; flex-direction: column; gap: 5px">
+              <div style="text-align:left; width:'100%'; border-bottom: 1px solid rgba(0,0,0,0.12); padding-bottom: 15px;">
+                <span><b>Campaign Name:-</b></span> <span>${item.name}</span>
+              </div>
+              <div style="text-align:left; width:'100%';margin-top: 10px">
+                <h1><b>Headline</b></h1> 
+                <p>${item.headline}</p>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Body</b></h1> 
+                <p>${item.body}</p>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Landing Page Preview</b></h1> 
+                <a href="${item.pageurl}">${item.pageurl}</a>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Tracking Link</b></h1> 
+                <a href="${item.trackinglink}">${item.trackinglink}</a>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>CTA Text</b></h1> 
+                <p>${item.cta}</p>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Target Audience</b></h1> 
+                <div>
+                ${capitalize(item.demographic)}
+                </div>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Target Industrie(s)</b></h1> 
+                <div>
+                  ${(item.audience || []).join(",")}
+                </div>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Target Demographic(s)</b></h1> 
+                <div>
+                ${(item.position || []).join(",")}
+                </div>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Target Region(s)</b></h1> 
+                <div>
+                ${(item.region || []).join(",")}
+                </div>
+              </div>
+            </div>
+          </div>
+          </body>
+        </html>
+        `;
+
+        var opt = {
+          filename:  `${company ? `${company}'s_` : ""}campaign_${campaignId}.pdf`,
+        };
+        // Convert HTML content to PDF
+        html2pdf().from(htmlContent).set(opt).save();
       } else {
         console.error("Unexpected data format");
       }
