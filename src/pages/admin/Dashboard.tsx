@@ -235,7 +235,7 @@ const AdminDashboard: FC = () => {
     let sumBlog = 0;
 
     clicked.forEach((item) => {
-      if (getVerifiedClick(item)) {
+      if (item.user_medium === 'newsletter') {
         sumEmail += Number(item.unique_click);
       } else if (item.user_medium === "referral") {
         sumBlog += Number(item.unique_click);
