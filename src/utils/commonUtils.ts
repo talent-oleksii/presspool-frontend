@@ -55,4 +55,34 @@ const downloadCSVFile = (csv: any, filename: any) => {
   document.body.removeChild(a);
 };
 
-export { getPlaceHolder, getVerifiedClick, jsonToCSV, downloadCSVFile };
+const copyToClipboard = async (textToCopy: string) => {
+  if (navigator.clipboard) {
+    // Modern approach with clipboard API
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  } else {
+    // Fallback approach for older browsers
+    try {
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
+    }
+  }
+};
+
+export {
+  getPlaceHolder,
+  getVerifiedClick,
+  jsonToCSV,
+  downloadCSVFile,
+  copyToClipboard,
+};
