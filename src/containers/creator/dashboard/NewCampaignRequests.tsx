@@ -11,6 +11,7 @@ import moment from "moment";
 import useQuery from "../../../hooks/useQuery";
 import ScheduleCampaign from "../models/ScheduleCampaign";
 import RejectCampaignFeedback from "../models/RejectCampaignFeedback";
+import PreviewCampaign from "../models/PreviewCampaign";
 
 const NewCampaignRequests = () => {
   const { campaignId } = useQuery();
@@ -22,6 +23,7 @@ const NewCampaignRequests = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("Newest to Oldest");
   const [showReviewModel, setShowReviewModel] = useState(false);
+  const [showPreviewModel, setShowPreviewModel] = useState(false);
   const [showScheduleModel, setShowScheduleModel] = useState(false);
   const [showFeedbackModel, setShowFeedbackModel] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState<any>({});
@@ -259,12 +261,18 @@ const NewCampaignRequests = () => {
         onClose={() => setShowScheduleModel(false)}
         item={selectedCampaign}
         loadCampaigns={loadCampaigns}
+        setShowPreviewModel={setShowPreviewModel}
       />
       <RejectCampaignFeedback
         show={showFeedbackModel}
         onClose={() => setShowFeedbackModel(false)}
         item={selectedCampaign}
         loadCampaigns={loadCampaigns}
+      />
+      <PreviewCampaign
+        show={showPreviewModel}
+        onClose={() => setShowPreviewModel(false)}
+        item={selectedCampaign}
       />
     </div>
   );

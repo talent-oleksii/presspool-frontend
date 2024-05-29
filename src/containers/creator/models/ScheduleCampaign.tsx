@@ -13,6 +13,7 @@ interface typeInviteAccountManager {
   item: any;
   loadCampaigns: Function;
   isReschedule?: boolean;
+  setShowPreviewModel?: Function;
 }
 
 const ScheduleCampaign: FC<typeInviteAccountManager> = ({
@@ -21,6 +22,7 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
   item,
   loadCampaigns,
   isReschedule,
+  setShowPreviewModel
 }: typeInviteAccountManager) => {
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState<any>(null);
@@ -50,14 +52,15 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
       });
       onClose();
       setLoading(false);
-      DialogUtils.show(
-        "success",
-        "Campaign Scheduled",
-        `You have successfully scheduled ${item.company}'s campaign for publishing.`
-      );
+      // DialogUtils.show(
+      //   "success",
+      //   "Campaign Scheduled",
+      //   `You have successfully scheduled ${item.company}'s campaign for publishing.`
+      // );
       setIsReviewClicked(false);
       setValue(null);
       loadCampaigns();
+      setShowPreviewModel?.()
     } catch (error: any) {
       DialogUtils.show("error", "", error.toString());
       setLoading(false);
