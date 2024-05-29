@@ -54,7 +54,6 @@ const Notification: React.FC = () => {
       });
       if (Array.isArray(data) && data.length > 0) {
         const [item] = data;
-        const files = item?.additional_files?.split(",");
         const htmlContent = `
           <html>
           <head>
@@ -76,59 +75,60 @@ const Notification: React.FC = () => {
           <body style="height: 100%">
           <div style="padding: 20px; text-align: center;">
             <div style="background: #fffdfd; padding: 20px; border-radius: 10px; text-align: left;display: flex; flex-direction: column; gap: 5px">
-              <div style="text-align:left; width:'100%';padding-top: 10px">
-                <span><b>Campaign Name: </b></span> 
-                <span>${item.name}</span>
+              <div style="text-align:left; width:'100%'; border-bottom: 1px solid rgba(0,0,0,0.12); padding-bottom: 15px;">
+                <span><b>Campaign Name:-</b></span> <span>${item.name}</span>
               </div>
-              <div style="text-align:left; width:'100%';padding-top: 10px">
-                <span><b>Headline: </b></span> 
-                <span>${item.headline}</span>
+              <div style="text-align:left; width:'100%';margin-top: 10px">
+                <h1><b>Headline</b></h1> 
+                <p>${item.headline}</p>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
-              <span><b>Body: </b></span>
-                <span>${item.body}</span>
+              <h1><b>Body</b></h1> 
+                <p>${item.body}</p>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
               <span><b>CTA Text: </b></span>
                 <span>${item.cta}</span>
               </div>
-              <div style="text-align:left; width:'100%';padding-top: 5px">
-              <span><b>Landing Page Preview: </b></span>
-                <span>${item.pageurl}</span>
+              <div style="text-align:left; width:'100%';padding-top: 5px;display:inline-block">
+                <span><b>Landing Page Preview: </b></span>
+                <a target="_blank" href="${item.pageurl}">${item.pageurl}</a>
               </div>
-              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <div style="text-align:left; width:'100%';padding-top: 5px;display:inline-block">
               <h1><b>Tracking Link</b></h1> 
-                <a href="${item.trackinglink}">${item.trackinglink}</a>
+                <a target="_blank" href="${item.trackinglink}">${item.trackinglink}</a>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
-              <span><b>Target Audience: </b></span>
-                <span>
+              <h1><b>CTA Text</b></h1> 
+                <p>${item.cta}</p>
+              </div>
+              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <h1><b>Target Audience</b></h1> 
+                <div>
                 ${capitalize(item.demographic)}
-                </span>
+                </div>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
-              <span><b>Target Industrie(s): </b></span>
-                <span>
+              <h1><b>Target Industrie(s)</b></h1> 
+                <div>
                   ${(item.audience || []).join(",")}
-                </span>
+                </div>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
-              <span><b>Target Demographic(s): </b></span>
-                <span>
+              <h1><b>Target Demographic(s)</b></h1> 
+                <div>
                 ${(item.position || []).join(",")}
-                </span>
+                </div>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
-              <span><b>Target Region(s): </b></span>
-                <span>
+              <h1><b>Target Region(s)</b></h1> 
+                <div>
                 ${(item.region || []).join(",")}
                 </span>
               </div>
-              <div style="text-align:left; width:'100%';padding-top: 5px">
+              <div style="text-align:left; width:'100%';padding-top: 5px; display:inline-block ">
               <span><b>Hero Image: </b></span>
-                <span>
-                ${item.image}
-                </span>
+              <a target="_blank" href="${item.image}">${item.image}</a>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
               <span><b>Additional Assetts: </b></span>
@@ -143,9 +143,7 @@ const Notification: React.FC = () => {
         `;
 
         var opt = {
-          filename: `${
-            company ? `${company}'s_` : ""
-          }campaign_${campaignId}.pdf`,
+          filename:  `${company ? `${company}'s_` : ""}campaign_${campaignId}.pdf`,
         };
         // Convert HTML content to PDF
         html2pdf().from(htmlContent).set(opt).save();

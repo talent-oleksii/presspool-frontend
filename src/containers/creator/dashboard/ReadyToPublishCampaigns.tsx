@@ -1,20 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../../utils/TransitionConstants";
-import { Avatar, Collapse, Menu, MenuProps } from "antd";
+import { Avatar, Collapse, Menu, MenuProps, message } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { GetItem, MenuItem } from "../../shared/GetItem";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
-import { getPlaceHolder } from "../../../utils/commonUtils";
+import { copyToClipboard, getPlaceHolder } from "../../../utils/commonUtils";
 import Loading from "../../../components/Loading";
 import { useSelector } from "react-redux";
 import { selectAuth } from "../../../store/authSlice";
 import { ConversionGoal } from "../../../constants/constant";
 import { capitalize } from "lodash";
 import ScheduleCampaign from "../models/ScheduleCampaign";
-import RejectCampaignFeedback from "../models/RejectCampaignFeedback";
+import PasteImage from "../../../assets/icon/paste.png";
+import DownloadImage from "../../../assets/icon/downloads1.png";
 
 const ReadyToPublishCampaigns = () => {
+  const [messageApi, contextHolder] = message.useMessage();
   const { creatorData } = useSelector(selectAuth);
   const { id } = creatorData;
   const [campaign, setCampaigns] = useState<Array<any>>([]);
@@ -84,11 +86,49 @@ const ReadyToPublishCampaigns = () => {
     setShowScheduleModel(true);
   };
 
+  const handleCopyToClipboard = async (text: string) => {
+    try {
+      await copyToClipboard(text);
+      messageApi.open({
+        type: "success",
+        content: "Copied to clipboard!",
+      });
+    } catch (error) {}
+  };
+
+  const getFileNameFromUrl = (url: string) => {
+    return url.substring(url.lastIndexOf("/") + 1);
+  };
+
+  const downloadImage = async (url: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute("download", getFileNameFromUrl(url)); // Use the original file name
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Failed to download image:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getItems = (
     item: any,
     panelStyle: any,
     handleReSchedule: (item: any) => void
   ) => {
+    const files = !!item.additional_files
+      ? item.additional_files.split(",")
+      : [];
     return [
       {
         key: "1",
@@ -184,14 +224,26 @@ const ReadyToPublishCampaigns = () => {
           <div className="bg-white py-6">
             <div className="grid grid-cols-[1fr_400px] gap-7">
               <div className="w-full flex flex-col items-start justify-center">
-                <p className="text-primary font-[Inter] text-sm font-semibold font-normal">
-                  Headline
+                <p className="text-primary font-[Inter] text-sm font-semibold font-normal flex gap-2">
+                  Headline{" "}
+                  <img
+                    onClick={() => handleCopyToClipboard(item.headline)}
+                    className="h-[16px] cursor-pointer"
+                    src={PasteImage}
+                    alt=""
+                  />
                 </p>
                 <h2 className="font-[Inter] text-primary font-normal text-sm -tracking-[.42px]">
                   {item.headline}
                 </h2>
-                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                  Body
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px] flex gap-2">
+                  Body{" "}
+                  <img
+                    onClick={() => handleCopyToClipboard(item.body)}
+                    className="h-[16px] cursor-pointer"
+                    src={PasteImage}
+                    alt=""
+                  />
                 </p>
                 <p
                   className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap"
@@ -199,14 +251,30 @@ const ReadyToPublishCampaigns = () => {
                 >
                   {item.body}
                 </p>
-                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                  Landing Page Preview
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px] flex gap-2">
+                  Tracking Link (MUST USE THIS EXACT LINK FOR ACCURATE TRACKING){" "}
+                  <img
+                    onClick={() =>
+                      handleCopyToClipboard(
+                        `https://track.presspool.ai/${item?.uid}`
+                      )
+                    }
+                    className="h-[16px] cursor-pointer"
+                    src={PasteImage}
+                    alt=""
+                  />
                 </p>
                 <p className="text-[#6C63FF] font-[Inter] font-medium text-sm">
-                  {item.page_url}
+                  {`https://track.presspool.ai/${item?.uid}`}
                 </p>
-                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px]">
-                  CTA Text
+                <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px] flex gap-2">
+                  CTA Text{" "}
+                  <img
+                    onClick={() => handleCopyToClipboard(item.cta)}
+                    className="h-[16px] cursor-pointer"
+                    src={PasteImage}
+                    alt=""
+                  />
                 </p>
                 <p className="text-primary font-[Inter] font-normal text-sm whitespace-pre-wrap">
                   {item.cta}
@@ -291,11 +359,44 @@ const ReadyToPublishCampaigns = () => {
               </div>
               <div className="w-full flex flex-col items-start justify-center">
                 <div className="flex flex-col h-full w-full justify-between">
-                  <img
-                    className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
-                    alt="market"
-                    src={item.image}
-                  />
+                  <div>
+                    <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pb-1 gap-2">
+                      Logo Image{" "}
+                      {/* <img
+                        onClick={() => downloadImage(item.image)}
+                        className="h-[16px] cursor-pointer"
+                        src={DownloadImage}
+                        alt=""
+                      /> */}
+                    </div>
+                    <img
+                      className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
+                      alt="market"
+                      src={item.image}
+                    />
+                    {files.length > 0 ? (
+                      <>
+                        <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pt-2 pb-1 gap-2">
+                          Cover Image(s){" "}
+                          {/* <img
+                        onClick={() => downloadImage(item.image)}
+                        className="h-[16px] cursor-pointer"
+                        src={DownloadImage}
+                        alt=""
+                      /> */}
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          {files.map((url: string) => (
+                            <img
+                              className="w-full w-full min-h-[88px] max-h-[88px] object-cover rounded-[10px]"
+                              alt="market"
+                              src={url}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
                   <div className="mt-[16px] flex items-center justify-end">
                     <button
                       onClick={() => handleReSchedule(item)}
@@ -316,6 +417,7 @@ const ReadyToPublishCampaigns = () => {
   };
   return (
     <div className="mt-3 h-full">
+      {contextHolder}
       <div className="text-left relative pt-1.5">
         <div className="top-35vh relative">{loading && <Loading />}</div>
         <div className="flex items-center w-full gap-5">
