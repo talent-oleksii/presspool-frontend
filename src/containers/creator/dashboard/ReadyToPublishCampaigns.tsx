@@ -96,29 +96,14 @@ const ReadyToPublishCampaigns = () => {
     } catch (error) {}
   };
 
-  const getFileNameFromUrl = (url: string) => {
-    return url.substring(url.lastIndexOf("/") + 1);
+  const downloadImage = (url: string) => {
+    window.open(url, "_blank");
   };
 
-  const downloadImage = async (url: string) => {
-    setLoading(true);
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const blob = await response.blob();
-      const link = document.createElement("a");
-      link.href = window.URL.createObjectURL(blob);
-      link.setAttribute("download", getFileNameFromUrl(url)); // Use the original file name
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (err) {
-      console.error("Failed to download image:", err);
-    } finally {
-      setLoading(false);
-    }
+  const downloadAllImages = (files: string[]) => {
+    files.forEach((url) => {
+      window.open(url, "_blank");
+    });
   };
 
   const getItems = (
@@ -362,12 +347,12 @@ const ReadyToPublishCampaigns = () => {
                   <div>
                     <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pb-1 gap-2">
                       Logo Image{" "}
-                      {/* <img
+                      <img
                         onClick={() => downloadImage(item.image)}
                         className="h-[16px] cursor-pointer"
                         src={DownloadImage}
                         alt=""
-                      /> */}
+                      />
                     </div>
                     <img
                       className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
@@ -378,12 +363,12 @@ const ReadyToPublishCampaigns = () => {
                       <>
                         <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pt-2 pb-1 gap-2">
                           Cover Image(s){" "}
-                          {/* <img
-                            onClick={() => downloadImage(item.image)}
+                          <img
+                            onClick={() => downloadAllImages(files)}
                             className="h-[16px] cursor-pointer"
                             src={DownloadImage}
                             alt=""
-                          /> */}
+                          />
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           {files.map((url: string) => (
