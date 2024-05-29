@@ -264,7 +264,7 @@ const ReadyToPublishCampaigns = () => {
                     alt=""
                   />
                 </p>
-                <p className="text-[#6C63FF] font-[Inter] font-medium text-sm">
+                <p className="text-[#6C63FF] font-[Inter] font-medium text-sm max-w-[700px] break-words">
                   {`https://track.presspool.ai/${item?.uid}`}
                 </p>
                 <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px] flex gap-2">
@@ -379,11 +379,11 @@ const ReadyToPublishCampaigns = () => {
                         <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pt-2 pb-1 gap-2">
                           Cover Image(s){" "}
                           {/* <img
-                        onClick={() => downloadImage(item.image)}
-                        className="h-[16px] cursor-pointer"
-                        src={DownloadImage}
-                        alt=""
-                      /> */}
+                            onClick={() => downloadImage(item.image)}
+                            className="h-[16px] cursor-pointer"
+                            src={DownloadImage}
+                            alt=""
+                          /> */}
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           {files.map((url: string) => (
