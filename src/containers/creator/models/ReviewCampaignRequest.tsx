@@ -23,7 +23,7 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
   onClose,
   item,
   setShowScheduleModel,
-  setShowFeedbackModel
+  setShowFeedbackModel,
 }: typeInviteAccountManager) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { creatorData } = useSelector(selectAuth);
@@ -56,7 +56,7 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
   const handleDeny = () => {
     onClose();
     setShowFeedbackModel(true);
-  }
+  };
 
   return (
     <Transition.Root show={show} as={Fragment}>

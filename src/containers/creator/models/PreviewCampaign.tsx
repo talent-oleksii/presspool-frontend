@@ -40,6 +40,8 @@ const PreviewCampaign: FC<typePreviewCampaign> = ({
     });
   };
 
+  const files = !!item.additional_files ? item.additional_files.split(",") : [];
+
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
@@ -115,7 +117,7 @@ const PreviewCampaign: FC<typePreviewCampaign> = ({
                   <h2 className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     {item?.headline}
                   </h2>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px] flex gap-2">
+                  <p className="text-primary font-[Inter]  text-sm font-semibold flex gap-2">
                     Body{" "}
                     <img
                       onClick={() => handleCopyToClipboard(item.body)}
@@ -127,7 +129,7 @@ const PreviewCampaign: FC<typePreviewCampaign> = ({
                   <h2 className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     {item?.body}
                   </h2>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px] flex gap-2">
+                  <p className="text-primary font-[Inter]  text-sm font-semibold  flex gap-2">
                     CTA Text{" "}
                     <img
                       onClick={() => handleCopyToClipboard(item.cta)}
@@ -139,7 +141,7 @@ const PreviewCampaign: FC<typePreviewCampaign> = ({
                   <h2 className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     {item?.cta}
                   </h2>
-                  <p className="text-primary font-[Inter] mt-[14px] text-sm font-semibold mt-[14px] flex gap-2">
+                  <p className="text-primary font-[Inter] text-sm font-semibold flex gap-2">
                     Tracking Link (MUST USE THIS EXACT LINK FOR ACCURATE
                     TRACKING){" "}
                     <img
@@ -153,7 +155,7 @@ const PreviewCampaign: FC<typePreviewCampaign> = ({
                       alt=""
                     />
                   </p>
-                  <p className="text-[#6C63FF] font-[Inter] font-medium text-sm max-w-[700px] break-words">
+                  <p className="text-[#6C63FF] font-[Inter] font-medium text-sm max-w-[700px] break-words mb-2">
                     {`https://track.presspool.ai/${item?.uid}`}
                   </p>
 
@@ -252,22 +254,32 @@ const PreviewCampaign: FC<typePreviewCampaign> = ({
                       className="h-[59px] w-[82px] object-cover rounded-[10px]"
                     />
                   </div>
-                  <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pt-2 pb-1 gap-2">
-                    Cover Image(s){" "}
-                  </div>
-                  <div className="font-[Inter] text-primary font-medium text-[12px] -tracking-[.42px] mb-2 flex gap-[10px]">
-                    {item?.additional_files
-                      ? item.additional_files
-                          ?.split(",")
-                          .map((url: string) => (
-                            <img
-                              src={url}
-                              alt="sample logo"
-                              className="h-[59px] w-[82px] object-cover rounded-[10px]"
-                            />
-                          ))
-                      : null}
-                  </div>
+                  {files.length > 0 ? (
+                    <>
+                      <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pt-2 pb-1 gap-2">
+                        Cover Image(s){" "}
+                        <img
+                          onClick={() => downloadAllImages(files)}
+                          className="h-[16px] cursor-pointer"
+                          src={DownloadImage}
+                          alt=""
+                        />
+                      </div>
+                      <div className="font-[Inter] text-primary font-medium text-[12px] -tracking-[.42px] mb-2 flex gap-[10px]">
+                        {item?.additional_files
+                          ? item.additional_files
+                              ?.split(",")
+                              .map((url: string) => (
+                                <img
+                                  src={url}
+                                  alt="sample logo"
+                                  className="h-[59px] w-[82px] object-cover rounded-[10px]"
+                                />
+                              ))
+                          : null}
+                      </div>
+                    </>
+                  ) : null}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
