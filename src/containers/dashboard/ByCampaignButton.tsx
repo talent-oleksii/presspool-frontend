@@ -14,6 +14,7 @@ interface IByCampaignButton {
   items: Array<any>;
   selectedCampaigns: Array<string>;
   setSelectedCampaigns: Dispatch<SetStateAction<string[]>>;
+  isCreator?: boolean;
 }
 
 const ByCampaignButton: React.FC<IByCampaignButton> = ({
@@ -21,6 +22,7 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
   items,
   setSelectedCampaigns,
   selectedCampaigns,
+  isCreator,
 }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
@@ -40,7 +42,15 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
       : [itemId.toString()];
 
     setSelectedCampaigns(campaignIds);
-    navigate(campaignIds.length ? `/campaign/${campaignIds.join(',')}` : `/campaign/all`);
+    let url = campaignIds.length
+      ? `/campaign/${campaignIds.join(",")}`
+      : `/campaign/all`;
+    if (isCreator) {
+      url = campaignIds.length
+        ? `/publishers/reporting/${campaignIds.join(",")}`
+        : `/publishers/reporting/all`;
+    }
+    navigate(url);
     if (campaignIds.length === 0) {
       hide();
     }
@@ -66,12 +76,17 @@ const ByCampaignButton: React.FC<IByCampaignButton> = ({
     >
       <button
         onMouseEnter={handleOpenChange}
-        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-primary flex px-4 py-[10px] rounded-[10px] ${id !== "all"
-          ? "bg-white ring-1 ring-main shadow-md"
-          : "bg-transparent ring-none"
-          }`}
+        className={`font-[Inter] text-[14px] font-semibold items-center gap-4 justify-between text-primary flex px-4 py-[10px] rounded-[10px] ${
+          id !== "all"
+            ? "bg-white ring-1 ring-main shadow-md"
+            : "bg-transparent ring-none"
+        }`}
       >
-        {selectedCampaigns.length <= 0 ? 'By Campaign' : items.filter(it => Number(it.id) === Number(selectedCampaigns[0]))[0]?.name}
+        {selectedCampaigns.length <= 0
+          ? "By Campaign"
+          : items.filter(
+              (it) => Number(it.id) === Number(selectedCampaigns[0])
+            )[0]?.name}
         <CaretDownOutlined />
       </button>
       {open && (

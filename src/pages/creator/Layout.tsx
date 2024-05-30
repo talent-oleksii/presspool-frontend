@@ -1,5 +1,6 @@
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Feedback from "../../containers/layout/Feedback";
+import Notification from "../../containers/layout/Notification";
 
 import Logo from "../../assets/logo/logo.png";
 import Mark from "../../assets/logo/logo.png";
@@ -21,13 +22,13 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    navigator("/publishers/login");
+    navigator("/");
   };
 
   const links = [
     {
       name: "Join Slack",
-      url: "https://join.slack.com/t/presspoolsupport/shared_invite/zt-1ytywzzld-974gUfTB8zCYlP4~f5XT1Q",
+      url: "https://join.slack.com/t/publishersupport/shared_invite/zt-2jlz48zu9-GEwvDXYk6IR57u1afRtNFQ",
     },
     { name: "Training Hub", url: "https://blog.presspool.ai" },
   ];
@@ -45,7 +46,10 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
               <img src={Logo} className="h-5" alt="logo" />
             </Link>
           </div>
-          <Feedback />
+          <div className="flex gap-3">
+            <Notification />
+            <Feedback />
+          </div>
         </div>
       </div>
       <div className="flex xsm:flex-col md:grid md:grid-cols-[206px_repeat(4,1fr)] gap-4 h-full md:h-calc-vh xsm:px-9 xsm:py-8">

@@ -3,7 +3,8 @@ import { CampaignTargetType } from "../constants/constant";
 
 export const creatorLoginSchema = yup.object().shape({
   email: yup
-    .string().trim()
+    .string()
+    .trim()
     .required("Enter email address")
     .email("Invalid email address"),
   password: yup.string().required("Enter password"),
@@ -35,10 +36,6 @@ export const creatorSignupSchema = yup.object().shape({
 });
 
 export const onboardingFormOneFormSchema = yup.object().shape({
-  audienceSize: yup.string().trim().required("Select audience size"),
-});
-
-export const onboardingFormTwoFormSchema = yup.object().shape({
   subscribers: yup
     .number()
     .positive("subscribers must be greater then 0")
@@ -47,11 +44,11 @@ export const onboardingFormTwoFormSchema = yup.object().shape({
   image: yup.mixed().required("Please select an image file"),
 });
 
-export const onboardingFormThreeFormSchema = yup.object().shape({
+export const onboardingFormTwoFormSchema = yup.object().shape({
   audience: yup.string().trim().required("Select audience"),
 });
 
-export const onboardingFormFourFormSchema = yup.object().shape({
+export const onboardingFormThreeFormSchema = yup.object().shape({
   industry: yup
     .array()
     .of(yup.string())
@@ -86,4 +83,9 @@ export const onboardingFormFourFormSchema = yup.object().shape({
     .max(4)
     .typeError("cpc must be a number")
     .required("Enter cpc"),
+});
+
+export const onboardingFormFourFormSchema = yup.object().shape({
+  avatar: yup.mixed().required("Please select profile avatar"),
+  teamAvatar: yup.mixed().required("Please select publication logo"),
 });

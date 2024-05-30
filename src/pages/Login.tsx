@@ -90,12 +90,12 @@ const Login: FC = () => {
       {loading && <Loading />}
       <div className="min-w-[400px] h-full bg-[#edecf2] px-[40px] py-[60px] hidden md:flex flex-col justify-between border-r-[1px] border-black">
         <div>
-          <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img src={Mark} alt="mark" className="w-[50px] me-2" />
             <h3 className="font-[Inter] text-primary text-[34px] font-medium -tracking-[1.02px]">
               presspool.ai
             </h3>
-          </div>
+          </Link>
           <div className="mt-10 flex">
             <span className="rounded-[10px] text-sm font-[Inter] font-medium -tracking-[.42px] bg-main text-[#2c2c2c] w-[28px] h-[28px] flex items-center justify-center me-3">
               1

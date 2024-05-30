@@ -235,7 +235,7 @@ const AdminDashboard: FC = () => {
     let sumBlog = 0;
 
     clicked.forEach((item) => {
-      if (getVerifiedClick(item)) {
+      if (item.user_medium === 'newsletter') {
         sumEmail += Number(item.unique_click);
       } else if (item.user_medium === "referral") {
         sumBlog += Number(item.unique_click);
@@ -361,9 +361,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
         AdminAPIInstance.get("/dashboard/newsletter", {
@@ -371,9 +371,9 @@ const AdminDashboard: FC = () => {
             campaignId: campaign,
             ...(dateRange.endDate &&
               dateRange.startDate && {
-                from: dateRange.startDate,
-                to: dateRange.endDate,
-              }),
+              from: dateRange.startDate,
+              to: dateRange.endDate,
+            }),
           },
         }),
       ])
@@ -428,24 +428,22 @@ const AdminDashboard: FC = () => {
         <div className="mt-4 flex justify-between items-center">
           <div>
             <button
-              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${
-                isOverview
-                  ? "bg-white border border-solid border-main shadow-md"
-                  : ""
-              } `}
+              className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-4 ${isOverview
+                ? "bg-white border border-solid border-main shadow-md"
+                : ""
+                } `}
               onClick={onOverViewClicked}
             >
               Overview
             </button>
             {adminRole === "super_admin" && (
               <SelectList
-                name={`${
-                  currentAM === 0 ||
+                name={`${currentAM === 0 ||
                   !accountManagers.find((value) => value.id === currentAM)
-                    ? "By Account Manager"
-                    : accountManagers.find((value) => value.id === currentAM)
-                        .name
-                }`}
+                  ? "By Account Manager"
+                  : accountManagers.find((value) => value.id === currentAM)
+                    .name
+                  }`}
                 setValue={(v: any) => {
                   setCurrentAM(v);
                 }}
@@ -454,12 +452,11 @@ const AdminDashboard: FC = () => {
               />
             )}
             <SelectList
-              name={`${
-                currentClient === 0 ||
+              name={`${currentClient === 0 ||
                 !clients.find((value) => value.id === currentClient)
-                  ? "By Company"
-                  : clients.find((value) => value.id === currentClient).company
-              }`}
+                ? "By Company"
+                : clients.find((value) => value.id === currentClient).company
+                }`}
               setValue={(v: any) => {
                 setCurrentClient(v);
               }}
@@ -467,12 +464,11 @@ const AdminDashboard: FC = () => {
               id={currentClient}
             />
             <SelectList
-              name={`${
-                currentCampaign === 0 ||
+              name={`${currentCampaign === 0 ||
                 !campaigns.find((value) => value.id === currentCampaign)
-                  ? "By Campaign"
-                  : campaigns.find((value) => value.id === currentCampaign).name
-              }`}
+                ? "By Campaign"
+                : campaigns.find((value) => value.id === currentCampaign).name
+                }`}
               setValue={(v: any) => {
                 setCurrentCampaign(v);
               }}
@@ -513,11 +509,10 @@ const AdminDashboard: FC = () => {
             </button>
           </div>
         </div>
-        <CampaignStatsCard rootClassName="rounded-[10px] grid grid-cols-5 gap-3 min-h-[90px] mt-4" />
+        <CampaignStatsCard rootClassName="rounded-[10px] grid grid-cols-4 gap-3 min-h-[90px] mt-4" />
         <div
-          className={`my-3 p-5 ${
-            !!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
-          } rounded-[10px] bg-white shadow-md`}
+          className={`my-3 p-5 ${!!chartData.length ? " min-h-[450px] " : " min-h-[200px] "
+            } rounded-[10px] bg-white shadow-md`}
         >
           <div className="flex justify-between items-baseline relative">
             <div>
@@ -534,10 +529,10 @@ const AdminDashboard: FC = () => {
                   <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-main"></span>
                   Total Clicks
                 </p>
-                <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
+                {/* <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
                   <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#6C63FF]"></span>
                   Unique Clicks
-                </p>
+                </p> */}
                 <p className="flex items-center gap-1 font-[Inter] text-primary text-[10px] 2xl:text-xs mt-2 font-semibold">
                   <span className="w-4 h-[3px] shrink-0 rounded-[10px] bg-[#FDE006]"></span>
                   Verified Clicks
@@ -547,9 +542,8 @@ const AdminDashboard: FC = () => {
           </div>
           <div className="flex justify-between">
             <div
-              className={`flex w-full ${
-                !!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
-              } items-center justify-center mt-12`}
+              className={`flex w-full ${!!chartData.length ? " min-h-[350px] " : " min-h-[50px] "
+                } items-center justify-center mt-12`}
             >
               {chartData.length > 0 ? (
                 <ResponsiveContainer height={350}>
@@ -576,7 +570,7 @@ const AdminDashboard: FC = () => {
                           stopOpacity={0}
                         />
                       </linearGradient>
-                      <linearGradient
+                      {/* <linearGradient
                         id="colorUniqueClicks"
                         x1="0"
                         y1="0"
@@ -593,7 +587,7 @@ const AdminDashboard: FC = () => {
                           stopColor="#6C63FF"
                           stopOpacity={0}
                         />
-                      </linearGradient>
+                      </linearGradient> */}
                       <linearGradient
                         id="colorVerifiedClicks"
                         x1="0"
@@ -623,16 +617,16 @@ const AdminDashboard: FC = () => {
                       fillOpacity={1}
                       fill="url(#colorTotal)"
                     />
-                    <Area
+                    {/* <Area
                       type="monotone"
                       dataKey="uniqueClicks"
                       stroke="#6C63FF"
                       fillOpacity={1}
                       fill="url(#colorUniqueClicks)"
-                    />
+                    /> */}
                     <Area
                       type="monotone"
-                      dataKey="verifiedClicks"
+                      dataKey="uniqueClicks"
                       stroke="#FDE006"
                       fillOpacity={1}
                       fill="url(#colorVerifiedClicks)"

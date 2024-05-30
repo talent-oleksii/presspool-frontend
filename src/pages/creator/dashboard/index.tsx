@@ -21,7 +21,7 @@ const CreatorDashboard = () => {
     switch (selectedTab) {
       case "new":
         return <NewCampaignRequests />;
-      case "readyToPublish":
+      case "scheduled":
         return <ReadyToPublishCampaigns />;
       case "active":
         return <ActiveCampaigns />;
@@ -68,13 +68,13 @@ const CreatorDashboard = () => {
               </button>
               <button
                 className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${
-                  selectedTab === "readyToPublish"
+                  selectedTab === "scheduled"
                     ? "bg-white border border-solid border-main shadow-md"
                     : "bg-transparent ring-none"
                 }`}
-                onClick={() => handleTabClick("readyToPublish")}
+                onClick={() => handleTabClick("scheduled")}
               >
-                Ready To Publish
+                Scheduled
               </button>
               <button
                 className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${

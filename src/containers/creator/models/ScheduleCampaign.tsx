@@ -6,20 +6,28 @@ import ErrorMessage from "../../../components/ErrorMessage";
 import moment from "moment";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
 import DialogUtils from "../../../utils/DialogUtils";
+import { message } from "antd";
 
 interface typeInviteAccountManager {
   show: boolean;
   onClose: Function;
   item: any;
   loadCampaigns: Function;
+  isReschedule?: boolean;
+  setShowPreviewModel?: Function;
+  loadNotifications?:Function;
 }
 
 const ScheduleCampaign: FC<typeInviteAccountManager> = ({
   show,
   onClose,
   item,
-  loadCampaigns
+  loadCampaigns,
+  isReschedule,
+  setShowPreviewModel,
+  loadNotifications
 }: typeInviteAccountManager) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState<any>(null);
   const [isReviewClicked, setIsReviewClicked] = useState(false);
@@ -44,15 +52,19 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
       await CreatorAPIInstance.put("scheduleCampaign", {
         requestid: item.requestid,
         scheduleDate: moment(value).unix(),
+        isReschedule: !!isReschedule,
       });
       onClose();
       setLoading(false);
-      DialogUtils.show(
-        "success",
-        "Campaign Scheduled",
-        `You have successfully scheduled ${item.company}'s campaign for publishing.`
-      );
+      messageApi.open({
+        type: "success",
+        content: `You have successfully scheduled ${item.company}'s campaign for publishing.`,
+      });
+      setIsReviewClicked(false);
+      setValue(null);
       loadCampaigns();
+      loadNotifications?.();
+      setShowPreviewModel?.();
     } catch (error: any) {
       DialogUtils.show("error", "", error.toString());
       setLoading(false);
@@ -63,6 +75,7 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
         <div className="fixed inset-0 z-10 overflow-y-auto">
+          {contextHolder}
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 bg-black/[.8]">
             <Transition.Child
               as={Fragment}
@@ -151,7 +164,7 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
                       Publish Date
                     </p>
                     <Input
-                      className="mt-2 w-full px-4 py-2.5 flex border-[1px] rounded-[10px] border-[#7f8182] items-center justify-between"
+                      className="mt-2 w-full px-4 py-2.5 border-[1px] rounded-[10px] border-[#7f8182]"
                       type="datetime-local"
                       value={value}
                       onChange={handleChange}

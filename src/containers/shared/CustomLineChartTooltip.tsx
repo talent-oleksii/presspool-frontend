@@ -15,11 +15,11 @@ const CustomLineChartTooltip: FC = ({ active, payload, label }: any) => {
           <p className="text-[10px] font-bold">Totals</p>
           <p className="text-[8px] font-normal">Clicks: {payload[0].value}</p>
           <p className="text-[8px] font-normal">
-            Unique Clicks: {payload[1].value}
+            Verified Clicks: {payload[1].value}
           </p>
-          <p className="text-[8px] font-normal">
+          {/* <p className="text-[8px] font-normal">
             Verified Clicks: {payload[2].value}
-          </p>
+          </p> */}
         </div>
       </div>
     );

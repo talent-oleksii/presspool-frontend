@@ -1,6 +1,6 @@
 import { FC, useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Avatar, Button, Table } from "antd";
+import { Avatar, Button } from "antd";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
@@ -14,8 +14,8 @@ import { OnboardingTabs } from "../../../constants/constant";
 import FormProviderWrapper from "../../../components/FormProviderWrapper";
 import StepTwoForm from "../../../containers/creator/onboarding/StepTwoForm";
 import StepThreeForm from "../../../containers/creator/onboarding/StepThreeForm";
-import StepFourForm from "../../../containers/creator/onboarding/StepFourForm";
 import { useUpsertOnboarding } from "../../../hooks/forms/useUpsertOnboarding";
+import StepOneForm from "../../../containers/creator/onboarding/StepOneForm";
 
 const CreatorProfile: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -138,21 +138,21 @@ const CreatorProfile: FC = () => {
     setCurrentTab(tab);
   };
 
-  const { stepTwoMethods, stepThreeMethods, stepFourMethods } =
+  const {stepOneMethods, stepTwoMethods, stepThreeMethods } =
     useUpsertOnboarding(id);
 
   const handleStepOneSubmit = async () => {
     setLoading(true);
-    const stepTwoValues = stepTwoMethods.getValues();
-    if (stepTwoValues.image && typeof stepTwoValues.image !== "string") {
+    const stepOneValues = stepOneMethods.getValues();
+    if (stepOneValues.image && typeof stepOneValues.image !== "string") {
       const formData = new FormData();
       formData.append("creatorId", id ?? "");
-      formData.append("subscriber_proof", stepTwoValues.image);
+      formData.append("subscriber_proof", stepOneValues.image);
       await CreatorAPIInstance.put("updateSubscribeProof", formData);
     }
 
     CreatorAPIInstance.post("updateAudienceSize", {
-      subscribers: stepTwoValues.subscribers,
+      subscribers: stepOneValues.subscribers,
       creatorId: id,
     })
       .then(({ data }) => {
@@ -163,9 +163,9 @@ const CreatorProfile: FC = () => {
 
   const handleStepTwoSubmit = () => {
     setLoading(true);
-    const stepThreeValues = stepThreeMethods.getValues();
+    const stepTwoValues = stepTwoMethods.getValues();
     CreatorAPIInstance.post("updateAudience", {
-      audience: stepThreeValues.audience,
+      audience: stepTwoValues.audience,
       creatorId: id,
     })
       .then(({ data }) => {
@@ -176,13 +176,13 @@ const CreatorProfile: FC = () => {
 
   const handleStepThreeSubmit = () => {
     setLoading(true);
-    const stepFourValues = stepFourMethods.getValues();
+    const stepThreeValues = stepThreeMethods.getValues();
     CreatorAPIInstance.post("updateTargeting", {
-      industry: stepFourValues.industry,
-      position: stepFourValues.position,
-      geography: stepFourValues.geography,
-      averageUniqueClick: stepFourValues.averageUniqueClick,
-      cpc: stepFourValues.cpc,
+      industry: stepThreeValues.industry,
+      position: stepThreeValues.position,
+      geography: stepThreeValues.geography,
+      averageUniqueClick: stepThreeValues.averageUniqueClick,
+      cpc: stepThreeValues.cpc,
       creatorId: id,
     })
       .then(({ data }) => {
@@ -391,10 +391,10 @@ const CreatorProfile: FC = () => {
                   }`}
                 >
                   <FormProviderWrapper
-                    methods={stepTwoMethods}
+                    methods={stepOneMethods}
                     onSubmit={handleStepOneSubmit}
                   >
-                    <StepTwoForm buttonText="Save Changes" />
+                    <StepOneForm buttonText="Save Changes" />
                   </FormProviderWrapper>
                 </div>
 
@@ -405,10 +405,10 @@ const CreatorProfile: FC = () => {
                   }`}
                 >
                   <FormProviderWrapper
-                    methods={stepThreeMethods}
+                    methods={stepTwoMethods}
                     onSubmit={handleStepTwoSubmit}
                   >
-                    <StepThreeForm buttonText="Save Changes" />
+                    <StepTwoForm buttonText="Save Changes" />
                   </FormProviderWrapper>
                 </div>
 
@@ -419,10 +419,10 @@ const CreatorProfile: FC = () => {
                   }`}
                 >
                   <FormProviderWrapper
-                    methods={stepFourMethods}
+                    methods={stepThreeMethods}
                     onSubmit={handleStepThreeSubmit}
                   >
-                    <StepFourForm
+                    <StepThreeForm
                       audience={audience}
                       buttonText="Save Changes"
                     />

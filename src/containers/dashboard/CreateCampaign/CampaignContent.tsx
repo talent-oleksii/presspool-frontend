@@ -208,7 +208,7 @@ const CampaignContent: FC = () => {
           />
           <div className="flex flex-col gap-1">
             <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
-              Hero Image
+              Logo Image
               <span className="ms-1 text-[red] text-xs">*</span>
               <CustomTooltip title="Recommended dimensions: 1200px X 600px" />
             </div>
@@ -289,8 +289,8 @@ const CampaignContent: FC = () => {
           </div>
           <div className="flex flex-col gap-1">
             <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center">
-              Additional Assets
-              <CustomTooltip title="Additional files for your campaign" />
+              Cover Image(s)
+              <CustomTooltip title="Add any cover images/graphics if you have them" />
             </div>
             <p className="text-[#7f8182] font-[Inter] text-[13px] font-medium mb-0">
               Click below to add your files
@@ -411,7 +411,7 @@ const CampaignContent: FC = () => {
               </div>
               <div className="pb-3 px-4 flex flex-col items-center justify-between flex-1">
                 <div className="text-left w-full">
-                  <p className="w-full text-left font-[Inter] font-normal text-primary text-xs break-all whitespace-pre-wrap">
+                  <p className="w-full text-left font-[Inter] font-normal text-primary text-xs whitespace-pre-wrap" style={{ wordBreak: 'break-word' }}>
                     {watch("body")}
                   </p>
                 </div>

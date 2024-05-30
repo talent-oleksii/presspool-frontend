@@ -14,8 +14,10 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
     campaign: data,
   } = useSelector(selectData);
   const { isCreatorAuthenticated, creatorData } = useSelector(selectAuth);
-  const { totalClicks, uniqueClicks, totalBudget, verifiedClicks, avgCPC } =
-    useAnalytics(clicked, data);
+  const { totalClicks, uniqueClicks, totalBudget, avgCPC } = useAnalytics(
+    clicked,
+    data
+  );
 
   const calculateChangeDirection = (oldValue: number, newValue: number) => {
     const difference = newValue - oldValue;
@@ -62,7 +64,7 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         rootClassName
           ? rootClassName
           : `rounded-[10px] grid ${
-              isCreatorAuthenticated ? "grid-cols-4" : "grid-cols-5"
+              isCreatorAuthenticated ? "grid-cols-4" : "grid-cols-4"
             } gap-3 min-h-[90px]`
       }
     >
@@ -74,7 +76,7 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
           totalClicks
         )}
       />
-      {!isCreatorAuthenticated ? (
+      {/* {!isCreatorAuthenticated ? (
         <Card
           title={"Unique Clicks"}
           value={uniqueClicks}
@@ -83,23 +85,23 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
             uniqueClicks
           )}
         />
-      ) : null}
+      ) : null} */}
       <Card
         title={"Verified Clicks"}
-        value={verifiedClicks}
+        value={uniqueClicks}
         percentageText={calculateChangeDirection(
-          prevData.verifiedClicks,
-          verifiedClicks
+          prevData.uniqueClicks,
+          uniqueClicks
         )}
       />
       {isCreatorAuthenticated ? (
         <>
           <Card
-            title={"Total Charged"}
-            value={`$${(creatorData?.cpc ?? 0 * verifiedClicks).toFixed(2)}`}
+            title={"Revenue Earned"}
+            value={`$${(creatorData?.cpc * Number(uniqueClicks)).toFixed(2)}`}
             percentageText={calculateChangeDirection(
-              creatorData?.cpc ?? 0 * prevData.verifiedClicks,
-              creatorData?.cpc ?? 0 * verifiedClicks
+              creatorData?.cpc ?? 0 * prevData.uniqueClicks,
+              creatorData?.cpc ?? 0 * uniqueClicks
             )}
           />
           <Card
