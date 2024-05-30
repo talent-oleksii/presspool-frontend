@@ -1,67 +1,52 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Avatar } from "antd";
+import { Avatar, message } from "antd";
 import moment from "moment";
-import { getPlaceHolder } from "../../../utils/commonUtils";
+import { copyToClipboard, getPlaceHolder } from "../../../utils/commonUtils";
 import { capitalize } from "lodash";
-import StripeUtil from "../../../utils/stripe";
-import { useSelector } from "react-redux";
-import { selectAuth } from "../../../store/authSlice";
-import Loading from "../../../components/Loading";
 import { ConversionGoal } from "../../../constants/constant";
+import PasteImage from "../../../assets/icon/paste.png";
+import DownloadImage from "../../../assets/icon/downloads1.png";
 
-interface typeInviteAccountManager {
+interface typePreviewCampaign {
   show: boolean;
   onClose: Function;
   item: any;
-  setShowScheduleModel: Function;
-  setShowFeedbackModel: Function;
 }
 
-const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
+const PreviewCampaign: FC<typePreviewCampaign> = ({
   show,
   onClose,
   item,
-  setShowScheduleModel,
-  setShowFeedbackModel,
-}: typeInviteAccountManager) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const { creatorData } = useSelector(selectAuth);
-  const { email } = creatorData;
-
-  const handleAccept = async () => {
-    setLoading(true);
-    const isAccountLinked = await StripeUtil.isAccountLinked(email);
-    if (!isAccountLinked) {
-      const account = await StripeUtil.stripe.accounts.create({
-        type: "standard",
-        metadata: {
-          work_email: email,
-        },
+}: typePreviewCampaign) => {
+  const [messageApi, contextHolder] = message.useMessage();
+  const handleCopyToClipboard = async (text: string) => {
+    try {
+      await copyToClipboard(text);
+      messageApi.open({
+        type: "success",
+        content: "Copied to clipboard!",
       });
-      const accountLink = await StripeUtil.stripe.accountLinks.create({
-        account: account.id,
-        refresh_url: `https://go.presspool.ai/publishers/dashboard?campaignId=${item.id}`,
-        return_url: `https://go.presspool.ai/publishers/dashboard?campaignId=${item.id}`,
-        type: "account_onboarding",
-      });
-      window.open(accountLink.url, "_self");
-    } else {
-      onClose();
-      setShowScheduleModel(true);
-      setLoading(false);
-    }
+    } catch (error) {}
   };
 
-  const handleDeny = () => {
-    onClose();
-    setShowFeedbackModel(true);
+  const downloadImage = (url: string) => {
+    window.open(url, "_blank");
   };
+
+  const downloadAllImages = (files: string[]) => {
+    files.forEach((url) => {
+      window.open(url, "_blank");
+    });
+  };
+
+  const files = !!item.additional_files ? item.additional_files.split(",") : [];
 
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
         <div className="fixed inset-0 z-10 overflow-y-auto">
+          {contextHolder}
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 bg-black/[.8]">
             <Transition.Child
               as={Fragment}
@@ -75,7 +60,6 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
               <Dialog.Panel
                 className={`relative bg-white rounded-[10px] text-left flex flex-col shadow-xl border-[1px] border-black p-3 min-w-[500px] max-w-[500px]`}
               >
-                {loading && <Loading />}
                 <div className="flex flex-row gap-2 shrink-0 justify-between">
                   <div className="flex items-center">
                     <Avatar
@@ -120,62 +104,61 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
                     </p>
                   </div>
                 </div>
-                <p className="text-center font-medium text-primary text-[14px]">
-                  {item?.headline}
-                </p>
-                <div className="grid grid-cols-3 gap-3 my-4">
-                  <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
-                    <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                      CPC Bid
-                    </p>
-                    <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                      ${item.cpc}
-                    </p>
-                  </div>
-                  <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
-                    <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                      Estimated Payout
-                    </p>
-                    <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                      ${Number(item?.average_unique_click) * Number(item?.cpc)}
-                    </p>
-                  </div>
-                  <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
-                    <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                      Accept By
-                    </p>
-                    <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                      {moment(Number(item.create_time))
-                        .add(10, "days")
-                        .format("MM/DD/yyyy")}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col h-full w-full ">
-                  <p className="text-primary font-[Inter] text-[12px] font-semibold">
-                    Headline
+                <div className="flex flex-col h-full w-full mt-3">
+                  <p className="text-primary font-[Inter] text-sm font-semibold font-normal flex gap-2">
+                    Headline{" "}
+                    <img
+                      onClick={() => handleCopyToClipboard(item.headline)}
+                      className="h-[16px] cursor-pointer"
+                      src={PasteImage}
+                      alt=""
+                    />
                   </p>
                   <h2 className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     {item?.headline}
                   </h2>
-                  <p className="text-primary font-[Inter] text-[12px] font-semibold">
-                    Body
+                  <p className="text-primary font-[Inter]  text-sm font-semibold flex gap-2">
+                    Body{" "}
+                    <img
+                      onClick={() => handleCopyToClipboard(item.body)}
+                      className="h-[16px] cursor-pointer"
+                      src={PasteImage}
+                      alt=""
+                    />
                   </p>
                   <h2 className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     {item?.body}
                   </h2>
-                  <p className="text-primary font-[Inter] text-[12px] font-semibold">
-                    CTA Text
+                  <p className="text-primary font-[Inter]  text-sm font-semibold  flex gap-2">
+                    CTA Text{" "}
+                    <img
+                      onClick={() => handleCopyToClipboard(item.cta)}
+                      className="h-[16px] cursor-pointer"
+                      src={PasteImage}
+                      alt=""
+                    />
                   </p>
                   <h2 className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     {item?.cta}
                   </h2>
-                  <p className="text-primary font-[Inter] text-[12px] font-semibold">
-                    CTA Link
+                  <p className="text-primary font-[Inter] text-sm font-semibold flex gap-2">
+                    Tracking Link (MUST USE THIS EXACT LINK FOR ACCURATE
+                    TRACKING){" "}
+                    <img
+                      onClick={() =>
+                        handleCopyToClipboard(
+                          `https://track.presspool.ai/${item?.uid}`
+                        )
+                      }
+                      className="h-[16px] cursor-pointer"
+                      src={PasteImage}
+                      alt=""
+                    />
                   </p>
-                  <h2 className="font-[Inter] text-[#6C63FF] font-light text-[12px] -tracking-[.42px] mb-2">
-                    {item?.page_url}
-                  </h2>
+                  <p className="text-[#6C63FF] font-[Inter] font-medium text-sm max-w-[700px] break-words mb-2">
+                    {`https://track.presspool.ai/${item?.uid}`}
+                  </p>
+
                   <p className="text-primary font-[Inter] text-[12px] font-semibold">
                     Conversion Goal
                   </p>
@@ -255,9 +238,15 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
                       </p>
                     </div>
                   </div>
-                  <p className="text-primary font-[Inter] text-[12px] font-semibold">
-                    Hero Image
-                  </p>
+                  <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pb-1 gap-2">
+                    Logo Image{" "}
+                    <img
+                      onClick={() => downloadImage(item.image)}
+                      className="h-[16px] cursor-pointer"
+                      src={DownloadImage}
+                      alt=""
+                    />
+                  </div>
                   <div className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     <img
                       src={item?.image}
@@ -265,36 +254,32 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
                       className="h-[59px] w-[82px] object-cover rounded-[10px]"
                     />
                   </div>
-                  <p className="text-primary font-[Inter] text-[12px] font-semibold">
-                    Additional Assets
-                  </p>
-                  <div className="font-[Inter] text-primary font-medium text-[12px] -tracking-[.42px] mb-2 flex gap-[10px]">
-                    {item?.additional_files
-                      ? item.additional_files
-                          ?.split(",")
-                          .map((url: string) => (
-                            <img
-                              src={url}
-                              alt="sample logo"
-                              className="h-[59px] w-[82px] object-cover rounded-[10px]"
-                            />
-                          ))
-                      : null}
-                  </div>
-                </div>
-                <div className="w-full flex justify-center mt-9">
-                  <button
-                    className="font-[Inter] w-3/2 text-primary font-semibold bg-main rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
-                    onClick={handleAccept}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="font-[Inter] w-3/2 text-[white] bg-error rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
-                    onClick={handleDeny}
-                  >
-                    Reject
-                  </button>
+                  {files.length > 0 ? (
+                    <>
+                      <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pt-2 pb-1 gap-2">
+                        Cover Image(s){" "}
+                        <img
+                          onClick={() => downloadAllImages(files)}
+                          className="h-[16px] cursor-pointer"
+                          src={DownloadImage}
+                          alt=""
+                        />
+                      </div>
+                      <div className="font-[Inter] text-primary font-medium text-[12px] -tracking-[.42px] mb-2 flex gap-[10px]">
+                        {item?.additional_files
+                          ? item.additional_files
+                              ?.split(",")
+                              .map((url: string) => (
+                                <img
+                                  src={url}
+                                  alt="sample logo"
+                                  className="h-[59px] w-[82px] object-cover rounded-[10px]"
+                                />
+                              ))
+                          : null}
+                      </div>
+                    </>
+                  ) : null}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -305,4 +290,4 @@ const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
   );
 };
 
-export default ReviewCampaignRequest;
+export default PreviewCampaign;

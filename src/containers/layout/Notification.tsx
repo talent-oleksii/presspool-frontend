@@ -8,11 +8,17 @@ import { selectAuth } from "../../store/authSlice";
 // @ts-ignore
 import html2pdf from "html2pdf.js";
 import { capitalize } from "lodash";
+import {
+  notificationData,
+  setNotifications,
+} from "../../store/notificationSlice";
+import { useDispatch } from "react-redux";
 const Notification: React.FC = () => {
   const { creatorData } = useSelector(selectAuth);
+  const { data: notifications } = useSelector(notificationData);
   const { id } = creatorData;
+  const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
-  const [notifications, setNotifications] = useState<Array<any>>([]);
   const ref = useRef<any>(null);
 
   const hide = () => {
@@ -40,8 +46,8 @@ const Notification: React.FC = () => {
     const { data } = await CreatorAPIInstance.get("getNotifications", {
       params: { creatorId: id },
     });
-    setNotifications(data);
-  }, [id]);
+    dispatch(setNotifications(data));
+  }, [dispatch, id]);
 
   useEffect(() => {
     loadNotifications();
@@ -96,7 +102,9 @@ const Notification: React.FC = () => {
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px;display:inline-block">
               <h1><b>Tracking Link</b></h1> 
-                <a target="_blank" href="${item.trackinglink}">${item.trackinglink}</a>
+                <a target="_blank" href="${item.trackinglink}">${
+          item.trackinglink
+        }</a>
               </div>
               <div style="text-align:left; width:'100%';padding-top: 5px">
               <h1><b>CTA Text</b></h1> 
@@ -143,7 +151,9 @@ const Notification: React.FC = () => {
         `;
 
         var opt = {
-          filename:  `${company ? `${company}'s_` : ""}campaign_${campaignId}.pdf`,
+          filename: `${
+            company ? `${company}'s_` : ""
+          }campaign_${campaignId}.pdf`,
         };
         // Convert HTML content to PDF
         html2pdf().from(htmlContent).set(opt).save();
@@ -158,7 +168,7 @@ const Notification: React.FC = () => {
   return (
     <div ref={ref} className="flex items-center relative">
       <button
-        onClick={handleOpenChange}
+        onMouseEnter={handleOpenChange}
         className="flex font-[Inter] rounded-[10px] h-7 px-3 py-[3px] gap-1 font-medium text-primary text-xs whitespace-nowrap items-center border border-solid border-main"
       >
         <span role="img" aria-label="support">
@@ -166,7 +176,7 @@ const Notification: React.FC = () => {
         </span>
         <span className="font-[Inter] text-xs">Notifications</span>
         <Badge
-          count={notifications.length}
+          count={notifications?.length}
           showZero
           color="#7FFBAE"
           styles={{ indicator: { color: "#000" } }}
@@ -175,7 +185,7 @@ const Notification: React.FC = () => {
       </button>
       {open && (
         <Menu className="min-w-[300px] absolute top-[calc(100%+8px)] right-[0] !shadow-md rounded-[10px] text-left z-[9]">
-          {notifications.map((item, idx) => (
+          {(notifications || []).map((item: any, idx: any) => (
             <Menu.Item
               key={idx}
               onClick={() => handleDownload(item.campaign_id, item.company)}

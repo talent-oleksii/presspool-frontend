@@ -2,7 +2,7 @@ import { Avatar, Menu, MenuProps } from "antd";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GetItem, MenuItem } from "../../shared/GetItem";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "../../../store/authSlice";
 import Loading from "../../../components/Loading";
 import { getPlaceHolder } from "../../../utils/commonUtils";
@@ -11,8 +11,11 @@ import moment from "moment";
 import useQuery from "../../../hooks/useQuery";
 import ScheduleCampaign from "../models/ScheduleCampaign";
 import RejectCampaignFeedback from "../models/RejectCampaignFeedback";
+import PreviewCampaign from "../models/PreviewCampaign";
+import { setNotifications } from "../../../store/notificationSlice";
 
 const NewCampaignRequests = () => {
+  const dispatch = useDispatch();
   const { campaignId } = useQuery();
   const { creatorData } = useSelector(selectAuth);
   const { id } = creatorData;
@@ -22,6 +25,7 @@ const NewCampaignRequests = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("Newest to Oldest");
   const [showReviewModel, setShowReviewModel] = useState(false);
+  const [showPreviewModel, setShowPreviewModel] = useState(false);
   const [showScheduleModel, setShowScheduleModel] = useState(false);
   const [showFeedbackModel, setShowFeedbackModel] = useState(false);
   const [selectedCampaign, setSelectedCampaign] = useState<any>({});
@@ -85,6 +89,13 @@ const NewCampaignRequests = () => {
       }
     }
   }, [campaign, campaignId, loading]);
+
+  const loadNotifications = useCallback(async () => {
+    const { data } = await CreatorAPIInstance.get("getNotifications", {
+      params: { creatorId: id },
+    });
+    dispatch(setNotifications(data));
+  }, [dispatch, id]);
 
   return (
     <div className="mt-3 h-full">
@@ -259,12 +270,19 @@ const NewCampaignRequests = () => {
         onClose={() => setShowScheduleModel(false)}
         item={selectedCampaign}
         loadCampaigns={loadCampaigns}
+        setShowPreviewModel={() => setShowPreviewModel(true)}
+        loadNotifications={loadNotifications}
       />
       <RejectCampaignFeedback
         show={showFeedbackModel}
         onClose={() => setShowFeedbackModel(false)}
         item={selectedCampaign}
         loadCampaigns={loadCampaigns}
+      />
+      <PreviewCampaign
+        show={showPreviewModel}
+        onClose={() => setShowPreviewModel(false)}
+        item={selectedCampaign}
       />
     </div>
   );

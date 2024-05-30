@@ -1,12 +1,13 @@
 // rootReducer.ts
-import { combineReducers } from '@reduxjs/toolkit';
-import authReducer from './authSlice';
-import dataReducer from './dataSlice';
+import { combineReducers } from "@reduxjs/toolkit";
+import authReducer from "./authSlice";
+import dataReducer from "./dataSlice";
+import notificationSlice from "./notificationSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   data: dataReducer,
-  // Add other reducers as needed
+  notification: notificationSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
