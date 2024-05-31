@@ -34,7 +34,7 @@ const CreatorDashboard = () => {
   };
 
   return (
-    <div className="text-left relative pt-1.5 h-full flex flex-col">
+    <div className="text-left relative h-full flex flex-col">
       <h1 className="font-semibold font-[Inter] text-[18px] md:text-xl -tracking-[.6px]">
         All Campaigns
       </h1>
@@ -84,7 +84,7 @@ const CreatorDashboard = () => {
                 }`}
                 onClick={() => handleTabClick("active")}
               >
-                Active Campaigns
+                Active
               </button>
               <button
                 className={`inline-flex items-center justify-center text-primary text-[14px] font-semibold px-4 py-[10px] font-[Inter] rounded-[10px] sm:w-[170px] me-2 ${

@@ -39,8 +39,8 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
         <div>Your email is not verified yet, please verify your email</div>
       ) : (
         <> */}
-      <div className="w-full z-[7] pt-2.5 pl-2.5 pr-8 xsm:hidden">
-        <div className="flex bg-[#fffdfd] rounded-[10px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between">
+      <div className="w-full z-[7] pt-2.5 pl-2.5 pr-8 xsm:hidden pb-3">
+        <div className="flex bg-[#fffdfd] rounded-[10px] items-center pl-2.5 pr-2.5 h-[40px] w-full justify-between shadow-md shadow-grey">
           <div className="flex items-center justify-center px-2 border-r-2 border-grey-100 border-solid">
             <Link to="/" className="text-left w-full ">
               <img src={Logo} className="h-5" alt="logo" />
@@ -53,7 +53,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
         </div>
       </div>
       <div className="flex xsm:flex-col md:grid md:grid-cols-[206px_repeat(4,1fr)] gap-4 h-full md:h-calc-vh xsm:px-9 xsm:py-8">
-        <div className="col-span-1 pt-3 pb-3 pl-2.5 flex flex-col justify-between xsm:hidden">
+        <div className="col-span-1 pb-3 pl-2.5 flex flex-col justify-between xsm:hidden">
           <div>
             <div className="flex flex-col gap-3.5 items-center justify-center">
               <NavLink
@@ -135,7 +135,7 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
             />
           </svg>
         </div>
-        <div className="col-span-4 pt-1 md:pt-2.5 pb-4 md:pr-8 md:pl-2 overflow-y-auto bg-[#EDECF2]">
+        <div className="col-span-4 pt-1 pb-4 md:pr-8 md:pl-2 overflow-y-auto bg-[#EDECF2]">
           {props?.children}
         </div>
       </div>
