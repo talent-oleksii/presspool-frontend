@@ -21,7 +21,7 @@ module.exports = {
         error: "#FF4D42",
       },
       height: {
-        "calc-vh": "calc(100% - 50px)",
+        "calc-vh": "calc(100% - 62px)",
       },
       boxShadow: {
         card: "0px 5px 40px 0px rgba(113, 144, 175, 0.1)",
