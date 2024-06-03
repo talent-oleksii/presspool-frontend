@@ -11,7 +11,7 @@ import Loading from "../../../components/Loading";
 import { ConversionGoal } from "../../../constants/constant";
 import CustomTooltip from "../../../components/CustomTooltip";
 
-interface typeInviteAccountManager {
+interface typeReviewCampaignRequest {
   show: boolean;
   onClose: Function;
   item: any;
@@ -19,13 +19,13 @@ interface typeInviteAccountManager {
   setShowFeedbackModel: Function;
 }
 
-const ReviewCampaignRequest: FC<typeInviteAccountManager> = ({
+const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
   show,
   onClose,
   item,
   setShowScheduleModel,
   setShowFeedbackModel,
-}: typeInviteAccountManager) => {
+}: typeReviewCampaignRequest) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { creatorData } = useSelector(selectAuth);
   const { email } = creatorData;

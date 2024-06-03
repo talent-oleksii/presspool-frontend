@@ -8,7 +8,7 @@ import { MAIN_ROUTE_FADE_UP_ANIMATION_VARIANTS } from "../../../utils/Transition
 import Loading from "../../../components/Loading";
 import { getPlaceHolder } from "../../../utils/commonUtils";
 import DialogUtils from "../../../utils/DialogUtils";
-import { selectAuth, setCreatorData } from "../../../store/authSlice";
+import { selectAuth } from "../../../store/authSlice";
 import StripeUtil from "../../../utils/stripe";
 import { OnboardingTabs } from "../../../constants/constant";
 import FormProviderWrapper from "../../../components/FormProviderWrapper";
@@ -16,32 +16,37 @@ import StepTwoForm from "../../../containers/creator/onboarding/StepTwoForm";
 import StepThreeForm from "../../../containers/creator/onboarding/StepThreeForm";
 import { useUpsertOnboarding } from "../../../hooks/forms/useUpsertOnboarding";
 import StepOneForm from "../../../containers/creator/onboarding/StepOneForm";
+import { selectData, setSelectedPublication } from "../../../store/dataSlice";
 
 const CreatorProfile: FC = () => {
+  const { selectedPubllication } = useSelector(selectData);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const companyfileInputRef = useRef<HTMLInputElement>(null);
   const { creatorData } = useSelector(selectAuth);
-  const { id, email, audience, token } = creatorData;
+  const { email, audience, token, name, create_time } = creatorData;
   const [loading, setLoading] = useState(false);
   const [stripeLoading, setStripeLoading] = useState(false);
   const [image, setImage] = useState<any>(null);
   const [companyImage, setCompanyImage] = useState<any>(null);
-  const [creatorDetail, setCreatorDetail] = useState<any>({});
   const [text, setText] = useState("Connected");
   const [chargeEnabled, setChargeEnabled] = useState(false);
   const [currentTab, setCurrentTab] = useState(OnboardingTabs.AUDIENCESIZE);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    CreatorAPIInstance.get("getCreatorDetail", { params: { creatorId: id } })
-      .then(({ data }) => {
-        setCreatorDetail(data);
-        setImage(data.avatar);
-        setCompanyImage(data.team_avatar);
+    if (selectedPubllication.publication_id) {
+      setLoading(true);
+      CreatorAPIInstance.get("getPublicationDetail", {
+        params: { publicationId: selectedPubllication.publication_id ?? "" },
       })
-      .finally(() => setLoading(false));
-  }, [id]);
+        .then(({ data }) => {
+          setSelectedPublication(data);
+          setImage(data.avatar);
+          setCompanyImage(data.team_avatar);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [selectedPubllication.publication_id]);
 
   const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files) {
@@ -53,10 +58,13 @@ const CreatorProfile: FC = () => {
       };
       reader.readAsDataURL(file);
       const formData = new FormData();
-      formData.append("creatorId", id);
+      formData.append(
+        "publicationId",
+        selectedPubllication.publication_id ?? ""
+      );
       formData.append("avatar", file);
       CreatorAPIInstance.put("updateAvatar", formData)
-        .then((data) => {
+        .then(() => {
           // here comes the data, you can use it.
           //   dispatch(setAvatar({ avatar: data.data.avatar }));
           DialogUtils.show(
@@ -81,10 +89,13 @@ const CreatorProfile: FC = () => {
       };
       reader.readAsDataURL(file);
       const formData = new FormData();
-      formData.append("creatorId", id);
+      formData.append(
+        "publicationId",
+        selectedPubllication.publication_id ?? ""
+      );
       formData.append("team_avatar", file);
       CreatorAPIInstance.put("updateAvatar", formData)
-        .then((data) => {
+        .then(() => {
           // here comes the data, you can use it.
           //   dispatch(setAvatar({ avatar: data.data.avatar }));
           DialogUtils.show(
@@ -138,25 +149,28 @@ const CreatorProfile: FC = () => {
     setCurrentTab(tab);
   };
 
-  const {stepOneMethods, stepTwoMethods, stepThreeMethods } =
-    useUpsertOnboarding(id);
+  const { stepOneMethods, stepTwoMethods, stepThreeMethods } =
+    useUpsertOnboarding(Number(selectedPubllication.publication_id));
 
   const handleStepOneSubmit = async () => {
     setLoading(true);
     const stepOneValues = stepOneMethods.getValues();
     if (stepOneValues.image && typeof stepOneValues.image !== "string") {
       const formData = new FormData();
-      formData.append("creatorId", id ?? "");
+      formData.append(
+        "publicationId",
+        selectedPubllication.publication_id ?? ""
+      );
       formData.append("subscriber_proof", stepOneValues.image);
       await CreatorAPIInstance.put("updateSubscribeProof", formData);
     }
 
     CreatorAPIInstance.post("updateAudienceSize", {
       subscribers: stepOneValues.subscribers,
-      creatorId: id,
+      publicationId: selectedPubllication.publication_id ?? "",
     })
       .then(({ data }) => {
-        dispatch(setCreatorData({ ...data, token }));
+        dispatch(setSelectedPublication({ ...data, token }));
       })
       .finally(() => setLoading(false));
   };
@@ -166,10 +180,10 @@ const CreatorProfile: FC = () => {
     const stepTwoValues = stepTwoMethods.getValues();
     CreatorAPIInstance.post("updateAudience", {
       audience: stepTwoValues.audience,
-      creatorId: id,
+      publicationId: selectedPubllication.publication_id ?? "",
     })
       .then(({ data }) => {
-        dispatch(setCreatorData({ ...data, token }));
+        dispatch(setSelectedPublication({ ...data, token }));
       })
       .finally(() => setLoading(false));
   };
@@ -183,10 +197,10 @@ const CreatorProfile: FC = () => {
       geography: stepThreeValues.geography,
       averageUniqueClick: stepThreeValues.averageUniqueClick,
       cpc: stepThreeValues.cpc,
-      creatorId: id,
+      publicationId: selectedPubllication.publication_id ?? "",
     })
       .then(({ data }) => {
-        dispatch(setCreatorData({ ...data, token }));
+        dispatch(setSelectedPublication({ ...data, token }));
       })
       .finally(() => setLoading(false));
   };
@@ -222,7 +236,7 @@ const CreatorProfile: FC = () => {
                       />
                     ) : (
                       <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
-                        {getPlaceHolder(creatorDetail?.name)}
+                        {getPlaceHolder(name)}
                       </div>
                     )}
                     <input
@@ -245,14 +259,14 @@ const CreatorProfile: FC = () => {
                 </div>
                 <div className="text-left ms-2 flex flex-col gap-1">
                   <p className="font-[Inter] text-primary text-base font-semibold -tracking-[.36px] leading-[16px]">
-                    {creatorDetail?.name}
+                    {name}
                   </p>
                   <p className="font-[Inter] text-secondry1 text-sm font-normal -tracking-[.3px]">
-                    {creatorDetail?.email}
+                    {email}
                   </p>
                   <p className="font-[Inter] text-secondry2 text-sm font-normal -tracking-[.3px]">
                     {`Date Joined : ${moment(
-                      new Date(Number(creatorDetail?.create_time))
+                      new Date(Number(create_time))
                     ).format("DD MMM, YYYY")}`}
                   </p>
                 </div>
@@ -272,7 +286,7 @@ const CreatorProfile: FC = () => {
                       />
                     ) : (
                       <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
-                        {getPlaceHolder(creatorDetail?.newsletter)}
+                        {getPlaceHolder(selectedPubllication?.newsletter)}
                       </div>
                     )}
                     <input
@@ -296,10 +310,10 @@ const CreatorProfile: FC = () => {
                 </div>
                 <div className="text-left ms-2 flex flex-col gap-1">
                   <p className="font-[Inter] text-primary text-base font-semibold -tracking-[.36px] leading-[16px]">
-                    {creatorDetail?.newsletter}
+                    {selectedPubllication?.newsletter}
                   </p>
                   <p className="font-[Inter] text-secondry1 text-sm font-normal -tracking-[.3px]">
-                    {creatorDetail?.website_url}
+                    {selectedPubllication?.website_url}
                   </p>
                 </div>
               </div>

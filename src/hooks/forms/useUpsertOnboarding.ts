@@ -26,7 +26,7 @@ const options: ICommonFormOptions = Object.freeze({
   },
 });
 
-export const useUpsertOnboarding = (id?: number) => {
+export const useUpsertOnboarding = (publicationId?: number) => {
   const stepOneMethods = useForm({
     ...options,
     defaultValues: onboardingFormOneFormData,
@@ -80,13 +80,13 @@ export const useUpsertOnboarding = (id?: number) => {
   );
 
   useEffect(() => {
-    if (id)
-      CreatorAPIInstance.get("getCreatorDetail", {
-        params: { creatorId: id },
+    if (publicationId)
+      CreatorAPIInstance.get("getPublicationDetail", {
+        params: { publicationId },
       }).then(({ data }) => {
         setFormValues(data);
       });
-  }, [id, setFormValues]);
+  }, [publicationId, setFormValues]);
 
   return {
     stepOneMethods,

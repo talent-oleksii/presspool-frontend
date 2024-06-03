@@ -6,16 +6,21 @@ import StepThreeForm from "../../../containers/creator/onboarding/StepThreeForm"
 import { useUpsertOnboarding } from "../../../hooks/forms/useUpsertOnboarding";
 import FormProviderWrapper from "../../../components/FormProviderWrapper";
 import CreatorAPIInstance from "../../../api/creatorAPIInstance";
-import { selectAuth, setCreatorData } from "../../../store/authSlice";
+import { selectAuth } from "../../../store/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import DialogUtils from "../../../utils/DialogUtils";
 import Loading from "../../../components/Loading";
 import FinalStepForm from "../../../containers/creator/onboarding/FinalStepForm";
 import StepFourForm from "../../../containers/creator/onboarding/StepFourForm";
+import {
+  selectData,
+  setPublications,
+  setSelectedPublication,
+} from "../../../store/dataSlice";
 
 const Onboarding: FC = () => {
   const { creatorId } = useParams();
-  const { creatorData } = useSelector(selectAuth);
+  const { selectedPubllication } = useSelector(selectData);
   const [loading, setLoading] = useState(false);
   const [isInvalidLink, setIsInvalidLink] = useState(false);
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -23,7 +28,7 @@ const Onboarding: FC = () => {
   const dispatch = useDispatch();
 
   const { stepOneMethods, stepTwoMethods, stepThreeMethods, stepFourMethods } =
-    useUpsertOnboarding(Number(creatorId));
+    useUpsertOnboarding(Number(selectedPubllication.publication_id));
 
   const handleStepOneSubmit = () => {
     setActiveStep(1);
@@ -54,10 +59,13 @@ const Onboarding: FC = () => {
     const stepThreeValues = stepThreeMethods.getValues();
     const stepFourValues = stepFourMethods.getValues();
     const formData = new FormData();
-    formData.append("creatorId", creatorId ?? "");
+    formData.append("publicationId", selectedPubllication.publication_id ?? "");
     formData.append("subscriber_proof", stepOneValues.image);
     const avatarFormData = new FormData();
-    avatarFormData.append("creatorId", creatorId ?? "");
+    avatarFormData.append(
+      "publicationId",
+      selectedPubllication.publication_id ?? ""
+    );
     if (typeof stepFourValues.avatar !== "string")
       avatarFormData.append("avatar", stepFourValues.avatar);
     if (typeof stepFourValues.teamAvatar !== "string") {
@@ -69,7 +77,7 @@ const Onboarding: FC = () => {
         ...stepTwoValues,
         ...stepThreeValues,
         subscribers: stepOneValues.subscribers,
-        creatorId,
+        publicationId: selectedPubllication.publication_id,
       }),
     ];
 
@@ -87,7 +95,7 @@ const Onboarding: FC = () => {
     Promise.all(promises)
       .then((res) => {
         const data = res[0]?.data;
-        dispatch(setCreatorData({ ...creatorData, ...data }));
+        dispatch(setSelectedPublication(data));
         navigator("/publishers/dashboard");
       })
       .finally(() => setLoading(false));
@@ -98,12 +106,13 @@ const Onboarding: FC = () => {
   useEffect(() => {
     if (creatorId) {
       setLoading(true);
-      CreatorAPIInstance.get("getCreatorDetail", {
+      CreatorAPIInstance.get("getAllPublications", {
         params: { creatorId },
       })
-        // .then(({ data }) => {
-        //   dispatch(setCreatorData({ ...data }));
-        // })
+        .then(({ data }) => {
+          dispatch(setPublications(data));
+          dispatch(setSelectedPublication(data[0]));
+        })
         .catch(() => {
           setIsInvalidLink(true);
           DialogUtils.show("error", "Alert", "Invalid publishers detail");
