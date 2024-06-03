@@ -6,6 +6,7 @@ import { selectAuth } from "../../../store/authSlice";
 import { Avatar } from "antd";
 import { getPlaceHolder } from "../../../utils/commonUtils";
 import ErrorMessage from "../../../components/ErrorMessage";
+import { selectData } from "../../../store/dataSlice";
 
 const StepFourForm: FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -13,7 +14,8 @@ const StepFourForm: FC = () => {
   const [image, setImage] = useState<any>(null);
   const [companyImage, setCompanyImage] = useState<any>(null);
   const { creatorData } = useSelector(selectAuth);
-  const { avatar, team_avatar } = creatorData;
+  const { selectedPubllication } = useSelector(selectData);
+  const { avatar, team_avatar } = selectedPubllication;
   const {
     control,
     watch,
@@ -143,7 +145,7 @@ const StepFourForm: FC = () => {
                     />
                   ) : (
                     <div className="z-[0] transition-all duration-150 hover:blur-[1.5px] w-[100px] h-[100px] bg-main rounded-full flex items-center justify-center font-[Inter] text-3xl">
-                      {getPlaceHolder(creatorData?.newsletter)}
+                      {getPlaceHolder(selectedPubllication?.newsletter)}
                     </div>
                   )}
                   <Controller
@@ -181,10 +183,10 @@ const StepFourForm: FC = () => {
               </div>
               <div className="text-left ms-2 flex flex-col gap-1">
                 <p className="font-[Inter] text-primary text-base font-semibold -tracking-[.36px] leading-[16px]">
-                  {creatorData?.newsletter}
+                  {selectedPubllication?.newsletter}
                 </p>
                 <p className="font-[Inter] text-secondry1 text-sm font-normal -tracking-[.3px]">
-                  {creatorData?.website_url}
+                  {selectedPubllication?.website_url}
                 </p>
               </div>
             </div>

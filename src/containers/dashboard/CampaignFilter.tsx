@@ -31,6 +31,7 @@ const CampaignFilter: FC<ICampaignFilter> = ({ loadCampaignData }) => {
   const { email, isCreatorAuthenticated, creatorData } =
     useSelector(selectAuth);
   const identifier = isCreatorAuthenticated ? creatorData.id : email;
+  console.log(identifier);
   const [selectedCampaigns, setSelectedCampaigns] = useState<Array<string>>(
     id !== "all" ? (id ? id?.split(",") : []) : []
   );

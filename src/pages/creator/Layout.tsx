@@ -11,14 +11,20 @@ import CampaignIcon from "../../icons/Campaign";
 import AccountInfoIcon from "../../icons/AccountInfo";
 // import SupportIcon from "../../icons/Support";
 import ActionLinkCard from "../../components/ActionLinkCard";
+import { useEffect } from "react";
+import CreatorAPIInstance from "../../api/creatorAPIInstance";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuth } from "../../store/authSlice";
+import { setPublications, setSelectedPublication } from "../../store/dataSlice";
 // import { useSelector } from "react-redux";
 // import { selectAuth } from "../../store/authSlice";
 
 const CreatorLayout = (props: React.PropsWithChildren) => {
   const location = useLocation();
   const navigator = useNavigate();
-  // const { creatorData } = useSelector(selectAuth);
-  // const { email_verified } = creatorData;
+  const dispatch = useDispatch();
+  const { creatorData } = useSelector(selectAuth);
+  const { id } = creatorData;
 
   const handleLogout = () => {
     localStorage.clear();
@@ -32,6 +38,17 @@ const CreatorLayout = (props: React.PropsWithChildren) => {
     },
     { name: "Training Hub", url: "https://blog.presspool.ai" },
   ];
+
+  useEffect(() => {
+    if (id) {
+      CreatorAPIInstance.get("getAllPublications", {
+        params: { creatorId: id },
+      }).then(({ data }) => {
+        dispatch(setPublications(data));
+        dispatch(setSelectedPublication(data[0]));
+      });
+    }
+  }, [id, dispatch]);
 
   return (
     <div className="min-h-full w-full h-full">

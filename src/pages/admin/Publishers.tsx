@@ -2,8 +2,15 @@ import { Avatar, Menu, MenuProps } from "antd";
 import { FC, useEffect, useRef, useState } from "react";
 import { GetItem, MenuItem } from "../../containers/shared/GetItem";
 import { getPlaceHolder } from "../../utils/commonUtils";
+import ReviewPublicationRequest from "./models/ReviewPublicationRequest";
+import AdminAPIInstance from "../../api/adminApi";
+import RejectPublicationFeedback from "./models/RejectPublicationFeedback";
 
 const Publishers: FC = () => {
+  const [showReviewModel, setShowReviewModel] = useState(false);
+  const [showFeedbackModel, setShowFeedbackModel] = useState(false);
+  const [selectedPublication, setSelectedPublication] = useState<any>({});
+  const [publications, setPublications] = useState<any[]>([]);
   const [open, setOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string>("All Publications");
   const [searchStr, setSearchStr] = useState("");
@@ -40,6 +47,25 @@ const Publishers: FC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleReviewClick = (item: any) => {
+    setSelectedPublication(item);
+    setShowReviewModel(true);
+  };
+
+  const loadPublications = async () => {
+    try {
+      const { data } = await AdminAPIInstance.get("/getPublications");
+      setPublications(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    loadPublications();
+  }, []);
+
   return (
     <div className="w-full flex">
       <div className="text-left flex-1">
@@ -129,64 +155,91 @@ const Publishers: FC = () => {
           </div>
         </div>
         <div className="mt-3 h-full">
-          <div className={`rounded-[10px] grid grid-cols-3 gap-3`}>
-            <div className="card rounded-[10px] bg-white shadow-md min-h-[183px] p-3">
-              <div className="flex flex-col gap-2 shrink-0 mb-[10px]">
-                <div className="flex items-center">
-                  <Avatar
-                    className={`border border-solid border-secondry3 bg-[#7f8182]`}
-                    size={66}
-                  >
-                    {getPlaceHolder("AI Tool Report")}
-                  </Avatar>
-                  <div className="ms-2">
-                    <p className="text-primary text-[15px] font-[Inter] -tracking-[.36px]">
-                      AI Tool Report
+          <div className={`rounded-[10px] grid grid-cols-3 gap-4`}>
+            {publications.map((item, index) => (
+              <div
+                key={index}
+                className={`card rounded-[10px] bg-white min-h-[183px] p-3 ${
+                  item.state === "APPROVED"
+                    ? "!shadow-green"
+                    : item.state === "REJECTED"
+                    ? "!shadow-red"
+                    : ""
+                }`}
+              >
+                <div className="flex flex-col gap-2 shrink-0 mb-[10px]">
+                  <div className="flex items-center">
+                    <Avatar
+                      className={`border border-solid border-secondry3 bg-[#7f8182]`}
+                      size={66}
+                    >
+                      {getPlaceHolder(item?.newsletter)}
+                    </Avatar>
+                    <div className="ms-2">
+                      <p className="text-primary text-[15px] font-[Inter] -tracking-[.36px]">
+                        {item?.newsletter}
+                      </p>
+                      <p className="text-secondry1 text-[10px] font-light font-[Inter] -tracking-[.36px]">
+                        {item?.website_url}
+                      </p>
+                      <p className="text-secondry1 text-[10px] font-light font-[Inter] -tracking-[.36px]">
+                        {item?.email}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3 my-4">
+                  <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                    <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                      Subscribers
                     </p>
-                    <p className="text-secondry1 text-[10px] font-light font-[Inter] -tracking-[.36px]">
-                      www.aitoolreport.com
+                    <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                      {item?.total_subscribers}
                     </p>
-                    <p className="text-secondry1 text-[10px] font-light font-[Inter] -tracking-[.36px]">
-                      john@gmail.com
+                  </div>
+                  <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                    <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                      CPC
+                    </p>
+                    <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                      ${item?.cpc ?? 0}
+                    </p>
+                  </div>
+                  <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
+                    <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
+                      72hr Clicks
+                    </p>
+                    <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
+                      {item?.average_unique_click}
                     </p>
                   </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-3 gap-3 my-4">
-                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
-                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                    Subscribers
-                  </p>
-                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                    282
-                  </p>
-                </div>
-                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
-                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                    CPC
-                  </p>
-                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                    $1.20
-                  </p>
-                </div>
-                <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
-                  <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                    72hr Clicks
-                  </p>
-                  <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                    120
-                  </p>
+                <div className="w-full flex justify-center">
+                  <button
+                    onClick={() => handleReviewClick(item)}
+                    className="font-[Inter] w-3/2 text-[white] bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
+                  >
+                    More Details
+                  </button>
                 </div>
               </div>
-              <div className="w-full flex justify-center">
-                <button className="font-[Inter] w-3/2 text-[white] bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs">
-                  More Details
-                </button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
+      <ReviewPublicationRequest
+        show={showReviewModel}
+        onClose={() => setShowReviewModel(false)}
+        item={selectedPublication}
+        setShowFeedbackModel={setShowFeedbackModel}
+        loadPublications={loadPublications}
+      />
+      <RejectPublicationFeedback
+        show={showFeedbackModel}
+        onClose={() => setShowFeedbackModel(false)}
+        item={selectedPublication}
+        loadPublications={loadPublications}
+      />
     </div>
   );
 };

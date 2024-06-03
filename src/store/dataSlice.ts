@@ -8,6 +8,8 @@ interface DataState {
   isCampaignLoading: boolean;
   selectedDateFilter: string;
   prevData: any;
+  publications: any[];
+  selectedPubllication: any;
 }
 
 const initialState: DataState = {
@@ -31,6 +33,8 @@ const initialState: DataState = {
     uniqueClicks: 0,
     totalClicks: 0,
   },
+  publications: [],
+  selectedPubllication: {}
 };
 
 const dataSlice = createSlice({
@@ -87,6 +91,12 @@ const dataSlice = createSlice({
     setNewsletter: (state, action) => {
       state.newsletter = action.payload;
     },
+    setPublications: (state, action) => {
+      state.publications = action.payload;
+    },
+    setSelectedPublication: (state, action) => {
+      state.selectedPubllication = action.payload;
+    },
   },
 });
 
@@ -102,6 +112,8 @@ export const {
   setSelectedDateFilter,
   setNewsletter,
   setPrevRangeData,
+  setPublications,
+  setSelectedPublication
 } = dataSlice.actions;
 export const selectData = (state: { data: DataState }) => state.data;
 export default dataSlice.reducer;

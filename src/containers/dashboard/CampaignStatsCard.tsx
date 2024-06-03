@@ -12,8 +12,9 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
     selectedDateFilter,
     prevData,
     campaign: data,
+    selectedPubllication,
   } = useSelector(selectData);
-  const { isCreatorAuthenticated, creatorData } = useSelector(selectAuth);
+  const { isCreatorAuthenticated } = useSelector(selectAuth);
   const { totalClicks, uniqueClicks, totalBudget, avgCPC } = useAnalytics(
     clicked,
     data
@@ -98,10 +99,12 @@ const CampaignStatsCard: React.FC<{ rootClassName?: string }> = (props) => {
         <>
           <Card
             title={"Revenue Earned"}
-            value={`$${(creatorData?.cpc * Number(uniqueClicks)).toFixed(2)}`}
+            value={`$${(
+              selectedPubllication?.cpc * Number(uniqueClicks)
+            ).toFixed(2)}`}
             percentageText={calculateChangeDirection(
-              creatorData?.cpc ?? 0 * prevData.uniqueClicks,
-              creatorData?.cpc ?? 0 * uniqueClicks
+              selectedPubllication?.cpc * prevData.uniqueClicks,
+              selectedPubllication?.cpc * uniqueClicks
             )}
           />
           <Card

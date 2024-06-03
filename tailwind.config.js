@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       inset: {
-        '35vh': '35vh',
+        "35vh": "35vh",
       },
       fontFamily: {
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
@@ -26,6 +26,8 @@ module.exports = {
       boxShadow: {
         card: "0px 5px 40px 0px rgba(113, 144, 175, 0.1)",
         cardHover: "0 5px 40px 0 rgba(113,144,175,.503)",
+        green: "0 10px 10px 2px rgba(127, 251, 174, 0.5)",
+        red: "0 10px 2px 2px rgba(255, 77, 66, 0.5)",
       },
     },
     screens: {
