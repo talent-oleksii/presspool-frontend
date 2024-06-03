@@ -6,6 +6,7 @@ import ReviewPublicationRequest from "./models/ReviewPublicationRequest";
 import AdminAPIInstance from "../../api/adminApi";
 import RejectPublicationFeedback from "./models/RejectPublicationFeedback";
 import Loading from "../../components/Loading";
+import moment from "moment";
 
 const Publishers: FC = () => {
   const [loading, setLoading] = useState(false);
@@ -187,10 +188,13 @@ const Publishers: FC = () => {
                     : ""
                 }`}
               >
-                <div className="flex flex-col gap-2 shrink-0 mb-[10px]">
+                <div className="flex flex-row gap-2 shrink-0 justify-between">
                   <div className="flex items-center">
                     <Avatar
-                      className={`border border-solid border-secondry3 bg-[#7f8182]`}
+                      src={item?.team_avatar}
+                      className={`border border-solid border-secondry3 ${
+                        item?.team_avatar ? "" : "bg-[#7f8182]"
+                      }`}
                       size={66}
                     >
                       {getPlaceHolder(item?.newsletter)}
@@ -207,6 +211,10 @@ const Publishers: FC = () => {
                       </p>
                     </div>
                   </div>
+                  <p className="font-normal text-[10px] text-secondry1">
+                    Applied:{" "}
+                    {moment(Number(item.create_time)).format("MM/DD/yyyy")}
+                  </p>
                 </div>
                 <div className="grid grid-cols-3 gap-3 my-4">
                   <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
