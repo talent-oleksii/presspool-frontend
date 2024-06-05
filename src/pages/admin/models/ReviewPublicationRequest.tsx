@@ -5,6 +5,7 @@ import { getPlaceHolder } from "../../../utils/commonUtils";
 import { capitalize } from "lodash";
 import Loading from "../../../components/Loading";
 import AdminAPIInstance from "../../../api/adminApi";
+import moment from "moment";
 
 interface typeReviewPublicationRequest {
   show: boolean;
@@ -66,33 +67,45 @@ const ReviewPublicationRequest: FC<typeReviewPublicationRequest> = ({
                     <Avatar
                       src={item?.team_avatar}
                       className={`${item?.team_avatar ? "" : "bg-[#7f8182]"}`}
-                      size={48}
+                      size={66}
                     >
                       {!item?.team_avatar && getPlaceHolder(item.name)}
                     </Avatar>
                     <div className="ms-2">
                       <p className="text-primary text-[15px] font-[Inter] -tracking-[.36px]">
-                        {item.name}
+                        {item?.newsletter}
+                      </p>
+                      <p className="text-secondry1 text-[10px] font-light font-[Inter] -tracking-[.36px]">
+                        {item?.website_url}
+                      </p>
+                      <p className="text-secondry1 text-[10px] font-light font-[Inter] -tracking-[.36px]">
+                        {item?.email}
                       </p>
                     </div>
                   </div>
-                  <button onClick={() => onClose(false)}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="34"
-                      height="34"
-                      viewBox="0 0 34 34"
-                      fill="none"
-                    >
-                      <path
-                        d="M13.4444 13.4444L20.5556 20.5556M20.5556 13.4444L13.4444 20.5556M17 1C29.8 1 33 4.2 33 17C33 29.8 29.8 33 17 33C4.2 33 1 29.8 1 17C1 4.2 4.2 1 17 1Z"
-                        stroke="black"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
+                  <div className="flex flex-col items-end	gap-[10px]">
+                    <button onClick={() => onClose(false)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="34"
+                        height="34"
+                        viewBox="0 0 34 34"
+                        fill="none"
+                      >
+                        <path
+                          d="M13.4444 13.4444L20.5556 20.5556M20.5556 13.4444L13.4444 20.5556M17 1C29.8 1 33 4.2 33 17C33 29.8 29.8 33 17 33C4.2 33 1 29.8 1 17C1 4.2 4.2 1 17 1Z"
+                          stroke="black"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                    <p className="font-normal text-[10px] text-secondry1">
+                      Applied:{" "}
+                      {moment(Number(item.create_time)).format("MM/DD/yyyy")}
+                    </p>
+                  </div>
                 </div>
                 <div className="grid grid-cols-3 gap-3 mt-4">
                   <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
