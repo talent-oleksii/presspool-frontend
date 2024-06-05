@@ -80,78 +80,13 @@ const ActiveCampaigns = () => {
       {
         key: "1",
         label: (
-          <div className="flex pl-[24px] pr-[72px] py-[20px] justify-evenly items-center text-left w-full relative">
-            <div className="flex flex-row items-center w-full gap-2 pr-8">
-              <Avatar
-                src={item?.team_avatar}
-                className={`${
-                  item?.team_avatar ? "" : "bg-[#7f8182] !w-[52px]"
-                }`}
-                size={42}
-              >
-                {!item?.team_avatar && getPlaceHolder(item.company)}
-              </Avatar>
-              <p className="font-semibold font-[Inter] text-sm min-w-[150px] -tracking-[.42px] w-full text-left">
-                {item?.name}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] text-secondry1 -tracking-[.3px]">
-                Publish Date
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {new Date(Number(item.start_date)).toLocaleDateString()}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                verified Clicks
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {item?.verified_clicks}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                CPC
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {item?.cpc}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Campaign Budget
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                {Number(item?.average_unique_click) * Number(item?.cpc)}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Campaign Revenue
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                ${Number(item?.verified_clicks) * Number(item?.cpc)}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Amount Paid
-              </p>
-              <p className="font-normal text-primary font-[Inter] text-xs">
-                ${0}
-              </p>
-            </div>
-            <div className="flex flex-col items-center w-full">
-              <p className="font-semibold font-[Inter] text-xs mb-[17px] -tracking-[.3px] text-secondry1">
-                Status
-              </p>
+          <div className="flex flex-col w-full pl-[24px] pr-[72px] py-[20px] gap-3">
+            <div className="flex items-center w-full gap-3">
               <p className="font-normal font-[Inter]">
                 <span
-                  className={`rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal bg-main text-primary`}
+                  className={`bg-main ring-2 ring-main rounded-[10px] text-xs px-[12px] mt-[25px] py-[4px] font-normal`}
                 >
-                  {capitalize(item.state)}
+                  Active
                 </span>
               </p>
               <p className="font-semibold font-[Inter] text-sm -tracking-[.42px] text-left">
