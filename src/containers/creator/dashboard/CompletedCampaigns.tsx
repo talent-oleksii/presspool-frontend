@@ -74,6 +74,9 @@ const CompletedCampaigns = () => {
   }, []);
 
   const getItems = (item: any, panelStyle: any) => {
+    const files = !!item.additional_files
+      ? item.additional_files.split(",")
+      : [];
     return [
       {
         key: "1",
@@ -107,7 +110,7 @@ const CompletedCampaigns = () => {
                     Verified Clicks
                   </p>
                   <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                    {item?.unique_clicks ?? 0}
+                    {item?.verified_clicks ?? 0}
                   </p>
                 </div>
                 <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
@@ -274,11 +277,32 @@ const CompletedCampaigns = () => {
               </div>
               <div className="w-full flex flex-col items-start justify-center">
                 <div className="flex flex-col h-full w-full justify-between">
-                  <img
-                    className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
-                    alt="market"
-                    src={item.image}
-                  />
+                  <div>
+                    <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pb-1 gap-2">
+                      Logo Image{" "}
+                    </div>
+                    <img
+                      className="w-full min-h-[200px] max-h-[200px] object-cover rounded-[10px]"
+                      alt="market"
+                      src={item.image}
+                    />
+                    {files.length > 0 ? (
+                      <>
+                        <div className="font-[Inter] leading-3.5 text-sm font-semibold mb-0 flex items-center pt-2 pb-1 gap-2">
+                          Cover Image(s){" "}
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          {files.map((url: string) => (
+                            <img
+                              className="w-full w-full min-h-[88px] max-h-[88px] object-cover rounded-[10px]"
+                              alt="market"
+                              src={url}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>

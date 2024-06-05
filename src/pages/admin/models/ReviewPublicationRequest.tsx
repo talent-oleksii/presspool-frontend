@@ -6,6 +6,7 @@ import { capitalize } from "lodash";
 import Loading from "../../../components/Loading";
 import AdminAPIInstance from "../../../api/adminApi";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 interface typeReviewPublicationRequest {
   show: boolean;
@@ -250,12 +251,12 @@ const ReviewPublicationRequest: FC<typeReviewPublicationRequest> = ({
                 )}
                 {item.state === "APPROVED" && (
                   <div className="w-full flex justify-center">
-                    <button
+                    <Link
                       className="font-[Inter] w-3/2 text-white font-semibold bg-black rounded-[6px] px-[20px] py-2 me-2 text-xs 2xl:text-xs"
-                      onClick={handleAccept}
+                      to={`/admin/publishers/publication/${item.publication_id}`}
                     >
                       Campaigns
-                    </button>
+                    </Link>
                   </div>
                 )}
               </Dialog.Panel>
