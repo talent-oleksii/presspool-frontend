@@ -127,20 +127,20 @@ const Campaign: FC = () => {
                     ? "bg-[#dbdbdb] text-primary"
                     : item.state === "paused"
                       ? "bg-[#fdbdbd]"
-                      : Number(totalSpend) >= Number(item.price)
+                      : Number(totalSpend) >= Number(item.price) && item.complete_date
                         ? "bg-white ring-2 ring-main"
                         : "bg-main text-primary"
                     }`}
                 >
                   {capitalize(
-                    Number(totalSpend) >= Number(item.price)
+                    Number(totalSpend) >= Number(item.price) && item.complete_date
                       ? "Completed"
                       : item.state
                   )}
                 </span>
               </p>
               <p className="font-normal font-[Inter] text-[8px] -tracking-[.42px] w-full text-center">
-                {Number(totalSpend) >= Number(item.price)
+                {Number(totalSpend) >= Number(item.price) && item.complete_date
                   ? new Date(Number(item.complete_date)).toLocaleDateString()
                   : ""}
               </p>
