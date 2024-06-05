@@ -14,6 +14,7 @@ import AdminSupport from "./Support";
 import TrainingHub from "./TrainingHub";
 import AdminProfile from "./Profile";
 import Publishers from "./Publishers";
+import PublisherDetail from "./PublisherDetail";
 
 const GuestAdminRoutes = () => {
   const isAuthenticated = new AdminAuth().isAuthenticated();
@@ -51,6 +52,10 @@ const AdminRoute = () => {
         <Route path="/dashboard/*" element={<AdminDashboard />} />
         <Route path="/client" element={<AdminDashboardClient />} />
         <Route path="/publishers" element={<Publishers />} />
+        <Route
+          path="/publishers/publication/:id"
+          element={<PublisherDetail />}
+        />
         <Route
           path="/:accountManagerId/client"
           element={<AdminDashboardClient />}
