@@ -61,7 +61,7 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
 
   return (
     <Transition.Root show={show} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {}}>
+      <Dialog as="div" className="relative z-10" onClose={() => { }}>
         <div className="fixed inset-0 z-10 overflow-y-auto">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 bg-black/[.8]">
             <Transition.Child
@@ -81,9 +81,8 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
                   <div className="flex items-center">
                     <Avatar
                       src={item?.team_avatar}
-                      className={`border border-solid border-secondry3 ${
-                        item?.team_avatar ? "" : "bg-[#7f8182]"
-                      }`}
+                      className={`border border-solid border-secondry3 ${item?.team_avatar ? "" : "bg-[#7f8182]"
+                        }`}
                       size={66}
                     >
                       {!item?.team_avatar && getPlaceHolder(item.company)}
@@ -121,10 +120,6 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
                     </p>
                   </div>
                 </div>
-                <p className="text-left font-medium text-primary text-[10px]">
-                  *You do NOT have to use the exact copy. Please feel free to
-                  modify, if needed, for your newsletter formatting.
-                </p>
                 <p className="text-center font-medium text-primary text-[14px]">
                   {item?.headline}
                 </p>
@@ -277,14 +272,14 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
                   <div className="font-[Inter] text-primary font-medium text-[12px] -tracking-[.42px] mb-2 flex gap-[10px]">
                     {item?.additional_files
                       ? item.additional_files
-                          ?.split(",")
-                          .map((url: string) => (
-                            <img
-                              src={url}
-                              alt="sample logo"
-                              className="h-[59px] w-[82px] object-cover rounded-[10px]"
-                            />
-                          ))
+                        ?.split(",")
+                        .map((url: string) => (
+                          <img
+                            src={url}
+                            alt="sample logo"
+                            className="h-[59px] w-[82px] object-cover rounded-[10px]"
+                          />
+                        ))
                       : null}
                   </div>
                 </div>
