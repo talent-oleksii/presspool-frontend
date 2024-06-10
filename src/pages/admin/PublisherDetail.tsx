@@ -11,6 +11,7 @@ import { DownOutlined } from "@ant-design/icons";
 import ActiveCampaignView from "./cards/ActiveCampaignView";
 import ScheduledCampaignView from "./cards/ScheduledCampaignView";
 import CompletedCampaignView from "./cards/CompletedCampaignView";
+import NewRequestCampaignView from "./cards/NewRequestCampaignView";
 
 const panelStyle: React.CSSProperties = {
   marginBottom: 20,
@@ -41,6 +42,7 @@ const PublisherDetail: FC = () => {
 
   const items: MenuItem[] = [
     GetItem("All Campaigns", "All Campaigns"),
+    GetItem("New Requests", "New Requests"),
     GetItem("Active", "Active"),
     GetItem("Scheduled", "Scheduled"),
     GetItem("Completed", "Completed"),
@@ -85,7 +87,9 @@ const PublisherDetail: FC = () => {
   const loadCampaigns = useCallback(async () => {
     try {
       let status = "";
-      if (sort !== "All Campaigns") {
+      if (sort === "New Requests") {
+        status = "new";
+      } else if (sort !== "All Campaigns") {
         status = sort;
       }
       setLoading(true);
@@ -113,6 +117,8 @@ const PublisherDetail: FC = () => {
 
   const getItems = (item: any, panelStyle: any) => {
     switch (item?.campaign_status?.toLowerCase()) {
+      case "new":
+        return NewRequestCampaignView(item, panelStyle);
       case "active":
         return ActiveCampaignView(item, panelStyle);
       case "scheduled":
