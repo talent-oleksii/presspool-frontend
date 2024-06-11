@@ -1,4 +1,4 @@
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Loading from "../../../components/Loading";
 import { Input } from "rsuite";
@@ -15,7 +15,7 @@ interface typeInviteAccountManager {
   loadCampaigns: Function;
   isReschedule?: boolean;
   setShowPreviewModel?: Function;
-  loadNotifications?:Function;
+  loadNotifications?: Function;
 }
 
 const ScheduleCampaign: FC<typeInviteAccountManager> = ({
@@ -25,13 +25,33 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
   loadCampaigns,
   isReschedule,
   setShowPreviewModel,
-  loadNotifications
+  loadNotifications,
 }: typeInviteAccountManager) => {
   const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState(false);
   const [value, setValue] = useState<any>(null);
   const [isReviewClicked, setIsReviewClicked] = useState(false);
   const [error, setError] = useState("");
+  const [minDateTime, setMinDateTime] = useState("");
+  const [maxDateTime, setMaxDateTime] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const future = new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000);
+
+    const formatDateTime = (date: any) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+
+      return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+
+    setMinDateTime(formatDateTime(now));
+    setMaxDateTime(formatDateTime(future));
+  }, []);
 
   const handleChange = (value: any) => {
     setError("");
@@ -168,6 +188,8 @@ const ScheduleCampaign: FC<typeInviteAccountManager> = ({
                       type="datetime-local"
                       value={value}
                       onChange={handleChange}
+                      min={minDateTime}
+                      max={maxDateTime}
                     />
                     <div className="self-start">
                       {error && <ErrorMessage message={error} />}
