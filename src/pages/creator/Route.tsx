@@ -48,9 +48,9 @@ const CreatorRoute = () => {
         <Route path="/login" element={<CreatorLogin />} />
         <Route path="/signup" element={<CreatorSignUp />} />
       </Route>
-      <Route element={<ProtectedRouteWithoutLayout />}>
-        <Route path="/:creatorId/onboarding" element={<Onboarding />} />
-      </Route>
+      {/* <Route element={<ProtectedRouteWithoutLayout />}> */}
+      <Route path="/:creatorId/onboarding" element={<Onboarding />} />
+      {/* </Route> */}
       <Route element={<ProtectedRouteWithLayout />}>
         <Route path="/reporting/:id" element={<CreatorReporting />} />
         <Route path="/dashboard" element={<CreatorDashboard />} />
