@@ -45,16 +45,10 @@ const isCustomerExist = async (email: string) => {
 };
 
 const isAccountLinked = async (email: string) => {
-  let isConnected = false;
   const accounts = await stripe.accounts.list({ limit: 1000 });
-    for (const account of accounts.data) {
-      console.log('email:', account.metadata?.work_email);
-      if (account.metadata?.work_email === email) {
-        isConnected = account.charges_enabled;
-        break;
-      }
-    }
-  return isConnected;
+  return !!accounts.data?.filter(
+    (x) => x.metadata?.work_email === email && x.charges_enabled
+  ).length;
 };
 
 const StripeUtil = {
@@ -64,7 +58,7 @@ const StripeUtil = {
   attachCardToCustomer,
   deleteCard,
   isCustomerExist,
-  isAccountLinked
+  isAccountLinked,
 };
 
 export default StripeUtil;
