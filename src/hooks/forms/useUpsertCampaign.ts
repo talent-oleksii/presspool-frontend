@@ -89,6 +89,7 @@ export const useUpsertCampaign = (
       });
       campaignReviewMethods.reset({
         currentCard: data.card_id,
+        proofImage: data.paid_proof_image,
         termsTermPrivacyPolicy: false,
       });
     },

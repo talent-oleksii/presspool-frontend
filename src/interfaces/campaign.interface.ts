@@ -30,4 +30,5 @@ export interface ICampaignDetail {
   ui_id: number;
   conversion: string;
   conversion_detail: string;
+  paid_proof_image: string;
 }

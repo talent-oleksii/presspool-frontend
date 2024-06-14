@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState, useRef } from "react";
 import { Popconfirm } from "antd";
 import APIInstance from "../../../api";
 import { useSelector } from "react-redux";
@@ -24,11 +24,17 @@ const CampaignReview: FC<ICampaignReview> = ({
   const {
     control,
     setValue,
+    watch,
     formState: { isValid, errors },
   } = useFormContext();
   const [open, setOpen] = useState(false);
   const [cardList, setCardList] = useState<Array<any>>([]);
   const { email } = useSelector(selectAuth);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
+    null
+  );
+  const proofImage = watch('proofImage');
 
   const loadSavedCards = useCallback(async () => {
     const response = await APIInstance.get("stripe/card", {
@@ -38,9 +44,28 @@ const CampaignReview: FC<ICampaignReview> = ({
     setValue("currentCard", response.data?.[0]?.card_id);
   }, [email, setValue]);
 
+  const loadFilePreview = useCallback((file?: File) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }, []);
+
   useEffect(() => {
     loadSavedCards();
   }, [loadSavedCards]);
+
+  useEffect(() => {
+    if (proofImage && typeof proofImage === "string") {
+      setPreviewUrl(proofImage);
+    }
+    if (proofImage && typeof proofImage !== "string") {
+      loadFilePreview(proofImage);
+    }
+  }, [proofImage, loadFilePreview]);
 
   const handleAddCard = () => {
     setOpen(true);
@@ -61,7 +86,7 @@ const CampaignReview: FC<ICampaignReview> = ({
       <div className="w-[720px]">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
-            <p className="text-base 2xl:text-base font-[Inter] font-semibold">
+            <p className="text-[15px] font-[Inter] font-semibold">
               What to Expect
             </p>
             <ul className="flex flex-col gap-3 list-decimal text-xs 2xl:text-xs font-[Inter] pl-4">
@@ -102,7 +127,7 @@ const CampaignReview: FC<ICampaignReview> = ({
             </ul>
           </div>
           <div className="flex flex-col gap-4">
-            <h2 className="font-semibold text-base 2xl:text-base font-[Inter]">
+            <h2 className="font-semibold text-[15px] font-[Inter]">
               Review
             </h2>
             {!!(currentAudience || []).length && currentPrice && (
@@ -131,17 +156,17 @@ const CampaignReview: FC<ICampaignReview> = ({
             )}
           </div>
           <div className="flex flex-col gap-1">
-            <h2 className="font-semibold text-base 2xl:text-base font-[Inter]">
+            <h2 className="font-semibold text-[15px] font-[Inter]">
               Billing Setup
             </h2>
-            <p className="font-[Inter] text-xs 2xl:text-xs font-normal text-secondry1 mb-0">
+            <p className="font-[Inter] text-xs font-normal text-secondry1 mb-0">
               All campaign activity is billed at the end of every week or when
               your account hits its billing threshold. You will only be charged
               for unique clicks to ensure all clicks are quality and verified.
             </p>
           </div>
           <div className="w-full grid grid-cols-[410px_repeat(1,1fr)]">
-            <div className="flex flex-col text-left gap-2.5">
+            <div className="flex flex-col text-left gap-1">
               <p className="font-[Inter] text-[14px] 2xl:text-base font-medium mb-0 flex items-center">
                 Select Card Details
               </p>
@@ -151,7 +176,7 @@ const CampaignReview: FC<ICampaignReview> = ({
                 render={({ field }) => (
                   <select
                     {...field}
-                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-[10px] font-[Inter] font-medium text-sm  2xl:text-md"
+                    className="w-[400px] pl-[16px] py-2 border-[1px] border-[#7f8182] rounded-[10px] font-[Inter] font-medium text-sm 2xl:text-md"
                   >
                     {cardList.map((item: any, index) => (
                       <option value={item.card_id} key={index}>
@@ -168,7 +193,7 @@ const CampaignReview: FC<ICampaignReview> = ({
               </button> */}
             </div>
 
-            <div className="flex flex-col ms-[18px] gap-2.5">
+            <div className="flex flex-col ms-[18px] gap-1">
               <p className="font-[Inter] text-[14px] 2xl:text-base font-medium mb-0 flex items-center">
                 Add New Card
               </p>
@@ -196,6 +221,72 @@ const CampaignReview: FC<ICampaignReview> = ({
                 Add a Card
               </button>
             </div>
+          </div>
+          <div className="">
+            <p className="font-[Inter] text-[14px] 2xl:text-base font-medium flex items-center">
+              Paid Already?
+            </p>
+            <p className="font-[Inter] text-xs font-normal text-secondry1 mt-1">
+              Upload Transfer Confirmation
+            </p>
+            <div className="flex mt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (fileInputRef.current) fileInputRef.current.click();
+                }}
+                className={`overflow-hidden truncate h-[42px] px-2 text-xs py-2 flex items-center justify-center text-gray-800 text-left font-[Inter] w-[160px] border-dashed border-[1px] bg-white rounded border-secondry2 ${!!errors["image"] ? "border-[red]" : ""
+                  }`}
+              >
+                <>
+                  <span className="text-secondry2 font-[Inter] text-xs">
+                    Upload image
+                  </span>
+                </>
+              </button>
+              {previewUrl ? (
+                <div
+                  className="relative ms-2 cursor-pointer"
+                  onClick={() => {
+                    setValue("image", null);
+                    setPreviewUrl(null);
+                  }}
+                >
+                  <img
+                    src={previewUrl as string}
+                    alt="sample logo"
+                    className="h-[42px] w-[50px] object-cover"
+                  />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 -960 960 960"
+                    className="w-[18px] h-[18px] absolute -top-2.5 -right-2.5"
+                  >
+                    <path
+                      fill="red"
+                      d="m336-307.692 144-144 144 144L652.308-336l-144-144 144-144L624-652.308l-144 144-144-144L307.692-624l144 144-144 144L336-307.692ZM480.134-120q-74.673 0-140.41-28.339-65.737-28.34-114.365-76.922-48.627-48.582-76.993-114.257Q120-405.194 120-479.866q0-74.673 28.339-140.41 28.34-65.737 76.922-114.365 48.582-48.627 114.257-76.993Q405.194-840 479.866-840q74.673 0 140.41 28.339 65.737 28.34 114.365 76.922 48.627 48.582 76.993 114.257Q840-554.806 840-480.134q0 74.673-28.339 140.41-28.34 65.737-76.922 114.365-48.582 48.627-114.257 76.993Q554.806-120 480.134-120Z"
+                    />
+                  </svg>
+                </div>
+              ) : null}
+            </div>
+            <Controller
+              name="proofImage"
+              control={control}
+              render={({ field }) => (
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  hidden
+                  accept="image/*"
+                  onChange={(e) => {
+                    field.onChange(e.target?.files?.[0]);
+                    loadFilePreview(e.target?.files?.[0]);
+                    e.target.value = null as any;
+                  }}
+                />
+              )}
+            />
           </div>
           <div className="flex justify-top">
             <Controller

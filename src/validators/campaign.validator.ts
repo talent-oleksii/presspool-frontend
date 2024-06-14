@@ -62,7 +62,8 @@ export const campaignContentSchema = yup.object().shape({
 });
 
 export const campaignReviewSchema = yup.object().shape({
-  currentCard: yup.string().required("Select a card"),
+  currentCard: yup.string(),
+  proofImage: yup.mixed(),
   termsTermPrivacyPolicy: yup
     .boolean()
     .test(

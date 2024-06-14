@@ -25,5 +25,6 @@ export const defaultCampaignContentFormData = {
 
 export const defaultCampaignReviewFormData = {
   currentCard: "",
+  proofImage: undefined as any,
   termsTermPrivacyPolicy: false,
 };
