@@ -55,7 +55,11 @@ export const useUpsertCampaign = (
     defaultValues: defaultCampaignContentFormData,
     resolver: yupResolver(campaignContentSchema),
   });
-  const campaignReviewMethods = useForm({
+  const campaignReviewMethods = useForm<{
+    proofImage?: any | null | undefined;
+    currentCard?: string | null | undefined;
+    termsTermPrivacyPolicy: boolean;
+  }>({
     ...options,
     defaultValues: defaultCampaignReviewFormData,
     resolver: yupResolver(campaignReviewSchema),
