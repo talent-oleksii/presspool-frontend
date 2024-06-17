@@ -61,15 +61,24 @@ export const campaignContentSchema = yup.object().shape({
   }),
 });
 
-export const campaignReviewSchema = yup.object().shape({
-  currentCard: yup.string(),
-  proofImage: yup.mixed(),
-  termsTermPrivacyPolicy: yup
-    .boolean()
-    .test(
-      "is-true",
-      "Must accept terms of service and privacy policy",
-      (value) => value === true
-    )
-    .required(),
-});
+export const campaignReviewSchema = yup
+  .object()
+  .shape({
+    currentCard: yup.string().nullable(),
+    proofImage: yup.mixed().nullable(),
+    termsTermPrivacyPolicy: yup
+      .boolean()
+      .test(
+        "is-true",
+        "Must accept terms of service and privacy policy",
+        (value) => value === true
+      )
+      .required(),
+  })
+  .test(
+    "at-least-one",
+    "Either current card or proof image is required",
+    function (values) {
+      return !!values.currentCard || !!values.proofImage;
+    }
+  );
