@@ -115,7 +115,7 @@ const CompletedCampaigns = () => {
                 </div>
                 <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
                   <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                    CPC
+                    CPC Bid
                   </p>
                   <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
                     ${item?.cpc}
@@ -123,7 +123,7 @@ const CompletedCampaigns = () => {
                 </div>
                 <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
                   <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                    Campaign Budget
+                    Payout Cap
                   </p>
                   <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
                     ${Number(item?.average_unique_click) * Number(item?.cpc)}
@@ -131,7 +131,7 @@ const CompletedCampaigns = () => {
                 </div>
                 <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
                   <p className="text-[#172935] text-[12px] font-[Inter] font-medium -tracking-[.36px]">
-                    Campaign Revenue
+                    Amount Earned
                   </p>
                   <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
                     ${Number(item?.verified_clicks) * Number(item?.cpc)}
