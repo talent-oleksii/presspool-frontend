@@ -3,7 +3,8 @@ import { ConversionGoal } from "../../../constants/constant";
 import { Avatar } from "antd";
 import { getPlaceHolder } from "../../../utils/commonUtils";
 
-const CompletedCampaignView = (item: any, panelStyle: any) => {
+const CompletedCampaignView = (item: any, panelStyle: any, detail: any) => {
+  console.log('dfdf:', item.verified_clicks, detail.average_unique_click);
   const files = !!item.additional_files ? item.additional_files.split(",") : [];
   return [
     {
@@ -62,7 +63,8 @@ const CompletedCampaignView = (item: any, panelStyle: any) => {
                   Total Spend
                 </p>
                 <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                  ${Number(item?.verified_clicks) * Number(item?.cpc)}
+                  ${(Number(item?.verified_clicks) > Number(detail.average_unique_click) ?
+                    Number(detail.average_unique_click) : Number(item?.verified_clicks)) * Number(item?.cpc)}
                 </p>
               </div>
               <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
@@ -74,7 +76,7 @@ const CompletedCampaignView = (item: any, panelStyle: any) => {
                   {Math.max(
                     0,
                     Number(item?.average_unique_click) * Number(item?.cpc) -
-                      Number(item?.verified_clicks) * Number(item?.cpc)
+                    Number(item?.verified_clicks) * Number(item?.cpc)
                   )}
                 </p>
               </div>
@@ -225,6 +227,7 @@ const CompletedCampaignView = (item: any, panelStyle: any) => {
                       <div className="grid grid-cols-2 gap-3">
                         {files.map((url: string) => (
                           <img
+                            key={url}
                             className="w-full w-full min-h-[88px] max-h-[88px] object-cover rounded-[10px]"
                             alt="market"
                             src={url}

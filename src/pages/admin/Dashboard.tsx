@@ -249,6 +249,7 @@ const AdminDashboard: FC = () => {
   }, [clicked]);
 
   const groupByAndSumCountOnCountry = useMemo(() => {
+    console.log('clic:', clicked);
     const ipCounts: { [x: string]: { total: number } } = {};
     clicked.forEach((item: any) => {
       const ip = item.ip;

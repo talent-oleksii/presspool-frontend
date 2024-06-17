@@ -76,7 +76,7 @@ const ScheduledCampaignView = (item: any, panelStyle: any) => {
                   {Math.max(
                     0,
                     Number(item?.average_unique_click) * Number(item?.cpc) -
-                      Number(item?.verified_clicks) * Number(item?.cpc)
+                    Number(item?.verified_clicks) * Number(item?.cpc)
                   )}
                 </p>
               </div>

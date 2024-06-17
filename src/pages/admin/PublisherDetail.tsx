@@ -115,16 +115,16 @@ const PublisherDetail: FC = () => {
     loadPublicationDetail();
   }, [loadPublicationDetail]);
 
-  const getItems = (item: any, panelStyle: any) => {
+  const getItems = (item: any, panelStyle: any, detail: any) => {
     switch (item?.campaign_status?.toLowerCase()) {
       case "new":
         return NewRequestCampaignView(item, panelStyle);
       case "active":
-        return ActiveCampaignView(item, panelStyle);
+        return ActiveCampaignView(item, panelStyle, detail);
       case "scheduled":
         return ScheduledCampaignView(item, panelStyle);
       case "completed":
-        return CompletedCampaignView(item, panelStyle);
+        return CompletedCampaignView(item, panelStyle, detail);
       default:
         <></>;
         break;
@@ -152,9 +152,8 @@ const PublisherDetail: FC = () => {
                 <div className="flex items-center">
                   <Avatar
                     src={publicationDetail?.team_avatar}
-                    className={`border border-solid border-secondry3 min-w-[87px] ${
-                      publicationDetail?.team_avatar ? "" : "bg-[#7f8182]"
-                    }`}
+                    className={`border border-solid border-secondry3 min-w-[87px] ${publicationDetail?.team_avatar ? "" : "bg-[#7f8182]"
+                      }`}
                     size={87}
                   >
                     {getPlaceHolder(publicationDetail?.newsletter)}
@@ -392,8 +391,8 @@ const PublisherDetail: FC = () => {
         <div className="mt-4 rounded-[10px]">
           {(searchStr
             ? campaigns.filter((x) =>
-                x.name.toLowerCase().includes(searchStr.toLowerCase())
-              )
+              x.name.toLowerCase().includes(searchStr.toLowerCase())
+            )
             : campaigns
           ).map((item) => (
             <Collapse
@@ -403,7 +402,7 @@ const PublisherDetail: FC = () => {
               expandIcon={({ isActive }) => (
                 <DownOutlined rotate={isActive ? -180 : 0} />
               )}
-              items={getItems(item, panelStyle)}
+              items={getItems(item, panelStyle, publicationDetail)}
             />
           ))}
         </div>

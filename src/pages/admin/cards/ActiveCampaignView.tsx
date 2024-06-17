@@ -3,7 +3,7 @@ import { getPlaceHolder } from "../../../utils/commonUtils";
 import { capitalize } from "lodash";
 import { ConversionGoal } from "../../../constants/constant";
 
-const ActiveCampaignView = (item: any, panelStyle: any) => {
+const ActiveCampaignView = (item: any, panelStyle: any, detail: any) => {
   const files = !!item.additional_files ? item.additional_files.split(",") : [];
   return [
     {
@@ -61,7 +61,8 @@ const ActiveCampaignView = (item: any, panelStyle: any) => {
                   Total Spend
                 </p>
                 <p className="text-primary text-base font-[Inter] font-semibold -tracking-[.36px]">
-                  ${Number(item?.verified_clicks) * Number(item?.cpc)}
+                  ${(Number(item?.verified_clicks) > Number(detail.average_unique_click) ?
+                    Number(detail.average_unique_click) : Number(item?.verified_clicks)) * Number(item?.cpc)}
                 </p>
               </div>
               <div className="min-h-[43px] border-[1px] border-main rounded-[10px] p-2">
@@ -73,7 +74,7 @@ const ActiveCampaignView = (item: any, panelStyle: any) => {
                   {Math.max(
                     0,
                     Number(item?.average_unique_click) * Number(item?.cpc) -
-                      Number(item?.verified_clicks) * Number(item?.cpc)
+                    Number(item?.verified_clicks) * Number(item?.cpc)
                   )}
                 </p>
               </div>
