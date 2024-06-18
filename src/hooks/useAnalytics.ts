@@ -28,12 +28,18 @@ const useAnalytics = (clicked: any[], data: any[]) => {
     [clicked]
   );
 
+  const totalBilled = useMemo(
+    () =>
+      data.reduce(
+        (prev, item) =>
+          prev + (item.state === "active" ? Number(item?.billed ?? 0) : 0),
+        0
+      ),
+    [data]
+  );
+
   const avgCPC =
-    totalBudget === 0 || uniqueClicks === 0
-      ? 0
-      : totalBudget / uniqueClicks > 11
-        ? 11
-        : totalBudget / uniqueClicks;
+    totalBilled === 0 || uniqueClicks === 0 ? 0 : totalBilled / uniqueClicks;
 
   const totalSpend = (uniqueClicks * avgCPC).toFixed(2);
 

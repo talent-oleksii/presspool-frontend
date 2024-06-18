@@ -17,6 +17,7 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
           total_clicks: 0,
           unique_clicks: 0,
           verified_clicks: 0,
+          cpc: entry.cpc,
         };
       }
 
@@ -236,7 +237,7 @@ const CampaignNewsletter: React.FC<{ avgCPC: number }> = (props) => {
                 {item.verified_clicks}
               </div> */}
               <div className="text-primary font-medium text-sm text-center">
-                ${(avgCPC * item.unique_clicks)?.toFixed(2)}
+                ${(item.cpc * item.unique_clicks)?.toFixed(2)}
               </div>
               {/* <div></div> */}
             </div>
