@@ -251,8 +251,11 @@ const CampaignOverView: FC = () => {
           </div>
         </div>
       </div>
+      {id?.toLowerCase() !== "all" ? (
+        <CampaignNewsletter avgCPC={avgCPC} />
+      ) : null}
       <div className="grid grid-cols-2 gap-7">
-        <div
+        {/* <div
           className={`my-3 p-5 min-h-[225px] rounded-[10px] bg-white shadow-md`}
         >
           <h2 className="font-[Inter] text-base font-semibold flex items-center">
@@ -316,7 +319,7 @@ const CampaignOverView: FC = () => {
               <Legend content={<CustomEngagementChannelLegend />} />
             </PieChart>
           </div>
-        </div>
+        </div> */}
         <div
           className={`my-3 p-5 min-h-[225px] rounded-[10px] bg-white shadow-md`}
         >
@@ -371,9 +374,6 @@ const CampaignOverView: FC = () => {
           </div>
         </div>
       </div>
-      {id?.toLowerCase() !== "all" ? (
-        <CampaignNewsletter avgCPC={avgCPC} />
-      ) : null}
     </div>
   );
 };
