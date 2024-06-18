@@ -1,8 +1,8 @@
 import { FC, Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Avatar } from "antd";
+import { Avatar, message } from "antd";
 import moment from "moment";
-import { getPlaceHolder } from "../../../utils/commonUtils";
+import { copyToClipboard, getPlaceHolder } from "../../../utils/commonUtils";
 import { capitalize } from "lodash";
 import StripeUtil from "../../../utils/stripe";
 import { useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { selectAuth } from "../../../store/authSlice";
 import Loading from "../../../components/Loading";
 import { ConversionGoal } from "../../../constants/constant";
 import CustomTooltip from "../../../components/CustomTooltip";
+import PasteImage from "../../../assets/icon/paste.png";
 
 interface typeReviewCampaignRequest {
   show: boolean;
@@ -26,6 +27,7 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
   setShowScheduleModel,
   setShowFeedbackModel,
 }: typeReviewCampaignRequest) => {
+  const [messageApi, contextHolder] = message.useMessage();
   const [loading, setLoading] = useState<boolean>(false);
   const { creatorData } = useSelector(selectAuth);
   const { email } = creatorData;
@@ -59,10 +61,21 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
     setShowFeedbackModel(true);
   };
 
+  const handleCopyToClipboard = async (text: string) => {
+    try {
+      await copyToClipboard(text);
+      messageApi.open({
+        type: "success",
+        content: "Copied to clipboard!",
+      });
+    } catch (error) {}
+  };
+
   return (
     <Transition.Root show={show} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={() => {}}>
         <div className="fixed inset-0 z-10 overflow-y-auto">
+          {contextHolder}
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 bg-black/[.8]">
             <Transition.Child
               as={Fragment}
@@ -171,13 +184,30 @@ const ReviewCampaignRequest: FC<typeReviewCampaignRequest> = ({
                   <h2 className="font-[Inter] text-primary font-light text-[12px] -tracking-[.42px] mb-2">
                     {item?.cta}
                   </h2>
-                  <p className="text-primary font-[Inter] text-[12px] font-semibold flex items-center">
+                  {/* <p className="text-primary font-[Inter] text-[12px] font-semibold flex items-center">
                     Landing Page Preview
                     <CustomTooltip title="Full tracking link will be provided after acceptance" />
                   </p>
-                  <h2 className="font-[Inter] text-[#6C63FF] font-light text-[12px] -tracking-[.42px] mb-2">
+                  <h2 className="font-[Inter] text-[#6C63FF] font-light text-[12px] -tracking-[.42px] mb-2 break-all">
                     {item?.page_url}
-                  </h2>
+                  </h2> */}
+                  <p className="text-primary font-[Inter] text-[12px] font-semibold flex items-center">
+                    Tracking Link (MUST USE THIS EXACT LINK FOR ACCURATE
+                    TRACKING){" "}
+                    <img
+                      onClick={() =>
+                        handleCopyToClipboard(
+                          `https://track.presspool.ai/${item?.uid}`
+                        )
+                      }
+                      className="h-[16px] cursor-pointer pl-4"
+                      src={PasteImage}
+                      alt=""
+                    />
+                  </p>
+                  <p className="font-[Inter] text-[#6C63FF] font-light text-[12px] -tracking-[.42px] mb-2 break-all">
+                    {`https://track.presspool.ai/${item?.uid}`}
+                  </p>
                   <p className="text-primary font-[Inter] text-[12px] font-semibold">
                     Conversion Goal
                   </p>
